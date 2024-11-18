@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+import 'package:streaks/features/create_habit/view/create_habit_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -36,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage>
         ),
         actions: [
           IconButton(
-              icon: Image.asset('assets/images/logo.png'), onPressed: () {}),
+              icon: Image.asset('assets/images/logo.png'), onPressed: () {  Navigator.push( context, MaterialPageRoute(builder: (context) => const CreateHabit()));}),
         ],
       ),
       drawer: Drawer(child: ListView() // Populate the Drawer in the last step.
