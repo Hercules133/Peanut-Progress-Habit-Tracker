@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+
+import 'app_bar_widget.dart';
+import 'heat_map_widget.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -21,25 +23,9 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
-        ),
-        actions: [
-          IconButton(
-              icon: Image.asset('assets/images/logo.png'), onPressed: () {}),
-        ],
-      ),
-      drawer: Drawer(child: ListView() // Populate the Drawer in the last step.
+      appBar: MyAppBar(appBar: AppBar(),),
+      drawer: Drawer(
+        child: ListView()
           ),
       body: Align(
         alignment: Alignment.topCenter,
@@ -48,20 +34,7 @@ class _MyHomePageState extends State<MyHomePage>
             return Column(
               children: [
                 const Expanded(
-                  child: HeatMap(
-                    scrollable: true,
-                    // startDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
-                    // endDate: DateTime(DateTime.now().year, DateTime.now().month+3),
-                    colorsets: {
-                      1: Colors.red,
-                      3: Colors.orange,
-                      5: Colors.yellow,
-                      7: Colors.green,
-                      9: Colors.blue,
-                      11: Colors.indigo,
-                      13: Colors.purple,
-                    },
-                  ),
+                  child: MyHeatMap(),
                 ),
                 TabBar(
                   controller: _tabController,
