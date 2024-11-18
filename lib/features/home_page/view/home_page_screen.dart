@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'app_bar_widget.dart';
+import 'drawer_menu_widget.dart';
 import 'heat_map_widget.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -24,9 +25,7 @@ class _MyHomePageState extends State<MyHomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(appBar: AppBar(),),
-      drawer: Drawer(
-        child: ListView()
-          ),
+      drawer: MyDrawerMenu(),
       body: Align(
         alignment: Alignment.topCenter,
         child: LayoutBuilder(
