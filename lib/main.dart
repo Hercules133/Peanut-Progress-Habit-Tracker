@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:streaks/core/config/locator.dart';
 import 'package:streaks/features/home_page/view/home_page_screen.dart';
 import 'package:streaks/data/providers/habit_provider.dart';
-import 'package:streaks/create_habit.dart';
 
 void main() {
   setupLocator();
