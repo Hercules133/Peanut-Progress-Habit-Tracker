@@ -10,14 +10,14 @@ class CreateHabit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var model = locator.get<HabitProvider>;
-    
+    // var model = locator.get<HabitProvider>;
+    //  List<Map<String, dynamic>> habit= locator.get(); 
 
     return Scaffold(
       appBar: AppBarWidget(
         appBar: AppBar(),
       ),
-      body: Consumer<HabitProvider>(builder: (context, model, child) {
+      body: Consumer<HabitProvider>(builder: (context, habit, child) {
         return CreateHabitFormWidget(); 
       }),
     );

@@ -16,6 +16,7 @@ class DaysRowWidget extends StatelessWidget {
         const DayButtonWidget(day: "Fr"),
         const DayButtonWidget(day: "Sa"),
         const DayButtonWidget(day: "Su"),
+        const SizedBox(width: 40),
         TimeButtonWidget(),
       ],
     );
