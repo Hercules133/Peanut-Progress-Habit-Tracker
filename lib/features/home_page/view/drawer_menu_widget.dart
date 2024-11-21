@@ -1,12 +1,48 @@
 import 'package:flutter/material.dart';
 
-class MyDrawerMenu extends StatelessWidget{
+class MyDrawerMenu extends StatelessWidget {
   const MyDrawerMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(),
+      child: Column(
+        children: [
+          Expanded(
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.home),
+                  title: const Text('Home'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  title: const Text('Habits'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: const Icon(Icons.signal_cellular_alt),
+                  title: const Text('Statistics'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: const Icon(Icons.settings),
+                  title: const Text('Settings'),
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ),
+          Align(
+            alignment: FractionalOffset.bottomCenter,
+            child: ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Profile'),
+              onTap: () {},
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
