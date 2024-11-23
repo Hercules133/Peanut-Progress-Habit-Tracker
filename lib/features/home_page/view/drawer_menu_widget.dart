@@ -17,6 +17,7 @@ class MyDrawerMenu extends StatelessWidget {
                   onTap: () {},
                 ),
                 ListTile(
+                  leading: const ImageIcon(AssetImage('assets/images/Erdnuss.png'),),
                   title: const Text('Habits'),
                   onTap: () {},
                 ),
