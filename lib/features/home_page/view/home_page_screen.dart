@@ -29,7 +29,7 @@ class MyHomePage extends StatelessWidget {
         appBar: MyAppBar(
           appBar: AppBar(),
         ),
-        drawer: MyDrawerMenu(),
+        drawer: const MyDrawerMenu(),
         body: Column(
           children: [
             const Expanded(
@@ -57,9 +57,13 @@ class MyHomePage extends StatelessWidget {
             ),
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          tooltip: 'new Habit',
+          shape: const CircleBorder(),
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
 }
-
-
