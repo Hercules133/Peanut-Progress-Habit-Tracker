@@ -32,9 +32,7 @@ class MyHomePage extends StatelessWidget {
         drawer: const MyDrawerMenu(),
         body: Column(
           children: [
-            const Expanded(
-              child: MyHeatMap(),
-            ),
+          const  MyHeatMap(),
             const MyTabBar(tabs: myTabs),
             Expanded(
               child: TabBarView(
