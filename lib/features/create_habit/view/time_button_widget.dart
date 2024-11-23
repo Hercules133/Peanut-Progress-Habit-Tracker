@@ -23,7 +23,9 @@ class TimeButtonWidget extends StatelessWidget {
                 }
               },
               child: Text(
-                '${value.hour}:${value.minute}',
+                value.minute <10
+                ? '${value.hour}:0${value.minute}'
+                :  '${value.hour}:${value.minute}',
                 style: const TextStyle(fontSize: 18),
               ));
         });

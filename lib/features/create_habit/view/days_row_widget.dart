@@ -9,13 +9,13 @@ class DaysRowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const DayButtonWidget(day: "Mo"),
-        const DayButtonWidget(day: "Tu"),
-        const DayButtonWidget(day: "We"),
-        const DayButtonWidget(day: "Th"),
-        const DayButtonWidget(day: "Fr"),
-        const DayButtonWidget(day: "Sa"),
-        const DayButtonWidget(day: "Su"),
+        DayButtonWidget(day: "Mo"),
+        DayButtonWidget(day: "Tu"),
+        DayButtonWidget(day: "We"),
+        DayButtonWidget(day: "Th"),
+        DayButtonWidget(day: "Fr"),
+        DayButtonWidget(day: "Sa"),
+        DayButtonWidget(day: "Su"),
         const SizedBox(width: 40),
         TimeButtonWidget(),
       ],

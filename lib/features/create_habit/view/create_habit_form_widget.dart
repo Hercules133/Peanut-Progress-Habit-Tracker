@@ -44,7 +44,7 @@ class CreateHabitFormWidget extends StatelessWidget {
               Text("Category"),
               AddCategoryButtonWidget(),
             ],),
-            const Row(
+            Row(
               children: [
                 CategoryButtonWidget(category: "Sports", color: Colors.blue),
                 CategoryButtonWidget(category: "Hobby", color: Colors.green),
