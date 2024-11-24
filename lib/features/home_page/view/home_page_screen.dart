@@ -4,11 +4,12 @@ import 'app_bar_widget.dart';
 import 'drawer_menu_widget.dart';
 import 'heat_map_widget.dart';
 import 'tab_bar_widget.dart';
+import 'tab_bar_view_widget.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
-  static const List<String> myTabs = <String>[
+  static const List<String> categoriesName = <String>[
     'Category 1',
     'Category 2',
     'Category 3',
@@ -24,34 +25,18 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: myTabs.length,
+      length: categoriesName.length,
       child: Scaffold(
         appBar: MyAppBar(
           appBar: AppBar(),
         ),
         drawer: const MyDrawerMenu(),
-        body: Column(
+        body: const Column(
           children: [
-          const  MyHeatMap(),
-            const MyTabBar(tabs: myTabs),
+            MyHeatMap(),
+            MyTabBar(tabs: categoriesName),
             Expanded(
-              child: TabBarView(
-                children: List.generate(
-                  myTabs.length,
-                  (index) => Center(
-                    child: Text(myTabs[index]),
-                  ),
-                ),
-              ),
-              // children: myTabs.map((Tab tab) {
-              //   final String label = tab.text!.toLowerCase();
-              //   return Center(
-              //     child: Text(
-              //       'This is the $label tab',
-              //       style: const TextStyle(fontSize: 36),
-              //     ),
-              //   );
-              // }).toList(),
+              child: MyTabBarView(tabs: categoriesName),
             ),
           ],
         ),
