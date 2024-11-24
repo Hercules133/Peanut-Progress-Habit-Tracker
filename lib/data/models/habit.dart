@@ -1,30 +1,22 @@
-import 'dart:math';
-
+import 'package:flutter/material.dart';
 import 'package:streaks/data/models/category.dart';
 
-// habbit id ✅
-// category -> enum, seperate class ✅
-// time -> days and time ✅
-// iscompleted (days?) -> 2d array (?)
-// [[Mo, false], [Tu, false], [We, false], [Th, false], [Fr, false], [Sa, false], [Su, false]]
-
 class Habit {
-  // Used Id-s
-  static final Set<int> _usedIds = {};
-
   String _title;
   String _description;
-  List<String> _days; // [Mo, Tu, We, Th, Fr, Sa, Su]
-  String _time;
+  List<int> _days; // [0, 1, 2, 3, 4, 5, 6] -> if only mo and tue, then [0, 1]
+  TimeOfDay _time; // dateTime hour and minute (class timeofday)
   bool _isCompleted;
   Category _category;
-  late int _id;
+  List<bool> _progress;
+  late int _id = 0;
+  int _streak = 0;
 
   Habit({
     required String title,
     required String description,
-    required List<String> days,
-    required String time,
+    required List<int> days,
+    required TimeOfDay time,
     bool isCompleted = false,
     required Category category,
   })  : _title = title,
@@ -32,22 +24,13 @@ class Habit {
         _days = days,
         _time = time,
         _isCompleted = isCompleted,
-        _category = category {
-    _id = generateId();
+        _category = category,
+        _progress = List.generate(7, (index) => false) {
+    _id = _id++;
   }
 
-  // Generate random number
-  static int generateId() {
-    final random = Random();
-    int newId;
-
-    do {
-      newId = random.nextInt(10000000);
-    } while (_usedIds.contains(newId));
-
-    _usedIds.add(newId);
-    return newId;
-  }
+  // Getter for streak
+  int get streak => _streak;
 
   // Getter for title
   String get title => _title;
@@ -72,10 +55,10 @@ class Habit {
   }
 
   // Getter for days
-  List<String> get days => _days;
+  List<int> get days => _days;
 
   // Setter for days
-  set days(List<String> value) {
+  set days(List<int> value) {
     if (value.isEmpty) {
       throw ArgumentError("You have to choose the days!");
     }
@@ -83,21 +66,11 @@ class Habit {
   }
 
   // Getter for time
-  String get time => _time;
+  TimeOfDay get time => _time;
 
   // Setter for time
-  set time(String value) {
-    if (!_isValidTimeFormat(value)) {
-      throw ArgumentError(
-          "Time must be in the format HH:mm, where HH is 00-23 and mm is 00-59.");
-    }
+  set time(TimeOfDay value) {
     _time = value;
-  }
-
-  // Time format checker
-  bool _isValidTimeFormat(String time) {
-    final timeRegex = RegExp(r'^(?:[01]\d|2[0-3]):[0-5]\d$');
-    return timeRegex.hasMatch(time);
   }
 
   // Getter for isCompleted
@@ -117,5 +90,40 @@ class Habit {
       throw ArgumentError("You have to choose a category!");
     }
     _category = value;
+  }
+
+  // Mark days as completed in the progress list
+  void markDayAsCompleted(int weekday) {
+    if (!_days.contains(weekday)) {
+      throw ArgumentError("This day was not chosen for this habit!");
+    }
+    _progress[weekday] = true;
+    _updateStreak(); // Update streak after marking a day
+  }
+
+  // Check, if the habit is done on a specific day
+  bool isDayCompleted(int weekday) {
+    if (!_days.contains(weekday)) {
+      return false;
+    }
+    return _progress[weekday];
+  }
+
+  // Get progress for all days
+  Map<int, bool> getProgress() {
+    return {
+      for (var day in _days) day: _progress[day],
+    };
+  }
+
+  // Update streak logic
+  void _updateStreak() {
+    for (int day in _days) {
+      if (!_progress[day]) {
+        _streak = 0; // Reset streak if any planned day is not completed
+        return;
+      }
+    }
+    _streak++; // Increase streak if all planned days are completed
   }
 }
