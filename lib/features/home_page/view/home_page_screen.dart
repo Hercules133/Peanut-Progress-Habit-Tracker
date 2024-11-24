@@ -13,7 +13,7 @@ class MyHomePage extends StatelessWidget {
 
   Habit test_habit = Habit(
       title: "Lunch",
-      description: "Eat lunch :)",
+      description: "Cook and eat lunch",
       days: [0, 1, 4],
       time: TimeOfDay(hour: 12, minute: 30),
       habit_category: Habitcategory(
@@ -64,11 +64,10 @@ class MyHomePage extends StatelessWidget {
                               children: [
                                 ListTile(
                                   title: Text(test_habit.title),
-                                  trailing: IconButton(
-                                      onPressed: () {
-                                        showDetailsDialog(context, test_habit);
-                                      },
-                                      icon: Icon(Icons.info)),
+                                  trailing: Text('${test_habit.streak}'),
+                                  onTap: () {
+                                    showDetailsDialog(context, test_habit);
+                                  },
                                 )
                               ],
                             ),
@@ -116,7 +115,7 @@ class MyHomePage extends StatelessWidget {
                   icon: Image.asset('assets/images/Erdnuss.png')),
               trailing: Row(mainAxisSize: MainAxisSize.min, children: [
                 Text(
-                  '${test_habit.streak}',
+                  '${habit.streak}',
                   style: TextStyle(fontSize: 12),
                 ),
                 IconButton(
@@ -141,16 +140,21 @@ class MyHomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('${test_habit.time.hour}:${test_habit.time.minute}'),
+                Text('${habit.time.hour}:${habit.time.minute}'),
                 DecoratedBox(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: HexColor(test_habit.habit_category.color),
+                    color: HexColor(habit.habit_category.color),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 8.0, vertical: 4.0), // Mehr Platz
-                    child: Text(test_habit.habit_category.name),
+                    child: Row(
+                      children: [
+                        habit.habit_category.icon,
+                        Text(habit.habit_category.name),
+                      ],
+                    ),
                   ),
                 ),
                 TextButton(
