@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:streaks/core/config/locator.dart';
 import 'package:streaks/features/home_page/view/home_page_screen.dart';
 import 'package:streaks/data/providers/habit_provider.dart';
+import 'core/utils/routes.dart';
 
 void main() {
   setupLocator();
@@ -26,8 +27,14 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        // home: const MyHomePage(title: 'Guten Morgen!'),
         home: const MyHomePage(),
+        routes: {
+          Routes.home: (context) => const MyHomePage(),
+          // Routes.addAndEdit: (context) => const
+          // Routes.habits: (context) => const
+          // Routes.settings: (context) => const SettingsScreen(),
+          // Routes.statistics: (context) => const
+        },
       ),
     );
   }
