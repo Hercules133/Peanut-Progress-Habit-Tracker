@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streaks/core/utils/routes.dart';
+
 class MyDrawerMenu extends StatelessWidget {
   const MyDrawerMenu({super.key});
 
@@ -20,18 +21,22 @@ class MyDrawerMenu extends StatelessWidget {
               AssetImage('assets/images/Erdnuss.png'),
             ),
             title: const Text('Habits'),
-            onTap: () {},
+            onTap: () {
+              // Navigator.pushReplacementNamed(context, Routes.home);
+            },
           ),
           ListTile(
             leading: const Icon(Icons.signal_cellular_alt),
             title: const Text('Statistics'),
-            onTap: () {},
+            onTap: () {
+              // Navigator.pushReplacementNamed(context, Routes.statistics);
+            },
           ),
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
             onTap: () {
-             
+              // Navigator.pushReplacementNamed(context, Routes.settings);
             },
           ),
         ],

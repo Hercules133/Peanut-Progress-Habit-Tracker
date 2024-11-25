@@ -5,5 +5,4 @@ class Routes {
   static const String statistics = '/statistics_screen';
   static const String settings = '/settings_screen';
   static const String addAndEdit = '/create_habit_screen';
-  // static const String detail = '/'; braucht man nicht da PopUp?
 }
