@@ -8,9 +8,9 @@ class MyDrawerMenu extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
-          Expanded(
-            child: Column(
-              children: [
+          
+              
+            
                 ListTile(
                   leading: const Icon(Icons.home),
                   title: const Text('Home'),
@@ -33,17 +33,7 @@ class MyDrawerMenu extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          Align(
-            alignment: FractionalOffset.bottomCenter,
-            child: ListTile(
-              leading: const Icon(Icons.person),
-              title: const Text('Profile'),
-              onTap: () {},
-            ),
-          ),
-        ],
-      ),
-    );
+          
+          );
   }
 }
