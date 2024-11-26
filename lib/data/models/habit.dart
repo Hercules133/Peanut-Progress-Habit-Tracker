@@ -92,6 +92,9 @@ class Habit {
     _category = value;
   }
 
+  // Getter for id
+  int get id => _id;
+
   // Mark days as completed in the progress list
   void markDayAsCompleted(int weekday) {
     if (!_days.contains(weekday)) {
@@ -125,5 +128,36 @@ class Habit {
       }
     }
     _streak++; // Increase streak if all planned days are completed
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': _id,
+      'title': _title,
+      'description': _description,
+      'days': _days,
+      'time': {
+        'hour': _time.hour,
+        'minute': _time.minute
+      },
+      'isCompleted': _isCompleted,
+      'category': _category.toMap(),
+      'progress': _progress,
+      'streak': _streak,
+    };
+  }
+
+  factory Habit.fromMap(Map<String, dynamic> map) {
+    return Habit(
+      title: map['title'],
+      description: map['description'],
+      days: List<int>.from(map['days']),
+      time: TimeOfDay(hour: map['time']['hour'], minute: map['time']['minute']),
+      isCompleted: map['isCompleted'] ?? false,
+      category: Category.fromMap(map['category']),
+    )
+      .._id = map['id']
+      .._progress = List<bool>.from(map['progress'] ?? [])
+      .._streak = map['streak'] ?? 0;
   }
 }

@@ -11,4 +11,30 @@ class Category {
       : _color = color,
         _name = name,
         _icon = icon;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': _name,
+      'color': _color,
+      'icon': {
+        'codePoint': _icon.icon?.codePoint,
+        'fontFamily': _icon.icon?.fontFamily,
+        'fontPackage': _icon.icon?.fontPackage,
+      },
+    };
+  }
+
+  factory Category.fromMap(Map<String, dynamic> map) {
+    return Category(
+      name: map['name'],
+      color: map['color'],
+      icon: Icon(
+        IconData(
+          map['icon']['codePoint'],
+          fontFamily: map['icon']['fontFamily'],
+          fontPackage: map['icon']['fontPackage'],
+        ),
+      ),
+    );
+  }
 }
