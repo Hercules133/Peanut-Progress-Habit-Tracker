@@ -1,33 +1,46 @@
 import 'package:flutter/material.dart'; // for the icon class
 
-class Habitcategory {
+class Category {
   String _name;
   String _color; // (Hex code?)
   Icon _icon;
+  // Optional, a description (?)
+  // icon (icons.)
 
-  Habitcategory({
-    required String name,
-    required String color,
-    required Icon icon,
-  })  : _name = name,
-        _color = color,
+  Category({required String name, required String color, required Icon icon})
+      : _color = color,
+        _name = name,
         _icon = icon;
 
-  // Getter and Setter for _name
-  String get name => _name;
-  set name(String value) {
-    _name = value;
+  Map<String, dynamic> toMap() {
+    return {
+      'name': _name,
+      'color': _color,
+      'icon': {
+        'codePoint': _icon.icon?.codePoint,
+        'fontFamily': _icon.icon?.fontFamily,
+        'fontPackage': _icon.icon?.fontPackage,
+      },
+    };
   }
 
-  // Getter and Setter for _color
+  factory Category.fromMap(Map<String, dynamic> map) {
+    return Category(
+      name: map['name'],
+      color: map['color'],
+      icon: Icon(
+        IconData(
+          map['icon']['codePoint'],
+          fontFamily: map['icon']['fontFamily'],
+          fontPackage: map['icon']['fontPackage'],
+        ),
+      ),
+    );
+  }
+
   String get color => _color;
-  set color(String value) {
-    _color = value;
-  }
 
-  // Getter and Setter for _icon
   Icon get icon => _icon;
-  set icon(Icon value) {
-    _icon = value;
-  }
+
+  String get name =>_name;
 }

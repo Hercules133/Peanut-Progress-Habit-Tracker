@@ -7,7 +7,7 @@ class Habit {
   List<int> _days; // [0, 1, 2, 3, 4, 5, 6] -> if only mo and tue, then [0, 1]
   TimeOfDay _time; // dateTime hour and minute (class timeofday)
   bool _isCompleted;
-  Habitcategory _habit_category;
+  Category _category;
   List<bool> _progress;
   late int _id = 0;
   int _streak = 0;
@@ -18,13 +18,13 @@ class Habit {
     required List<int> days,
     required TimeOfDay time,
     bool isCompleted = false,
-    required Habitcategory habit_category,
+    required Category category,
   })  : _title = title,
         _description = description,
         _days = days,
         _time = time,
         _isCompleted = isCompleted,
-        _habit_category = habit_category,
+        _category = category,
         _progress = List.generate(7, (index) => false) {
     _id = _id++;
   }
@@ -82,15 +82,18 @@ class Habit {
   }
 
   // Getter for category
-  Habitcategory get habit_category => _habit_category;
+  Category get category => _category;
 
   // Setter for category
-  set habit_category(Habitcategory value) {
+  set category(Category value) {
     if (value == null) {
       throw ArgumentError("You have to choose a category!");
     }
-    _habit_category = value;
+    _category = value;
   }
+
+  // Getter for id
+  int get id => _id;
 
   // Mark days as completed in the progress list
   void markDayAsCompleted(int weekday) {
@@ -125,5 +128,36 @@ class Habit {
       }
     }
     _streak++; // Increase streak if all planned days are completed
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': _id,
+      'title': _title,
+      'description': _description,
+      'days': _days,
+      'time': {
+        'hour': _time.hour,
+        'minute': _time.minute
+      },
+      'isCompleted': _isCompleted,
+      'category': _category.toMap(),
+      'progress': _progress,
+      'streak': _streak,
+    };
+  }
+
+  factory Habit.fromMap(Map<String, dynamic> map) {
+    return Habit(
+      title: map['title'],
+      description: map['description'],
+      days: List<int>.from(map['days']),
+      time: TimeOfDay(hour: map['time']['hour'], minute: map['time']['minute']),
+      isCompleted: map['isCompleted'] ?? false,
+      category: Category.fromMap(map['category']),
+    )
+      .._id = map['id']
+      .._progress = List<bool>.from(map['progress'] ?? [])
+      .._streak = map['streak'] ?? 0;
   }
 }

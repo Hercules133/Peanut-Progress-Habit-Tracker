@@ -28,9 +28,8 @@ class MyTabBarView extends StatelessWidget {
       title: "Lunch",
       description: "Cook and eat lunch",
       days: [0, 1, 4],
-      time: TimeOfDay(hour: 12, minute: 30),
-      habit_category: Habitcategory(
-          name: 'Eating', color: '#ec664a', icon: Icon(Icons.adobe)));
+      time: const TimeOfDay(hour: 12, minute: 30),
+      category: Category(name: 'Eating', color: '#ec664a', icon: const Icon(Icons.adobe)));
 
   @override
   Widget build(BuildContext context) {
