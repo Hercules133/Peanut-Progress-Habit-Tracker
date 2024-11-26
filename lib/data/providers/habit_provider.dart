@@ -1,18 +1,14 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:streaks/data/repositories/habit_repository.dart';
-
-// TODO: Update add datatypes to Habit model and also update the HabitRepository
-// to use the Habit model instead of Maps
+import 'package:streaks/data/models/habit.dart';
 
 class HabitProvider with ChangeNotifier {
   final HabitRepository _habitRepository;
 
   HabitProvider(this._habitRepository);
 
-  List<Map<String, dynamic>> _habits = [];
-  List<Map<String, dynamic>> get habits => _habits;
+  List<Habit> _habits = [];
+  List<Habit> get habits => _habits;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -24,28 +20,28 @@ class HabitProvider with ChangeNotifier {
     try {
       _habits = await _habitRepository.getAllHabits();
     } catch (e) {
-      print('Error fetching habits: $e');
+      debugPrint('Error fetching habits: $e');
     } finally {
       _isLoading = false;
       notifyListeners();
     }
   }
 
-  Future<void> addHabit(Map<String, dynamic> habitData) async {
+  Future<void> addHabit(Habit habit) async {
     try {
-      await _habitRepository.saveHabit(habitData);
+      await _habitRepository.saveHabit(habit);
       await fetchHabits();
     } catch (e) {
-      print('Error saving habit: $e');
+      debugPrint('Error saving habit: $e');
     }
   }
 
-  Future<void> deleteHabit(String habitId) async {
+  Future<void> deleteHabit(int habitId) async {
     try {
       await _habitRepository.deleteHabit(habitId);
       await fetchHabits();
     } catch (e) {
-      print('Error deleting habit: $e');
+      debugPrint('Error deleting habit: $e');
     }
   }
 
@@ -55,7 +51,7 @@ class HabitProvider with ChangeNotifier {
       _habits.clear();
       notifyListeners();
     } catch (e) {
-      print('Error clearing habits: $e');
+      debugPrint('Error clearing habits: $e');
     }
   }
 }
