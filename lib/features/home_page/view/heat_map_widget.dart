@@ -7,8 +7,10 @@ class MyHeatMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final monthsToShow = (screenWidth / 90).floor();
+    final weeksToShow = ((screenWidth - 18) / 20).floor();
+
     return Container(
+      width: double.infinity,
       margin: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -32,10 +34,10 @@ class MyHeatMap extends StatelessWidget {
         scrollable: true,
         size: 15,
         defaultColor: const Color(0xFFDBDBDB),
-        startDate: DateTime(DateTime.now().year,
-            DateTime.now().month - monthsToShow, DateTime.now().day),
-        endDate: DateTime.now().add(
-            Duration(days: 6 - DateTime.now().weekday)), //TODO: bis Ende der Woche anzeige
+        endDate: DateTime.now().add(Duration(days: 6 - DateTime.now().weekday)),
+        startDate: DateTime.now()
+            .subtract(Duration(days: DateTime.daysPerWeek * (weeksToShow - 1))),
+
         datasets: m,
         colorTipCount: 4,
         colorsets: const {
