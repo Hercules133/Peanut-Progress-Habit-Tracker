@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:streaks/data/providers/habit_provider.dart';
 import 'package:streaks/features/create_habit/view/add_category_button_widget.dart';
 import 'package:streaks/features/create_habit/view/category_button_widget.dart';
 import 'package:streaks/features/create_habit/view/days_row_widget.dart';
 import 'package:streaks/features/create_habit/view/description_formfield_widget.dart';
 import 'package:group_button/group_button.dart'; 
 import 'package:streaks/features/create_habit/view/title_formfield_widget.dart';
+import 'package:streaks/data/providers/habit_provider.dart';
+import 'package:provider/provider.dart';
 
 class CreateHabitFormWidget extends StatelessWidget {
   CreateHabitFormWidget({
@@ -17,9 +20,14 @@ class CreateHabitFormWidget extends StatelessWidget {
 
   final _inputform = GlobalKey<FormState>();
 
+   
+  
+
   @override
   Widget build(BuildContext context) {
-    // var model = context.watch();
+    // var model = context.watch<HabitProvider>();
+    final habitProvider= Provider.of<HabitProvider> (context); 
+    final habits= habitProvider.habits; 
 
     return Form(
       key: _inputform,

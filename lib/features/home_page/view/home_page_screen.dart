@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage>
         ),
         actions: [
           IconButton(
-              icon: Image.asset('assets/images/logo.png'), onPressed: () {  Navigator.push( context, MaterialPageRoute(builder: (context) => const CreateHabit()));}),
+              icon: Image.asset('assets/images/logo.png'), onPressed: () { }),
         ],
       ),
       drawer: Drawer(child: ListView() // Populate the Drawer in the last step.
