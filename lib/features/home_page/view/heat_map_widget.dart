@@ -34,7 +34,8 @@ class MyHeatMap extends StatelessWidget {
         defaultColor: const Color(0xFFDBDBDB),
         startDate: DateTime(DateTime.now().year,
             DateTime.now().month - monthsToShow, DateTime.now().day),
-        endDate: DateTime.now().add(Duration(days: DateTime.now().weekday - 1)),
+        endDate: DateTime.now().add(
+            Duration(days: 6 - DateTime.now().weekday)), //TODO: bis Ende der Woche anzeige
         datasets: m,
         colorTipCount: 4,
         colorsets: const {
