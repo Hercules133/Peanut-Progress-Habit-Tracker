@@ -3,7 +3,7 @@ import 'package:streaks/features/create_habit/view/add_category_button_widget.da
 import 'package:streaks/features/create_habit/view/category_button_widget.dart';
 import 'package:streaks/features/create_habit/view/days_row_widget.dart';
 import 'package:streaks/features/create_habit/view/description_formfield_widget.dart';
-
+import 'package:group_button/group_button.dart'; 
 import 'package:streaks/features/create_habit/view/title_formfield_widget.dart';
 
 class CreateHabitFormWidget extends StatelessWidget {
@@ -44,11 +44,19 @@ class CreateHabitFormWidget extends StatelessWidget {
               Text("Category"),
               AddCategoryButtonWidget(),
             ],),
-            Row(
-              children: [
-                CategoryButtonWidget(category: "Sports", color: Colors.blue),
-                CategoryButtonWidget(category: "Hobby", color: Colors.green),
-            ],)
+            const GroupButton(
+              isRadio: true,
+              buttons: ["Sports", "Hobby"] ,
+              options: GroupButtonOptions (
+                selectedColor: Colors.yellow,
+                unselectedColor: Colors.blue,
+                )
+              )
+            // Row(
+            //   children: [
+            //     CategoryButtonWidget(category: "Sports", color: Colors.blue),
+            //     CategoryButtonWidget(category: "Hobby", color: Colors.green),
+            // ],)
         ],
       ),
     );
