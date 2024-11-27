@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         home: const MyHomePage(),
         routes: {
           Routes.home: (context) => const MyHomePage(),
-          // Routes.addAndEdit: (context) => const
+          Routes.addAndEdit: (context) => const CreateHabit(),
           // Routes.habits: (context) => const
           // Routes.settings: (context) => const SettingsScreen(),
           // Routes.statistics: (context) => const

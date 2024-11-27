@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/features/create_habit/view/create_habit_screen.dart';
-
+import 'package:streaks/core/utils/routes.dart';
 import 'app_bar_widget.dart';
 import 'drawer_menu_widget.dart';
 import 'heat_map_widget.dart';
@@ -42,7 +41,9 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.addAndEdit);
+          },
           tooltip: 'new Habit',
           shape: const CircleBorder(),
           child: const Icon(Icons.add),
