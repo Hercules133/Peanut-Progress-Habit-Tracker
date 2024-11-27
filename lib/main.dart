@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:streaks/core/config/locator.dart';
+import 'package:streaks/features/create_habit/view/create_habit_screen.dart';
 import 'package:streaks/features/home_page/view/home_page_screen.dart';
 import 'package:streaks/data/providers/habit_provider.dart';
 import 'core/utils/routes.dart';
