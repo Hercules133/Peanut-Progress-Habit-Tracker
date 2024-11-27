@@ -38,6 +38,9 @@ class MyTabBar extends StatelessWidget {
       ),
       labelColor: Colors.white,
       unselectedLabelColor: const Color.fromARGB(255, 183, 182, 180),
+      padding: EdgeInsets.zero,
+      indicatorPadding: EdgeInsets.zero,
+      labelPadding: EdgeInsets.zero,
       tabs: List.generate(
         tabs.length,
         (index) => Container(
