@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streaks/features/create_habit/view/popup_create_category.dart';
 
 class AddCategoryButtonWidget extends StatelessWidget {
   const AddCategoryButtonWidget({super.key});
@@ -10,7 +11,8 @@ class AddCategoryButtonWidget extends StatelessWidget {
         Icons.add,
       ),
       tooltip: "Add Category",
-      onPressed: () {},
+      onPressed: () async {
+            await popupCreateCategory(context); },
     );
   }
 }
