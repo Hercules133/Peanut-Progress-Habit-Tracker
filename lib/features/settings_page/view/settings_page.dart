@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'app_bar_widget.dart';
-import 'package:streaks/features/home_page/view/drawer_menu_widget.dart';
+import 'package:streaks/core/widgets/drawer_menu_widget.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});

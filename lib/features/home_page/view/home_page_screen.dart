@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streaks/core/utils/routes.dart';
 import 'app_bar_widget.dart';
-import 'drawer_menu_widget.dart';
+import 'package:streaks/core/widgets/drawer_menu_widget.dart';
 import 'heat_map_widget.dart';
 import 'tab_bar_widget.dart';
 import 'tab_bar_view_widget.dart';
