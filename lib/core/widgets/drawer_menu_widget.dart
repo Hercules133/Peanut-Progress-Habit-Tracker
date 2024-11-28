@@ -29,7 +29,7 @@ class MyDrawerMenu extends StatelessWidget {
             leading: const Icon(Icons.signal_cellular_alt),
             title: const Text('Statistics'),
             onTap: () {
-              // Navigator.pushReplacementNamed(context, Routes.statistics);
+              Navigator.pushReplacementNamed(context, Routes.statistics);
             },
           ),
           ListTile(
