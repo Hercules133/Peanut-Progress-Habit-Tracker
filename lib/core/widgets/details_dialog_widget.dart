@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:streaks/core/utils/hexcolor.dart';
-import 'package:streaks/features/home_page/view/heat_map_widget.dart';
+import 'package:streaks/core/widgets/details_dialog_heatmap_widget.dart';
 import 'package:streaks/data/models/habit.dart';
 import 'package:streaks/core/utils/routes.dart';
 
