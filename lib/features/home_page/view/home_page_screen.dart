@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streaks/core/utils/routes.dart';
-import 'app_bar_widget.dart';
+import '../../../core/widgets/app_bar_widget.dart';
 import 'package:streaks/core/widgets/drawer_menu_widget.dart';
 import 'heat_map_widget.dart';
 import 'tab_bar_widget.dart';
@@ -22,6 +22,19 @@ class MyHomePage extends StatelessWidget {
     'Category 10'
   ];
 
+    String getGreeting() {
+    final hour = DateTime.now().hour;
+    if (hour >= 6 && hour < 12) {
+      return 'Good Morning!';
+    } else if (hour >= 12 && hour < 18) {
+      return 'Hello!';
+    } else if (hour >= 18 && hour < 22) {
+      return 'Good Evening!';
+    } else {
+      return 'Good Night!';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -29,6 +42,7 @@ class MyHomePage extends StatelessWidget {
       child: Scaffold(
         appBar: MyAppBar(
           appBar: AppBar(),
+          appBarTitle: getGreeting(),
         ),
         drawer: const MyDrawerMenu(),
         body: const Column(

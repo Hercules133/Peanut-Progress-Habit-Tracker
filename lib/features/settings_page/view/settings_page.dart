@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'app_bar_widget.dart';
+import 'package:streaks/core/widgets/app_bar_widget.dart';
 import 'package:streaks/core/widgets/drawer_menu_widget.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -11,6 +10,7 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(
         appBar: AppBar(),
+        appBarTitle: 'Settings',
       ),
       drawer: const MyDrawerMenu(),
       body: Column(
