@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:streaks/features/create_habit/inherited_widget_create_habit.dart';
+
+typedef TitleCallback = void Function(String title); 
 
 class TitleFormfieldWidget extends StatelessWidget {
-  TitleFormfieldWidget({super.key, required this.titleController});
+  TitleFormfieldWidget({super.key, required this.titleController, required this.onTitleChanged});
 
   final TextEditingController titleController;
 
   final ValueNotifier<String> _title = ValueNotifier<String>("");
+  
+  final TitleCallback onTitleChanged; 
 
   @override
   Widget build(BuildContext context) {
+     final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
     return ValueListenableBuilder<String?>(
         valueListenable: _title,
         builder: (context, value, child) {
@@ -22,10 +28,11 @@ class TitleFormfieldWidget extends StatelessWidget {
               validator: (value) {
                 return (value == null || value.isEmpty)
                 ? "Enter task"
-                : null;
+                : inheritedData.title ;
               },
               onChanged: (value) {
                  _title.value = value;
+                 onTitleChanged(value); 
               });
         });
   }

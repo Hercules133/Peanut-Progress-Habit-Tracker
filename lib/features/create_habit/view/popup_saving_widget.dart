@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:streaks/features/create_habit/inherited_widget_create_habit.dart'; 
+import 'package:streaks/data/providers/habit_provider.dart'; 
+import 'package:provider/provider.dart';
 
 Future<void> popupSavingWidget(BuildContext context) async {
+  final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+  final habitProvider= Provider.of<HabitProvider> (context, listen: false); 
   return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -16,6 +21,8 @@ Future<void> popupSavingWidget(BuildContext context) async {
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
+                      habitProvider.addHabit(inheritedData); 
+
                     },
                     icon: const Icon(Icons.check),
                   ),
