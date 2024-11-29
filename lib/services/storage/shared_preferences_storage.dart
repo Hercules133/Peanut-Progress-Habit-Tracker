@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'storage_service.dart';
 
 class SharedPreferencesStorage implements StorageService {
-  late SharedPreferences _prefs;
+  SharedPreferences? _prefs;
 
   SharedPreferencesStorage() {
     _initialize();
@@ -13,41 +13,61 @@ class SharedPreferencesStorage implements StorageService {
     _prefs = await SharedPreferences.getInstance();
   }
 
+  Future<SharedPreferences> _getPrefs() async {
+    _prefs ??= await SharedPreferences.getInstance();
+    return _prefs!;
+  }
+
   @override
   Future<void> save(String table, Map<String, dynamic> data) async {
-    final key = data['id'] ?? DateTime.now().toString();
-    final tableKey = '$table-$key';
-    await _prefs.setString(tableKey, jsonEncode(data));
+    final prefs = await _getPrefs();
+    final List<String> items = prefs.getStringList(table) ?? [];
+    final existingIndex = items.indexWhere((item) {
+      final decoded = jsonDecode(item);
+      return decoded['id'] == data['id'];
+    });
+
+    if (existingIndex != -1) {
+      items[existingIndex] = jsonEncode(data);
+    } else {
+      items.add(jsonEncode(data));
+    }
+
+    await prefs.setStringList(table, items);
   }
 
   @override
   Future<Map<String, dynamic>?> read(String table, String key) async {
-    final tableKey = '$table-$key';
-    final jsonString = _prefs.getString(tableKey);
-    return jsonString != null ? jsonDecode(jsonString) : null;
+    final prefs = await _getPrefs();
+    final List<String> items = prefs.getStringList(table) ?? [];
+    final item = items.firstWhere(
+      (item) => jsonDecode(item)['id'] == key,
+      orElse: () => '',
+    );
+
+    return item.isNotEmpty ? jsonDecode(item) : null;
   }
 
   @override
   Future<List<Map<String, dynamic>>> readAll(String table) async {
-    final keys = _prefs.getKeys().where((k) => k.startsWith('$table-'));
-    return keys.map((k) {
-      final jsonString = _prefs.getString(k);
-      Map<String, dynamic> data = jsonDecode(jsonString ?? '');
-      return data;
-    }).toList();
+    final prefs = await _getPrefs();
+    final List<String> items = prefs.getStringList(table) ?? [];
+    return items
+        .map((item) => jsonDecode(item) as Map<String, dynamic>)
+        .toList();
   }
 
   @override
   Future<void> delete(String table, String key) async {
-    final tableKey = '$table-$key';
-    await _prefs.remove(tableKey);
+    final prefs = await _getPrefs();
+    final List<String> items = prefs.getStringList(table) ?? [];
+    items.removeWhere((item) => jsonDecode(item)['id'].toString() == key);
+    await prefs.setStringList(table, items);
   }
 
   @override
   Future<void> clear(String table) async {
-    final keysToRemove = _prefs.getKeys().where((k) => k.startsWith('$table-'));
-    for (var key in keysToRemove) {
-      await _prefs.remove(key);
-    }
+    final prefs = await _getPrefs();
+    await prefs.remove(table);
   }
 }
