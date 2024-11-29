@@ -43,43 +43,45 @@ class MyTabBarView extends StatelessWidget {
           itemCount: 5,
           padding: const EdgeInsets.all(8.0),
           itemBuilder: (BuildContext context, int idx) {
-            return ListTile(
-              tileColor: categoryColor[tab],
-              textColor: Colors.white,
-              contentPadding: const EdgeInsets.only(
-                  left: 10.0, top: 2.0, bottom: 2.0, right: 10.0),
-              minVerticalPadding: 10.0,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
-              leading: IconButton(
-                icon: Image.asset('assets/images/Erdnuss.png'),
-                onPressed: () => {},
+            return Card(
+              color: categoryColor[tab],
+              child: ListTile(
+                textColor: Colors.white,
+                contentPadding: const EdgeInsets.only(
+                    left: 10.0, top: 2.0, bottom: 2.0, right: 10.0),
+                minVerticalPadding: 10.0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                leading: IconButton(
+                  icon: Image.asset('assets/images/Erdnuss.png'),
+                  onPressed: () => {},
+                ),
+                title: Text('Habit $idx of ${tabs[tab]}'),
+                trailing: Wrap(
+                  direction: Axis.vertical,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          '20',
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        Container(
+                          height: 30,
+                          child: Image.asset('assets/images/logo.png'),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      '18:00',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
+                onTap: () {
+                  showDetailsDialog(context, test_habit);
+                },
               ),
-              title: Text('Habit $idx of ${tabs[tab]}'),
-              trailing: Wrap(
-                direction: Axis.vertical,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        '20',
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                      Container(
-                        height: 30,
-                        child: Image.asset('assets/images/logo.png'),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    '18:00',
-                    style: TextStyle(color: Colors.white),
-                  )
-                ],
-              ),
-              onTap: () {
-                showDetailsDialog(context, test_habit);
-              },
             );
           },
           separatorBuilder: (context, index) => const SizedBox(
