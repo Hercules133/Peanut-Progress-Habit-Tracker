@@ -24,7 +24,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
             icon: Image.asset('assets/images/logo.png'),
-            onPressed: () {}),
+            onPressed: null),
       ],
     );
   }
