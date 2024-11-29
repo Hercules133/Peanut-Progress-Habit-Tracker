@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:streaks/core/config/locator.dart';
+import 'package:streaks/data/models/theme.dart';
 import 'package:streaks/features/create_habit/view/create_habit_screen.dart';
 import 'package:streaks/features/home_page/view/home_page_screen.dart';
 import 'package:streaks/data/providers/habit_provider.dart';
@@ -26,10 +27,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor:Colors.deepPurple),
-          useMaterial3: true,
-        ),
+        theme: lightMode,
+        darkTheme: darkMode,
+        themeMode: ThemeMode.system,
         home: const MyHomePage(),
         debugShowCheckedModeBanner: false,
         routes: {
