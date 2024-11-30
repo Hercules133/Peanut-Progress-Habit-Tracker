@@ -8,6 +8,7 @@ class OwnColors extends ThemeExtension<OwnColors> {
     required this.contribution3,
     required this.contribution4,
     required this.contribution5,
+    required this.contributionDefault,
     required this.category1,
     required this.category2,
     required this.category3,
@@ -26,6 +27,7 @@ class OwnColors extends ThemeExtension<OwnColors> {
   final Color contribution3;
   final Color contribution4;
   final Color contribution5;
+  final Color contributionDefault;
   final Color category1;
   final Color category2;
   final Color category3;
@@ -45,6 +47,7 @@ class OwnColors extends ThemeExtension<OwnColors> {
     Color? contribution3,
     Color? contribution4,
     Color? contribution5,
+    Color? contributionDefault,
     Color? category1,
     Color? category2,
     Color? category3,
@@ -63,6 +66,7 @@ class OwnColors extends ThemeExtension<OwnColors> {
       contribution3: contribution3 ?? this.contribution3,
       contribution4: contribution4 ?? this.contribution4,
       contribution5: contribution5 ?? this.contribution5,
+      contributionDefault: contributionDefault ?? this.contributionDefault,
       category1: category1 ?? this.category1,
       category2: category2 ?? this.category2,
       category3: category3 ?? this.category3,
@@ -88,6 +92,7 @@ class OwnColors extends ThemeExtension<OwnColors> {
       contribution3: Color.lerp(contribution3, other.contribution3, t)!,
       contribution4: Color.lerp(contribution4, other.contribution4, t)!,
       contribution5: Color.lerp(contribution5, other.contribution5, t)!,
+      contributionDefault: Color.lerp(contributionDefault, other.contributionDefault, t)!,
       category1: Color.lerp(category1, other.category1, t)!,
       category2: Color.lerp(category2, other.category2, t)!,
       category3: Color.lerp(category3, other.category3, t)!,
