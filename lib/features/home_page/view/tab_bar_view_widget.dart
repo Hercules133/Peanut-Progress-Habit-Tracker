@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:streaks/data/models/habit.dart';
 import 'package:streaks/data/models/category.dart';
 import 'package:streaks/core/widgets/details_dialog_widget.dart';
+
+import '../../../data/providers/habit_provider.dart';
 
 class MyTabBarView extends StatelessWidget {
   const MyTabBarView({
@@ -34,6 +37,9 @@ class MyTabBarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HabitProvider habitProvider = Provider.of<HabitProvider>(context);
+    final habits = habitProvider.habits; // Liste aller Habits
+    print(habits);
     return TabBarView(
       children: List.generate(
         tabs.length,

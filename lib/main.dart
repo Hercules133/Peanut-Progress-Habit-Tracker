@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:streaks/core/config/locator.dart';
 import 'package:streaks/data/models/theme.dart';
 import 'package:streaks/features/create_habit/view/create_habit_screen.dart';
+import 'package:streaks/features/home_page/view/habits.dart';
 import 'package:streaks/features/home_page/view/home_page_screen.dart';
 import 'package:streaks/data/providers/habit_provider.dart';
 import 'package:streaks/features/settings_page/view/settings_page.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         routes: {
           Routes.home: (context) => const MyHomePage(),
           Routes.addAndEdit: (context) => const CreateHabit(),
-          // Routes.habits: (context) => const
+          Routes.habits: (context) => const MyHabitsPage(),
           Routes.settings: (context) => const SettingsPage(),
           Routes.statistics: (context) => const StatisticsPage(),
         },
