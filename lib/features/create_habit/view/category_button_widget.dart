@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streaks/data/models/category.dart';
+import 'package:streaks/data/models/ownColors.dart';
 import 'package:streaks/features/create_habit/inherited_widget_create_habit.dart';
 
 class CategoryButtonWidget extends StatelessWidget {
@@ -13,6 +14,7 @@ class CategoryButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+    final ownColors = Theme.of(context).extension<OwnColors>()!;
     Category c; 
     return ValueListenableBuilder<bool>(
         valueListenable: _hasBeenPressed,
@@ -20,8 +22,8 @@ class CategoryButtonWidget extends StatelessWidget {
           return TextButton(
               style: ButtonStyle(
                   backgroundColor: _hasBeenPressed.value
-                  ? const WidgetStatePropertyAll(Colors.yellow)
-                  : const WidgetStatePropertyAll<Color>(Colors.blue), //WidgetStatePropertyAll<Color>(inheritedData.category.color),
+                  ? WidgetStatePropertyAll(ownColors.contribution2)
+                  : WidgetStatePropertyAll<Color>(ownColors.contribution1), //WidgetStatePropertyAll<Color>(inheritedData.category.color),
               ),
               onPressed: () {
                 _hasBeenPressed.value = !_hasBeenPressed.value;

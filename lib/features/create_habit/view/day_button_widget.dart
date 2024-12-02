@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streaks/features/create_habit/inherited_widget_create_habit.dart';
+import 'package:streaks/data/models/ownColors.dart';
 
 class DayButtonWidget extends StatelessWidget {
   DayButtonWidget({super.key, required this.day});
@@ -10,14 +11,16 @@ class DayButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+    final ownColors = Theme.of(context).extension<OwnColors>()!;
+
     return ValueListenableBuilder<bool>(
         valueListenable: _hasBeenPressed,
         builder: (context, value, child) {
           return TextButton(
             style: TextButton.styleFrom(
               backgroundColor: _hasBeenPressed.value
-                  ? Colors.blue
-                  : Colors.white,
+                  ? ownColors.contribution2
+                  : ownColors.contribution1,
               // fixedSize: const Size(10,10),
               maximumSize: const Size(40,40),
               minimumSize: const Size(40,40),

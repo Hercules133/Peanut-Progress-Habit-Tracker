@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:streaks/data/models/ownColors.dart';
 import 'package:streaks/features/create_habit/view/add_category_button_widget.dart';
 import 'package:streaks/features/create_habit/view/days_row_widget.dart';
 import 'package:streaks/features/create_habit/view/description_formfield_widget.dart';
 import 'package:group_button/group_button.dart'; 
 import 'package:streaks/features/create_habit/view/title_formfield_widget.dart';
-import 'package:provider/provider.dart';
 
 
 class CreateHabitFormWidget extends StatelessWidget {
@@ -19,6 +19,7 @@ class CreateHabitFormWidget extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    final ownColors = Theme.of(context).extension<OwnColors>()!;
 
     return Form(
       key: _inputform,
@@ -52,12 +53,12 @@ class CreateHabitFormWidget extends StatelessWidget {
               Text("Category"),
               AddCategoryButtonWidget(),
             ],),
-            const GroupButton(
+            GroupButton(
               isRadio: true,
-              buttons: ["Sports", "Hobby"] ,
+              buttons: const ["Sports", "Hobby"] ,
               options: GroupButtonOptions (
-                selectedColor: Colors.yellow,
-                unselectedColor: Colors.blue,
+                selectedColor: ownColors.contribution2,
+                unselectedColor: ownColors.contribution1,
                 )
               )
             // Row(

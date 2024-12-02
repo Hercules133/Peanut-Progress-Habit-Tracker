@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streaks/features/create_habit/inherited_widget_create_habit.dart';
+import 'package:streaks/data/models/ownColors.dart';
 
 class TimeButtonWidget extends StatelessWidget {
   TimeButtonWidget({
@@ -11,12 +12,14 @@ class TimeButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+    final ownColors = Theme.of(context).extension<OwnColors>()!;
     selectedTime.value= inheritedData.time; 
     return ValueListenableBuilder<TimeOfDay>(
         valueListenable: selectedTime,
         builder: (context, value, child) {
           return ElevatedButton(
             style: ElevatedButton.styleFrom(
+              backgroundColor: ownColors.contribution1,
               minimumSize: const Size(80,40),
               maximumSize: const Size(80,40)
             ),
