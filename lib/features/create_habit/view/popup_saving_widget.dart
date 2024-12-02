@@ -22,6 +22,9 @@ Future<void> popupSavingWidget(BuildContext context) async {
                     onPressed: () {
                       Navigator.pop(context);
                       habitProvider.addHabit(inheritedData); 
+                      print(inheritedData.title);
+                      print(inheritedData.description);  
+                      print(inheritedData.time);
 
                     },
                     icon: const Icon(Icons.check),
