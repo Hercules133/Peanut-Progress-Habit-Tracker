@@ -17,8 +17,8 @@ class TimeButtonWidget extends StatelessWidget {
         builder: (context, value, child) {
           return ElevatedButton(
             style: ElevatedButton.styleFrom(
-              minimumSize: const Size(85,40),
-              maximumSize: const Size(85,40)
+              minimumSize: const Size(80,40),
+              maximumSize: const Size(80,40)
             ),
               onPressed: () async {
                 final TimeOfDay? picked = await showTimePicker(
@@ -34,7 +34,7 @@ class TimeButtonWidget extends StatelessWidget {
                 value.minute <10
                 ? '${value.hour}:0${value.minute}'
                 :  '${value.hour}:${value.minute}',
-                style: const TextStyle(fontSize: 15),
+                style: const TextStyle(fontSize: 12),
               ));
         });
   }

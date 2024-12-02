@@ -25,19 +25,18 @@ class MyTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return TabBar(
       physics: const BouncingScrollPhysics(),
-      isScrollable: isScrollable,
+      isScrollable: true,
       overlayColor: WidgetStateProperty.all<Color>(Colors.transparent),
-      indicatorSize: TabBarIndicatorSize.label,
-      indicator: BoxDecoration(
-        border: const Border(
-          bottom: BorderSide(color: Colors.black, width: 3.0)),
-        borderRadius: BorderRadius.circular(
-          16.0,
-        ),
-        color: Colors.white,
+      indicator: const UnderlineTabIndicator(
+        borderSide: BorderSide(
+          color: Colors.black, 
+          width: 2.0,),
       ),
       labelColor: Colors.white,
       unselectedLabelColor: const Color.fromARGB(255, 183, 182, 180),
+      padding: EdgeInsets.zero,
+      indicatorPadding: EdgeInsets.zero,
+      labelPadding: EdgeInsets.zero,
       tabs: List.generate(
         tabs.length,
         (index) => Container(

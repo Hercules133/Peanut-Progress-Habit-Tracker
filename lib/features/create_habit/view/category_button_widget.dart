@@ -21,7 +21,7 @@ class CategoryButtonWidget extends StatelessWidget {
               style: ButtonStyle(
                   backgroundColor: _hasBeenPressed.value
                   ? const WidgetStatePropertyAll(Colors.yellow)
-                  : WidgetStatePropertyAll<Color>(inheritedData.category.color),
+                  : const WidgetStatePropertyAll<Color>(Colors.blue), //WidgetStatePropertyAll<Color>(inheritedData.category.color),
               ),
               onPressed: () {
                 _hasBeenPressed.value = !_hasBeenPressed.value;

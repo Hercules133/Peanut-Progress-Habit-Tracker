@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:streaks/core/utils/routes.dart';
-import 'app_bar_widget.dart';
-import 'drawer_menu_widget.dart';
+import '../../../core/widgets/app_bar_widget.dart';
+import 'package:streaks/core/widgets/drawer_menu_widget.dart';
+import 'package:streaks/core/utils/get_greeting.dart';
 import 'heat_map_widget.dart';
 import 'tab_bar_widget.dart';
 import 'tab_bar_view_widget.dart';
@@ -22,6 +23,8 @@ class MyHomePage extends StatelessWidget {
     'Category 10'
   ];
 
+    
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -29,6 +32,7 @@ class MyHomePage extends StatelessWidget {
       child: Scaffold(
         appBar: MyAppBar(
           appBar: AppBar(),
+          appBarTitle: getGreeting(),
         ),
         drawer: const MyDrawerMenu(),
         body: const Column(

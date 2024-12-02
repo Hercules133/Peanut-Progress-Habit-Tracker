@@ -22,21 +22,21 @@ class MyDrawerMenu extends StatelessWidget {
             ),
             title: const Text('Habits'),
             onTap: () {
-              // Navigator.pushReplacementNamed(context, Routes.home);
+              // Navigator.pushReplacementNamed(context, Routes.habits);
             },
           ),
           ListTile(
             leading: const Icon(Icons.signal_cellular_alt),
             title: const Text('Statistics'),
             onTap: () {
-              // Navigator.pushReplacementNamed(context, Routes.statistics);
+              Navigator.pushReplacementNamed(context, Routes.statistics);
             },
           ),
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
             onTap: () {
-              // Navigator.pushReplacementNamed(context, Routes.settings);
+              Navigator.pushReplacementNamed(context, Routes.settings);
             },
           ),
         ],

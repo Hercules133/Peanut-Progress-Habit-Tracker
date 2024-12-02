@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyAppBar({super.key, required this.appBar});
-
+  const MyAppBar({super.key, required this.appBar, required this.appBarTitle});
   final AppBar appBar;
+  final String appBarTitle;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(getGreeting()),
+      title: Text(appBarTitle),
       centerTitle: true,
-      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       leading: Builder(
         builder: (context) {
           return IconButton(
@@ -24,7 +24,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
             icon: Image.asset('assets/images/logo.png'),
-            onPressed: () {}),
+            onPressed: null),
       ],
     );
   }
@@ -32,16 +32,4 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => new Size.fromHeight(appBar.preferredSize.height);
 
-  String getGreeting() {
-    final hour = DateTime.now().hour;
-    if (hour >= 6 && hour < 12) {
-      return 'Good Morning!';
-    } else if (hour >= 12 && hour < 18) {
-      return 'Hello!';
-    } else if (hour >= 18 && hour < 22) {
-      return 'Good Evening!';
-    } else {
-      return 'Good Night!';
-    }
-  }
 }
