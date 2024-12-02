@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+import 'package:streaks/data/models/ownColors.dart';
 
 class MyHeatMap extends StatelessWidget {
   const MyHeatMap({super.key});
@@ -8,40 +9,40 @@ class MyHeatMap extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final weeksToShow = ((screenWidth - 18) / 20).floor();
-
+    final ownColors = Theme.of(context).extension<OwnColors>()!;
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: const Color(0xFF734D2F),
+        color: Theme.of(context).colorScheme.primary,
       ),
       child: HeatMap(
-        textColor: const Color(0xFFC5CACD),
+        textColor: Theme.of(context).colorScheme.onSurface,
         colorMode: ColorMode.color,
-        colorTipHelper: const [
+        colorTipHelper: [
           Text('0% ',
               style: TextStyle(
-                color: Color(0xFFC5CACD),
+                color: Theme.of(context).colorScheme.onSurface,
               )),
           Text(
             ' 100% ',
             style: TextStyle(
-              color: Color(0xFFC5CACD),
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           )
         ],
         scrollable: true,
         size: 15,
-        defaultColor: const Color.fromARGB(255, 129, 93, 58),
+        defaultColor: ownColors.contributionDefault,
         endDate: DateTime.now().add(Duration(days: 6 - DateTime.now().weekday)),
         startDate: DateTime.now()
             .subtract(Duration(days: DateTime.daysPerWeek * (weeksToShow - 1))),
         datasets: m,
         colorTipCount: 2,
-        colorsets: const {
-          0: Color(0xFFDBDBDB),
-          1: Color(0xFFFF5A00),
+        colorsets: {
+          0: ownColors.contribution0,
+          1: ownColors.contribution5,
         },
       ),
     );
