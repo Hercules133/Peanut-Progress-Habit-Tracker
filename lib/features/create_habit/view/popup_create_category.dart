@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:streaks/core/utils/appcolors.dart';
 
 Future<void> popupCreateCategory(BuildContext context) async {
-  IconData _selectedIcon = Icons.star;
-  Color _selectedColor = Colors.red; // Shared variable for the color
-  final TextEditingController _textController = TextEditingController();
+  IconData selectedIcon = Icons.star;
+  int selectedColorIndex = 0;
+  final TextEditingController textController = TextEditingController();
+  bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
   return showDialog(
     context: context,
@@ -20,7 +21,7 @@ Future<void> popupCreateCategory(BuildContext context) async {
               mainAxisSize: MainAxisSize.min,
               children: [
                 DropdownButton<IconData>(
-                  value: _selectedIcon,
+                  value: selectedIcon,
                   items: const [
                     DropdownMenuItem(
                       value: Icons.star,
@@ -38,7 +39,7 @@ Future<void> popupCreateCategory(BuildContext context) async {
                   onChanged: (IconData? newValue) {
                     if (newValue != null) {
                       setState(() {
-                        _selectedIcon = newValue;
+                        selectedIcon = newValue;
                       });
                     }
                   },
@@ -46,23 +47,24 @@ Future<void> popupCreateCategory(BuildContext context) async {
                 const SizedBox(width: 10),
                 GestureDetector(
                   onTap: () async {
-                    final pickedColor =
-                        await _pickColor(context, _selectedColor);
-                    if (pickedColor != null) {
+                    final pickedIndex =
+                        await _pickColorIndex(context, selectedColorIndex);
+                    if (pickedIndex != null) {
                       setState(() {
-                        _selectedColor = pickedColor;
+                        selectedColorIndex = pickedIndex;
                       });
                     }
                   },
                   child: CircleAvatar(
-                    backgroundColor: _selectedColor,
+                    backgroundColor:
+                        AppColors.getColor(selectedColorIndex, isDarkMode),
                     radius: 15,
                   ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: TextField(
-                    controller: _textController,
+                    controller: textController,
                     decoration: const InputDecoration(
                       hintText: "Name",
                       border: OutlineInputBorder(),
@@ -88,7 +90,13 @@ Future<void> popupCreateCategory(BuildContext context) async {
                   ),
                   TextButton(
                     onPressed: () {
-                      // save new category logic
+                      Navigator.of(context).pop(
+                        {
+                          'icon': selectedIcon,
+                          'name': textController.text,
+                          'colorIndex': selectedColorIndex,
+                        },
+                      );
                     },
                     child: const Text('Save'),
                   )
@@ -99,32 +107,43 @@ Future<void> popupCreateCategory(BuildContext context) async {
         },
       );
     },
-  );
+  ).then((value) {
+    if (value != null) {
+      return value;
+    } else {
+      return {};
+    }
+  });
 }
 
-Future<Color?> _pickColor(BuildContext context, Color initialColor) async {
-  Color tempColor = initialColor;
-  return showDialog<Color>(
+Future<int?> _pickColorIndex(BuildContext context, int initialIndex) async {
+  int tempIndex = initialIndex;
+  return showDialog<int>(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         title: const Text("Select color"),
         content: SingleChildScrollView(
-          child: BlockPicker(
-            pickerColor: initialColor,
-            onColorChanged: (Color color) {
-              tempColor = color;
-            },
+          child: Column(
+            children: List.generate(AppColors.lightModeColors.length, (index) {
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: AppColors.getColor(
+                      index, Theme.of(context).brightness == Brightness.dark),
+                ),
+                title: Text('Color $index'),
+                onTap: () {
+                  tempIndex = index;
+                  Navigator.of(context).pop(tempIndex);
+                },
+              );
+            }),
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: const Text("Cancel"),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(tempColor),
-            child: const Text("Ok"),
           ),
         ],
       );
