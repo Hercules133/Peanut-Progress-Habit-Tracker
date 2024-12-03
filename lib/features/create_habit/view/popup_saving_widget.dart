@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streaks/data/models/habit.dart';
 import 'package:streaks/features/create_habit/inherited_widget_create_habit.dart'; 
 import 'package:streaks/data/providers/habit_provider.dart'; 
 import 'package:provider/provider.dart';
@@ -21,10 +22,12 @@ Future<void> popupSavingWidget(BuildContext context) async {
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      habitProvider.addHabit(inheritedData); 
-                      print(inheritedData.title);
-                      print(inheritedData.description);  
-                      print(inheritedData.time);
+                      habitProvider.addHabit(Habit.fromMap(inheritedData)); 
+                      print(inheritedData["title"]);
+                      print(inheritedData["description"]);  
+                      print(inheritedData["time"]);
+                      print(inheritedData["days"]); 
+                      print(inheritedData["category"]["name"]); 
 
                     },
                     icon: const Icon(Icons.check),

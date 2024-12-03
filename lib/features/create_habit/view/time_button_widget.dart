@@ -13,7 +13,10 @@ class TimeButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
     final ownColors = Theme.of(context).extension<OwnColors>()!;
-    selectedTime.value= inheritedData.time; 
+    TimeOfDay time= TimeOfDay(
+      hour: int.parse(inheritedData['time'].split(':')[0]),
+        minute: int.parse(inheritedData['time'].split(':')[1]),);
+    selectedTime.value= time; 
     return ValueListenableBuilder<TimeOfDay>(
         valueListenable: selectedTime,
         builder: (context, value, child) {
@@ -30,13 +33,13 @@ class TimeButtonWidget extends StatelessWidget {
                 );
                 if (picked != null) {
                   selectedTime.value = picked;
-                  inheritedData.time=picked; 
+                  inheritedData["time"]='${picked.hour}:${picked.minute}'; 
                 }
               },
               child: Text(
                 value.minute <10
                 ? '${value.hour}:0${value.minute}'
-                :  '${value.hour}:${value.minute}',
+                : '${value.hour}:${value.minute}',
                 style: const TextStyle(fontSize: 12),
               ));
         });

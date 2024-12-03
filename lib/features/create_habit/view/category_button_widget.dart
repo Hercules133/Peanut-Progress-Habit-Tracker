@@ -7,7 +7,7 @@ class CategoryButtonWidget extends StatelessWidget {
   CategoryButtonWidget(
       {super.key, required this.category, required this.color});
 
-  final String category;
+  final Category category;
   final Color color;
   final ValueNotifier<bool> _hasBeenPressed = ValueNotifier<bool>(false);
 
@@ -23,13 +23,16 @@ class CategoryButtonWidget extends StatelessWidget {
               style: ButtonStyle(
                   backgroundColor: _hasBeenPressed.value
                   ? WidgetStatePropertyAll(ownColors.contribution2)
-                  : WidgetStatePropertyAll<Color>(ownColors.contribution1), //WidgetStatePropertyAll<Color>(inheritedData.category.color),
+                  : WidgetStatePropertyAll<Color>(ownColors.contribution1),
               ),
               onPressed: () {
                 _hasBeenPressed.value = !_hasBeenPressed.value;
-                //inheritedData.category= category; 
+                // if(_hasBeenPressed.value){
+                  inheritedData["category"]= category.toMap(); 
+                // }
+                 
                 },
-              child: Text(category));
+              child: Text(category.name));
         });
   }
 }

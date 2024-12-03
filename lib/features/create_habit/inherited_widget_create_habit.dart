@@ -8,7 +8,7 @@ class InheritedWidgetCreateHabit extends InheritedWidget {
     required this.habit,
     required super.child});
 
-    final Habit habit; 
+    final Map<String, dynamic> habit; 
   
   static InheritedWidgetCreateHabit? maybeOf(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<InheritedWidgetCreateHabit>();

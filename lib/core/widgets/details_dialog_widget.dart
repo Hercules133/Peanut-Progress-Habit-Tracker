@@ -49,14 +49,14 @@ Future<void> showDetailsDialog(BuildContext context, Habit habit) {
               DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: HexColor(habit.category.color),
+                  // color: HexColor(habit.category.color),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 8.0, vertical: 4.0), // Mehr Platz
                   child: Row(
                     children: [
-                      habit.category.icon,
+                      // habit.category.icon,
                       Text(habit.category.name),
                     ],
                   ),

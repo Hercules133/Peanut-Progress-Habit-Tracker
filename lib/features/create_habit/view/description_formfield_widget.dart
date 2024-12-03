@@ -9,7 +9,7 @@ class DescriptionFormfieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
-    descriptionController.text= inheritedData.description; 
+    descriptionController.text= inheritedData["description"]; 
     return TextFormField(
         maxLength: 150,
         controller: descriptionController,
@@ -19,10 +19,10 @@ class DescriptionFormfieldWidget extends StatelessWidget {
         validator: (value) {
           return (value == null || value.isEmpty)
           ? "Enter description"
-          : inheritedData.description;
+          : inheritedData["description"];
         },
         onChanged: (value) {
-          inheritedData.description=value; 
+          inheritedData["description"]=value; 
         });
   }
 }

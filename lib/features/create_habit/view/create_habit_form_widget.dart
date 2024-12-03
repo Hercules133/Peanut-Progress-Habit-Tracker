@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:streaks/data/models/category.dart';
 import 'package:streaks/data/models/ownColors.dart';
+import 'package:streaks/data/providers/category_provider.dart';
+import 'package:streaks/features/create_habit/inherited_widget_create_habit.dart';
 import 'package:streaks/features/create_habit/view/add_category_button_widget.dart';
 import 'package:streaks/features/create_habit/view/days_row_widget.dart';
 import 'package:streaks/features/create_habit/view/description_formfield_widget.dart';
@@ -20,6 +24,14 @@ class CreateHabitFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ownColors = Theme.of(context).extension<OwnColors>()!;
+    final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+    final categoryProvider= Provider.of<CategoryProvider> (context, listen: false); 
+    List<String> catNames = []; 
+    List<Color> catColors = []; 
+    for(Category cat in categoryProvider.categories){
+      catNames.add(cat.name); 
+      catColors.add(cat.color);  
+    }
 
     return Form(
       key: _inputform,
@@ -55,11 +67,17 @@ class CreateHabitFormWidget extends StatelessWidget {
             ],),
             GroupButton(
               isRadio: true,
-              buttons: const ["Sports", "Hobby"] ,
+              onSelected: (val, i, selected) {
+                if(selected){
+                  inheritedData["category"]= categoryProvider.categories[i].toMap(); 
+                }
+              },
+              buttons: catNames,
               options: GroupButtonOptions (
                 selectedColor: ownColors.contribution2,
                 unselectedColor: ownColors.contribution1,
                 )
+               
               )
             // Row(
             //   children: [

@@ -9,7 +9,7 @@ class TitleFormfieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
-     titleController.text= inheritedData.title; 
+     titleController.text= inheritedData["title"]; 
           return TextFormField(
               maxLength: 20,
               controller: titleController,
@@ -19,12 +19,12 @@ class TitleFormfieldWidget extends StatelessWidget {
               validator: (value) {
                 return (value == null || value.isEmpty)
                 ? "Enter title"
-                : inheritedData.title ;
+                : inheritedData["title"] ;
               },
               onChanged: (value) {
                  value.isEmpty
                 ? "darf nicht leer sein"
-                : inheritedData.title=value;
+                : inheritedData["title"]=value;
               });
   }
 }

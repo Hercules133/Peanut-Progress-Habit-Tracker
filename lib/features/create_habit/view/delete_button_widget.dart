@@ -19,7 +19,7 @@ class DeleteButtonWidget extends StatelessWidget {
       ),
       tooltip: "Delete",
       onPressed: () {
-        habitProvider.deleteHabit(inheritedData.id); 
+        habitProvider.deleteHabit(inheritedData["id"]); 
         Navigator.pop(context); 
       },
     );

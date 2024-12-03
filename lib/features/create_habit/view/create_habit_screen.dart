@@ -17,17 +17,11 @@ class CreateHabit extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-
-    Habit testHabit = Habit(
-      title: "Lunch",
-      description: "Cook and eat lunch",
-      days: [0, 1, 4],
-      time: const TimeOfDay(hour: 12, minute: 30),
-      category: Category(name: 'Eating', color: '#ec664a', icon: const Icon(Icons.adobe)));
-
+    Habit habit= Habit.defaultHabit(); 
+    Map<String, dynamic> map= habit.toMap();
 
     return InheritedWidgetCreateHabit(
-      habit: testHabit, 
+      habit: map, 
       child: Scaffold(
       appBar: AppBarWidget(
         appBar: AppBar(),

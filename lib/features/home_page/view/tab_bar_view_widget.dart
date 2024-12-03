@@ -24,13 +24,14 @@ class MyTabBarView extends StatelessWidget {
     Color.fromARGB(255, 199, 116, 57),
   ];
 
-  static Habit test_habit = Habit(
-      title: "Lunch",
-      description: "Cook and eat lunch",
-      days: [0, 1, 4],
-      time: const TimeOfDay(hour: 12, minute: 30),
-      category: Category(
-          name: 'Eating', color: '#ec664a', icon: const Icon(Icons.adobe)));
+  static Habit test_habit =Habit.defaultHabit(); 
+  //  Habit(
+  //     title: "Lunch",
+  //     description: "Cook and eat lunch",
+  //     days: [0, 1, 4],
+  //     time: const TimeOfDay(hour: 12, minute: 30),
+  //     category: Category(
+  //         name: 'Eating', color: '#ec664a', icon: const Icon(Icons.adobe)));
 
   @override
   Widget build(BuildContext context) {
