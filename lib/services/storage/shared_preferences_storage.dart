@@ -19,12 +19,17 @@ class SharedPreferencesStorage implements StorageService {
   }
 
   @override
-  Future<void> save(String table, Map<String, dynamic> data) async {
+  Future<void> save(
+    String table,
+    Map<String, dynamic> data,
+    String Function(Map<String, dynamic>) keySelector,
+  ) async {
     final prefs = await _getPrefs();
     final List<String> items = prefs.getStringList(table) ?? [];
+    final key = keySelector(data);
     final existingIndex = items.indexWhere((item) {
       final decoded = jsonDecode(item);
-      return decoded['id'] == data['id'];
+      return keySelector(decoded) == key;
     });
 
     if (existingIndex != -1) {
@@ -40,12 +45,16 @@ class SharedPreferencesStorage implements StorageService {
   Future<Map<String, dynamic>?> read(String table, String key) async {
     final prefs = await _getPrefs();
     final List<String> items = prefs.getStringList(table) ?? [];
-    final item = items.firstWhere(
-      (item) => jsonDecode(item)['id'] == key,
-      orElse: () => '',
-    );
 
-    return item.isNotEmpty ? jsonDecode(item) : null;
+    for (var item in items) {
+      final Map<String, dynamic> decodedItem = jsonDecode(item);
+
+      if (decodedItem.containsKey(key)) {
+        return decodedItem;
+      }
+    }
+
+    return null;
   }
 
   @override
