@@ -35,7 +35,7 @@ class MyHeatMap extends StatelessWidget {
         ],
         scrollable: true,
         size: 15,
-        defaultColor: Color.fromARGB(255, 129, 93, 58),
+        defaultColor: ownColors.contributionDefault,
         endDate: DateTime.now().add(Duration(days: 6 - DateTime.now().weekday)),
         startDate: DateTime.now()
             .subtract(Duration(days: DateTime.daysPerWeek * (weeksToShow - 1))),

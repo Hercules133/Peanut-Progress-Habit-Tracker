@@ -60,7 +60,7 @@ class MyHabitsPage extends StatelessWidget {
         selected: _sortBy == label,
         onSelected: (bool selected) {
           _sortBy = label;
-          _showHabits();
+
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),

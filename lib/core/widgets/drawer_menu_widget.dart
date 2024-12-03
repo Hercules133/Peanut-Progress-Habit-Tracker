@@ -22,7 +22,7 @@ class MyDrawerMenu extends StatelessWidget {
             ),
             title: const Text('Habits'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, Routes.habits);
+              // Navigator.pushReplacementNamed(context, Routes.habits);
             },
           ),
           ListTile(
