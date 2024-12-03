@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:streaks/core/config/locator.dart';
+import 'package:streaks/data/providers/category_provider.dart';
 import 'package:streaks/data/models/theme.dart';
 import 'package:streaks/features/create_habit/view/create_habit_screen.dart';
 import 'package:streaks/features/home_page/view/home_page_screen.dart';
@@ -9,9 +10,23 @@ import 'package:streaks/features/settings_page/view/settings_page.dart';
 import 'package:streaks/features/statistics_page/view/statistics_screen.dart';
 import 'core/utils/routes.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
+  await initializeApp();
   runApp(const MyApp());
+}
+
+Future<void> initializeApp() async {
+  try {
+    final habitProvider = locator<HabitProvider>();
+    await habitProvider.fetchHabits();
+
+    final categoryProvider = locator<CategoryProvider>();
+    categoryProvider.initilizeCategories(habitProvider.habits);
+  } catch (e) {
+    debugPrint("Error during initialization: $e");
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +37,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<HabitProvider>(
-          create: (_) => locator<HabitProvider>()..fetchHabits(),
+          create: (_) => locator<HabitProvider>(),
+        ),
+        ChangeNotifierProvider<CategoryProvider>(
+          create: (_) => locator<CategoryProvider>(),
         ),
       ],
       child: MaterialApp(
