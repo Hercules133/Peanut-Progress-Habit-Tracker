@@ -6,7 +6,8 @@ class HabitRepository {
   final StorageService _storageService = locator<StorageService>();
 
   Future<void> saveHabit(Habit habit) async {
-    await _storageService.save('habits', habit.toMap());
+    await _storageService.save(
+        'habits', habit.toMap(), (data) => data['id'].toString());
   }
 
   Future<List<Habit>> getAllHabits() async {
