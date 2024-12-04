@@ -38,6 +38,8 @@ dependencies:
   get_it: ^8.0.2
   shared_preferences: ^2.3.3
   provider: ^6.1.2
+  flutter_heatmap_calendar: ^1.0.5
+  firebase_data_connect: ^0.1.2+4
   # flutter_heatmap_calendar: ^1.0.5
 
 dev_dependencies:

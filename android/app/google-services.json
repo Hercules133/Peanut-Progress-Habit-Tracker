@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "143894795025",
+    "firebase_url": "https://peanut-progress-habit-tracker-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "peanut-progress-habit-tracker",
+    "storage_bucket": "peanut-progress-habit-tracker.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:143894795025:android:5368f5a01471750dfc32b0",
+        "android_client_info": {
+          "package_name": "com.example.streaks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBACplrNViHIg737KZ4nduMzC6M08qrgwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
