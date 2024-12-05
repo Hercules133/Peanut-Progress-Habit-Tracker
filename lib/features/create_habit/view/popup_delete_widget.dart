@@ -3,37 +3,31 @@ import 'package:streaks/features/create_habit/view/inherited_widget_create_habit
 import 'package:streaks/data/providers/habit_provider.dart'; 
 import 'package:provider/provider.dart';
 
-Future<void> popupSavingWidget(BuildContext context) async {
+Future<bool> popupDeleteWidget(BuildContext context) async {
   final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
   final habitProvider= Provider.of<HabitProvider> (context, listen: false); 
-  return showDialog(
+  var result = await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-            title: const Text('Save'),
+            title: const Text('Delete'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text("Do you want to save this Habit?"),
+                const Text("Do you want to delete this Habit?"),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                   IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
-                      habitProvider.addHabit(inheritedData); 
-                      debugPrint(inheritedData.title);
-                      debugPrint(inheritedData.description);  
-                      debugPrint("${inheritedData.time.hour}: ${inheritedData.time.minute}");
-                      debugPrint(inheritedData.days.toString()); 
-                      debugPrint(inheritedData.category.name); 
-
+                      Navigator.pop(context, true);
+                      habitProvider.deleteHabit(inheritedData.id); 
                     },
                     icon: const Icon(Icons.check),
                   ),
                   IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pop(context, false);
                     },
                     icon: const Icon(Icons.close),
                   ),
@@ -41,4 +35,5 @@ Future<void> popupSavingWidget(BuildContext context) async {
               ],
             ));
       });
+    return result; 
 }

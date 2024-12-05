@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/features/create_habit/inherited_widget_create_habit.dart';
+import 'package:streaks/data/models/habit.dart';
+import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
 
 class DescriptionFormfieldWidget extends StatelessWidget {
   const DescriptionFormfieldWidget({super.key, required this.descriptionController});
@@ -8,8 +9,8 @@ class DescriptionFormfieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
-    descriptionController.text= inheritedData["description"]; 
+    Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+    descriptionController.text= inheritedData.description; 
     return TextFormField(
         maxLength: 150,
         controller: descriptionController,
@@ -19,10 +20,10 @@ class DescriptionFormfieldWidget extends StatelessWidget {
         validator: (value) {
           return (value == null || value.isEmpty)
           ? "Enter description"
-          : inheritedData["description"];
+          : inheritedData.description;
         },
         onChanged: (value) {
-          inheritedData["description"]=value; 
+          inheritedData.description= value; 
         });
   }
 }
