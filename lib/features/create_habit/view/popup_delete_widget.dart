@@ -21,7 +21,7 @@ Future<void> popupDeleteWidget(BuildContext context) async {
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      habitProvider.deleteHabit(inheritedData["id"]); 
+                      habitProvider.deleteHabit(inheritedData.id); 
                     },
                     icon: const Icon(Icons.check),
                   ),

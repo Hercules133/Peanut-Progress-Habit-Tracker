@@ -71,7 +71,7 @@ class CreateHabitFormWidget extends StatelessWidget {
               isRadio: true,
               onSelected: (val, i, selected) {
                 if(selected){
-                  inheritedData=inheritedData.copyWith(category: categoryProvider.categories[i]); 
+                  inheritedData.category= categoryProvider.categories[i]; 
                 }
               },
               buttons: catNames,

@@ -25,7 +25,7 @@ class TitleFormfieldWidget extends StatelessWidget {
               onChanged: (value) {
                  value.isEmpty
                 ? "darf nicht leer sein"
-                : inheritedData= inheritedData.copyWith(title: value);
+                : inheritedData.title= value;
               });
   }
 }

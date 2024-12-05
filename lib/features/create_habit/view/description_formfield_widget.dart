@@ -23,7 +23,7 @@ class DescriptionFormfieldWidget extends StatelessWidget {
           : inheritedData.description;
         },
         onChanged: (value) {
-          inheritedData=inheritedData.copyWith(description: value); 
+          inheritedData.description= value; 
         });
   }
 }

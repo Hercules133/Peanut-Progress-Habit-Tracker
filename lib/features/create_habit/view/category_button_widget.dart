@@ -28,7 +28,7 @@ class CategoryButtonWidget extends StatelessWidget {
               onPressed: () {
                 _hasBeenPressed.value = !_hasBeenPressed.value;
                 // if(_hasBeenPressed.value){
-                  inheritedData=inheritedData.copyWith(category: category); 
+                  inheritedData.category= category; 
                 // }
                  
                 },

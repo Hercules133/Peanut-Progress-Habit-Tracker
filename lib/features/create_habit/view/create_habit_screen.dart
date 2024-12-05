@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:streaks/data/models/category.dart';
 import 'package:streaks/data/providers/habit_provider.dart';
 import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
 import 'package:streaks/features/create_habit/view/app_bar_widget.dart';
@@ -18,7 +17,6 @@ class CreateHabit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Habit habit= Habit.defaultHabit(); 
-    // Map<String, dynamic> map= habit.toMap();
 
     return InheritedWidgetCreateHabit(
       habit: habit, 

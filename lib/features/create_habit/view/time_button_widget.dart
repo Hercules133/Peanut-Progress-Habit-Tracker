@@ -31,7 +31,7 @@ class TimeButtonWidget extends StatelessWidget {
                 );
                 if (picked != null) {
                   selectedTime.value = picked;
-                  inheritedData= inheritedData.copyWith(time: picked); 
+                  inheritedData.time= picked; 
                 }
               },
               child: Text(

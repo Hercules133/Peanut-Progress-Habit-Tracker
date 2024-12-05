@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/data/models/habit.dart';
 import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart'; 
 import 'package:streaks/data/providers/habit_provider.dart'; 
 import 'package:provider/provider.dart';
