@@ -3,10 +3,10 @@ import 'package:streaks/features/create_habit/view/inherited_widget_create_habit
 import 'package:streaks/data/providers/habit_provider.dart'; 
 import 'package:provider/provider.dart';
 
-Future<void> popupDeleteWidget(BuildContext context) async {
+Future<bool> popupDeleteWidget(BuildContext context) async {
   final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
   final habitProvider= Provider.of<HabitProvider> (context, listen: false); 
-  return showDialog(
+  var result = await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -20,14 +20,14 @@ Future<void> popupDeleteWidget(BuildContext context) async {
                   children: [
                   IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pop(context, true);
                       habitProvider.deleteHabit(inheritedData.id); 
                     },
                     icon: const Icon(Icons.check),
                   ),
                   IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pop(context, false);
                     },
                     icon: const Icon(Icons.close),
                   ),
@@ -35,4 +35,5 @@ Future<void> popupDeleteWidget(BuildContext context) async {
               ],
             ));
       });
+    return result; 
 }

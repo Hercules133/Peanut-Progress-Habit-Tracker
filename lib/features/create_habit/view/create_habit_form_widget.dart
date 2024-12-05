@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:streaks/data/models/category.dart';
 import 'package:streaks/data/models/habit.dart';
@@ -27,7 +26,7 @@ class CreateHabitFormWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final ownColors = Theme.of(context).extension<OwnColors>()!;
     Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
-    final categoryProvider= Provider.of<CategoryProvider> (context, listen: false); 
+    final categoryProvider= Provider.of<CategoryProvider> (context); 
     List<String> catNames = []; 
     List<Color> catColors = []; 
     for(Category cat in categoryProvider.categories){
@@ -37,8 +36,7 @@ class CreateHabitFormWidget extends StatelessWidget {
 
     return Form(
       key: _inputform,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
         children: [
           const Text("Title: "),
           TitleFormfieldWidget(
