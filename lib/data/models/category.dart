@@ -1,46 +1,54 @@
 import 'package:flutter/material.dart'; // for the icon class
 
 class Category {
-  String _name;
-  String _color; // (Hex code?)
-  Icon _icon;
-  // Optional, a description (?)
-  // icon (icons.)
+  final String name;
+  final Color color;
+  final IconData icon;
 
-  Category({required String name, required String color, required Icon icon})
-      : _color = color,
-        _name = name,
-        _icon = icon;
+  Category({
+    required this.name,
+    required this.color,
+    required this.icon,
+  });
+
+  static List<Category> defaultCategories() {
+    return [
+      Category(name: 'Default', color: Colors.green, icon: Icons.category),
+      Category(
+          name: 'Health', color: Colors.green, icon: Icons.health_and_safety),
+      Category(name: 'Work', color: Colors.blue, icon: Icons.work),
+      Category(name: 'Personal', color: Colors.orange, icon: Icons.person),
+    ];
+  }
+
+  factory Category.defaultCategory() {
+    return defaultCategories().first;
+  }
 
   Map<String, dynamic> toMap() {
     return {
-      'name': _name,
-      'color': _color,
-      'icon': {
-        'codePoint': _icon.icon?.codePoint,
-        'fontFamily': _icon.icon?.fontFamily,
-        'fontPackage': _icon.icon?.fontPackage,
-      },
+      'name': name,
+      'color': color.value,
+      'icon': icon.codePoint,
     };
   }
 
   factory Category.fromMap(Map<String, dynamic> map) {
     return Category(
       name: map['name'],
-      color: map['color'],
-      icon: Icon(
-        IconData(
-          map['icon']['codePoint'],
-          fontFamily: map['icon']['fontFamily'],
-          fontPackage: map['icon']['fontPackage'],
-        ),
-      ),
+      color: Color(map['color']),
+      icon: IconData(map['icon'], fontFamily: 'MaterialIcons'),
     );
   }
 
-  String get color => _color;
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! Category) return false;
 
-  Icon get icon => _icon;
+    return name == other.name && color == other.color && icon == other.icon;
+  }
 
-  String get name =>_name;
+  @override
+  int get hashCode => Object.hash(name, color, icon);
 }
