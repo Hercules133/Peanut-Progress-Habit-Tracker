@@ -10,18 +10,18 @@ import 'package:streaks/data/models/habit.dart';
 class CreateHabit extends StatelessWidget {
   const CreateHabit({
     super.key,
-   // this.habit
+  //  required this.habit
   });
   
-   //final Habit habit; 
+  //  final Habit habit; 
   
   @override
   Widget build(BuildContext context) {
     Habit habit= Habit.defaultHabit(); 
-    Map<String, dynamic> map= habit.toMap();
+    // Map<String, dynamic> map= habit.toMap();
 
     return InheritedWidgetCreateHabit(
-      habit: map, 
+      habit: habit, 
       child: Scaffold(
       appBar: AppBarWidget(
         appBar: AppBar(),

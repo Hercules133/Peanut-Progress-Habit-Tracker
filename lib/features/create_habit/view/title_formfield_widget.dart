@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streaks/data/models/habit.dart';
 import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
 
 class TitleFormfieldWidget extends StatelessWidget {
@@ -8,8 +9,8 @@ class TitleFormfieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
-     titleController.text= inheritedData["title"]; 
+     Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+     titleController.text= inheritedData.title; 
           return TextFormField(
               maxLength: 20,
               controller: titleController,
@@ -19,12 +20,12 @@ class TitleFormfieldWidget extends StatelessWidget {
               validator: (value) {
                 return (value == null || value.isEmpty)
                 ? "Enter title"
-                : inheritedData["title"] ;
+                : inheritedData.title ;
               },
               onChanged: (value) {
                  value.isEmpty
                 ? "darf nicht leer sein"
-                : inheritedData["title"]=value;
+                : inheritedData= inheritedData.copyWith(title: value);
               });
   }
 }

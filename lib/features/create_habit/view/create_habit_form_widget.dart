@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:streaks/data/models/category.dart';
+import 'package:streaks/data/models/habit.dart';
 import 'package:streaks/data/models/ownColors.dart';
 import 'package:streaks/data/providers/category_provider.dart';
 import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
@@ -24,7 +26,7 @@ class CreateHabitFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ownColors = Theme.of(context).extension<OwnColors>()!;
-    final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+    Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
     final categoryProvider= Provider.of<CategoryProvider> (context, listen: false); 
     List<String> catNames = []; 
     List<Color> catColors = []; 
@@ -69,15 +71,32 @@ class CreateHabitFormWidget extends StatelessWidget {
               isRadio: true,
               onSelected: (val, i, selected) {
                 if(selected){
-                  inheritedData["category"]= categoryProvider.categories[i].toMap(); 
+                  inheritedData=inheritedData.copyWith(category: categoryProvider.categories[i]); 
                 }
               },
               buttons: catNames,
               options: GroupButtonOptions (
                 selectedColor: ownColors.contribution2,
-                unselectedColor: ownColors.contribution1,
-                )
-               
+                unselectedColor: ownColors.contribution1
+                ),
+                // buttonIndexedBuilder: (selected, index, context){
+                //   Color color= !selected
+                //                 ? catColors[index] 
+                //                 : ownColors.contribution2;  
+                  
+                // return Container( 
+                //   margin: const EdgeInsets.symmetric(horizontal: 5), 
+                //   child: ElevatedButton(
+                //    style: ElevatedButton.styleFrom(
+                //      backgroundColor: selected ? ownColors.contribution1 :color,
+                //     ), 
+                //   onPressed: () {
+                //     // AutocompleteOnSelected; 
+                //   }, 
+                //   child: Text(catNames[index]),
+                // ),
+                // ); 
+                // },
               )
             // Row(
             //   children: [

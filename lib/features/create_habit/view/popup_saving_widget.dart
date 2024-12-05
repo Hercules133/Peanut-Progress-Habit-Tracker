@@ -22,12 +22,12 @@ Future<void> popupSavingWidget(BuildContext context) async {
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      habitProvider.addHabit(Habit.fromMap(inheritedData)); 
-                      debugPrint(inheritedData["title"]);
-                      debugPrint(inheritedData["description"]);  
-                      debugPrint(inheritedData["time"]);
-                      debugPrint(inheritedData["days"]); 
-                      debugPrint(inheritedData["category"]["name"]); 
+                      habitProvider.addHabit(inheritedData); 
+                      debugPrint(inheritedData.title);
+                      debugPrint(inheritedData.description);  
+                      debugPrint("${inheritedData.time.hour}: ${inheritedData.time.minute}");
+                      debugPrint(inheritedData.days.toString()); 
+                      debugPrint(inheritedData.category.name); 
 
                     },
                     icon: const Icon(Icons.check),
