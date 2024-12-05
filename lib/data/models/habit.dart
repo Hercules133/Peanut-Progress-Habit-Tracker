@@ -4,13 +4,13 @@ import 'package:streaks/core/utils/enums/progress_status.dart';
 import 'package:streaks/core/utils/enums/day_of_week.dart';
 
 class Habit {
-  final int id;
-  final String title;
-  final String description;
-  final List<DayOfWeek> days;
-  final TimeOfDay time;
-  final Map<DateTime, ProgressStatus> progress;
-  final Category category;
+  int id;
+  String title;
+  String description;
+  List<DayOfWeek> days;
+  TimeOfDay time;
+  Map<DateTime, ProgressStatus> progress;
+  Category category;
 
   Habit({
     required this.id,
