@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streaks/data/models/category.dart';
 import 'package:streaks/data/models/ownColors.dart';
-import 'package:streaks/features/create_habit/inherited_widget_create_habit.dart';
+import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
 
 class CategoryButtonWidget extends StatelessWidget {
   CategoryButtonWidget(

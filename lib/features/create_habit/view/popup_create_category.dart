@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:provider/provider.dart';
+import 'package:streaks/data/models/category.dart';
+import 'package:streaks/data/providers/category_provider.dart';
 
 Future<void> popupCreateCategory(BuildContext context) async {
   IconData _selectedIcon = Icons.star;
   Color _selectedColor = Colors.red; // Shared variable for the color
   final TextEditingController _textController = TextEditingController();
-
+  final categoryProvider= Provider.of<CategoryProvider> (context, listen: false); 
   return showDialog(
     context: context,
     builder: (context) {
@@ -88,7 +91,12 @@ Future<void> popupCreateCategory(BuildContext context) async {
                   ),
                   TextButton(
                     onPressed: () {
-                      // save new category logic
+                      Category cat= Category(name: _textController.text , color: _selectedColor, icon: _selectedIcon); 
+                      debugPrint(_textController.text);
+                      debugPrint(_selectedColor.toString()); 
+                      debugPrint(_selectedIcon.toString()); 
+                      categoryProvider.addCategory(cat);
+                      Navigator.of(context).pop();
                     },
                     child: const Text('Save'),
                   )

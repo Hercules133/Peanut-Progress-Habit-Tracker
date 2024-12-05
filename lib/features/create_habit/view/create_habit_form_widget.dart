@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:streaks/data/models/category.dart';
 import 'package:streaks/data/models/ownColors.dart';
 import 'package:streaks/data/providers/category_provider.dart';
-import 'package:streaks/features/create_habit/inherited_widget_create_habit.dart';
+import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
 import 'package:streaks/features/create_habit/view/add_category_button_widget.dart';
 import 'package:streaks/features/create_habit/view/days_row_widget.dart';
 import 'package:streaks/features/create_habit/view/description_formfield_widget.dart';
