@@ -32,7 +32,7 @@ Future<void> showDetailsDialog(BuildContext context, Habit habit) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MyHeatMap(),
+              MyHeatMap(habit: habit,),
               Text(
                 habit.description,
                 style: TextStyle(fontSize: 20),
