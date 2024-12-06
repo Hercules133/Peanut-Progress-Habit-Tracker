@@ -1,89 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+import 'package:provider/provider.dart';
+import 'package:streaks/core/utils/routes.dart';
+import 'package:streaks/data/providers/category_provider.dart';
+import '../../../core/widgets/app_bar_widget.dart';
+import 'package:streaks/core/widgets/drawer_menu_widget.dart';
+import 'package:streaks/core/utils/get_greeting.dart';
+import 'heat_map_widget.dart';
+import 'tab_bar_widget.dart';
+import 'tab_bar_view_widget.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
 
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
-  late final TabController _tabController =
-      TabController(length: 2, vsync: this);
-  static const List<Tab> myTabs = <Tab>[
-    Tab(text: 'LEFT'),
-    Tab(text: 'RIGHT'),
-  ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
+    CategoryProvider categoryProvider = context.watch<CategoryProvider>();
+    List<String> categoriesName =
+        categoryProvider.categories.map((e) => e.name).toList();
+
+    return DefaultTabController(
+      length: categoriesName.length,
+      child: Scaffold(
+        appBar: MyAppBar(
+          appBar: AppBar(),
+          appBarTitle: getGreeting(),
         ),
-        actions: [
-          IconButton(
-              icon: Image.asset('assets/images/logo.png'), onPressed: () {}),
-        ],
-      ),
-      drawer: Drawer(child: ListView() // Populate the Drawer in the last step.
-          ),
-      body: Align(
-        alignment: Alignment.topCenter,
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            return Column(
-              children: [
-                const Expanded(
-                  child: HeatMap(
-                    scrollable: true,
-                    // startDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
-                    // endDate: DateTime(DateTime.now().year, DateTime.now().month+3),
-                    colorsets: {
-                      1: Colors.red,
-                      3: Colors.orange,
-                      5: Colors.yellow,
-                      7: Colors.green,
-                      9: Colors.blue,
-                      11: Colors.indigo,
-                      13: Colors.purple,
-                    },
-                  ),
-                ),
-                TabBar(
-                  controller: _tabController,
-                  tabs: myTabs,
-                ),
-                Expanded(
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: myTabs.map((Tab tab) {
-                      final String label = tab.text!.toLowerCase();
-                      return Center(
-                        child: Text(
-                          'This is the $label tab',
-                          style: const TextStyle(fontSize: 36),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                )
-              ],
-            );
+        drawer: const MyDrawerMenu(),
+        body: Column(
+          children: [
+            const MyHeatMap(),
+            MyTabBar(tabs: categoriesName),
+            const Expanded(
+              child: MyTabBarView(),
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.addAndEdit);
           },
+          tooltip: 'new Habit',
+          shape: const CircleBorder(),
+          child: const Icon(Icons.add),
         ),
       ),
     );
