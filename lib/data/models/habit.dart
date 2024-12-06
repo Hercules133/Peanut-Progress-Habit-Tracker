@@ -115,19 +115,42 @@ class Habit {
     return progress[date] == ProgressStatus.completed;
   }
 
-  DateTime? getNextDueDate() {
-    final today = DateTime.now();
+  DateTime getNextDueDate() {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+
+    DateTime? closestDate;
+
     for (var day in days) {
       var nextDate = _getNextDateForDay(day, today);
-      if (nextDate.isAfter(today)) {
-        return nextDate;
+      nextDate = DateTime(
+          nextDate.year, nextDate.month, nextDate.day, time.hour, time.minute);
+
+      if (nextDate.isAfter(now) &&
+          (closestDate == null || nextDate.isBefore(closestDate))) {
+        closestDate = nextDate;
       }
     }
-    return null;
+
+    if (closestDate == null) {
+      var fallbackDay = days.first;
+      closestDate = _getNextDateForDay(fallbackDay, today);
+      closestDate = DateTime(closestDate.year, closestDate.month,
+          closestDate.day, time.hour, time.minute);
+    }
+
+    return closestDate;
   }
 
   DateTime _getNextDateForDay(DayOfWeek day, DateTime today) {
-    int daysToAdd = (day.index - today.weekday + 7) % 7;
+    int daysToAdd = (day.index + 1 - today.weekday + 7) % 7;
+
+    if (daysToAdd == 0 &&
+        DateTime.now().isAfter(DateTime(
+            today.year, today.month, today.day, time.hour, time.minute))) {
+      daysToAdd = 7;
+    }
+
     return today.add(Duration(days: daysToAdd));
   }
 }

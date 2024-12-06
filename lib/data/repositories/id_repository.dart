@@ -21,7 +21,7 @@ class IdRepository {
     await _storageService.save(
       _habitIdTable,
       {_habitIdCounterKey: newId},
-      (data) => data[_habitIdCounterKey].toString(),
+      (data) => _habitIdCounterKey,
     );
 
     return newId;

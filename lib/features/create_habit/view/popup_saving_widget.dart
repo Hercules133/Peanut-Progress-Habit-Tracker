@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:streaks/core/config/locator.dart';
+import 'package:streaks/core/utils/enums/progress_status.dart';
+import 'package:streaks/data/repositories/id_repository.dart';
 import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart'; 
 import 'package:streaks/data/providers/habit_provider.dart'; 
 import 'package:provider/provider.dart';
 
 Future<void> popupSavingWidget(BuildContext context) async {
   final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
-  final habitProvider= Provider.of<HabitProvider> (context, listen: false); 
+  final habitProvider= Provider.of<HabitProvider> (context, listen: false);
+  final idRepository = locator<IdRepository>();
+  int id = await idRepository.generateNextHabitId();
   return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -19,9 +24,15 @@ Future<void> popupSavingWidget(BuildContext context) async {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                   IconButton(
-                    onPressed: () {
+                    onPressed: () async {
                       Navigator.pop(context);
-                      habitProvider.addHabit(inheritedData); 
+                      habitProvider.addHabit(inheritedData.copyWith(
+                              id: id,
+                              progress: {
+                                inheritedData.getNextDueDate():
+                                    ProgressStatus.notCompleted
+                              }));
+                      debugPrint('id: $id');
                       debugPrint(inheritedData.title);
                       debugPrint(inheritedData.description);  
                       debugPrint("${inheritedData.time.hour}: ${inheritedData.time.minute}");
