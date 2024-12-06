@@ -9,6 +9,7 @@ import 'package:streaks/data/providers/habit_provider.dart';
 import 'package:streaks/features/settings_page/view/settings_page.dart';
 import 'package:streaks/features/statistics_page/view/statistics_screen.dart';
 import 'core/utils/routes.dart';
+import 'package:streaks/data/models/habit.dart';
 import 'features/settings_page/view/switch_state.dart';
 
 void main() async {
@@ -59,7 +60,11 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             routes: {
               Routes.home: (context) => const MyHomePage(),
-              Routes.addAndEdit: (context) => const CreateHabit(),
+              Routes.addAndEdit: (context) {
+                final habit =
+                    ModalRoute.of(context)?.settings.arguments as Habit?;
+                return CreateHabit(habit: habit);
+              },
               Routes.settings: (context) => const SettingsPage(),
               Routes.statistics: (context) => const StatisticsPage(),
             },

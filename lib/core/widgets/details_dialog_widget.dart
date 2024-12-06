@@ -65,7 +65,8 @@ Future<void> showDetailsDialog(BuildContext context, Habit habit) {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(Routes.addAndEdit);
+                  Navigator.of(context)
+                      .pushNamed(Routes.addAndEdit, arguments: habit);
                 },
                 child: const Icon(Icons.edit),
               )
