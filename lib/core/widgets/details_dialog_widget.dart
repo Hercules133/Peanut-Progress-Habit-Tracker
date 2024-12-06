@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:streaks/core/utils/hexcolor.dart';
 import 'package:streaks/core/widgets/details_dialog_heatmap_widget.dart';
 import 'package:streaks/data/models/habit.dart';
 import 'package:streaks/core/utils/routes.dart';
@@ -16,8 +15,9 @@ Future<void> showDetailsDialog(BuildContext context, Habit habit) {
               style: TextStyle(fontSize: 25),
             ),
             leading: IconButton(
-                onPressed: () {},
-                icon: Image.asset('assets/images/Erdnuss.png')),
+              onPressed: () {},
+              icon: Image.asset('assets/images/Erdnuss.png'),
+            ),
             trailing: Row(mainAxisSize: MainAxisSize.min, children: [
               Text(
                 '${habit.streak}',
@@ -32,7 +32,9 @@ Future<void> showDetailsDialog(BuildContext context, Habit habit) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MyHeatMap(habit: habit,),
+              MyHeatMap(
+                habit: habit,
+              ),
               Text(
                 habit.description,
                 style: TextStyle(fontSize: 20),
@@ -49,14 +51,13 @@ Future<void> showDetailsDialog(BuildContext context, Habit habit) {
               DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  // color: HexColor(habit.category.color),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 4.0), // Mehr Platz
+                      horizontal: 8.0, vertical: 4.0),
                   child: Row(
                     children: [
-                      // habit.category.icon,
+                      Icon(habit.category.icon),
                       Text(habit.category.name),
                     ],
                   ),
@@ -64,7 +65,7 @@ Future<void> showDetailsDialog(BuildContext context, Habit habit) {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(Routes.addAndEdit); // this has to take us to the edit page later
+                  Navigator.of(context).pushNamed(Routes.addAndEdit);
                 },
                 child: const Icon(Icons.edit),
               )

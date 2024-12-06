@@ -1,12 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:streaks/core/widgets/app_bar_widget.dart';
 import 'package:streaks/core/widgets/drawer_menu_widget.dart';
+
+import 'switch_state.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final switchState = Provider.of<SwitchState>(context);
     return Scaffold(
       appBar: MyAppBar(
         appBar: AppBar(),
@@ -91,6 +96,20 @@ class SettingsPage extends StatelessWidget {
                 fillColor: Colors.white70,
               ),
             ),
+          ),
+          Text(
+            'Theme is ${switchState.isDarkMode ? "Dark" : "Light"}',
+            style: TextStyle(fontSize: 20),
+          ),
+          Switch(
+            value: switchState.isDarkMode,
+            onChanged: (value) {
+              switchState.toggleSwitch(value);
+            },
+            activeTrackColor: Colors.black,
+            activeColor: Colors.grey,
+            inactiveTrackColor: Colors.white,
+            inactiveThumbColor: Colors.grey,
           ),
         ],
       ),

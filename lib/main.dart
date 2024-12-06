@@ -9,6 +9,7 @@ import 'package:streaks/data/providers/habit_provider.dart';
 import 'package:streaks/features/settings_page/view/settings_page.dart';
 import 'package:streaks/features/statistics_page/view/statistics_screen.dart';
 import 'core/utils/routes.dart';
+import 'features/settings_page/view/switch_state.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,20 +43,27 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<CategoryProvider>(
           create: (_) => locator<CategoryProvider>(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => SwitchState(),
+        ),
       ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: lightMode,
-        darkTheme: darkMode,
-        themeMode: ThemeMode.system,
-        home: const MyHomePage(),
-        debugShowCheckedModeBanner: false,
-        routes: {
-          Routes.home: (context) => const MyHomePage(),
-          Routes.addAndEdit: (context) => const CreateHabit(),
-          // Routes.habits: (context) => const
-          Routes.settings: (context) => const SettingsPage(),
-          Routes.statistics: (context) => const StatisticsPage(),
+      child: Consumer<SwitchState>(
+        builder: (context, switchState, _) {
+          return MaterialApp(
+            title: 'Flutter Demo',
+            theme: lightMode,
+            darkTheme: darkMode,
+            themeMode:
+                switchState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            home: const MyHomePage(),
+            debugShowCheckedModeBanner: false,
+            routes: {
+              Routes.home: (context) => const MyHomePage(),
+              Routes.addAndEdit: (context) => const CreateHabit(),
+              Routes.settings: (context) => const SettingsPage(),
+              Routes.statistics: (context) => const StatisticsPage(),
+            },
+          );
         },
       ),
     );
