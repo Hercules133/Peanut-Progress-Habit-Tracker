@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:streaks/data/models/habit.dart';
+import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
 
 class TitleFormfieldWidget extends StatelessWidget {
-  TitleFormfieldWidget({super.key, required this.titleController});
+  const TitleFormfieldWidget({super.key, required this.titleController});
 
-  final TextEditingController titleController;
-
-  final ValueNotifier<String> _title = ValueNotifier<String>("");
+  final TextEditingController titleController; 
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<String?>(
-        valueListenable: _title,
-        builder: (context, value, child) {
+     Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+     titleController.text= inheritedData.title; 
           return TextFormField(
               maxLength: 20,
               controller: titleController,
               decoration: const InputDecoration(
-                labelText: "Habit title",
                 hintText: "Enter a Habit title",
               ),
               validator: (value) {
                 return (value == null || value.isEmpty)
-                ? "Enter task"
-                : null;
+                ? "Enter title"
+                : inheritedData.title ;
               },
               onChanged: (value) {
-                 _title.value = value;
+                 value.isEmpty
+                ? "darf nicht leer sein"
+                : inheritedData.title= value;
               });
-        });
   }
 }

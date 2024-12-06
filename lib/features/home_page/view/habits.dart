@@ -1,13 +1,11 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:streaks/data/providers/habit_provider.dart';
 import 'package:streaks/features/home_page/view/tab_bar_view_widget.dart';
 import 'package:streaks/features/home_page/view/tab_bar_widget.dart';
 import '../../../core/widgets/app_bar_widget.dart';
 import 'package:streaks/core/utils/get_greeting.dart';
 import 'package:streaks/core/widgets/drawer_menu_widget.dart';
-import 'tab_bar_widget.dart';
-import 'package:streaks/core/utils/get_greeting.dart';
-import 'package:streaks/data/models/colorscheme.dart';
 
 class MyHabitsPage extends StatelessWidget {
   const MyHabitsPage({super.key});
@@ -29,25 +27,55 @@ class MyHabitsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final habitProvider = context.watch()<HabitProvider>();
+    
     return DefaultTabController(
-        length: categoriesName.length,
-        child: Scaffold(
-          appBar: MyAppBar(
-            appBar: AppBar(),
-            appBarTitle: getGreeting(),
-          ),
-          drawer: const MyDrawerMenu(),
-          body: const Column(
-            children: [
-              MyTabBar(tabs: categoriesName),
-              Expanded(
-                child: MyTabBarView(tabs: categoriesName),
-              )
-            ],
-          ),
-        )
-      );
-    }
+      length: categoriesName.length,
+      child: Scaffold(
+        appBar: MyAppBar(
+          appBar: AppBar(),
+          appBarTitle: getGreeting(),
+        ),
+        drawer: const MyDrawerMenu(),
+        body: Column(
+          children: [
+            // TabBar mit Such-Icon
+            Row(
+              children: [
+                const Expanded(
+                  child: MyTabBar(tabs: categoriesName),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () => habitProvider.toggleSearch(),
+                ),
+              ],
+            ),
+            // Suchleiste anzeigen, wenn die Suche aktiv ist
+            if (habitProvider.isSearching)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Suche nach Habits...",
+                    prefixIcon: const Icon(Icons.search),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => habitProvider.toggleSearch(),
+                    ),
+                  ),
+                  onChanged: (value) => habitProvider.updateQuery(value),
+                ),
+              ),
+            // Gefilterte Habit-Ansicht
+            const Expanded(
+              child: MyTabBarView(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget _buildSortOption(String label) {
     return Padding(

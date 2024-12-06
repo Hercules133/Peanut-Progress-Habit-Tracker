@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:streaks/core/utils/routes.dart';
+import 'package:streaks/data/providers/category_provider.dart';
 import '../../../core/widgets/app_bar_widget.dart';
 import 'package:streaks/core/widgets/drawer_menu_widget.dart';
 import 'package:streaks/core/utils/get_greeting.dart';
@@ -10,23 +12,12 @@ import 'tab_bar_view_widget.dart';
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
-  static const List<String> categoriesName = <String>[
-    'Category 1',
-    'Category 2',
-    'Category 3',
-    'Category 4',
-    'Category 5',
-    'Category 6',
-    'Category 7',
-    'Category 8',
-    'Category 9',
-    'Category 10'
-  ];
-
-    
-
   @override
   Widget build(BuildContext context) {
+    CategoryProvider categoryProvider = context.watch<CategoryProvider>();
+    List<String> categoriesName =
+        categoryProvider.categories.map((e) => e.name).toList();
+
     return DefaultTabController(
       length: categoriesName.length,
       child: Scaffold(
@@ -35,12 +26,12 @@ class MyHomePage extends StatelessWidget {
           appBarTitle: getGreeting(),
         ),
         drawer: const MyDrawerMenu(),
-        body: const Column(
+        body: Column(
           children: [
-            MyHeatMap(),
+            const MyHeatMap(),
             MyTabBar(tabs: categoriesName),
-            Expanded(
-              child: MyTabBarView(tabs: categoriesName),
+            const Expanded(
+              child: MyTabBarView(),
             ),
           ],
         ),

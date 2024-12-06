@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streaks/features/create_habit/view/delete_button_widget.dart';
-import 'package:streaks/features/create_habit/view/close_button_widget.dart'; 
+import 'package:streaks/features/create_habit/view/close_button_widget.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget{
   const AppBarWidget({super.key, required this.appBar});

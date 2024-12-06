@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streaks/features/create_habit/view/popup_delete_widget.dart';
 
 class DeleteButtonWidget extends StatelessWidget {
   const DeleteButtonWidget({super.key});
@@ -11,7 +12,13 @@ class DeleteButtonWidget extends StatelessWidget {
         color: Colors.red,
       ),
       tooltip: "Delete",
-      onPressed: () {},
+      onPressed: () async{
+        var result= await popupDeleteWidget(context);  
+        if(result){
+          Navigator.pop(context); 
+        }
+        
+      },
     );
   }
 }

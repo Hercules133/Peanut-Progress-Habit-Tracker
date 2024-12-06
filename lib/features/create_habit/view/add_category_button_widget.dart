@@ -11,8 +11,9 @@ class AddCategoryButtonWidget extends StatelessWidget {
         Icons.add,
       ),
       tooltip: "Add Category",
-      onPressed: () async {
-            await popupCreateCategory(context); },
+      onPressed: () {
+        popupCreateCategory(context);
+      },
     );
   }
 }

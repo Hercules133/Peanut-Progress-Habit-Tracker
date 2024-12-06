@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:streaks/core/config/locator.dart';
 import 'package:streaks/data/providers/category_provider.dart';
+import 'package:streaks/data/models/theme.dart';
+import 'package:streaks/features/create_habit/view/create_habit_screen.dart';
 import 'package:streaks/features/home_page/view/home_page_screen.dart';
 import 'package:streaks/data/providers/habit_provider.dart';
 import 'package:streaks/features/settings_page/view/settings_page.dart';
 import 'package:streaks/features/statistics_page/view/statistics_screen.dart';
 import 'core/utils/routes.dart';
+import 'package:streaks/features/home_page/view/habits.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
