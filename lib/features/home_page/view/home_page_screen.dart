@@ -29,7 +29,7 @@ class MyHomePage extends StatelessWidget {
         body: Column(
           children: [
             const MyHeatMap(),
-            MyTabBar(tabs: categoriesName),
+            MyTabBar(),
             const Expanded(
               child: MyTabBarView(),
             ),

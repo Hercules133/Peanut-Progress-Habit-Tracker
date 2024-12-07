@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:streaks/data/providers/category_provider.dart';
 import 'package:streaks/data/providers/habit_provider.dart';
 import 'package:streaks/features/home_page/view/tab_bar_view_widget.dart';
 import 'package:streaks/features/home_page/view/tab_bar_widget.dart';
@@ -27,10 +28,10 @@ class MyHabitsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final habitProvider = context.watch()<HabitProvider>();
-    
+    final habitProvider = context.watch<HabitProvider>();
+    final categoryProvider = context.watch<CategoryProvider>();
     return DefaultTabController(
-      length: categoriesName.length,
+      length: categoryProvider.categories.length,
       child: Scaffold(
         appBar: MyAppBar(
           appBar: AppBar(),
@@ -42,31 +43,31 @@ class MyHabitsPage extends StatelessWidget {
             // TabBar mit Such-Icon
             Row(
               children: [
-                const Expanded(
-                  child: MyTabBar(tabs: categoriesName),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () => habitProvider.toggleSearch(),
-                ),
-              ],
-            ),
-            // Suchleiste anzeigen, wenn die Suche aktiv ist
-            if (habitProvider.isSearching)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Suche nach Habits...",
-                    prefixIcon: const Icon(Icons.search),
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.close),
-                      onPressed: () => habitProvider.toggleSearch(),
+                if (!habitProvider.isSearching) ...[
+                  const Expanded(
+                    child: MyTabBar(),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: () => habitProvider.toggleSearch(),
+                  ),
+                ] else ...[
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Suche nach Habits...",
+                        prefixIcon: const Icon(Icons.search),
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () => habitProvider.toggleSearch(),
+                        ),
+                      ),
+                      onChanged: (value) => habitProvider.updateQuery(value),
                     ),
                   ),
-                  onChanged: (value) => habitProvider.updateQuery(value),
-                ),
-              ),
+                ],
+              ],
+            ),
             // Gefilterte Habit-Ansicht
             const Expanded(
               child: MyTabBarView(),

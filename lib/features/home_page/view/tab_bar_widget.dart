@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:streaks/data/providers/category_provider.dart';
+import 'package:streaks/features/create_habit/view/create_habit_form_widget.dart';
 
 class MyTabBar extends StatelessWidget {
   const MyTabBar({
     super.key,
-    required this.tabs,
     this.isScrollable = true,
   });
 
-  final List<String> tabs;
   final bool isScrollable;
   static const List<Color> categoryColor = [
     Color.fromARGB(255, 146, 93, 53),
@@ -23,6 +24,8 @@ class MyTabBar extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    final categoryProvider = context.watch<CategoryProvider>();
+    print("Es existieren ${categoryProvider.categories.length} Kategorien.");
     return TabBar(
       physics: const BouncingScrollPhysics(),
       isScrollable: true,
@@ -38,7 +41,7 @@ class MyTabBar extends StatelessWidget {
       indicatorPadding: EdgeInsets.zero,
       labelPadding: EdgeInsets.zero,
       tabs: List.generate(
-        tabs.length,
+        categoryProvider.categories.length,
         (index) => Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
@@ -51,7 +54,8 @@ class MyTabBar extends StatelessWidget {
               child: Row(
                 children: [
                   const Icon(Icons.info), 
-                  Text(tabs[index])],
+                  Text(categoryProvider.categories[index].name)
+                ],
               ),
             ),
           ),
