@@ -19,6 +19,8 @@ class CreateHabitFormWidget extends StatelessWidget {
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  final ValueNotifier<bool> _hasBeenPressed = ValueNotifier<bool>(false);
+  GroupButtonController groupController = GroupButtonController(selectedIndex: 0); 
 
   final _inputform = GlobalKey<FormState>();
   
@@ -29,9 +31,15 @@ class CreateHabitFormWidget extends StatelessWidget {
     final categoryProvider= Provider.of<CategoryProvider> (context); 
     List<String> catNames = []; 
     List<Color> catColors = []; 
+    int i=0; 
     for(Category cat in categoryProvider.categories){
       catNames.add(cat.name); 
-      catColors.add(cat.color);  
+      catColors.add(cat.color); 
+      if(inheritedData.category==cat){
+        groupController.selectIndex(i); 
+        
+      } 
+      i++;
     }
 
     return Form(
@@ -66,6 +74,7 @@ class CreateHabitFormWidget extends StatelessWidget {
               AddCategoryButtonWidget(),
             ],),
             GroupButton(
+              controller: groupController,
               isRadio: true,
               onSelected: (val, i, selected) {
                 if(selected){

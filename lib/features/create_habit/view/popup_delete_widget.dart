@@ -23,7 +23,7 @@ Future<bool> popupDeleteWidget(BuildContext context) async {
                     onPressed: () {
                       habitProvider.deleteHabit(inheritedData.id);
                       Navigator.pop(context, true);
-                      Navigator.pushReplacementNamed(context, Routes.home, );
+                      
                     },
                     icon: const Icon(Icons.check),
                   ),

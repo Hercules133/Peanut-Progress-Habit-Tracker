@@ -16,6 +16,10 @@ class CategoryButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
     final ownColors = Theme.of(context).extension<OwnColors>()!; 
+
+    if (inheritedData.category==category){
+      _hasBeenPressed.value=true; 
+    }
     return ValueListenableBuilder<bool>(
         valueListenable: _hasBeenPressed,
         builder: (context, value, child) {
@@ -27,9 +31,9 @@ class CategoryButtonWidget extends StatelessWidget {
               ),
               onPressed: () {
                 _hasBeenPressed.value = !_hasBeenPressed.value;
-                // if(_hasBeenPressed.value){
+                if(_hasBeenPressed.value){
                   inheritedData.category= category; 
-                // }
+                }
                  
                 },
               child: Text(category.name));
