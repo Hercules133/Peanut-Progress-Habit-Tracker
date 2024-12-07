@@ -8,6 +8,7 @@ import 'package:streaks/data/models/habit.dart';
 
 class HabitProvider with ChangeNotifier {
   final HabitRepository _habitRepository;
+  final categoryProvider = locator<CategoryProvider>();
 
   HabitProvider(this._habitRepository);
 
@@ -23,6 +24,7 @@ class HabitProvider with ChangeNotifier {
 
     try {
       _habits = await _habitRepository.getAllHabits();
+      categoryProvider.initilizeCategories(_habits);
     } catch (e) {
       debugPrint('Error fetching habits: $e');
     } finally {
@@ -33,7 +35,6 @@ class HabitProvider with ChangeNotifier {
 
   Future<void> addHabit(Habit habit) async {
     try {
-      final categoryProvider = locator<CategoryProvider>();
       final isExistingCategory =
           categoryProvider.doesCategoryExist(habit.category);
 

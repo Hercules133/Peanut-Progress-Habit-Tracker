@@ -21,8 +21,9 @@ Future<bool> popupDeleteWidget(BuildContext context) async {
                   children: [
                   IconButton(
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, Routes.home);
-                      habitProvider.deleteHabit(inheritedData.id); 
+                      habitProvider.deleteHabit(inheritedData.id);
+                      Navigator.pop(context, true);
+                      Navigator.pushReplacementNamed(context, Routes.home, );
                     },
                     icon: const Icon(Icons.check),
                   ),
@@ -36,5 +37,5 @@ Future<bool> popupDeleteWidget(BuildContext context) async {
               ],
             ));
       });
-    return result; 
+    return result ?? false; 
 }

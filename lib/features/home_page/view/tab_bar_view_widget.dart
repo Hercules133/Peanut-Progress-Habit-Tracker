@@ -13,6 +13,14 @@ class MyTabBarView extends StatelessWidget {
     final categoryProvider = context.watch<CategoryProvider>();
     final allCategories = categoryProvider.categories;
 
+    if (habitProvider.isLoading || categoryProvider.categories.isEmpty) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (habitProvider.habits.isEmpty) {
+      return const Center(child: Text('No habits available.'));
+    }
+
     return TabBarView(
       children: allCategories.map((category) {
         final pendingHabits =

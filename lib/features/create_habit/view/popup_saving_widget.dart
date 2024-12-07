@@ -10,7 +10,9 @@ Future<void> popupSavingWidget(BuildContext context) async {
   final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
   final habitProvider= Provider.of<HabitProvider> (context, listen: false);
   final idRepository = locator<IdRepository>();
-  int id = await idRepository.generateNextHabitId();
+  int id = inheritedData.id == 0
+      ? await idRepository.generateNextHabitId()
+      : inheritedData.id;
   return showDialog(
       context: context,
       builder: (BuildContext context) {

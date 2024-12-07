@@ -12,23 +12,10 @@ import 'core/utils/routes.dart';
 import 'package:streaks/data/models/habit.dart';
 import 'features/settings_page/view/switch_state.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
-  await initializeApp();
   runApp(const MyApp());
-}
-
-Future<void> initializeApp() async {
-  try {
-    final habitProvider = locator<HabitProvider>();
-    await habitProvider.fetchHabits();
-
-    final categoryProvider = locator<CategoryProvider>();
-    categoryProvider.initilizeCategories(habitProvider.habits);
-  } catch (e) {
-    debugPrint("Error during initialization: $e");
-  }
 }
 
 class MyApp extends StatelessWidget {
@@ -39,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<HabitProvider>(
-          create: (_) => locator<HabitProvider>(),
+          create: (_) => locator<HabitProvider>()..fetchHabits(),
         ),
         ChangeNotifierProvider<CategoryProvider>(
           create: (_) => locator<CategoryProvider>(),
