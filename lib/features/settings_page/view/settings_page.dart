@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:streaks/core/widgets/app_bar_widget.dart';
@@ -11,7 +10,8 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final switchState = Provider.of<SwitchState>(context);
+    final switchState = Provider.of<SwitchState>(context, listen: false);
+
     return Scaffold(
       appBar: MyAppBar(
         appBar: AppBar(),
@@ -62,7 +62,7 @@ class SettingsPage extends StatelessWidget {
             child: SizedBox(
               width: 365,
               child: DropdownMenu(
-                inputDecorationTheme: const InputDecorationTheme(
+                inputDecorationTheme: InputDecorationTheme(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
@@ -97,22 +97,62 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            'Theme is ${switchState.isDarkMode ? "Dark" : "Light"}',
-            style: TextStyle(fontSize: 20),
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text("Theme Mode"),
+            ),
           ),
-          Switch(
-            value: switchState.isDarkMode,
-            onChanged: (value) {
-              switchState.toggleSwitch(value);
-            },
-            activeTrackColor: Colors.black,
-            activeColor: Colors.grey,
-            inactiveTrackColor: Colors.white,
-            inactiveThumbColor: Colors.grey,
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: SizedBox(
+              width: 365,
+              child: DropdownMenu(
+                inputDecorationTheme: const InputDecorationTheme(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
+                ),
+                width: 365,
+                label: const Text('Theme'),
+                initialSelection: _getInitialSelection(switchState.themeMode),
+                dropdownMenuEntries: const <DropdownMenuEntry<String>>[
+                  DropdownMenuEntry(value: 'dark', label: 'Dark'),
+                  DropdownMenuEntry(value: 'light', label: 'Light'),
+                  DropdownMenuEntry(value: 'system', label: 'System')
+                ],
+                onSelected: (String? newValue) {
+                  if (newValue != null) {
+                    switch (newValue) {
+                      case 'dark':
+                        switchState.toggleThemeMode(ThemeMode.dark);
+                        break;
+                      case 'light':
+                        switchState.toggleThemeMode(ThemeMode.light);
+                        break;
+                      case 'system':
+                        switchState.toggleThemeMode(ThemeMode.system);
+                        break;
+                    }
+                  }
+                },
+              ),
+            ),
           ),
         ],
       ),
     );
+  }
+}
+
+String _getInitialSelection(ThemeMode themeMode) {
+  switch (themeMode) {
+    case ThemeMode.dark:
+      return 'dark';
+    case ThemeMode.light:
+      return 'light';
+    case ThemeMode.system:
+      return 'system';
   }
 }

@@ -41,8 +41,7 @@ class MyApp extends StatelessWidget {
             title: 'Flutter Demo',
             theme: lightMode,
             darkTheme: darkMode,
-            themeMode:
-                switchState.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            themeMode: switchState.themeMode,
             home: const MyHomePage(),
             debugShowCheckedModeBanner: false,
             routes: {

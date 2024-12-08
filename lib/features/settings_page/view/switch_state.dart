@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class SwitchState with ChangeNotifier {
-  bool _isDarkMode = false;
+  ThemeMode _themeMode = ThemeMode.system;
 
-  bool get isDarkMode => _isDarkMode;
+  ThemeMode get themeMode => _themeMode;
 
-  void toggleSwitch(bool value) {
-    _isDarkMode = value;
+  void toggleThemeMode(ThemeMode newThemeMode) {
+    _themeMode = newThemeMode;
     notifyListeners();
   }
 }
