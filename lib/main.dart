@@ -47,12 +47,13 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             routes: {
               Routes.home: (context) => const MyHomePage(),
-              Routes.addAndEdit: (context) {
+              Routes.edit: (context) {
                 final habit =
                     ModalRoute.of(context)?.settings.arguments as Habit?;
                 return CreateHabit(habit: habit);
               },
-          Routes.habits: (context) => const MyHabitsPage(),
+              Routes.add: (context) => const CreateHabit(),
+              Routes.habits: (context) => const MyHabitsPage(),
               Routes.settings: (context) => const SettingsPage(),
               Routes.statistics: (context) => const StatisticsPage(),
             },

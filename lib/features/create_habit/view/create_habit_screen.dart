@@ -16,7 +16,7 @@ class CreateHabit extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-       final Habit currentHabit = habit ?? Habit.defaultHabit();
+      Habit currentHabit = habit ?? Habit.defaultHabit();
 
     return InheritedWidgetCreateHabit(
       habit: currentHabit, 
