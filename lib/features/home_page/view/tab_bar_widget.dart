@@ -6,11 +6,9 @@ import 'package:streaks/data/providers/category_provider.dart';
 class MyTabBar extends StatelessWidget {
   const MyTabBar({
     super.key,
-    required this.tabs,
     this.isScrollable = true,
   });
 
-  final List<String> tabs;
   final bool isScrollable;
   
   @override

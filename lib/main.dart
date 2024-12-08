@@ -11,6 +11,7 @@ import 'package:streaks/features/statistics_page/view/statistics_screen.dart';
 import 'core/utils/routes.dart';
 import 'package:streaks/data/models/habit.dart';
 import 'features/settings_page/view/switch_state.dart';
+import 'package:streaks/features/home_page/view/habits.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
                     ModalRoute.of(context)?.settings.arguments as Habit?;
                 return CreateHabit(habit: habit);
               },
+          Routes.habits: (context) => const MyHabitsPage(),
               Routes.settings: (context) => const SettingsPage(),
               Routes.statistics: (context) => const StatisticsPage(),
             },

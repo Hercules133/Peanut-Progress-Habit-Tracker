@@ -13,10 +13,16 @@ class HabitProvider with ChangeNotifier {
   HabitProvider(this._habitRepository);
 
   List<Habit> _habits = [];
-  List<Habit> get habits => _habits;
+  List<Habit> _filteredHabits = [];
+  List<Habit> get habits => _isSearching ? _filteredHabits : _habits;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
+
+  bool _isSearching = false; // Status der Suchleiste
+  String _query = ""; // Aktuelle Suchanfrage
+
+  bool get isSearching => _isSearching;
 
   Future<void> fetchHabits() async {
     _isLoading = true;
@@ -31,6 +37,23 @@ class HabitProvider with ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  void toggleSearch() {
+    _isSearching = !_isSearching;
+    if (!_isSearching) {
+      _query = "";
+      _filteredHabits = _habits; // Zeige alle Habits wieder an
+    }
+    notifyListeners();
+  }
+
+  void updateQuery(String query) {
+    _query = query;
+    _filteredHabits = _habits
+        .where((habit) => habit.title.toLowerCase().contains(_query.toLowerCase()))
+        .toList();
+    notifyListeners(); // UI über Änderungen informieren
   }
 
   Future<void> addHabit(Habit habit) async {
