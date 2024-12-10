@@ -160,9 +160,9 @@ class Habit {
   void toggleComplete(DateTime date) {
     date = dateOnly(date);
     if (_progress[date] == ProgressStatus.completed) {
-      markAsCompleted(date);
-    } else if (_progress[date] == ProgressStatus.notCompleted) {
       markAsNotCompleted(date);
+    } else if (_progress[date] == ProgressStatus.notCompleted) {
+      markAsCompleted(date);
     }
   }
 }
