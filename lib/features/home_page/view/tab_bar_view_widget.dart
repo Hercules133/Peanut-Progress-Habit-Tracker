@@ -13,6 +13,7 @@ class MyTabBarView extends StatelessWidget {
     final categoryProvider = context.watch<CategoryProvider>();
     final allCategories = categoryProvider.categories;
 
+    //TODO Doppelter code in private Methode auslagern, kein koppelten code.
     // Wenn Suche aktiv ist, werden gefilterte Habits angezeigt
     if (habitProvider.isSearching) {
       final filteredHabits = habitProvider.habits; // Gefilterte Habits
@@ -28,13 +29,17 @@ class MyTabBarView extends StatelessWidget {
             color: habit.category.color,
             child: ListTile(
               textColor: Colors.white,
-              contentPadding: const EdgeInsets.symmetric(
-                  vertical: 10.0, horizontal: 10.0),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
               leading: IconButton(
-                icon: Image.asset('assets/images/Erdnuss.png'),
-                onPressed: () => {},
+                icon: habit.isCompletedOnDate(DateTime.now())
+                    ? Image.asset('assets/images/Erdnusse.png')
+                    : Image.asset('assets/images/Erdnuss.png'),
+                onPressed: () {
+                  habit.toggleComplete(DateTime.now());
+                },
               ),
               title: Text(habit.title),
               trailing: Column(
@@ -78,7 +83,7 @@ class MyTabBarView extends StatelessWidget {
     return TabBarView(
       children: allCategories.map((category) {
         final pendingHabits =
-        habitProvider.getPendingHabitsByCategory(category);
+            habitProvider.getPendingHabitsByCategory(category);
 
         return ListView.separated(
           physics: const BouncingScrollPhysics(),
@@ -96,8 +101,12 @@ class MyTabBarView extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
                 leading: IconButton(
-                  icon: Image.asset('assets/images/Erdnuss.png'),
-                  onPressed: () => {},
+                  icon: habit.isCompletedOnDate(DateTime.now())
+                      ? Image.asset('assets/images/Erdnusse.png')
+                      : Image.asset('assets/images/Erdnuss.png'),
+                  onPressed: () {
+                    habit.toggleComplete(DateTime.now());
+                  },
                 ),
                 title: Text(habit.title),
                 trailing: Column(

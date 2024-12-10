@@ -26,6 +26,7 @@ class Habit {
   Map<DateTime, ProgressStatus> get progress => _progress;
 
   int get streak {
+    //TODO Das Datum von morgen muss ausgelassen werden.
     int streakCount = 0;
     List<DateTime> sortedDates = _progress.keys.toList()..sort();
 

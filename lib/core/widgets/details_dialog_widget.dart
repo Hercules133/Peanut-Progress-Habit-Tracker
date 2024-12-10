@@ -15,8 +15,12 @@ Future<void> showDetailsDialog(BuildContext context, Habit habit) {
               style: const TextStyle(fontSize: 25),
             ),
             leading: IconButton(
-              onPressed: () {},
-              icon: Image.asset('assets/images/Erdnuss.png'),
+              onPressed: () {
+                habit.toggleComplete(DateTime.now());
+              },
+              icon: habit.isCompletedOnDate(DateTime.now())
+                  ? Image.asset('assets/images/Erdnusse.png')
+                  : Image.asset('assets/images/Erdnuss.png'),
             ),
             trailing: Row(mainAxisSize: MainAxisSize.min, children: [
               Text(

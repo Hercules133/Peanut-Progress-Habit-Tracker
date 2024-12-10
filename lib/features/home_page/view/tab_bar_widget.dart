@@ -10,7 +10,7 @@ class MyTabBar extends StatelessWidget {
   });
 
   final bool isScrollable;
-  
+
   @override
   Widget build(BuildContext context) {
     CategoryProvider categoryProvider = context.watch<CategoryProvider>();
@@ -22,11 +22,12 @@ class MyTabBar extends StatelessWidget {
       overlayColor: WidgetStateProperty.all<Color>(Colors.transparent),
       indicator: const UnderlineTabIndicator(
         borderSide: BorderSide(
-          color: Colors.black, 
-          width: 2.0,),
+          color: Colors.black,
+          width: 2.0,
+        ),
       ),
-      labelColor: Colors.white,
-      unselectedLabelColor: const Color.fromARGB(255, 183, 182, 180),
+      labelColor: Theme.of(context).colorScheme.onPrimary,
+      unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
       padding: EdgeInsets.zero,
       indicatorPadding: EdgeInsets.zero,
       labelPadding: EdgeInsets.zero,
@@ -43,8 +44,9 @@ class MyTabBar extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  const Icon(Icons.info), 
-                  Text(allCategories[index].name)],
+                  const Icon(Icons.info),
+                  Text(allCategories[index].name)
+                ],
               ),
             ),
           ),
