@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streaks/core/config/locator.dart';
 import 'package:streaks/core/utils/enums/progress_status.dart';
+import 'package:streaks/data/models/date_only.dart';
 import 'package:streaks/data/repositories/id_repository.dart';
 import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
 import 'package:streaks/data/providers/habit_provider.dart';
@@ -13,6 +14,10 @@ Future<void> popupSavingWidget(BuildContext context) async {
   int id = inheritedData.id == 0
       ? await idRepository.generateNextHabitId()
       : inheritedData.id;
+  inheritedData.id = id;
+  inheritedData.progress.addAll({
+    dateOnly(inheritedData.getNextDueDate()): ProgressStatus.notCompleted,
+  });
 
   if (!context.mounted) return;
   return showDialog(
@@ -30,12 +35,7 @@ Future<void> popupSavingWidget(BuildContext context) async {
                       IconButton(
                         onPressed: () async {
                           Navigator.pop(context);
-                          habitProvider.addHabit(inheritedData.copyWith(
-                              id: id,
-                              progress: {
-                                inheritedData.getNextDueDate():
-                                    ProgressStatus.notCompleted
-                              }));
+                          habitProvider.addHabit(inheritedData);
                           debugPrint('id: $id');
                           debugPrint(inheritedData.title);
                           debugPrint(inheritedData.description);
