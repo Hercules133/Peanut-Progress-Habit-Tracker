@@ -7,11 +7,13 @@ class CloseButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-          onPressed: () async {
-            await popupSavingWidget(context); 
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.close),
-        ); 
+      onPressed: () async {
+        await popupSavingWidget(context);
+        if (context.mounted) {
+          Navigator.pop(context);
+        }
+      },
+      icon: const Icon(Icons.close),
+    );
   }
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/core/utils/routes.dart';
-import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart'; 
-import 'package:streaks/data/providers/habit_provider.dart'; 
+import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
+import 'package:streaks/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 
 Future<bool> popupDeleteWidget(BuildContext context) async {
   final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
-  final habitProvider= Provider.of<HabitProvider> (context, listen: false); 
+  final habitProvider = Provider.of<HabitProvider>(context, listen: false);
   var result = await showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -17,25 +16,24 @@ Future<bool> popupDeleteWidget(BuildContext context) async {
               children: [
                 const Text("Do you want to delete this Habit?"),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                  IconButton(
-                    onPressed: () {
-                      habitProvider.deleteHabit(inheritedData.id);
-                      Navigator.pop(context, true);
-                      
-                    },
-                    icon: const Icon(Icons.check),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context, false);
-                    },
-                    icon: const Icon(Icons.close),
-                  ),
-                ]),
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          habitProvider.deleteHabit(inheritedData.id);
+                          Navigator.pop(context, true);
+                        },
+                        icon: const Icon(Icons.check),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context, false);
+                        },
+                        icon: const Icon(Icons.close),
+                      ),
+                    ]),
               ],
             ));
       });
-    return result ?? false; 
+  return result ?? false;
 }

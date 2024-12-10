@@ -6,40 +6,42 @@ class MyDrawerMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Column(
-        children: [
-          ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text('Home'),
-            onTap: () {
-              Navigator.pushReplacementNamed(context, Routes.home);
-            },
-          ),
-          ListTile(
-            leading: const ImageIcon(
-              AssetImage('assets/images/Erdnuss.png'),
+    return SafeArea(
+      child: Drawer(
+        child: Column(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, Routes.home);
+              },
             ),
-            title: const Text('Habits'),
-            onTap: () {
-              Navigator.pushReplacementNamed(context, Routes.habits);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.signal_cellular_alt),
-            title: const Text('Statistics'),
-            onTap: () {
-              Navigator.pushReplacementNamed(context, Routes.statistics);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('Settings'),
-            onTap: () {
-              Navigator.pushReplacementNamed(context, Routes.settings);
-            },
-          ),
-        ],
+            ListTile(
+              leading: const ImageIcon(
+                AssetImage('assets/images/Erdnuss.png'),
+              ),
+              title: const Text('Habits'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, Routes.habits);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.signal_cellular_alt),
+              title: const Text('Statistics'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, Routes.statistics);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, Routes.settings);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

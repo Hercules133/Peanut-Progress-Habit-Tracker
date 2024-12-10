@@ -26,11 +26,11 @@ class MyHomePage extends StatelessWidget {
           appBarTitle: getGreeting(),
         ),
         drawer: const MyDrawerMenu(),
-        body: Column(
+        body: const Column(
           children: [
-            const MyHeatMap(),
+            MyHeatMap(),
             MyTabBar(),
-            const Expanded(
+            Expanded(
               child: MyTabBarView(),
             ),
           ],

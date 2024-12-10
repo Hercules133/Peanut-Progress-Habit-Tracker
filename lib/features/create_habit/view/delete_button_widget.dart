@@ -13,12 +13,14 @@ class DeleteButtonWidget extends StatelessWidget {
         color: Colors.red,
       ),
       tooltip: "Delete",
-      onPressed: () async{
-        var result= await popupDeleteWidget(context);  
-        if(result){
-          Navigator.pushReplacementNamed(context, Routes.home, );
+      onPressed: () async {
+        var result = await popupDeleteWidget(context);
+        if (result && context.mounted) {
+          Navigator.pushReplacementNamed(
+            context,
+            Routes.home,
+          );
         }
-        
       },
     );
   }

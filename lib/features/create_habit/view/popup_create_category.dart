@@ -5,10 +5,11 @@ import 'package:streaks/data/models/category.dart';
 import 'package:streaks/data/providers/category_provider.dart';
 
 Future<void> popupCreateCategory(BuildContext context) async {
-  IconData _selectedIcon = Icons.star;
-  Color _selectedColor = Colors.red; // Shared variable for the color
-  final TextEditingController _textController = TextEditingController();
-  final categoryProvider= Provider.of<CategoryProvider> (context, listen: false); 
+  IconData selectedIcon = Icons.star;
+  Color selectedColor = Colors.red; // Shared variable for the color
+  final TextEditingController textController = TextEditingController();
+  final categoryProvider =
+      Provider.of<CategoryProvider>(context, listen: false);
   return showDialog(
     context: context,
     builder: (context) {
@@ -23,7 +24,7 @@ Future<void> popupCreateCategory(BuildContext context) async {
               mainAxisSize: MainAxisSize.min,
               children: [
                 DropdownButton<IconData>(
-                  value: _selectedIcon,
+                  value: selectedIcon,
                   items: const [
                     DropdownMenuItem(
                       value: Icons.star,
@@ -41,7 +42,7 @@ Future<void> popupCreateCategory(BuildContext context) async {
                   onChanged: (IconData? newValue) {
                     if (newValue != null) {
                       setState(() {
-                        _selectedIcon = newValue;
+                        selectedIcon = newValue;
                       });
                     }
                   },
@@ -50,22 +51,22 @@ Future<void> popupCreateCategory(BuildContext context) async {
                 GestureDetector(
                   onTap: () async {
                     final pickedColor =
-                        await _pickColor(context, _selectedColor);
+                        await _pickColor(context, selectedColor);
                     if (pickedColor != null) {
                       setState(() {
-                        _selectedColor = pickedColor;
+                        selectedColor = pickedColor;
                       });
                     }
                   },
                   child: CircleAvatar(
-                    backgroundColor: _selectedColor,
+                    backgroundColor: selectedColor,
                     radius: 15,
                   ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: TextField(
-                    controller: _textController,
+                    controller: textController,
                     decoration: const InputDecoration(
                       hintText: "Name",
                       border: OutlineInputBorder(),
@@ -91,10 +92,13 @@ Future<void> popupCreateCategory(BuildContext context) async {
                   ),
                   TextButton(
                     onPressed: () {
-                      Category cat= Category(name: _textController.text , color: _selectedColor, icon: _selectedIcon); 
-                      debugPrint(_textController.text);
-                      debugPrint(_selectedColor.toString()); 
-                      debugPrint(_selectedIcon.toString()); 
+                      Category cat = Category(
+                          name: textController.text,
+                          color: selectedColor,
+                          icon: selectedIcon);
+                      debugPrint(textController.text);
+                      debugPrint(selectedColor.toString());
+                      debugPrint(selectedIcon.toString());
                       categoryProvider.addCategory(cat);
                       Navigator.of(context).pop();
                     },

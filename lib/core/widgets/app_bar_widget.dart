@@ -23,13 +23,11 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-            icon: Image.asset('assets/images/logo.png'),
-            onPressed: null),
+            icon: Image.asset('assets/images/logo.png'), onPressed: null),
       ],
     );
   }
 
   @override
-  Size get preferredSize => new Size.fromHeight(appBar.preferredSize.height);
-
+  Size get preferredSize => Size.fromHeight(appBar.preferredSize.height);
 }

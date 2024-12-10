@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
-import 'package:streaks/data/models/ownColors.dart';
+import 'package:streaks/data/models/own_colors.dart';
 import 'package:streaks/data/models/heatmap.dart' as hm;
 import 'package:streaks/data/models/habit.dart';
 
@@ -11,7 +11,8 @@ class MyHeatMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final weeksToShow = ((screenWidth - 18) / 20).floor(); //(screenWidth - widthWeekdays) / widthColumn
+    final weeksToShow = ((screenWidth - 18) / 20)
+        .floor(); //(screenWidth - widthWeekdays) / widthColumn
     final ownColors = Theme.of(context).extension<OwnColors>()!;
 
     return Container(

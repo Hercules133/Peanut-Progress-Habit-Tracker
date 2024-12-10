@@ -12,7 +12,7 @@ Future<void> showDetailsDialog(BuildContext context, Habit habit) {
         title: ListTile(
             title: Text(
               habit.title,
-              style: TextStyle(fontSize: 25),
+              style: const TextStyle(fontSize: 25),
             ),
             leading: IconButton(
               onPressed: () {},
@@ -21,7 +21,7 @@ Future<void> showDetailsDialog(BuildContext context, Habit habit) {
             trailing: Row(mainAxisSize: MainAxisSize.min, children: [
               Text(
                 '${habit.streak}',
-                style: TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 12),
               ),
               IconButton(
                 icon: Image.asset('assets/images/logo.png'),
@@ -37,9 +37,9 @@ Future<void> showDetailsDialog(BuildContext context, Habit habit) {
               ),
               Text(
                 habit.description,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
         ),

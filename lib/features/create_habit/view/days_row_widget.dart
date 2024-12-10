@@ -7,22 +7,22 @@ class DaysRowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 30,
-      child:  ListView(
-      scrollDirection: Axis.horizontal,
-      children: [
-        DayButtonWidget(day: "Mo"),
-        DayButtonWidget(day: "Tu"),
-        DayButtonWidget(day: "We"),
-        DayButtonWidget(day: "Th"),
-        DayButtonWidget(day: "Fr"),
-        DayButtonWidget(day: "Sa"),
-        DayButtonWidget(day: "Su"),
-        const SizedBox(width: 20),
-        TimeButtonWidget(),
-      ],
-    ),
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          DayButtonWidget(day: "Mo"),
+          DayButtonWidget(day: "Tu"),
+          DayButtonWidget(day: "We"),
+          DayButtonWidget(day: "Th"),
+          DayButtonWidget(day: "Fr"),
+          DayButtonWidget(day: "Sa"),
+          DayButtonWidget(day: "Su"),
+          const SizedBox(width: 20),
+          TimeButtonWidget(),
+        ],
+      ),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:provider/provider.dart';
-import 'package:streaks/data/models/ownColors.dart';
+import 'package:streaks/data/models/own_colors.dart';
 import 'package:streaks/data/models/heatmap.dart' as hm;
 import 'package:streaks/data/providers/habit_provider.dart';
 
@@ -14,7 +14,7 @@ class MyHeatMap extends StatelessWidget {
     final weeksToShow = ((screenWidth - 18) / 20).floor();
     final ownColors = Theme.of(context).extension<OwnColors>()!;
     final provider = Provider.of<HabitProvider>(context);
-    
+
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.all(6),
@@ -25,7 +25,7 @@ class MyHeatMap extends StatelessWidget {
       child: HeatMap(
         textColor: Theme.of(context).colorScheme.onSurface,
         colorMode: ColorMode.color,
-        colorTipHelper:  [
+        colorTipHelper: [
           Text('0% ',
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onSurface,
@@ -33,7 +33,7 @@ class MyHeatMap extends StatelessWidget {
           Text(
             ' 100% ',
             style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           )
         ],

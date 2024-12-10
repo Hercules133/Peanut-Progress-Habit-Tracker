@@ -14,16 +14,15 @@ class StatisticsPage extends StatelessWidget {
         appBarTitle: 'Statistics',
       ),
       drawer: const MyDrawerMenu(),
-      body: Column(
+      body: const Column(
         children: [
-          const MyHeatMap(),
+          MyHeatMap(),
           Text('Diagrams'),
           // https://pub.dev/packages/d_chart
           // https://pub.dev/packages/graphic
           // https://pub.dev/packages/syncfusion_flutter_charts
           // https://pub.dev/packages/fl_chart
           // https://pub.dev/packages/interactive_chart
-
         ],
       ),
     );

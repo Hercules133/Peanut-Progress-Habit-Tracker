@@ -92,7 +92,8 @@ class OwnColors extends ThemeExtension<OwnColors> {
       contribution3: Color.lerp(contribution3, other.contribution3, t)!,
       contribution4: Color.lerp(contribution4, other.contribution4, t)!,
       contribution5: Color.lerp(contribution5, other.contribution5, t)!,
-      contributionDefault: Color.lerp(contributionDefault, other.contributionDefault, t)!,
+      contributionDefault:
+          Color.lerp(contributionDefault, other.contributionDefault, t)!,
       category1: Color.lerp(category1, other.category1, t)!,
       category2: Color.lerp(category2, other.category2, t)!,
       category3: Color.lerp(category3, other.category3, t)!,
