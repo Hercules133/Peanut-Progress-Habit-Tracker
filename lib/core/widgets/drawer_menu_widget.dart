@@ -27,6 +27,7 @@ class MyDrawerMenu extends StatelessWidget {
               ),
               title: const Text('Habits'),
               onTap: () {
+                habitProvider.isSearching=false;
                 Navigator.pushReplacementNamed(context, Routes.habits);
               },
             ),
@@ -34,6 +35,7 @@ class MyDrawerMenu extends StatelessWidget {
               leading: const Icon(Icons.signal_cellular_alt),
               title: const Text('Statistics'),
               onTap: () {
+                habitProvider.isSearching=false;
                 Navigator.pushReplacementNamed(context, Routes.statistics);
               },
             ),
@@ -41,6 +43,7 @@ class MyDrawerMenu extends StatelessWidget {
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
               onTap: () {
+                habitProvider.isSearching=false;
                 Navigator.pushReplacementNamed(context, Routes.settings);
               },
             ),
