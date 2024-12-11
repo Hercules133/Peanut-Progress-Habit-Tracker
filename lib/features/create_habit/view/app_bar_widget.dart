@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:streaks/features/create_habit/view/delete_button_widget.dart';
 import 'package:streaks/features/create_habit/view/close_button_widget.dart';
+import 'package:streaks/data/models/habit.dart';
 
-class AppBarWidget extends StatelessWidget implements PreferredSizeWidget{
-  const AppBarWidget({super.key, required this.appBar});
-  final AppBar appBar; 
-
+class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
+  const AppBarWidget({super.key, required this.appBar, required this.habit});
+  final AppBar appBar;
+  final Habit habit;
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        leading: const CloseButtonWidget(), 
+        leading: CloseButtonWidget(
+          habit: habit,
+        ),
         actions: const <Widget>[
-          DeleteButtonWidget(), 
+          DeleteButtonWidget(),
         ]);
   }
 
-   @override
+  @override
   Size get preferredSize => Size.fromHeight(appBar.preferredSize.height);
 }

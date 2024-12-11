@@ -69,6 +69,7 @@ Future<void> showDetailsDialog(BuildContext context, Habit habit) {
               ),
               IconButton(
                 onPressed: () {
+                  Navigator.pop(context);
                   Navigator.of(context)
                       .pushNamed(Routes.edit, arguments: habit);
                 },
