@@ -26,15 +26,23 @@ class Habit {
   Map<DateTime, ProgressStatus> get progress => _progress;
 
   int get streak {
-    //TODO Das Datum von morgen muss ausgelassen werden.
     int streakCount = 0;
     List<DateTime> sortedDates = _progress.keys.toList()..sort();
 
     for (var date in sortedDates.reversed) {
-      if (_progress[date] == ProgressStatus.completed) {
+      if (_progress[date] == ProgressStatus.notCompleted) {
+        date = DateTime(
+          date.year,
+          date.month,
+          date.day + 1,
+          time.hour,
+          time.minute,
+        );
+        if (DateTime.now().isAfter(date)) {
+          break;
+        }
+      } else if (_progress[date] == ProgressStatus.completed) {
         streakCount++;
-      } else {
-        break;
       }
     }
     return streakCount;
