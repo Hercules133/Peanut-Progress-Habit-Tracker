@@ -46,7 +46,11 @@ class Category {
     if (identical(this, other)) return true;
     if (other is! Category) return false;
 
-    return name == other.name && color == other.color && icon == other.icon;
+    bool name = this.name == other.name;
+    bool color = this.color.value == other.color.value;
+    bool icon = this.icon == other.icon;
+
+    return name && color && icon;
   }
 
   @override
