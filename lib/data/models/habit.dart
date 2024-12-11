@@ -95,6 +95,19 @@ class Habit {
     );
   }
 
+  // Copy constructor
+  factory Habit.from(Habit other) {
+    return Habit(
+      id: other.id,
+      title: other.title,
+      description: other.description,
+      days: List.from(other.days),
+      time: other.time,
+      progress: Map.from(other.progress),
+      category: other.category,
+    );
+  }
+
   factory Habit.defaultHabit() {
     return Habit(
       id: 0,

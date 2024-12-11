@@ -7,29 +7,28 @@ import 'package:streaks/features/create_habit/view/create_habit_form_widget.dart
 import 'package:streaks/data/models/habit.dart';
 
 class CreateHabit extends StatelessWidget {
-   const CreateHabit({
+  const CreateHabit({
     super.key,
     this.habit,
   });
-  
-  final Habit? habit; 
-  
+
+  final Habit? habit;
+
   @override
   Widget build(BuildContext context) {
-      Habit currentHabit = habit ?? Habit.defaultHabit();
+    Habit currentHabit = habit ?? Habit.defaultHabit();
+    Habit h = Habit.from(currentHabit);
 
     return InheritedWidgetCreateHabit(
-      habit: currentHabit, 
-      child: Scaffold(
-      appBar: AppBarWidget(
-        appBar: AppBar(),
-      ),
-      body:  Consumer<HabitProvider>(builder: (context, habitProvider, child) {
-        return CreateHabitFormWidget();
-      }),
-    )
-      
-  );
-    
+        habit: h,
+        child: Scaffold(
+          appBar: AppBarWidget(
+            appBar: AppBar(),
+          ),
+          body:
+              Consumer<HabitProvider>(builder: (context, habitProvider, child) {
+            return CreateHabitFormWidget();
+          }),
+        ));
   }
 }
