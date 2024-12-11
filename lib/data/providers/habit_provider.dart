@@ -24,6 +24,10 @@ class HabitProvider with ChangeNotifier {
 
   bool get isSearching => _isSearching;
 
+  set isSearching(bool value) {
+    _isSearching = value;
+  }
+
   Future<void> fetchHabits() async {
     _isLoading = true;
     notifyListeners();
@@ -43,6 +47,8 @@ class HabitProvider with ChangeNotifier {
     _isSearching = !_isSearching;
     if (!_isSearching) {
       _query = "";
+      _filteredHabits = [];
+      print("toggleSearch Funktion ist gerufen worden");
       _filteredHabits = _habits; // Zeige alle Habits wieder an
     }
     notifyListeners();
