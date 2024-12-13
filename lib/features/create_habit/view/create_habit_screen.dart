@@ -24,7 +24,7 @@ class CreateHabit extends StatelessWidget {
         child: Scaffold(
           appBar: AppBarWidget(
             appBar: AppBar(),
-            habit: currentHabit,
+            // habit: currentHabit,
           ),
           body:
               Consumer<HabitProvider>(builder: (context, habitProvider, child) {

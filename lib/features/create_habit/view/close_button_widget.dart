@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:streaks/features/create_habit/view/popup_saving_widget.dart';
 import 'package:streaks/core/widgets/details_dialog_widget.dart';
-import 'package:streaks/data/models/habit.dart';
 
 class CloseButtonWidget extends StatelessWidget {
-  const CloseButtonWidget({super.key, required this.habit});
+  const CloseButtonWidget({
+    super.key,
+  });
 
-  final Habit habit;
   @override
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () async {
-        await popupSavingWidget(context);
+        final result = await popupSavingWidget(context);
         if (context.mounted) {
           Navigator.pop(context);
-          showDetailsDialog(context, habit);
+          if (result != null) showDetailsDialog(context, result);
         }
       },
       icon: const Icon(Icons.close),
