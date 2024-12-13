@@ -36,13 +36,15 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, Routes.add);
-          },
-          tooltip: 'new Habit',
-          shape: const CircleBorder(),
-          child: const Icon(Icons.add),
-        ),
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.add);
+            },
+            tooltip: 'new Habit',
+            shape: const CircleBorder(),
+            child: Icon(
+              Icons.add,
+              color: Theme.of(context).colorScheme.onSurface,
+            )),
       ),
     );
   }
