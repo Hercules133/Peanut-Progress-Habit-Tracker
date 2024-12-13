@@ -7,7 +7,7 @@ import 'package:streaks/features/create_habit/view/inherited_widget_create_habit
 import 'package:streaks/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 
-Future<void> popupSavingWidget(BuildContext context) async {
+Future<dynamic> popupSavingWidget(BuildContext context) async {
   final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
   final habitProvider = Provider.of<HabitProvider>(context, listen: false);
   final idRepository = locator<IdRepository>();
@@ -34,7 +34,7 @@ Future<void> popupSavingWidget(BuildContext context) async {
                     children: [
                       IconButton(
                         onPressed: () async {
-                          Navigator.pop(context);
+                          Navigator.of(context).pop(inheritedData);
                           habitProvider.addHabit(inheritedData);
                           debugPrint('id: $id');
                           debugPrint(inheritedData.title);
@@ -48,7 +48,7 @@ Future<void> popupSavingWidget(BuildContext context) async {
                       ),
                       IconButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.of(context).pop();
                         },
                         icon: const Icon(Icons.close),
                       ),
