@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:streaks/core/widgets/details_dialog_widget.dart';
+import 'package:streaks/data/models/own_colors.dart';
 import 'package:streaks/data/providers/category_provider.dart';
 import 'package:streaks/data/providers/habit_provider.dart';
 
@@ -12,6 +13,7 @@ class MyTabBarView extends StatelessWidget {
     final habitProvider = context.watch<HabitProvider>();
     final categoryProvider = context.watch<CategoryProvider>();
     final allCategories = categoryProvider.categories;
+    final ownColors = Theme.of(context).extension<OwnColors>()!;
 
     //TODO Doppelter code in private Methode auslagern, kein koppelten code.
     // Wenn Suche aktiv ist, werden gefilterte Habits angezeigt
@@ -28,7 +30,7 @@ class MyTabBarView extends StatelessWidget {
           return Card(
             color: habit.category.color,
             child: ListTile(
-              textColor: Colors.white,
+              textColor: ownColors.habitText,
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
               shape: RoundedRectangleBorder(
@@ -49,7 +51,9 @@ class MyTabBarView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(habit.streak.toString(),
-                          style: const TextStyle(color: Colors.white)),
+                          style: TextStyle(
+                            color: ownColors.habitText,
+                          )),
                       const SizedBox(width: 5),
                       SizedBox(
                         height: 30,
@@ -58,7 +62,9 @@ class MyTabBarView extends StatelessWidget {
                     ],
                   ),
                   Text(habit.time.format(context),
-                      style: const TextStyle(color: Colors.white)),
+                      style: TextStyle(
+                        color: ownColors.habitText,
+                      )),
                 ],
               ),
               onTap: () {
@@ -95,7 +101,7 @@ class MyTabBarView extends StatelessWidget {
             return Card(
               color: category.color,
               child: ListTile(
-                textColor: Colors.white,
+                textColor: ownColors.habitText,
                 contentPadding: const EdgeInsets.symmetric(
                     vertical: 10.0, horizontal: 10.0),
                 shape: RoundedRectangleBorder(
@@ -116,7 +122,9 @@ class MyTabBarView extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(habit.streak.toString(),
-                            style: const TextStyle(color: Colors.white)),
+                            style: TextStyle(
+                              color: ownColors.habitText,
+                            )),
                         const SizedBox(width: 5),
                         SizedBox(
                           height: 30,
@@ -125,7 +133,9 @@ class MyTabBarView extends StatelessWidget {
                       ],
                     ),
                     Text(habit.time.format(context),
-                        style: const TextStyle(color: Colors.white)),
+                        style: TextStyle(
+                          color: ownColors.habitText,
+                        )),
                   ],
                 ),
                 onTap: () {

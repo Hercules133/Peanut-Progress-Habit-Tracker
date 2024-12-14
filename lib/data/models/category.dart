@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart'; // for the icon class
+import 'package:flutter/material.dart';
 
 class Category {
   final String name;
@@ -13,11 +13,13 @@ class Category {
 
   static List<Category> defaultCategories() {
     return [
-      Category(name: 'Default', color: Colors.green, icon: Icons.category),
       Category(
-          name: 'Health', color: Colors.green, icon: Icons.health_and_safety),
-      Category(name: 'Work', color: Colors.blue, icon: Icons.work),
-      Category(name: 'Personal', color: Colors.orange, icon: Icons.person),
+          name: 'Health',
+          color: const Color(0xFFD3B09C),
+          icon: Icons.health_and_safety),
+      Category(name: 'Work', color: const Color(0xFFD6A579), icon: Icons.work),
+      Category(
+          name: 'Personal', color: const Color(0xFFE09165), icon: Icons.person),
     ];
   }
 

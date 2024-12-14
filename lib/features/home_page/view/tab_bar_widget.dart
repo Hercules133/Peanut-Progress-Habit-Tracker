@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:streaks/data/models/category.dart';
+import 'package:streaks/data/models/own_colors.dart';
 import 'package:streaks/data/providers/category_provider.dart';
 
 class MyTabBar extends StatelessWidget {
@@ -15,19 +16,15 @@ class MyTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     CategoryProvider categoryProvider = context.watch<CategoryProvider>();
     List<Category> allCategories = categoryProvider.categories;
+    final ownColors = Theme.of(context).extension<OwnColors>()!;
 
     return TabBar(
       physics: const BouncingScrollPhysics(),
       isScrollable: true,
       overlayColor: WidgetStateProperty.all<Color>(Colors.transparent),
-      indicator: const UnderlineTabIndicator(
-        borderSide: BorderSide(
-          color: Colors.black,
-          width: 2.0,
-        ),
-      ),
-      labelColor: Theme.of(context).colorScheme.onPrimary,
-      unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
+      indicator: null,
+      labelColor: ownColors.habitText,
+      unselectedLabelColor: Theme.of(context).colorScheme.onPrimary,
       padding: EdgeInsets.zero,
       indicatorPadding: EdgeInsets.zero,
       labelPadding: EdgeInsets.zero,

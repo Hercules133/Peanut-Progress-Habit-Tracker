@@ -22,7 +22,12 @@ class HabitProvider with ChangeNotifier {
   bool _isSearching = false; // Status der Suchleiste
   String _query = ""; // Aktuelle Suchanfrage
 
+  // ignore: unnecessary_getters_setters
   bool get isSearching => _isSearching;
+
+  set isSearching(bool value) {
+    _isSearching = value;
+  }
 
   Future<void> fetchHabits() async {
     _isLoading = true;
@@ -43,6 +48,8 @@ class HabitProvider with ChangeNotifier {
     _isSearching = !_isSearching;
     if (!_isSearching) {
       _query = "";
+      _filteredHabits = [];
+      debugPrint("toggleSearch Funktion ist gerufen worden");
       _filteredHabits = _habits; // Zeige alle Habits wieder an
     }
     notifyListeners();
@@ -51,7 +58,8 @@ class HabitProvider with ChangeNotifier {
   void updateQuery(String query) {
     _query = query;
     _filteredHabits = _habits
-        .where((habit) => habit.title.toLowerCase().contains(_query.toLowerCase()))
+        .where(
+            (habit) => habit.title.toLowerCase().contains(_query.toLowerCase()))
         .toList();
     notifyListeners(); // UI über Änderungen informieren
   }
@@ -144,5 +152,9 @@ class HabitProvider with ChangeNotifier {
     return _habits.where((habit) {
       return habit.category.name == category.name;
     }).toList();
+  }
+
+  Habit getHabitById(int id) {
+    return _habits.firstWhere((habit) => habit.id == id);
   }
 }

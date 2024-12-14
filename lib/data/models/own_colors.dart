@@ -19,6 +19,7 @@ class OwnColors extends ThemeExtension<OwnColors> {
     required this.category8,
     required this.category9,
     required this.category10,
+    required this.habitText,
   });
 
   final Color contribution0;
@@ -38,6 +39,7 @@ class OwnColors extends ThemeExtension<OwnColors> {
   final Color category8;
   final Color category9;
   final Color category10;
+  final Color habitText;
 
   @override
   OwnColors copyWith({
@@ -58,6 +60,7 @@ class OwnColors extends ThemeExtension<OwnColors> {
     Color? category8,
     Color? category9,
     Color? category10,
+    Color? habitText,
   }) {
     return OwnColors(
       contribution0: contribution0 ?? this.contribution0,
@@ -77,6 +80,7 @@ class OwnColors extends ThemeExtension<OwnColors> {
       category8: category8 ?? this.category8,
       category9: category9 ?? this.category9,
       category10: category10 ?? this.category10,
+      habitText: habitText ?? this.habitText,
     );
   }
 
@@ -104,6 +108,7 @@ class OwnColors extends ThemeExtension<OwnColors> {
       category8: Color.lerp(category8, other.category8, t)!,
       category9: Color.lerp(category9, other.category9, t)!,
       category10: Color.lerp(category10, other.category10, t)!,
+      habitText: Color.lerp(habitText, other.habitText, t)!,
     );
   }
 }
