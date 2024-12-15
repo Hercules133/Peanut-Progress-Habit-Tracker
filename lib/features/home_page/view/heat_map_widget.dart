@@ -40,7 +40,9 @@ class MyHeatMap extends StatelessWidget {
         scrollable: true,
         size: 15,
         defaultColor: ownColors.contributionDefault,
-        endDate: DateTime.now().add(Duration(days: 6 - DateTime.now().weekday)),
+        endDate: DateTime.now().add(
+          Duration(days: (6 - DateTime.now().weekday) % 7),
+        ),
         startDate: DateTime.now()
             .subtract(Duration(days: DateTime.daysPerWeek * (weeksToShow - 1))),
         datasets: hm.HeatMap.generateHeatMapData(provider),
