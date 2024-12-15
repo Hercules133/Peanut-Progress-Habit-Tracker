@@ -51,7 +51,7 @@ Future<void> showDetailsDialog(BuildContext context, Habit habit) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('${habit.time.hour}:${habit.time.minute}'),
+              Text('${habit.time.hour}:${checkMinute(habit.time.minute)}'),
               DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -81,4 +81,12 @@ Future<void> showDetailsDialog(BuildContext context, Habit habit) {
       );
     },
   );
+}
+
+String checkMinute(int minutes) {
+  if (minutes < 10) {
+    return '${minutes}0';
+  } else {
+    return '$minutes';
+  }
 }
