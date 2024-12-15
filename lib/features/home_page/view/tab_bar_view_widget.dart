@@ -26,7 +26,6 @@ class MyTabBarView extends StatelessWidget {
         itemCount: filteredHabits.length,
         itemBuilder: (context, idx) {
           final habit = filteredHabits[idx];
-
           return Card(
             color: habit.category.color,
             child: ListTile(
@@ -40,7 +39,7 @@ class MyTabBarView extends StatelessWidget {
                     ? Image.asset('assets/images/Erdnusse.png')
                     : Image.asset('assets/images/Erdnuss.png'),
                 onPressed: () {
-                  habit.toggleComplete(DateTime.now());
+                  habitProvider.toggleHabitComplete(habit, DateTime.now());
                 },
               ),
               title: Text(habit.title),
@@ -68,7 +67,10 @@ class MyTabBarView extends StatelessWidget {
                 ],
               ),
               onTap: () {
-                showDetailsDialog(context, habit);
+                showDialog(
+                  context: context,
+                  builder: (context) => HabitDetailsDialog(habit: habit),
+                );
               },
             ),
           );
@@ -97,7 +99,6 @@ class MyTabBarView extends StatelessWidget {
           itemCount: pendingHabits.length,
           itemBuilder: (context, idx) {
             final habit = pendingHabits[idx];
-
             return Card(
               color: category.color,
               child: ListTile(
@@ -111,7 +112,7 @@ class MyTabBarView extends StatelessWidget {
                       ? Image.asset('assets/images/Erdnusse.png')
                       : Image.asset('assets/images/Erdnuss.png'),
                   onPressed: () {
-                    habit.toggleComplete(DateTime.now());
+                    habitProvider.toggleHabitComplete(habit, DateTime.now());
                   },
                 ),
                 title: Text(habit.title),
@@ -139,7 +140,10 @@ class MyTabBarView extends StatelessWidget {
                   ],
                 ),
                 onTap: () {
-                  showDetailsDialog(context, habit);
+                  showDialog(
+                    context: context,
+                    builder: (context) => HabitDetailsDialog(habit: habit),
+                  );
                 },
               ),
             );
