@@ -4,11 +4,13 @@ class Category {
   final String name;
   final Color color;
   final IconData icon;
+  final bool isDefault;
 
   Category({
     required this.name,
     required this.color,
     required this.icon,
+    this.isDefault = false,
   });
 
   static List<Category> defaultCategories() {
@@ -16,10 +18,18 @@ class Category {
       Category(
           name: 'Health',
           color: const Color(0xFFD3B09C),
-          icon: Icons.health_and_safety),
-      Category(name: 'Work', color: const Color(0xFFD6A579), icon: Icons.work),
+          icon: Icons.health_and_safety,
+          isDefault: true),
       Category(
-          name: 'Personal', color: const Color(0xFFE09165), icon: Icons.person),
+          name: 'Work',
+          color: const Color(0xFFD6A579),
+          icon: Icons.work,
+          isDefault: true),
+      Category(
+          name: 'Personal',
+          color: const Color(0xFFE09165),
+          icon: Icons.person,
+          isDefault: true),
     ];
   }
 
