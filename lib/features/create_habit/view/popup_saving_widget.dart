@@ -3,21 +3,23 @@ import 'package:streaks/core/config/locator.dart';
 import 'package:streaks/core/utils/enums/progress_status.dart';
 import 'package:streaks/data/models/date_only.dart';
 import 'package:streaks/data/repositories/id_repository.dart';
+// import 'package:streaks/features/create_habit/view/inherited_notifier_empty_fields.dart';
 import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
 import 'package:streaks/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 
 Future<dynamic> popupSavingWidget(BuildContext context) async {
   final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+  // ValueNotifier<bool>
+  // bool  showDaysError= InheritedWidgetCreateHabit.of(context).showDaysError;
+  // //  ValueNotifier<bool>
+  //  bool pressed= InheritedWidgetCreateHabit.of(context).pressed;
+//     final inheritedNotifierEmpty = InheritedNotifierEmptyFields.of(context);
+// final counter = inheritedNotifierEmpty;
+
   final habitProvider = Provider.of<HabitProvider>(context, listen: false);
   final idRepository = locator<IdRepository>();
-  int id = inheritedData.id == 0
-      ? await idRepository.generateNextHabitId()
-      : inheritedData.id;
-  inheritedData.id = id;
-  inheritedData.progress.addAll({
-    dateOnly(inheritedData.getNextDueDate()): ProgressStatus.notCompleted,
-  });
+  bool empty = false;
 
   if (!context.mounted) return;
   return showDialog(
@@ -34,15 +36,54 @@ Future<dynamic> popupSavingWidget(BuildContext context) async {
                     children: [
                       IconButton(
                         onPressed: () async {
-                          Navigator.of(context).pop(inheritedData);
+                          // inheritedNotifierEmpty.setTrue();
+
+                          if (true) {
+                            if (inheritedData.days.isEmpty) {
+                              // showDaysError=true;
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              // const SnackBar(
+                              //     content:
+                              //         Text('Please select at least one day!')),
+                              // );
+                              empty = true;
+                            }
+                            if (inheritedData.title.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Please select a title!')),
+                              );
+                              empty = true;
+                            }
+
+                            if (empty) {
+                              Navigator.of(context).pop(empty);
+
+                              return;
+                            }
+                            // debugPrint(pressed.toString());
+                          }
+
+                          int id = inheritedData.id == 0
+                              ? await idRepository.generateNextHabitId()
+                              : inheritedData.id;
+                          inheritedData.id = id;
+                          inheritedData.progress.addAll({
+                            dateOnly(inheritedData.getNextDueDate()):
+                                ProgressStatus.notCompleted,
+                          });
                           habitProvider.addHabit(inheritedData);
-                          debugPrint('id: $id');
-                          debugPrint(inheritedData.title);
-                          debugPrint(inheritedData.description);
-                          debugPrint(
-                              "${inheritedData.time.hour}: ${inheritedData.time.minute}");
-                          debugPrint(inheritedData.days.toString());
-                          debugPrint(inheritedData.category.name);
+                          if (context.mounted) {
+                            Navigator.of(context).pop(inheritedData);
+                          }
+
+                          // debugPrint('id: $id');
+                          // debugPrint(inheritedData.title);
+                          // debugPrint(inheritedData.description);
+                          // debugPrint(
+                          //     "${inheritedData.time.hour}: ${inheritedData.time.minute}");
+                          // debugPrint(inheritedData.days.toString());
+                          // debugPrint(inheritedData.category.name);
                         },
                         icon: const Icon(Icons.check),
                       ),

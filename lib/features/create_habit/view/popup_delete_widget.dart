@@ -20,7 +20,11 @@ Future<bool> popupDeleteWidget(BuildContext context) async {
                     children: [
                       IconButton(
                         onPressed: () {
-                          habitProvider.deleteHabit(inheritedData.id);
+                          if (habitProvider.habits
+                              .any((item) => item.id == inheritedData.id)) {
+                            habitProvider.deleteHabit(inheritedData.id);
+                          }
+
                           Navigator.pop(context, true);
                         },
                         icon: const Icon(Icons.check),
