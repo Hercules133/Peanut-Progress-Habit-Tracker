@@ -14,7 +14,10 @@ class CloseButtonWidget extends StatelessWidget {
         final result = await popupSavingWidget(context);
         if (context.mounted) {
           Navigator.pop(context);
-          if (result != null) showDetailsDialog(context, result);
+          showDialog(
+            context: context,
+            builder: (context) => HabitDetailsDialog(habit: result),
+          );
         }
       },
       icon: const Icon(Icons.close),

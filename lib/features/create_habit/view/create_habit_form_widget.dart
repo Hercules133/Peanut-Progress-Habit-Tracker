@@ -63,7 +63,6 @@ class CreateHabitFormWidget extends StatelessWidget {
               ],
             ),
           ),
-
           const DaysRowWidget(),
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,32 +83,65 @@ class CreateHabitFormWidget extends StatelessWidget {
             options: GroupButtonOptions(
                 selectedColor: ownColors.contribution2,
                 unselectedColor: ownColors.contribution1),
-            // buttonIndexedBuilder: (selected, index, context){
-            //   Color color= !selected
-            //                 ? catColors[index]
-            //                 : ownColors.contribution2;
-
-            // return Container(
-            //   margin: const EdgeInsets.symmetric(horizontal: 5),
-            //   child: ElevatedButton(
-            //    style: ElevatedButton.styleFrom(
-            //      backgroundColor: selected ? ownColors.contribution1 :color,
-            //     ),
-            //   onPressed: () {
-            //     // AutocompleteOnSelected;
-            //   },
-            //   child: Text(catNames[index]),
-            // ),
-            // );
-            // },
-          )
-          // Row(
-          //   children: [
-          //     CategoryButtonWidget(category: "Sports", color: Colors.blue),
-          //     CategoryButtonWidget(category: "Hobby", color: Colors.green),
-          // ],)
+            buttonIndexedBuilder: (selected, index, context) {
+              return GestureDetector(
+                onLongPress: () async {
+                  bool result = await popupDeleteCategoryWidget(context);
+                  if (result) {
+                    categoryProvider
+                        .removeCategory(categoryProvider.categories[index]);
+                    debugPrint('Kategorie gelöscht: ${catNames[index]}');
+                  }
+                },
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: selected
+                        ? ownColors.contribution2
+                        : ownColors.contribution1,
+                  ),
+                  onPressed: () {
+                    groupController.selectIndex(index);
+                    inheritedData.category = categoryProvider.categories[index];
+                  },
+                  child: Text(catNames[index]),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
   }
+}
+
+Future<bool> popupDeleteCategoryWidget(BuildContext context) async {
+  var result = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            title: const Text('Delete'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text("Do you want to delete this Category?"),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context, true);
+                        },
+                        icon: const Icon(Icons.check),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context, false);
+                        },
+                        icon: const Icon(Icons.close),
+                      ),
+                    ]),
+              ],
+            ));
+      });
+  return result ?? false;
 }

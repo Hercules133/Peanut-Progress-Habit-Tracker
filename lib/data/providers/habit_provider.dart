@@ -157,4 +157,9 @@ class HabitProvider with ChangeNotifier {
   Habit getHabitById(int id) {
     return _habits.firstWhere((habit) => habit.id == id);
   }
+
+  void toggleHabitComplete(Habit habit, DateTime date) {
+    habit.toggleComplete(date);
+    notifyListeners();
+  }
 }
