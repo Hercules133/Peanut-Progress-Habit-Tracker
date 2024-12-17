@@ -69,8 +69,16 @@ class HabitDetailsDialog extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 child: Row(
                   children: [
-                    Icon(habit.category.icon),
-                    Text(habit.category.name),
+                    Icon(
+                      habit.category.icon,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    Text(
+                      habit.category.name,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
                   ],
                 ),
               ),

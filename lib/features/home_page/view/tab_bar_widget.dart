@@ -41,7 +41,7 @@ class MyTabBar extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  const Icon(Icons.info),
+                  Icon(allCategories[index].icon),
                   Text(allCategories[index].name)
                 ],
               ),
