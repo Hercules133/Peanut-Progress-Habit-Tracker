@@ -10,10 +10,9 @@ import 'package:provider/provider.dart';
 
 Future<dynamic> popupSavingWidget(BuildContext context) async {
   final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
-  // ValueNotifier<bool>
-  // bool  showDaysError= InheritedWidgetCreateHabit.of(context).showDaysError;
-  // //  ValueNotifier<bool>
-  //  bool pressed= InheritedWidgetCreateHabit.of(context).pressed;
+  ValueNotifier<bool> showDaysError =
+      InheritedWidgetCreateHabit.of(context).showDaysError;
+  ValueNotifier<bool> pressed = InheritedWidgetCreateHabit.of(context).pressed;
 //     final inheritedNotifierEmpty = InheritedNotifierEmptyFields.of(context);
 // final counter = inheritedNotifierEmpty;
 
@@ -37,10 +36,10 @@ Future<dynamic> popupSavingWidget(BuildContext context) async {
                       IconButton(
                         onPressed: () async {
                           // inheritedNotifierEmpty.setTrue();
-
+                          pressed.value = true;
                           if (true) {
                             if (inheritedData.days.isEmpty) {
-                              // showDaysError=true;
+                              showDaysError.value = true;
                               // ScaffoldMessenger.of(context).showSnackBar(
                               // const SnackBar(
                               //     content:
@@ -49,10 +48,10 @@ Future<dynamic> popupSavingWidget(BuildContext context) async {
                               empty = true;
                             }
                             if (inheritedData.title.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Please select a title!')),
-                              );
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              //   const SnackBar(
+                              //       content: Text('Please select a title!')),
+                              // );
                               empty = true;
                             }
 
@@ -61,7 +60,6 @@ Future<dynamic> popupSavingWidget(BuildContext context) async {
 
                               return;
                             }
-                            // debugPrint(pressed.toString());
                           }
 
                           int id = inheritedData.id == 0

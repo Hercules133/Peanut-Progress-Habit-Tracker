@@ -16,17 +16,28 @@ class CreateHabitFormWidget extends StatelessWidget {
     super.key,
   });
 
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
+  final _inputform = GlobalKey<FormState>();
+  final TextEditingController titleController =
+      TextEditingController(); //text: inheritedData.title);
+  final TextEditingController descriptionController =
+      TextEditingController(); //text: inheritedData.description);
   final GroupButtonController groupController =
       GroupButtonController(selectedIndex: 0);
 
-  final _inputform = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
-    final ownColors = Theme.of(context).extension<OwnColors>()!;
     Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+    // final inheritedNotifierEmpty = InheritedNotifierEmptyFields.of(context);
+// final counter = inheritedNotifierEmpty?.notifier;
+// final count = counter?.empty ?? 0;
+
+    final ownColors = Theme.of(context).extension<OwnColors>()!;
+
+    ValueNotifier<bool> showDaysError =
+        InheritedWidgetCreateHabit.of(context).showDaysError;
+    // // ValueNotifier<bool>
+    // bool pressed =
+    //     InheritedWidgetCreateHabit.of(context).pressed;
     final categoryProvider = Provider.of<CategoryProvider>(context);
     List<String> catNames = [];
     List<Color> catColors = [];
@@ -48,6 +59,7 @@ class CreateHabitFormWidget extends StatelessWidget {
           TitleFormfieldWidget(
             titleController: titleController,
           ),
+
           const Text("Description(optional): "),
           DescriptionFormfieldWidget(
             descriptionController: descriptionController,
@@ -64,7 +76,24 @@ class CreateHabitFormWidget extends StatelessWidget {
             ),
           ),
 
-          const DaysRowWidget(),
+          // const DaysRowWidget(),
+          //
+          ValueListenableBuilder(
+              valueListenable: showDaysError,
+              builder: (context, value, child) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const DaysRowWidget(),
+                    if (showDaysError.value)
+                      const Text(
+                        'Please select at least one day.',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                  ],
+                );
+              }),
+
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

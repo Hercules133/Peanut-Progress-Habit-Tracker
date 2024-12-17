@@ -9,12 +9,18 @@ class CloseButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //   ValueNotifier<bool> showDaysError= InheritedWidgetCreateHabit.of(context).showDaysError;
+    //  ValueNotifier<bool> pressed= InheritedWidgetCreateHabit.of(context).pressed;
+
     return IconButton(
       onPressed: () async {
         final result = await popupSavingWidget(context);
+
         if (context.mounted) {
-          Navigator.pop(context);
-          if (result != null) showDetailsDialog(context, result);
+          if (result != true) {
+            Navigator.pop(context);
+            if (result != null) showDetailsDialog(context, result);
+          }
         }
       },
       icon: const Icon(Icons.close),
