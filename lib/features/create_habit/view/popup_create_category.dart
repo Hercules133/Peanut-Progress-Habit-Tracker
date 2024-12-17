@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:streaks/data/models/category.dart';
 import 'package:streaks/data/providers/category_provider.dart';
@@ -16,6 +15,7 @@ Future<void> popupCreateCategory(BuildContext context) async {
   final TextEditingController textController = TextEditingController();
   final categoryProvider =
       Provider.of<CategoryProvider>(context, listen: false);
+  final formKey = GlobalKey<FormState>();
 
   return showDialog(
     context: context,
@@ -28,54 +28,66 @@ Future<void> popupCreateCategory(BuildContext context) async {
             color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
-        content: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ValueListenableBuilder<IconData>(
-              valueListenable: selectedIconNotifier,
-              builder: (context, selectedIcon, _) {
-                return IconDropdown(
-                  selectedIcon: selectedIcon,
-                  onIconChanged: (newIcon) {
-                    selectedIconNotifier.value = newIcon;
-                  },
-                );
-              },
-            ),
-            const SizedBox(width: 10),
-            GestureDetector(
-              onTap: () async {
-                final pickedColor =
-                    await pickColor(context, selectedColorNotifier.value);
-                if (pickedColor != null) {
-                  selectedColorNotifier.value = pickedColor;
-                }
-              },
-              child: ValueListenableBuilder<Color>(
-                valueListenable: selectedColorNotifier,
-                builder: (context, selectedColor, _) {
-                  return CircleAvatar(
-                    backgroundColor: selectedColor,
-                    radius: 15,
+        content: Form(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          key: formKey,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ValueListenableBuilder<IconData>(
+                valueListenable: selectedIconNotifier,
+                builder: (context, selectedIcon, _) {
+                  return IconDropdown(
+                    selectedIcon: selectedIcon,
+                    onIconChanged: (newIcon) {
+                      selectedIconNotifier.value = newIcon;
+                    },
                   );
                 },
               ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: TextField(
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(20),
-                ],
-                style:
-                    TextStyle(color: Theme.of(context).colorScheme.onSurface),
-                controller: textController,
-                decoration: const InputDecoration(
-                  hintText: "Name",
+              const SizedBox(width: 10),
+              GestureDetector(
+                onTap: () async {
+                  final pickedColor =
+                      await pickColor(context, selectedColorNotifier.value);
+                  if (pickedColor != null) {
+                    selectedColorNotifier.value = pickedColor;
+                  }
+                },
+                child: ValueListenableBuilder<Color>(
+                  valueListenable: selectedColorNotifier,
+                  builder: (context, selectedColor, _) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                        backgroundColor: selectedColor,
+                        radius: 15,
+                      ),
+                    );
+                  },
                 ),
               ),
-            ),
-          ],
+              const SizedBox(width: 10),
+              Expanded(
+                child: TextFormField(
+                  maxLength: 20,
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                  controller: textController,
+                  decoration: const InputDecoration(
+                    hintText: "Name",
+                  ),
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'required ';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
         actions: [
           Row(
@@ -83,13 +95,14 @@ Future<void> popupCreateCategory(BuildContext context) async {
             children: [
               IconButton(
                 onPressed: () {
-                  Category cat = Category(
-                      name: textController.text,
-                      color: selectedColorNotifier.value,
-                      icon: selectedIconNotifier.value);
-
-                  categoryProvider.addCategory(cat);
-                  Navigator.of(context).pop();
+                  if (formKey.currentState!.validate()) {
+                    Category cat = Category(
+                        name: textController.text,
+                        color: selectedColorNotifier.value,
+                        icon: selectedIconNotifier.value);
+                    categoryProvider.addCategory(cat);
+                    Navigator.of(context).pop();
+                  }
                 },
                 icon: const Icon(Icons.check),
               ),
