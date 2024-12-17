@@ -30,10 +30,12 @@ class CreateHabitFormWidget extends StatelessWidget {
     final categoryProvider = Provider.of<CategoryProvider>(context);
     List<String> catNames = [];
     List<Color> catColors = [];
+    List<IconData> catIcon = [];
     int i = 0;
     for (Category cat in categoryProvider.categories) {
       catNames.add(cat.name);
       catColors.add(cat.color);
+      catIcon.add(cat.icon);
       if (inheritedData.category == cat) {
         groupController.selectIndex(i);
       }
@@ -104,6 +106,7 @@ class CreateHabitFormWidget extends StatelessWidget {
                     inheritedData.category = categoryProvider.categories[index];
                   },
                   child: Text(catNames[index]),
+                  //TODO Icon muss noch hinzugefügt werden.
                 ),
               );
             },

@@ -7,8 +7,9 @@ class AddCategoryButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: const Icon(
+      icon: Icon(
         Icons.add,
+        color: Theme.of(context).colorScheme.onSurface,
       ),
       tooltip: "Add Category",
       onPressed: () {
