@@ -23,9 +23,12 @@ class HabitDetailsDialog extends StatelessWidget {
             onPressed: () {
               habitProvider.toggleHabitComplete(habit, DateTime.now());
             },
-            icon: habit.isCompletedOnDate(DateTime.now())
-                ? Image.asset('assets/images/Erdnusse.png')
-                : Image.asset('assets/images/Erdnuss.png'),
+            icon: SizedBox(
+              width: 40, // Feste Breite für das Icon
+              child: habit.isCompletedOnDate(DateTime.now())
+                  ? Image.asset('assets/images/Erdnusse.png')
+                  : Image.asset('assets/images/Erdnuss.png'),
+            ),
           ),
           trailing: Row(mainAxisSize: MainAxisSize.min, children: [
             Text(

@@ -35,9 +35,12 @@ class MyTabBarView extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
               leading: IconButton(
-                icon: habit.isCompletedOnDate(DateTime.now())
-                    ? Image.asset('assets/images/Erdnusse.png')
-                    : Image.asset('assets/images/Erdnuss.png'),
+                icon: SizedBox(
+                  width: 40, // Feste Breite für das Icon
+                  child: habit.isCompletedOnDate(DateTime.now())
+                      ? Image.asset('assets/images/Erdnusse.png')
+                      : Image.asset('assets/images/Erdnuss.png'),
+                ),
                 onPressed: () {
                   habitProvider.toggleHabitComplete(habit, DateTime.now());
                 },
@@ -108,9 +111,12 @@ class MyTabBarView extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
                 leading: IconButton(
-                  icon: habit.isCompletedOnDate(DateTime.now())
-                      ? Image.asset('assets/images/Erdnusse.png')
-                      : Image.asset('assets/images/Erdnuss.png'),
+                  icon: SizedBox(
+                    width: 40, // Feste Breite für das Icon
+                    child: habit.isCompletedOnDate(DateTime.now())
+                        ? Image.asset('assets/images/Erdnusse.png')
+                        : Image.asset('assets/images/Erdnuss.png'),
+                  ),
                   onPressed: () {
                     habitProvider.toggleHabitComplete(habit, DateTime.now());
                   },
