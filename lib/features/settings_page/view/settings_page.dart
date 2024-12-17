@@ -20,12 +20,13 @@ class SettingsPage extends StatelessWidget {
       drawer: const MyDrawerMenu(),
       body: Column(
         children: [
-          const Center(
+          Center(
             child: Padding(
-              padding: EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(15.0),
               child: Icon(
                 Icons.person_outline,
                 size: 55.0,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ),
@@ -40,14 +41,24 @@ class SettingsPage extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: TextField(
               decoration: InputDecoration(
-                border: OutlineInputBorder(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      width: 2.0),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(color: Colors.transparent, width: 1),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 filled: true,
-                hintStyle: TextStyle(color: Colors.grey[800]),
+                hintStyle:
+                    TextStyle(color: Theme.of(context).colorScheme.surface),
                 hintText: "Type in your name",
-                fillColor: Colors.white70,
+                fillColor: Theme.of(context).colorScheme.primary,
               ),
+              cursorColor: Theme.of(context).colorScheme.onSurface,
             ),
           ),
           const Align(
@@ -57,22 +68,48 @@ class SettingsPage extends StatelessWidget {
               child: Text("Languages"),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(top: 10.0),
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10),
             child: SizedBox(
-              width: 365,
-              child: DropdownMenu(
-                inputDecorationTheme: InputDecorationTheme(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              width: double.infinity,
+              child: DropdownMenuTheme(
+                data: DropdownMenuThemeData(
+                  menuStyle: MenuStyle(
+                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            10.0), // Set the border radius
+                      ),
+                    ),
                   ),
                 ),
-                width: 365,
-                label: Text('Language'),
-                dropdownMenuEntries: <DropdownMenuEntry<String>>[
-                  DropdownMenuEntry(value: 'Deutsch', label: 'Deutsch'),
-                  DropdownMenuEntry(value: 'English', label: 'English')
-                ],
+                child: DropdownMenu(
+                  initialSelection: 'English',
+                  inputDecorationTheme: InputDecorationTheme(
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          width: 2.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: Colors.transparent, width: 1),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    filled: true,
+                    fillColor: Theme.of(context).colorScheme.primary,
+                  ),
+                  trailingIcon: Icon(
+                    Icons.arrow_drop_down,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                  width: double.infinity,
+                  dropdownMenuEntries: const <DropdownMenuEntry<String>>[
+                    DropdownMenuEntry(value: 'English', label: 'English'),
+                    DropdownMenuEntry(value: 'Deutsch', label: 'Deutsch'),
+                  ],
+                ),
               ),
             ),
           ),
@@ -87,14 +124,25 @@ class SettingsPage extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: TextField(
               decoration: InputDecoration(
-                border: OutlineInputBorder(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      width: 2.0),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                // Border when the TextField is inactive (not focused)
+                enabledBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(color: Colors.transparent, width: 1),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 filled: true,
-                hintStyle: TextStyle(color: Colors.grey[800]),
-                hintText: "None",
-                fillColor: Colors.white70,
+                hintStyle:
+                    TextStyle(color: Theme.of(context).colorScheme.surface),
+                hintText: "none",
+                fillColor: Theme.of(context).colorScheme.primary,
               ),
+              cursorColor: Theme.of(context).colorScheme.onSurface,
             ),
           ),
           const Align(
@@ -105,38 +153,59 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10.0),
+            padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
             child: SizedBox(
-              width: 365,
-              child: DropdownMenu(
-                inputDecorationTheme: const InputDecorationTheme(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              width: double.infinity,
+              child: DropdownMenuTheme(
+                data: DropdownMenuThemeData(
+                  menuStyle: MenuStyle(
+                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            10.0), // Set the border radius
+                      ),
+                    ),
                   ),
                 ),
-                width: 365,
-                label: const Text('Theme'),
-                initialSelection: _getInitialSelection(switchState.themeMode),
-                dropdownMenuEntries: const <DropdownMenuEntry<String>>[
-                  DropdownMenuEntry(value: 'dark', label: 'Dark'),
-                  DropdownMenuEntry(value: 'light', label: 'Light'),
-                  DropdownMenuEntry(value: 'system', label: 'System')
-                ],
-                onSelected: (String? newValue) {
-                  if (newValue != null) {
-                    switch (newValue) {
-                      case 'dark':
-                        switchState.toggleThemeMode(ThemeMode.dark);
-                        break;
-                      case 'light':
-                        switchState.toggleThemeMode(ThemeMode.light);
-                        break;
-                      case 'system':
-                        switchState.toggleThemeMode(ThemeMode.system);
-                        break;
+                child: DropdownMenu(
+                  inputDecorationTheme: InputDecorationTheme(
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          width: 2.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: Colors.transparent, width: 1),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    filled: true,
+                    fillColor: Theme.of(context).colorScheme.primary,
+                  ),
+                  width: double.infinity,
+                  initialSelection: _getInitialSelection(switchState.themeMode),
+                  dropdownMenuEntries: const <DropdownMenuEntry<String>>[
+                    DropdownMenuEntry(value: 'dark', label: 'Dark'),
+                    DropdownMenuEntry(value: 'light', label: 'Light'),
+                    DropdownMenuEntry(value: 'system', label: 'System')
+                  ],
+                  onSelected: (String? newValue) {
+                    if (newValue != null) {
+                      switch (newValue) {
+                        case 'dark':
+                          switchState.toggleThemeMode(ThemeMode.dark);
+                          break;
+                        case 'light':
+                          switchState.toggleThemeMode(ThemeMode.light);
+                          break;
+                        case 'system':
+                          switchState.toggleThemeMode(ThemeMode.system);
+                          break;
+                      }
                     }
-                  }
-                },
+                  },
+                ),
               ),
             ),
           ),
