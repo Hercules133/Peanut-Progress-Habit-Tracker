@@ -22,12 +22,13 @@ class MyTabBar extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       isScrollable: true,
       overlayColor: WidgetStateProperty.all<Color>(Colors.transparent),
-      indicator: null,
       labelColor: ownColors.habitText,
       unselectedLabelColor: Theme.of(context).colorScheme.onPrimary,
       padding: EdgeInsets.zero,
       indicatorPadding: EdgeInsets.zero,
+      indicatorColor: Colors.transparent,
       labelPadding: EdgeInsets.zero,
+      dividerColor: Colors.transparent,
       tabs: List.generate(
         allCategories.length,
         (index) => Container(
