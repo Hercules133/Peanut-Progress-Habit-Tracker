@@ -14,17 +14,8 @@ class TitleFormfieldWidget extends StatelessWidget {
     return TextFormField(
         maxLength: 20,
         controller: titleController,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           hintText: "Enter a Habit title",
-          hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.onSurface, width: 2),
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.primary, width: 1),
-          ),
         ),
         cursorColor: Theme.of(context).colorScheme.onSurface,
         validator: (value) {

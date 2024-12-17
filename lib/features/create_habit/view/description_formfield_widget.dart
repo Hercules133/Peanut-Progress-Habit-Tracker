@@ -15,17 +15,8 @@ class DescriptionFormfieldWidget extends StatelessWidget {
     return TextFormField(
         maxLength: 150,
         controller: descriptionController,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           hintText: "Enter a description",
-          hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.onSurface, width: 2),
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.primary, width: 1),
-          ),
         ),
         cursorColor: Theme.of(context).colorScheme.onSurface,
         validator: (value) {

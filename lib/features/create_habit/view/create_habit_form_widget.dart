@@ -44,79 +44,83 @@ class CreateHabitFormWidget extends StatelessWidget {
 
     return Form(
       key: _inputform,
-      child: ListView(
-        children: [
-          const Text("Title: "),
-          TitleFormfieldWidget(
-            titleController: titleController,
-          ),
-          const Text("Description(optional): "),
-          DescriptionFormfieldWidget(
-            descriptionController: descriptionController,
-          ),
-          SizedBox(
-            height: 30,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: const [
-                Text("Days:"),
-                SizedBox(width: 260),
-                Text("Reminder:"),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: ListView(
+          children: [
+            const Text("Title: "),
+            TitleFormfieldWidget(
+              titleController: titleController,
+            ),
+            const Text("Description(optional): "),
+            DescriptionFormfieldWidget(
+              descriptionController: descriptionController,
+            ),
+            SizedBox(
+              height: 30,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: const [
+                  Text("Days:"),
+                  SizedBox(width: 260),
+                  Text("Reminder:"),
+                ],
+              ),
+            ),
+            const DaysRowWidget(),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Category"),
+                AddCategoryButtonWidget(),
               ],
             ),
-          ),
-          const DaysRowWidget(),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Category"),
-              AddCategoryButtonWidget(),
-            ],
-          ),
-          GroupButton(
-            controller: groupController,
-            isRadio: true,
-            onSelected: (val, i, selected) {
-              if (selected) {
-                inheritedData.category = categoryProvider.categories[i];
-              }
-            },
-            buttons: catNames,
-            options: GroupButtonOptions(
-                selectedColor: ownColors.contribution2,
-                unselectedColor: ownColors.contribution1),
-            buttonIndexedBuilder: (selected, index, context) {
-              return GestureDetector(
-                onLongPress: () async {
-                  bool result = await popupDeleteCategoryWidget(context);
-                  if (result) {
-                    categoryProvider
-                        .removeCategory(categoryProvider.categories[index]);
-                    debugPrint('Kategorie gelöscht: ${catNames[index]}');
-                  }
-                },
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: selected
-                        ? ownColors.contribution2
-                        : ownColors.contribution1,
-                  ),
-                  onPressed: () {
-                    groupController.selectIndex(index);
-                    inheritedData.category = categoryProvider.categories[index];
+            GroupButton(
+              controller: groupController,
+              isRadio: true,
+              onSelected: (val, i, selected) {
+                if (selected) {
+                  inheritedData.category = categoryProvider.categories[i];
+                }
+              },
+              buttons: catNames,
+              options: GroupButtonOptions(
+                  selectedColor: ownColors.contribution2,
+                  unselectedColor: ownColors.contribution1),
+              buttonIndexedBuilder: (selected, index, context) {
+                return GestureDetector(
+                  onLongPress: () async {
+                    bool result = await popupDeleteCategoryWidget(context);
+                    if (result) {
+                      categoryProvider
+                          .removeCategory(categoryProvider.categories[index]);
+                      debugPrint('Kategorie gelöscht: ${catNames[index]}');
+                    }
                   },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(catIcon[index]),
-                      Text(catNames[index]),
-                    ],
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: selected
+                          ? ownColors.contribution2
+                          : ownColors.contribution1,
+                    ),
+                    onPressed: () {
+                      groupController.selectIndex(index);
+                      inheritedData.category =
+                          categoryProvider.categories[index];
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(catIcon[index]),
+                        Text(catNames[index]),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
-          ),
-        ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

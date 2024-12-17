@@ -40,23 +40,8 @@ class SettingsPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextField(
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      width: 2.0),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide:
-                      const BorderSide(color: Colors.transparent, width: 1),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                filled: true,
-                hintStyle:
-                    TextStyle(color: Theme.of(context).colorScheme.surface),
+              decoration: const InputDecoration(
                 hintText: "Type in your name",
-                fillColor: Theme.of(context).colorScheme.primary,
               ),
               cursorColor: Theme.of(context).colorScheme.onSurface,
             ),
@@ -84,22 +69,10 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ),
                 child: DropdownMenu(
+                  inputDecorationTheme:
+                      const InputDecorationTheme(filled: true),
                   initialSelection: 'English',
-                  inputDecorationTheme: InputDecorationTheme(
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          width: 2.0),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.transparent, width: 1),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    filled: true,
-                    fillColor: Theme.of(context).colorScheme.primary,
-                  ),
+                  //inputDecorationTheme: InputDecorationTheme(),
                   trailingIcon: Icon(
                     Icons.arrow_drop_down,
                     color: Theme.of(context).colorScheme.onSurface,
@@ -123,24 +96,8 @@ class SettingsPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextField(
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      width: 2.0),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                // Border when the TextField is inactive (not focused)
-                enabledBorder: OutlineInputBorder(
-                  borderSide:
-                      const BorderSide(color: Colors.transparent, width: 1),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                filled: true,
-                hintStyle:
-                    TextStyle(color: Theme.of(context).colorScheme.surface),
+              decoration: const InputDecoration(
                 hintText: "none",
-                fillColor: Theme.of(context).colorScheme.primary,
               ),
               cursorColor: Theme.of(context).colorScheme.onSurface,
             ),
@@ -168,21 +125,8 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ),
                 child: DropdownMenu(
-                  inputDecorationTheme: InputDecorationTheme(
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          width: 2.0),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.transparent, width: 1),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    filled: true,
-                    fillColor: Theme.of(context).colorScheme.primary,
-                  ),
+                  inputDecorationTheme:
+                      const InputDecorationTheme(filled: true),
                   width: double.infinity,
                   initialSelection: _getInitialSelection(switchState.themeMode),
                   dropdownMenuEntries: const <DropdownMenuEntry<String>>[
