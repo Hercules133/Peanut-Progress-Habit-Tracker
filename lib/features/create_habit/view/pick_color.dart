@@ -35,13 +35,13 @@ Future<Color?> pickColor(BuildContext context, Color initialColor) async {
           ),
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text("Cancel"),
-          ),
-          ElevatedButton(
+          IconButton(
             onPressed: () => Navigator.of(context).pop(tempColor),
-            child: const Text("Ok"),
+            icon: const Icon(Icons.check),
+          ),
+          IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: const Icon(Icons.close),
           ),
         ],
       );

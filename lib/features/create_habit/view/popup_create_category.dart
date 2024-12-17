@@ -21,9 +21,12 @@ Future<void> popupCreateCategory(BuildContext context) async {
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: const Text(
+        title: Text(
           'Create category',
-          style: TextStyle(fontSize: 25),
+          style: TextStyle(
+            fontSize: 25,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
         ),
         content: Row(
           mainAxisSize: MainAxisSize.min,
@@ -69,7 +72,6 @@ Future<void> popupCreateCategory(BuildContext context) async {
                 controller: textController,
                 decoration: const InputDecoration(
                   hintText: "Name",
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),
@@ -79,18 +81,7 @@ Future<void> popupCreateCategory(BuildContext context) async {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Cancel'),
-                ),
-              ),
-              TextButton(
+              IconButton(
                 onPressed: () {
                   Category cat = Category(
                       name: textController.text,
@@ -100,8 +91,19 @@ Future<void> popupCreateCategory(BuildContext context) async {
                   categoryProvider.addCategory(cat);
                   Navigator.of(context).pop();
                 },
-                child: const Text('Save'),
-              )
+                icon: const Icon(Icons.check),
+              ),
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.close),
+                ),
+              ),
             ],
           ),
         ],
