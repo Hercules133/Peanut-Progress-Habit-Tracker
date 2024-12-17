@@ -105,8 +105,13 @@ class CreateHabitFormWidget extends StatelessWidget {
                     groupController.selectIndex(index);
                     inheritedData.category = categoryProvider.categories[index];
                   },
-                  child: Text(catNames[index]),
-                  //TODO Icon muss noch hinzugefügt werden.
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(catIcon[index]),
+                      Text(catNames[index]),
+                    ],
+                  ),
                 ),
               );
             },

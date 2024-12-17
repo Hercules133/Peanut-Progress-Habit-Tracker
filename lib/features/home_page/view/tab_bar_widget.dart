@@ -43,7 +43,7 @@ class MyTabBar extends StatelessWidget {
               child: Row(
                 children: [
                   Icon(allCategories[index].icon),
-                  Text(allCategories[index].name)
+                  Text(allCategories[index].name),
                 ],
               ),
             ),
