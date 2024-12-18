@@ -31,7 +31,7 @@ class MyHomePage extends StatelessWidget {
             MyHeatMap(),
             MyTabBar(),
             Expanded(
-              child: MyTabBarView(),
+              child: MyTabBarView(showTodayOnly: true),
             ),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streaks/core/config/locator.dart';
 import 'package:streaks/core/utils/enums/progress_status.dart';
+import 'package:streaks/core/utils/enums/day_of_week.dart';
 import 'package:streaks/data/models/category.dart';
 import 'package:streaks/data/providers/category_provider.dart';
 import 'package:streaks/data/repositories/habit_repository.dart';
@@ -139,12 +140,14 @@ class HabitProvider with ChangeNotifier {
     }).toList();
   }
 
-  List<Habit> getPendingHabitsByCategory(Category category) {
+  List<Habit> getPendingHabitsForTodayByCategory(Category category) {
+    final today = DateTime.now().weekday;
     return _habits.where((habit) {
-      return habit.category.name == category.name &&
-          habit.progress.values.any(
+      final isToday = habit.days.contains(DayOfWeek.values[today - 1]);
+      final isPending = habit.progress.values.any(
             (status) => status == ProgressStatus.notCompleted,
-          );
+      );
+      return habit.category.name == category.name && isToday && isPending;
     }).toList();
   }
 
@@ -161,5 +164,12 @@ class HabitProvider with ChangeNotifier {
   void toggleHabitComplete(Habit habit, DateTime date) {
     habit.toggleComplete(date);
     notifyListeners();
+  }
+
+  List<Habit> getHabitsForToday() {
+    final today = DateTime.now().weekday; // Wochentag: 1 = Montag, ..., 7 = Sonntag
+    return _habits.where((habit) {
+      return habit.days.contains(today); // days ist die Liste der Wochentage
+    }).toList();
   }
 }

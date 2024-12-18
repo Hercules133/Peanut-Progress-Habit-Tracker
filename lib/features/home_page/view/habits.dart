@@ -70,7 +70,7 @@ class MyHabitsPage extends StatelessWidget {
             ),
             // Gefilterte Habit-Ansicht
             const Expanded(
-              child: MyTabBarView(),
+              child: MyTabBarView(showTodayOnly: false),
             ),
           ],
         ),
