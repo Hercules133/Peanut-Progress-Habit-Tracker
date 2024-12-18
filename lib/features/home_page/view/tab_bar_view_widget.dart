@@ -5,6 +5,8 @@ import 'package:streaks/data/models/own_colors.dart';
 import 'package:streaks/data/providers/category_provider.dart';
 import 'package:streaks/data/providers/habit_provider.dart';
 
+import '../../../data/models/habit.dart';
+
 class MyTabBarView extends StatelessWidget {
   const MyTabBarView({
     super.key,
@@ -98,10 +100,16 @@ class MyTabBarView extends StatelessWidget {
     // Standardansicht: Habits nach Kategorien
     return TabBarView(
       children: allCategories.map((category) {
-        final habits = showTodayOnly
-            ? habitProvider.getPendingHabitsForTodayByCategory(category) // Home-Seite
-            : habitProvider.getHabitsByCategory(category); // Habits-Seite
-
+        List<Habit> habits =[];
+        if (category.name == 'All') {
+          habits = showTodayOnly
+              ? habitProvider.getPendingHabitsForToday()
+              : habitProvider.getAllHabits();
+        } else {
+          habits = showTodayOnly
+              ? habitProvider.getPendingHabitsForTodayByCategory(category)
+              : habitProvider.getHabitsByCategory(category);
+        }
         return ListView.separated(
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(8.0),

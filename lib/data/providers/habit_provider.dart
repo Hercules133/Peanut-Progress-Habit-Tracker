@@ -151,6 +151,23 @@ class HabitProvider with ChangeNotifier {
     }).toList();
   }
 
+  List<Habit> getPendingHabitsForToday() {
+    final today = DateTime.now();
+    final weekday = DayOfWeek.values[today.weekday - 1];
+
+    return _habits.where((habit) {
+      bool isScheduledToday = habit.days.contains(weekday);
+      bool isNotCompleted = !habit.isCompletedOnDate(today);
+
+      return isScheduledToday && isNotCompleted;
+    }).toList();
+  }
+
+
+  List<Habit> getAllHabits() {
+    return _habits;
+  }
+
   List<Habit> getHabitsByCategory(Category category) {
     return _habits.where((habit) {
       return habit.category.name == category.name;
