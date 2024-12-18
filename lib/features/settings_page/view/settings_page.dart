@@ -62,6 +62,7 @@ class SettingsPage extends StatelessWidget {
             child: SizedBox(
               width: 365,
               child: DropdownMenu(
+                key: ValueKey("dropdown1"),
                 inputDecorationTheme: InputDecorationTheme(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -109,6 +110,7 @@ class SettingsPage extends StatelessWidget {
             child: SizedBox(
               width: 365,
               child: DropdownMenu(
+                key: const ValueKey("dropdown2"),
                 inputDecorationTheme: const InputDecorationTheme(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
