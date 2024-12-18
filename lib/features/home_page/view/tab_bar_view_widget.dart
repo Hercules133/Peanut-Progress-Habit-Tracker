@@ -108,6 +108,9 @@ class MyTabBarView extends StatelessWidget {
           itemCount: habits.length,
           itemBuilder: (context, idx) {
             final habit = habits[idx];
+            if (showTodayOnly && habit.isCompletedOnDate(DateTime.now())) {
+              return const SizedBox.shrink();
+            }
             return Card(
               color: category.color,
               child: ListTile(
@@ -124,7 +127,7 @@ class MyTabBarView extends StatelessWidget {
                         : Image.asset('assets/images/Erdnuss.png'),
                   ),
                   onPressed: () {
-                    habitProvider.toggleHabitComplete(habit, DateTime.now());
+                    context.read<HabitProvider>().toggleHabitComplete(habit, DateTime.now());
                   },
                 ),
                 title: Text(habit.title),
