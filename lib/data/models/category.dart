@@ -17,7 +17,7 @@ class Category {
     return [
       Category(
           name: 'All',
-          color: Colors.grey,
+          color: const Color(0xFFC58F70),
           icon: Icons.list_alt,
           isDefault: true), // Category
       Category(
