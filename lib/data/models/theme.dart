@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/data/models/own_colors.dart';
+import '/data/models/own_colors.dart';
 
 ThemeData lightMode = ThemeData(
   inputDecorationTheme: InputDecorationTheme(

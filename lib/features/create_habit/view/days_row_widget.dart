@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/features/create_habit/view/day_button_widget.dart';
-import 'package:streaks/features/create_habit/view/time_button_widget.dart';
+import '/features/create_habit/view/day_button_widget.dart';
+import '/features/create_habit/view/time_button_widget.dart';
 
 class DaysRowWidget extends StatelessWidget {
   const DaysRowWidget({super.key});

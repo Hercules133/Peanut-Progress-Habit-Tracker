@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:streaks/data/providers/category_provider.dart';
-import 'package:streaks/data/providers/habit_provider.dart';
-import 'package:streaks/features/home_page/view/tab_bar_view_widget.dart';
-import 'package:streaks/features/home_page/view/tab_bar_widget.dart';
+import '/data/providers/category_provider.dart';
+import '/data/providers/habit_provider.dart';
+import '/features/home_page/view/tab_bar_view_widget.dart';
+import '/features/home_page/view/tab_bar_widget.dart';
 import '../../../core/widgets/app_bar_widget.dart';
-import 'package:streaks/core/utils/get_greeting.dart';
-import 'package:streaks/core/widgets/drawer_menu_widget.dart';
+import '/core/utils/get_greeting.dart';
+import '/core/widgets/drawer_menu_widget.dart';
 
 class MyHabitsPage extends StatelessWidget {
   const MyHabitsPage({super.key});

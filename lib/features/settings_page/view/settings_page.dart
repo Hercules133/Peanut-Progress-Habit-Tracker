@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:streaks/core/widgets/app_bar_widget.dart';
-import 'package:streaks/core/widgets/drawer_menu_widget.dart';
+import '/core/widgets/app_bar_widget.dart';
+import '/core/widgets/drawer_menu_widget.dart';
 
 import 'switch_state.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:streaks/data/models/own_colors.dart';
+import '/data/models/own_colors.dart';
 
 Future<Color?> pickColor(BuildContext context, Color initialColor) async {
   Color tempColor = initialColor;

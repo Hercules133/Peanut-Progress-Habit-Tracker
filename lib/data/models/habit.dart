@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/data/models/category.dart';
-import 'package:streaks/core/utils/enums/progress_status.dart';
-import 'package:streaks/core/utils/enums/day_of_week.dart';
-import 'package:streaks/data/models/date_only.dart';
+import '/data/models/category.dart';
+import '/core/utils/enums/progress_status.dart';
+import '/core/utils/enums/day_of_week.dart';
+import '/data/models/date_only.dart';
 
 class Habit {
   int id;

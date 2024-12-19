@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:streaks/data/models/category.dart';
-import 'package:streaks/data/models/own_colors.dart';
-import 'package:streaks/data/providers/category_provider.dart';
+import '/data/models/category.dart';
+import '/data/models/own_colors.dart';
+import '/data/providers/category_provider.dart';
 
 class MyTabBar extends StatelessWidget {
   const MyTabBar({

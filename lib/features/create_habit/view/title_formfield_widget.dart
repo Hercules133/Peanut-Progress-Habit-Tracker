@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/data/models/habit.dart';
-import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
+import '/data/models/habit.dart';
+import '/features/create_habit/view/inherited_widget_create_habit.dart';
 
 class TitleFormfieldWidget extends StatelessWidget {
   const TitleFormfieldWidget({super.key, required this.titleController});

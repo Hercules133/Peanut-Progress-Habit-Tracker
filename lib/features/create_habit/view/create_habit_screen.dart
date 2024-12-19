@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:streaks/data/providers/habit_provider.dart';
-import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
-import 'package:streaks/features/create_habit/view/app_bar_widget.dart';
-import 'package:streaks/features/create_habit/view/create_habit_form_widget.dart';
-import 'package:streaks/data/models/habit.dart';
+import '/data/providers/habit_provider.dart';
+import '/features/create_habit/view/inherited_widget_create_habit.dart';
+import '/features/create_habit/view/app_bar_widget.dart';
+import '/features/create_habit/view/create_habit_form_widget.dart';
+import '/data/models/habit.dart';
 
 class CreateHabit extends StatelessWidget {
   const CreateHabit({

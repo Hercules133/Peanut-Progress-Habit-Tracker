@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/core/config/locator.dart';
-import 'package:streaks/core/utils/enums/progress_status.dart';
-import 'package:streaks/data/models/date_only.dart';
-import 'package:streaks/data/repositories/id_repository.dart';
-import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
-import 'package:streaks/data/providers/habit_provider.dart';
+import '/core/config/locator.dart';
+import '/core/utils/enums/progress_status.dart';
+import '/data/models/date_only.dart';
+import '/data/repositories/id_repository.dart';
+import '/features/create_habit/view/inherited_widget_create_habit.dart';
+import '/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 
 Future<void> popupSavingWidget(BuildContext context) async {

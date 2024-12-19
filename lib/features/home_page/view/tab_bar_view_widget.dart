@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:streaks/core/widgets/details_dialog_widget.dart';
-import 'package:streaks/data/models/own_colors.dart';
-import 'package:streaks/data/providers/category_provider.dart';
-import 'package:streaks/data/providers/habit_provider.dart';
+import '/core/widgets/details_dialog_widget.dart';
+import '/data/models/own_colors.dart';
+import '/data/providers/category_provider.dart';
+import '/data/providers/habit_provider.dart';
 
 import '../../../data/models/habit.dart';
 

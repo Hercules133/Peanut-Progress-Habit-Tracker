@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/core/utils/routes.dart';
-import 'package:streaks/features/create_habit/view/popup_delete_widget.dart';
+import '/core/utils/routes.dart';
+import '/features/create_habit/view/popup_delete_widget.dart';
 
 class DeleteButtonWidget extends StatelessWidget {
   const DeleteButtonWidget({super.key});

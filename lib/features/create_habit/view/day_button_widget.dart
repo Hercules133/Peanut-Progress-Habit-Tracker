@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/core/utils/enums/day_of_week.dart';
-import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
-import 'package:streaks/data/models/own_colors.dart';
+import '/core/utils/enums/day_of_week.dart';
+import '/features/create_habit/view/inherited_widget_create_habit.dart';
+import '/data/models/own_colors.dart';
 
 class DayButtonWidget extends StatelessWidget {
   DayButtonWidget({super.key, required this.day});

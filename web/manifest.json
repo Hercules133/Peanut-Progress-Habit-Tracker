@@ -1,6 +1,6 @@
 {
-    "name": "streaks",
-    "short_name": "streaks",
+    "name": "peanutprogress",
+    "short_name": "peanutprogress",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

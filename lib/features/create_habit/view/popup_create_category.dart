@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:streaks/data/models/category.dart';
-import 'package:streaks/data/providers/category_provider.dart';
-import 'package:streaks/data/models/own_colors.dart';
-import 'package:streaks/features/create_habit/view/icon_dropdown.dart';
-import 'package:streaks/features/create_habit/view/pick_color.dart';
+import '/data/models/category.dart';
+import '/data/providers/category_provider.dart';
+import '/data/models/own_colors.dart';
+import '/features/create_habit/view/icon_dropdown.dart';
+import '/features/create_habit/view/pick_color.dart';
 
 Future<void> popupCreateCategory(BuildContext context) async {
   final ownColors = Theme.of(context).extension<OwnColors>()!;

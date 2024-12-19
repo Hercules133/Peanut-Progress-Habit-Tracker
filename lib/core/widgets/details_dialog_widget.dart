@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:streaks/core/widgets/details_dialog_heatmap_widget.dart';
-import 'package:streaks/data/models/habit.dart';
-import 'package:streaks/core/utils/routes.dart';
-import 'package:streaks/data/providers/habit_provider.dart';
+import '/core/widgets/details_dialog_heatmap_widget.dart';
+import '/data/models/habit.dart';
+import '/core/utils/routes.dart';
+import '/data/providers/habit_provider.dart';
 
 class HabitDetailsDialog extends StatelessWidget {
   final Habit habit;

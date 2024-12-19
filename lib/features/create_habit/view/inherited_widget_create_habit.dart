@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/data/models/habit.dart';
+import '/data/models/habit.dart';
 
 class InheritedWidgetCreateHabit extends InheritedWidget {
 

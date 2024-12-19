@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/features/create_habit/view/popup_saving_widget.dart';
-import 'package:streaks/core/widgets/details_dialog_widget.dart';
-import 'package:streaks/data/models/habit.dart';
+import '/features/create_habit/view/popup_saving_widget.dart';
+import '/core/widgets/details_dialog_widget.dart';
+import '/data/models/habit.dart';
 
 class CloseButtonWidget extends StatelessWidget {
   const CloseButtonWidget({super.key, required this.habit});

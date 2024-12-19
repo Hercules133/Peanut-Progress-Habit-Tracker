@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/core/config/locator.dart';
-import 'package:streaks/core/utils/enums/progress_status.dart';
-import 'package:streaks/core/utils/enums/day_of_week.dart';
-import 'package:streaks/data/models/category.dart';
-import 'package:streaks/data/providers/category_provider.dart';
-import 'package:streaks/data/repositories/habit_repository.dart';
-import 'package:streaks/data/models/habit.dart';
+import '/core/config/locator.dart';
+import '/core/utils/enums/progress_status.dart';
+import '/core/utils/enums/day_of_week.dart';
+import '/data/models/category.dart';
+import '/data/providers/category_provider.dart';
+import '/data/repositories/habit_repository.dart';
+import '/data/models/habit.dart';
 
 class HabitProvider with ChangeNotifier {
   final HabitRepository _habitRepository;
@@ -145,7 +145,7 @@ class HabitProvider with ChangeNotifier {
     return _habits.where((habit) {
       final isToday = habit.days.contains(DayOfWeek.values[today - 1]);
       final isPending = habit.progress.values.any(
-            (status) => status == ProgressStatus.notCompleted,
+        (status) => status == ProgressStatus.notCompleted,
       );
       return habit.category.name == category.name && isToday && isPending;
     }).toList();
@@ -162,7 +162,6 @@ class HabitProvider with ChangeNotifier {
       return isScheduledToday && isNotCompleted;
     }).toList();
   }
-
 
   List<Habit> getAllHabits() {
     return _habits;
@@ -184,7 +183,8 @@ class HabitProvider with ChangeNotifier {
   }
 
   List<Habit> getHabitsForToday() {
-    final today = DateTime.now().weekday; // Wochentag: 1 = Montag, ..., 7 = Sonntag
+    final today =
+        DateTime.now().weekday; // Wochentag: 1 = Montag, ..., 7 = Sonntag
     return _habits.where((habit) {
       return habit.days.contains(today); // days ist die Liste der Wochentage
     }).toList();
