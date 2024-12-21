@@ -11,6 +11,10 @@ ThemeData lightMode = ThemeData(
       borderSide: const BorderSide(color: Colors.transparent, width: 1),
       borderRadius: BorderRadius.circular(10.0),
     ),
+    errorBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.red, width: 2),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
     hintStyle: TextStyle(color: Colors.brown.shade200),
     filled: true,
     fillColor: Colors.brown.shade300,
@@ -57,6 +61,10 @@ ThemeData darkMode = ThemeData(
     ),
     enabledBorder: OutlineInputBorder(
       borderSide: const BorderSide(color: Colors.transparent, width: 1),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.red, width: 2),
       borderRadius: BorderRadius.circular(10.0),
     ),
     hintStyle: TextStyle(color: Colors.brown.shade900),
