@@ -21,7 +21,6 @@ class MyTabBarView extends StatelessWidget {
     final allCategories = categoryProvider.categories;
     final ownColors = Theme.of(context).extension<OwnColors>()!;
 
-    //TODO Doppelter code in private Methode auslagern, kein koppelten code.
     // Wenn Suche aktiv ist, werden gefilterte Habits angezeigt
     if (habitProvider.isSearching) {
       final filteredHabits = habitProvider.habits; // Gefilterte Habits

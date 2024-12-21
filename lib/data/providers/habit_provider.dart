@@ -179,6 +179,7 @@ class HabitProvider with ChangeNotifier {
 
   void toggleHabitComplete(Habit habit, DateTime date) {
     habit.toggleComplete(date);
+    _habitRepository.saveHabit(habit);
     notifyListeners();
   }
 
