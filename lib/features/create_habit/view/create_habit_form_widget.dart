@@ -5,6 +5,7 @@ import 'package:peanutprogress/core/widgets/details_dialog_widget.dart';
 import 'package:peanutprogress/data/models/date_only.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:peanutprogress/data/repositories/id_repository.dart';
+import 'package:peanutprogress/features/create_habit/view/popup_delete_category.dart';
 // import 'package:peanutprogress/features/create_habit/view/popup_saving_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:peanutprogress/data/models/category.dart';
@@ -129,7 +130,8 @@ class CreateHabitFormWidget extends StatelessWidget {
                 buttonIndexedBuilder: (selected, index, context) {
                   return GestureDetector(
                     onLongPress: () async {
-                      bool result = await popupDeleteCategoryWidget(context);
+                      bool result = await popupDeleteCategoryWidget(
+                          context, categoryProvider.categories[index]);
                       if (result) {
                         categoryProvider
                             .removeCategory(categoryProvider.categories[index]);
@@ -256,36 +258,4 @@ class CreateHabitFormWidget extends StatelessWidget {
       ),
     );
   }
-}
-
-Future<bool> popupDeleteCategoryWidget(BuildContext context) async {
-  var result = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-            title: const Text('Delete'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text("Do you want to delete this Category?"),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context, true);
-                        },
-                        icon: const Icon(Icons.check),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context, false);
-                        },
-                        icon: const Icon(Icons.close),
-                      ),
-                    ]),
-              ],
-            ));
-      });
-  return result ?? false;
 }
