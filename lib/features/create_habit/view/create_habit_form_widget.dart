@@ -10,6 +10,7 @@ import '/features/create_habit/view/days_row_widget.dart';
 import '/features/create_habit/view/description_formfield_widget.dart';
 import 'package:group_button/group_button.dart';
 import '/features/create_habit/view/title_formfield_widget.dart';
+import 'time_button_widget.dart';
 
 class CreateHabitFormWidget extends StatelessWidget {
   CreateHabitFormWidget({
@@ -46,80 +47,188 @@ class CreateHabitFormWidget extends StatelessWidget {
       key: _inputform,
       child: Padding(
         padding: const EdgeInsets.all(10),
-        child: ListView(
-          children: [
-            const Text("Title: "),
-            TitleFormfieldWidget(
-              titleController: titleController,
-            ),
-            const Text("Description(optional): "),
-            DescriptionFormfieldWidget(
-              descriptionController: descriptionController,
-            ),
-            SizedBox(
-              height: 30,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: const [
-                  Text("Days:"),
-                  SizedBox(width: 260),
-                  Text("Reminder:"),
-                ],
-              ),
-            ),
-            const DaysRowWidget(),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Category"),
-                AddCategoryButtonWidget(),
-              ],
-            ),
-            GroupButton(
-              controller: groupController,
-              isRadio: true,
-              onSelected: (val, i, selected) {
-                if (selected) {
-                  inheritedData.category = categoryProvider.categories[i];
-                }
-              },
-              buttons: catNames,
-              options: GroupButtonOptions(
-                  selectedColor: ownColors.contribution2,
-                  unselectedColor: ownColors.contribution1),
-              buttonIndexedBuilder: (selected, index, context) {
-                return GestureDetector(
-                  onLongPress: () async {
-                    bool result = await popupDeleteCategoryWidget(context);
-                    if (result) {
-                      categoryProvider
-                          .removeCategory(categoryProvider.categories[index]);
-                      debugPrint('Kategorie gelöscht: ${catNames[index]}');
-                    }
-                  },
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: selected
-                          ? ownColors.contribution2
-                          : ownColors.contribution1,
-                    ),
-                    onPressed: () {
-                      groupController.selectIndex(index);
-                      inheritedData.category =
-                          categoryProvider.categories[index];
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            if (constraints.maxWidth > 600) {
+              return Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("Title: "),
+                            TitleFormfieldWidget(
+                              titleController: titleController,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("Description (optional): "),
+                            DescriptionFormfieldWidget(
+                              descriptionController: descriptionController,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  const DaysRowWidget(),
+                  const SizedBox(height: 10),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Category"),
+                      AddCategoryButtonWidget(),
+                    ],
+                  ),
+                  GroupButton(
+                    controller: groupController,
+                    isRadio: true,
+                    onSelected: (val, i, selected) {
+                      if (selected) {
+                        inheritedData.category = categoryProvider.categories[i];
+                      }
                     },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(catIcon[index]),
-                        Text(catNames[index]),
+                    buttons: catNames,
+                    options: GroupButtonOptions(
+                      selectedColor: ownColors.contribution2,
+                      unselectedColor: ownColors.contribution1,
+                    ),
+                    buttonIndexedBuilder: (selected, index, context) {
+                      return GestureDetector(
+                        onLongPress: () async {
+                          bool result =
+                              await popupDeleteCategoryWidget(context);
+                          if (result) {
+                            if (categoryProvider.categories[index].isDefault) {
+                              debugPrint(
+                                  'Can\'t delete category: ${catNames[index]} - It\'s a default!');
+                            } else {
+                              categoryProvider.removeCategory(
+                                  categoryProvider.categories[index]);
+                              debugPrint(
+                                  'Category deleted: ${catNames[index]}');
+                            }
+                          }
+                        },
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: selected
+                                ? ownColors.contribution2
+                                : ownColors.contribution1,
+                          ),
+                          onPressed: () {
+                            groupController.selectIndex(index);
+                            inheritedData.category =
+                                categoryProvider.categories[index];
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(catIcon[index]),
+                              Text(catNames[index]),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              );
+            } else {
+              return Column(
+                children: [
+                  const Text("Title: "),
+                  TitleFormfieldWidget(
+                    titleController: titleController,
+                  ),
+                  const Text("Description (optional): "),
+                  DescriptionFormfieldWidget(
+                    descriptionController: descriptionController,
+                  ),
+                  SizedBox(
+                    height: 30,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: const [
+                        Text("Days:"),
+                        SizedBox(width: 240),
+                        Text("Reminder:"),
                       ],
                     ),
                   ),
-                );
-              },
-            ),
-          ],
+                  const DaysRowWidget(),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Category"),
+                      AddCategoryButtonWidget(),
+                    ],
+                  ),
+                  GroupButton(
+                    controller: groupController,
+                    isRadio: true,
+                    onSelected: (val, i, selected) {
+                      if (selected) {
+                        inheritedData.category = categoryProvider.categories[i];
+                      }
+                    },
+                    buttons: catNames,
+                    options: GroupButtonOptions(
+                      selectedColor: ownColors.contribution2,
+                      unselectedColor: ownColors.contribution1,
+                    ),
+                    buttonIndexedBuilder: (selected, index, context) {
+                      return GestureDetector(
+                        onLongPress: () async {
+                          bool result =
+                              await popupDeleteCategoryWidget(context);
+                          if (result) {
+                            if (categoryProvider.categories[index].isDefault) {
+                              debugPrint(
+                                  'Can\'t delete category: ${catNames[index]} - It\'s a default!');
+                            } else {
+                              categoryProvider.removeCategory(
+                                  categoryProvider.categories[index]);
+                              debugPrint(
+                                  'Category deleted: ${catNames[index]}');
+                            }
+                          }
+                        },
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: selected
+                                ? ownColors.contribution2
+                                : ownColors.contribution1,
+                          ),
+                          onPressed: () {
+                            groupController.selectIndex(index);
+                            inheritedData.category =
+                                categoryProvider.categories[index];
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(catIcon[index]),
+                              Text(catNames[index]),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              );
+            }
+          },
         ),
       ),
     );

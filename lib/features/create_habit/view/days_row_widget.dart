@@ -7,22 +7,55 @@ class DaysRowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 30,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          DayButtonWidget(day: "Mo"),
-          DayButtonWidget(day: "Tu"),
-          DayButtonWidget(day: "We"),
-          DayButtonWidget(day: "Th"),
-          DayButtonWidget(day: "Fr"),
-          DayButtonWidget(day: "Sa"),
-          DayButtonWidget(day: "Su"),
-          const SizedBox(width: 20),
-          TimeButtonWidget(),
-        ],
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth > 600) {
+          return Row(
+            children: [
+              const Text("Days: "),
+              Expanded(
+                child: SizedBox(
+                  height: 30,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      DayButtonWidget(day: "Mo"),
+                      DayButtonWidget(day: "Tu"),
+                      DayButtonWidget(day: "We"),
+                      DayButtonWidget(day: "Th"),
+                      DayButtonWidget(day: "Fr"),
+                      DayButtonWidget(day: "Sa"),
+                      DayButtonWidget(day: "Su"),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(width: 20),
+              const Text("Reminder:"),
+              const SizedBox(width: 10),
+              TimeButtonWidget(),
+            ],
+          );
+        } else {
+          return SizedBox(
+            height: 30,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                DayButtonWidget(day: "Mo"),
+                DayButtonWidget(day: "Tu"),
+                DayButtonWidget(day: "We"),
+                DayButtonWidget(day: "Th"),
+                DayButtonWidget(day: "Fr"),
+                DayButtonWidget(day: "Sa"),
+                DayButtonWidget(day: "Su"),
+                const SizedBox(width: 20),
+                TimeButtonWidget(),
+              ],
+            ),
+          );
+        }
+      },
     );
   }
 }
