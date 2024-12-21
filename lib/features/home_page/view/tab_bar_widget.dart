@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:streaks/data/models/category.dart';
-import 'package:streaks/data/models/own_colors.dart';
-import 'package:streaks/data/providers/category_provider.dart';
+import '/data/models/category.dart';
+import '/data/models/own_colors.dart';
+import '/data/providers/category_provider.dart';
 
 class MyTabBar extends StatelessWidget {
   const MyTabBar({
@@ -22,12 +22,13 @@ class MyTabBar extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       isScrollable: true,
       overlayColor: WidgetStateProperty.all<Color>(Colors.transparent),
-      indicator: null,
       labelColor: ownColors.habitText,
       unselectedLabelColor: Theme.of(context).colorScheme.onPrimary,
       padding: EdgeInsets.zero,
       indicatorPadding: EdgeInsets.zero,
+      indicatorColor: Colors.transparent,
       labelPadding: EdgeInsets.zero,
+      dividerColor: Colors.transparent,
       tabs: List.generate(
         allCategories.length,
         (index) => Container(
@@ -41,8 +42,8 @@ class MyTabBar extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  const Icon(Icons.info),
-                  Text(allCategories[index].name)
+                  Icon(allCategories[index].icon),
+                  Text(allCategories[index].name),
                 ],
               ),
             ),

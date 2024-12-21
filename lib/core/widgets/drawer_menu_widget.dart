@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/core/utils/routes.dart';
-import 'package:streaks/data/providers/habit_provider.dart';
+import '/core/utils/routes.dart';
+import '/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 
 class MyDrawerMenu extends StatelessWidget {
@@ -17,7 +17,7 @@ class MyDrawerMenu extends StatelessWidget {
               leading: const Icon(Icons.home),
               title: const Text('Home'),
               onTap: () {
-                habitProvider.isSearching=false;
+                habitProvider.isSearching = false;
                 Navigator.pushReplacementNamed(context, Routes.home);
               },
             ),
@@ -27,7 +27,7 @@ class MyDrawerMenu extends StatelessWidget {
               ),
               title: const Text('Habits'),
               onTap: () {
-                habitProvider.isSearching=false;
+                habitProvider.isSearching = false;
                 Navigator.pushReplacementNamed(context, Routes.habits);
               },
             ),
@@ -35,7 +35,7 @@ class MyDrawerMenu extends StatelessWidget {
               leading: const Icon(Icons.signal_cellular_alt),
               title: const Text('Statistics'),
               onTap: () {
-                habitProvider.isSearching=false;
+                habitProvider.isSearching = false;
                 Navigator.pushReplacementNamed(context, Routes.statistics);
               },
             ),
@@ -43,7 +43,7 @@ class MyDrawerMenu extends StatelessWidget {
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
               onTap: () {
-                habitProvider.isSearching=false;
+                habitProvider.isSearching = false;
                 Navigator.pushReplacementNamed(context, Routes.settings);
               },
             ),

@@ -16,6 +16,11 @@ class Category {
   static List<Category> defaultCategories() {
     return [
       Category(
+          name: 'All',
+          color: const Color(0xFFC58F70),
+          icon: Icons.list_alt,
+          isDefault: true), // Category
+      Category(
           name: 'Health',
           color: const Color(0xFFD3B09C),
           icon: Icons.health_and_safety,
@@ -40,6 +45,7 @@ class Category {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
+      // ignore: deprecated_member_use
       'color': color.value,
       'icon': icon.codePoint,
     };
@@ -59,6 +65,7 @@ class Category {
     if (other is! Category) return false;
 
     bool name = this.name == other.name;
+    // ignore: deprecated_member_use
     bool color = this.color.value == other.color.value;
     bool icon = this.icon == other.icon;
 
