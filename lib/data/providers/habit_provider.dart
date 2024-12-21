@@ -179,6 +179,16 @@ class HabitProvider with ChangeNotifier {
 
   void toggleHabitComplete(Habit habit, DateTime date) {
     habit.toggleComplete(date);
+    _habitRepository.saveHabit(habit);
     notifyListeners();
+  }
+
+  List<Habit> getHabitsForToday() {
+    final today =
+        DateTime.now().weekday; // Wochentag: 1 = Montag, ..., 7 = Sonntag
+    return _habits.where((habit) {
+      // ignore: collection_methods_unrelated_type
+      return habit.days.contains(today); // days ist die Liste der Wochentage
+    }).toList();
   }
 }
