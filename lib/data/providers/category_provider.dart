@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/data/models/category.dart';
-import 'package:streaks/data/models/habit.dart';
+import '/data/models/category.dart';
+import '/data/models/habit.dart';
 
 class CategoryProvider with ChangeNotifier {
   final List<Category> _categories = [

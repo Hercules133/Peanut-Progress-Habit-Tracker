@@ -1,6 +1,6 @@
-import 'package:streaks/services/storage/storage_service.dart';
-import 'package:streaks/core/config/locator.dart';
-import 'package:streaks/data/models/habit.dart';
+import '/services/storage/storage_service.dart';
+import '/core/config/locator.dart';
+import '/data/models/habit.dart';
 
 class HabitRepository {
   final StorageService _storageService = locator<StorageService>();

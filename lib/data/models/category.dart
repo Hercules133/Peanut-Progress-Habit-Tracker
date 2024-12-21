@@ -4,22 +4,37 @@ class Category {
   final String name;
   final Color color;
   final IconData icon;
+  final bool isDefault;
 
   Category({
     required this.name,
     required this.color,
     required this.icon,
+    this.isDefault = false,
   });
 
   static List<Category> defaultCategories() {
     return [
       Category(
+          name: 'All',
+          color: const Color(0xFFC58F70),
+          icon: Icons.list_alt,
+          isDefault: true), // Category
+      Category(
           name: 'Health',
           color: const Color(0xFFD3B09C),
-          icon: Icons.health_and_safety),
-      Category(name: 'Work', color: const Color(0xFFD6A579), icon: Icons.work),
+          icon: Icons.health_and_safety,
+          isDefault: true),
       Category(
-          name: 'Personal', color: const Color(0xFFE09165), icon: Icons.person),
+          name: 'Work',
+          color: const Color(0xFFD6A579),
+          icon: Icons.work,
+          isDefault: true),
+      Category(
+          name: 'Personal',
+          color: const Color(0xFFE09165),
+          icon: Icons.person,
+          isDefault: true),
     ];
   }
 
@@ -30,7 +45,7 @@ class Category {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'color': color.value,
+      'color': color,
       'icon': icon.codePoint,
     };
   }
@@ -49,7 +64,7 @@ class Category {
     if (other is! Category) return false;
 
     bool name = this.name == other.name;
-    bool color = this.color.value == other.color.value;
+    bool color = this.color == other.color;
     bool icon = this.icon == other.icon;
 
     return name && color && icon;

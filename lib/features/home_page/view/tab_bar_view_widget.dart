@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:streaks/core/widgets/details_dialog_widget.dart';
-import 'package:streaks/data/models/own_colors.dart';
-import 'package:streaks/data/providers/category_provider.dart';
-import 'package:streaks/data/providers/habit_provider.dart';
+import '/core/widgets/details_dialog_widget.dart';
+import '/data/models/own_colors.dart';
+import '/data/providers/category_provider.dart';
+import '/data/providers/habit_provider.dart';
+
+import '../../../data/models/habit.dart';
 
 class MyTabBarView extends StatelessWidget {
-  const MyTabBarView({super.key});
+  const MyTabBarView({
+    super.key,
+    this.showTodayOnly = true,
+  });
+
+  final bool showTodayOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +33,6 @@ class MyTabBarView extends StatelessWidget {
         itemCount: filteredHabits.length,
         itemBuilder: (context, idx) {
           final habit = filteredHabits[idx];
-
           return Card(
             color: habit.category.color,
             child: ListTile(
@@ -36,11 +42,14 @@ class MyTabBarView extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
               leading: IconButton(
-                icon: habit.isCompletedOnDate(DateTime.now())
-                    ? Image.asset('assets/images/Erdnusse.png')
-                    : Image.asset('assets/images/Erdnuss.png'),
+                icon: SizedBox(
+                  width: 40, // Feste Breite für das Icon
+                  child: habit.isCompletedOnDate(DateTime.now())
+                      ? Image.asset('assets/images/Erdnusse.png')
+                      : Image.asset('assets/images/Erdnuss.png'),
+                ),
                 onPressed: () {
-                  habit.toggleComplete(DateTime.now());
+                  habitProvider.toggleHabitComplete(habit, DateTime.now());
                 },
               ),
               title: Text(habit.title),
@@ -68,7 +77,10 @@ class MyTabBarView extends StatelessWidget {
                 ],
               ),
               onTap: () {
-                showDetailsDialog(context, habit);
+                showDialog(
+                  context: context,
+                  builder: (context) => HabitDetailsDialog(habit: habit),
+                );
               },
             ),
           );
@@ -88,16 +100,25 @@ class MyTabBarView extends StatelessWidget {
     // Standardansicht: Habits nach Kategorien
     return TabBarView(
       children: allCategories.map((category) {
-        final pendingHabits =
-            habitProvider.getPendingHabitsByCategory(category);
-
+        List<Habit> habits = [];
+        if (category.name == 'All') {
+          habits = showTodayOnly
+              ? habitProvider.getPendingHabitsForToday()
+              : habitProvider.getAllHabits();
+        } else {
+          habits = showTodayOnly
+              ? habitProvider.getPendingHabitsForTodayByCategory(category)
+              : habitProvider.getHabitsByCategory(category);
+        }
         return ListView.separated(
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(8.0),
-          itemCount: pendingHabits.length,
+          itemCount: habits.length,
           itemBuilder: (context, idx) {
-            final habit = pendingHabits[idx];
-
+            final habit = habits[idx];
+            if (showTodayOnly && habit.isCompletedOnDate(DateTime.now())) {
+              return const SizedBox.shrink();
+            }
             return Card(
               color: category.color,
               child: ListTile(
@@ -107,11 +128,16 @@ class MyTabBarView extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
                 leading: IconButton(
-                  icon: habit.isCompletedOnDate(DateTime.now())
-                      ? Image.asset('assets/images/Erdnusse.png')
-                      : Image.asset('assets/images/Erdnuss.png'),
+                  icon: SizedBox(
+                    width: 40, // Feste Breite für das Icon
+                    child: habit.isCompletedOnDate(DateTime.now())
+                        ? Image.asset('assets/images/Erdnusse.png')
+                        : Image.asset('assets/images/Erdnuss.png'),
+                  ),
                   onPressed: () {
-                    habit.toggleComplete(DateTime.now());
+                    context
+                        .read<HabitProvider>()
+                        .toggleHabitComplete(habit, DateTime.now());
                   },
                 ),
                 title: Text(habit.title),
@@ -139,7 +165,10 @@ class MyTabBarView extends StatelessWidget {
                   ],
                 ),
                 onTap: () {
-                  showDetailsDialog(context, habit);
+                  showDialog(
+                    context: context,
+                    builder: (context) => HabitDetailsDialog(habit: habit),
+                  );
                 },
               ),
             );

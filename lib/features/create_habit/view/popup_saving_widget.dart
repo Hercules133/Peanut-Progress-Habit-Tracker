@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/core/config/locator.dart';
-import 'package:streaks/core/utils/enums/progress_status.dart';
-import 'package:streaks/data/models/date_only.dart';
-import 'package:streaks/data/repositories/id_repository.dart';
-// import 'package:streaks/features/create_habit/view/inherited_notifier_empty_fields.dart';
-import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
-import 'package:streaks/data/providers/habit_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:peanutprogress/data/models/habit.dart';
+import '/core/config/locator.dart';
+import '/core/utils/enums/progress_status.dart';
+import '/data/models/date_only.dart';
+import '/data/repositories/id_repository.dart';
+// import '/features/create_habit/view/inherited_widget_create_habit.dart';
+// import '/data/providers/habit_provider.dart';
+// import 'package:provider/provider.dart';
 
-Future<dynamic> popupSavingWidget(BuildContext context) async {
-  final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
-  ValueNotifier<bool> showDaysError =
-      InheritedWidgetCreateHabit.of(context).showDaysError;
-  ValueNotifier<bool> pressed = InheritedWidgetCreateHabit.of(context).pressed;
+Future<dynamic> popupSavingWidget(
+    BuildContext context,
+    ValueNotifier<bool> pressed,
+    ValueNotifier<bool> showDaysError,
+    Habit inheritedData) async {
+  // final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+  // ValueNotifier<bool> showDaysError;
+  // InheritedWidgetCreateHabit.of(context).showDaysError;
+  // ValueNotifier<bool> pressed = InheritedWidgetCreateHabit.of(context).pressed;
 //     final inheritedNotifierEmpty = InheritedNotifierEmptyFields.of(context);
 // final counter = inheritedNotifierEmpty;
 
-  final habitProvider = Provider.of<HabitProvider>(context, listen: false);
+  // final habitProvider = Provider.of<HabitProvider>(context, listen: false);
   final idRepository = locator<IdRepository>();
   bool empty = false;
 
   if (!context.mounted) return;
-  return showDialog(
+  return await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -70,7 +74,7 @@ Future<dynamic> popupSavingWidget(BuildContext context) async {
                             dateOnly(inheritedData.getNextDueDate()):
                                 ProgressStatus.notCompleted,
                           });
-                          habitProvider.addHabit(inheritedData);
+                          // habitProvider.addHabit(inheritedData);
                           if (context.mounted) {
                             Navigator.of(context).pop(inheritedData);
                           }

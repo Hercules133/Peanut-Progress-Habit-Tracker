@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/features/create_habit/view/popup_saving_widget.dart';
-import 'package:streaks/core/widgets/details_dialog_widget.dart';
+// import '/features/create_habit/view/popup_saving_widget.dart';
+// import '/core/widgets/details_dialog_widget.dart';
 
 class CloseButtonWidget extends StatelessWidget {
   const CloseButtonWidget({
@@ -14,14 +14,21 @@ class CloseButtonWidget extends StatelessWidget {
 
     return IconButton(
       onPressed: () async {
-        final result = await popupSavingWidget(context);
+        Navigator.pop(context);
+        // final result = await popupSavingWidget(context);
 
-        if (context.mounted) {
-          if (result != true) {
-            Navigator.pop(context);
-            if (result != null) showDetailsDialog(context, result);
-          }
-        }
+        // if (context.mounted) {
+        //   Navigator.pop(context);
+        //   if (result != true) {
+        //     Navigator.pop(context);
+        //     if (result != null) {
+        //     showDialog(
+        //     context: context,
+        //     builder: (context) => HabitDetailsDialog(habit: result),
+        //     );
+        //     }
+        //   }
+        // }
       },
       icon: const Icon(Icons.close),
     );

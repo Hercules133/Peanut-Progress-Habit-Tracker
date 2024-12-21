@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/core/config/locator.dart';
-import 'package:streaks/core/utils/enums/progress_status.dart';
-import 'package:streaks/data/models/category.dart';
-import 'package:streaks/data/providers/category_provider.dart';
-import 'package:streaks/data/repositories/habit_repository.dart';
-import 'package:streaks/data/models/habit.dart';
+import '/core/config/locator.dart';
+import '/core/utils/enums/progress_status.dart';
+import '/core/utils/enums/day_of_week.dart';
+import '/data/models/category.dart';
+import '/data/providers/category_provider.dart';
+import '/data/repositories/habit_repository.dart';
+import '/data/models/habit.dart';
 
 class HabitProvider with ChangeNotifier {
   final HabitRepository _habitRepository;
@@ -139,13 +140,31 @@ class HabitProvider with ChangeNotifier {
     }).toList();
   }
 
-  List<Habit> getPendingHabitsByCategory(Category category) {
+  List<Habit> getPendingHabitsForTodayByCategory(Category category) {
+    final today = DateTime.now().weekday;
     return _habits.where((habit) {
-      return habit.category.name == category.name &&
-          habit.progress.values.any(
-            (status) => status == ProgressStatus.notCompleted,
-          );
+      final isToday = habit.days.contains(DayOfWeek.values[today - 1]);
+      final isPending = habit.progress.values.any(
+        (status) => status == ProgressStatus.notCompleted,
+      );
+      return habit.category.name == category.name && isToday && isPending;
     }).toList();
+  }
+
+  List<Habit> getPendingHabitsForToday() {
+    final today = DateTime.now();
+    final weekday = DayOfWeek.values[today.weekday - 1];
+
+    return _habits.where((habit) {
+      bool isScheduledToday = habit.days.contains(weekday);
+      bool isNotCompleted = !habit.isCompletedOnDate(today);
+
+      return isScheduledToday && isNotCompleted;
+    }).toList();
+  }
+
+  List<Habit> getAllHabits() {
+    return _habits;
   }
 
   List<Habit> getHabitsByCategory(Category category) {
@@ -156,5 +175,19 @@ class HabitProvider with ChangeNotifier {
 
   Habit getHabitById(int id) {
     return _habits.firstWhere((habit) => habit.id == id);
+  }
+
+  void toggleHabitComplete(Habit habit, DateTime date) {
+    habit.toggleComplete(date);
+    notifyListeners();
+  }
+
+  List<Habit> getHabitsForToday() {
+    final today =
+        DateTime.now().weekday; // Wochentag: 1 = Montag, ..., 7 = Sonntag
+    return _habits.where((habit) {
+      // ignore: collection_methods_unrelated_type
+      return habit.days.contains(today); // days ist die Liste der Wochentage
+    }).toList();
   }
 }

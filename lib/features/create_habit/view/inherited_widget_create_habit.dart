@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/data/models/habit.dart';
+import '/data/models/habit.dart';
 
 class InheritedWidgetCreateHabit extends InheritedWidget {
   const InheritedWidgetCreateHabit(
       {super.key,
       required this.habit,
-      required this.showDaysError,
-      required this.pressed,
+      // required this.showDaysError,
+      // required this.pressed,
       required super.child});
 
   final Habit habit;
-  final ValueNotifier<bool> showDaysError;
+  // final ValueNotifier<bool> showDaysError;
   //  final bool showDaysError;
-  final ValueNotifier<bool> pressed;
+  // final ValueNotifier<bool> pressed;
   // final bool pressed;
 
   static InheritedWidgetCreateHabit? maybeOf(BuildContext context) {
