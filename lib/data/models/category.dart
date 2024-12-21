@@ -45,7 +45,8 @@ class Category {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'color': color,
+      // ignore: deprecated_member_use
+      'color': color.value,
       'icon': icon.codePoint,
     };
   }
@@ -64,7 +65,8 @@ class Category {
     if (other is! Category) return false;
 
     bool name = this.name == other.name;
-    bool color = this.color == other.color;
+    // ignore: deprecated_member_use
+    bool color = this.color.value == other.color.value;
     bool icon = this.icon == other.icon;
 
     return name && color && icon;
