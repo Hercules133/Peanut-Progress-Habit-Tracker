@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peanutprogress/features/statistics_page/view/bar_chart_widget.dart';
+import 'package:peanutprogress/features/statistics_page/view/line_chart_widget.dart';
 import 'package:peanutprogress/features/statistics_page/view/pie_chart_widget.dart';
 import '/core/widgets/app_bar_widget.dart';
 import '/core/widgets/drawer_menu_widget.dart';
@@ -23,6 +24,7 @@ class StatisticsPage extends StatelessWidget {
             const Text('Diagrams'),
             PieChartWidget(),
             BarChartWidget(),
+            LineChartWidget(),
             // https://pub.dev/packages/d_chart
             // https://pub.dev/packages/graphic
             // https://pub.dev/packages/syncfusion_flutter_charts
