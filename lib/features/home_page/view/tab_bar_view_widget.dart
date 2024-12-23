@@ -21,9 +21,8 @@ class MyTabBarView extends StatelessWidget {
     final allCategories = categoryProvider.categories;
     final ownColors = Theme.of(context).extension<OwnColors>()!;
 
-    // Wenn Suche aktiv ist, werden gefilterte Habits angezeigt
     if (habitProvider.isSearching) {
-      final filteredHabits = habitProvider.habits; // Gefilterte Habits
+      final filteredHabits = habitProvider.habits;
 
       return buildGridView(filteredHabits, ownColors);
     }
@@ -36,7 +35,6 @@ class MyTabBarView extends StatelessWidget {
       return const Center(child: Text('No habits available.'));
     }
 
-    // Standardansicht: Habits nach Kategorien
     return TabBarView(
       children: allCategories.map((category) {
         List<Habit> habits = [];
@@ -54,8 +52,7 @@ class MyTabBarView extends StatelessWidget {
     );
   }
 
-  Widget buildGridView(List<Habit> habits, OwnColors ownColors,
-      [Color? color]) {
+  Widget buildGridView(List<Habit> habits, OwnColors ownColors, [Color? color]) {
     return LayoutBuilder(
       builder: (context, constraints) {
         int crossAxisCount = 1;
@@ -65,10 +62,15 @@ class MyTabBarView extends StatelessWidget {
           crossAxisCount = 2;
         }
 
+        // Filtere abgehakte Habits, wenn showTodayOnly aktiv ist
+        final visibleHabits = showTodayOnly
+            ? habits.where((habit) => !habit.isCompletedOnDate(DateTime.now())).toList()
+            : habits;
+
         return GridView.builder(
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(8.0),
-          itemCount: habits.length,
+          itemCount: visibleHabits.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: crossAxisCount,
             crossAxisSpacing: 10.0,
@@ -76,10 +78,7 @@ class MyTabBarView extends StatelessWidget {
             childAspectRatio: 3.87,
           ),
           itemBuilder: (context, idx) {
-            final habit = habits[idx];
-            if (showTodayOnly && habit.isCompletedOnDate(DateTime.now())) {
-              return const SizedBox.shrink(); // Überspringt abgehakte Habits
-            }
+            final habit = visibleHabits[idx];
             return SizedBox(
               height: 150,
               child: Card(
@@ -91,7 +90,8 @@ class MyTabBarView extends StatelessWidget {
                     horizontal: 10.0,
                   ),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                   leading: IconButton(
                     icon: SizedBox(
                       width: 40, // Feste Breite für das Icon
@@ -112,10 +112,12 @@ class MyTabBarView extends StatelessWidget {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(habit.streak.toString(),
-                              style: TextStyle(
-                                color: ownColors.habitText,
-                              )),
+                          Text(
+                            habit.streak.toString(),
+                            style: TextStyle(
+                              color: ownColors.habitText,
+                            ),
+                          ),
                           const SizedBox(width: 5),
                           SizedBox(
                             height: 30,
@@ -123,10 +125,12 @@ class MyTabBarView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Text(habit.time.format(context),
-                          style: TextStyle(
-                            color: ownColors.habitText,
-                          )),
+                      Text(
+                        habit.time.format(context),
+                        style: TextStyle(
+                          color: ownColors.habitText,
+                        ),
+                      ),
                     ],
                   ),
                   onTap: () {

@@ -36,7 +36,7 @@ class HabitProvider with ChangeNotifier {
 
     try {
       _habits = await _habitRepository.getAllHabits();
-      categoryProvider.initilizeCategories(_habits);
+      categoryProvider.initializeCategories(_habits);
     } catch (e) {
       debugPrint('Error fetching habits: $e');
     } finally {

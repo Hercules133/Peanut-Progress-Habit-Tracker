@@ -7,9 +7,25 @@ class CategoryProvider with ChangeNotifier {
     ...Category.defaultCategories(),
   ];
 
+  int _selectedIndex = 0;
+
   List<Category> get categories => _categories;
 
-  void initilizeCategories(List<Habit> habits) {
+  int get selectedIndex => _selectedIndex;
+
+  void setSelectedIndex(int index) {
+    if (_selectedIndex != index) {
+      _selectedIndex = index;
+      notifyListeners();
+    }
+  }
+
+  void updateSelectedIndex(int index) {
+    _selectedIndex = index;
+    notifyListeners();
+  }
+
+  void initializeCategories(List<Habit> habits) {
     List<Category> categories = habits
         .map((habit) => habit.category)
         .where((category) => !_categories.contains(category))

@@ -19,7 +19,7 @@ class Category {
           name: 'All',
           color: const Color(0xFFC58F70),
           icon: Icons.list_alt,
-          isDefault: true), // Category
+          isDefault: true),
       Category(
           name: 'Health',
           color: const Color(0xFFD3B09C),

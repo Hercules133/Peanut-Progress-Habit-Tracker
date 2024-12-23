@@ -29,9 +29,12 @@ class MyTabBar extends StatelessWidget {
       indicatorColor: Colors.transparent,
       labelPadding: EdgeInsets.zero,
       dividerColor: Colors.transparent,
+      onTap: (index) {
+        categoryProvider.updateSelectedIndex(index);
+      },
       tabs: List.generate(
         allCategories.length,
-        (index) => Container(
+            (index) => Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             color: allCategories[index].color,
@@ -42,6 +45,7 @@ class MyTabBar extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
+                  if (index == categoryProvider.selectedIndex) Icon(Icons.check),
                   Icon(allCategories[index].icon),
                   Text(allCategories[index].name),
                 ],
