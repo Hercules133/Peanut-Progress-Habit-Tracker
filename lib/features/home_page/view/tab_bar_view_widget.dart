@@ -77,6 +77,9 @@ class MyTabBarView extends StatelessWidget {
           ),
           itemBuilder: (context, idx) {
             final habit = habits[idx];
+            if (showTodayOnly && habit.isCompletedOnDate(DateTime.now())) {
+              return const SizedBox.shrink(); // Überspringt abgehakte Habits
+            }
             return SizedBox(
               height: 150,
               child: Card(
