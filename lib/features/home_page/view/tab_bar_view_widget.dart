@@ -80,7 +80,7 @@ class MyTabBarView extends StatelessWidget {
             return SizedBox(
               height: 150,
               child: Card(
-                color: color ?? habit.category.color,
+                color: habit.category.color,
                 child: ListTile(
                   textColor: ownColors.habitText,
                   contentPadding: const EdgeInsets.symmetric(
