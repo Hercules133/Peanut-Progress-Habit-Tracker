@@ -82,6 +82,10 @@ Future<void> popupCreateCategory(BuildContext context) async {
                     if (value == null || value.isEmpty) {
                       return 'required ';
                     }
+                    if (categoryProvider.categories
+                        .any((cat) => cat.name == value)) {
+                      return 'Category already exists';
+                    }
                     return null;
                   },
                 ),
@@ -97,11 +101,14 @@ Future<void> popupCreateCategory(BuildContext context) async {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     Category cat = Category(
-                        name: textController.text,
-                        color: selectedColorNotifier.value,
-                        icon: selectedIconNotifier.value);
-                    categoryProvider.addCategory(cat);
-                    Navigator.of(context).pop();
+                      name: textController.text,
+                      color: selectedColorNotifier.value,
+                      icon: selectedIconNotifier.value,
+                    );
+                    if (!categoryProvider.doesCategoryExist(cat)) {
+                      categoryProvider.addCategory(cat);
+                      Navigator.of(context).pop();
+                    }
                   }
                 },
                 icon: const Icon(Icons.check),

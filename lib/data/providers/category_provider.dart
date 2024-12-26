@@ -37,8 +37,10 @@ class CategoryProvider with ChangeNotifier {
   }
 
   void addCategory(Category category) {
-    _categories.add(category);
-    notifyListeners();
+    if (!_categories.any((existingCategory) => existingCategory.name == category.name)) {
+      _categories.add(category);
+      notifyListeners();
+    }
   }
 
   void removeCategory(Category category) {
