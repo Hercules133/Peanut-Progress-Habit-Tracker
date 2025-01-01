@@ -47,11 +47,15 @@ class CreateHabitFormWidget extends StatelessWidget {
     // bool pressed =
     //     InheritedWidgetCreateHabit.of(context).pressed;
     final categoryProvider = Provider.of<CategoryProvider>(context);
+    final filteredCategories = categoryProvider.categories
+        .where((cat) => cat.name != 'All') // Filtert "All" aus
+        .toList();
+
     List<String> catNames = [];
     List<Color> catColors = [];
     List<IconData> catIcon = [];
     int i = 0;
-    for (Category cat in categoryProvider.categories) {
+    for (Category cat in filteredCategories) {
       catNames.add(cat.name);
       catColors.add(cat.color);
       catIcon.add(cat.icon);
