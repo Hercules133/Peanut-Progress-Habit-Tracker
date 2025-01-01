@@ -41,25 +41,23 @@ class CreateHabitFormWidget extends StatelessWidget {
 
     ValueNotifier<bool> showDaysError = ValueNotifier(false);
     ValueNotifier<bool> pressed = ValueNotifier(false);
+    ValueNotifier<bool> categoryError = ValueNotifier(false);
     final habitProvider = Provider.of<HabitProvider>(context, listen: false);
     final idRepository = locator<IdRepository>();
 
     // bool pressed =
     //     InheritedWidgetCreateHabit.of(context).pressed;
     final categoryProvider = Provider.of<CategoryProvider>(context);
-    final filteredCategories = categoryProvider.categories
-        .where((cat) => cat.name != 'All') // Filtert "All" aus
-        .toList();
 
     List<String> catNames = [];
     List<Color> catColors = [];
     List<IconData> catIcon = [];
     int i = 0;
-    for (Category cat in filteredCategories) {
+    for (Category cat in categoryProvider.categories) {
       catNames.add(cat.name);
       catColors.add(cat.color);
       catIcon.add(cat.icon);
-      if (inheritedData.category == cat) {
+      if (inheritedData.category.name == cat.name) {
         groupController.selectIndex(i);
       }
       i++;
@@ -91,9 +89,7 @@ class CreateHabitFormWidget extends StatelessWidget {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: const [
-                    Text("Days:"),
                     SizedBox(width: 260),
-                    Text("Reminder:"),
                   ],
                 ),
               ),
@@ -111,11 +107,12 @@ class CreateHabitFormWidget extends StatelessWidget {
                           ),
                       ],
                     );
-                  }),
+                  }
+              ),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Category"),
+                  Text("Category:"),
                   AddCategoryButtonWidget(),
                 ],
               ),
@@ -125,6 +122,7 @@ class CreateHabitFormWidget extends StatelessWidget {
                 onSelected: (val, i, selected) {
                   if (selected) {
                     inheritedData.category = categoryProvider.categories[i];
+                    categoryError.value = false;
                   }
                 },
                 buttons: catNames,
@@ -132,6 +130,9 @@ class CreateHabitFormWidget extends StatelessWidget {
                     selectedColor: ownColors.contribution2,
                     unselectedColor: ownColors.contribution1),
                 buttonIndexedBuilder: (selected, index, context) {
+                  if (categoryProvider.categories[index].name == 'All') {
+                    return const SizedBox.shrink();
+                  }
                   return GestureDetector(
                     onLongPress: () async {
                       bool result = await popupDeleteCategoryWidget(
@@ -164,6 +165,20 @@ class CreateHabitFormWidget extends StatelessWidget {
                   );
                 },
               ),
+              ValueListenableBuilder<bool>(
+                valueListenable: categoryError,
+                builder: (context, hasError, _) {
+                  return hasError
+                      ? const Padding(
+                    padding: EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      'Please select a category.',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  )
+                      : const SizedBox.shrink();
+                },
+              ),
               SizedBox(
                 height: 50,
               ),
@@ -179,6 +194,14 @@ class CreateHabitFormWidget extends StatelessWidget {
                         showDaysError.value = false;
                         empty = false;
                         pressed.value = true;
+
+                        if (inheritedData.category == null ||
+                            inheritedData.category.name == 'All') {
+                          categoryError.value = true;
+                          empty = true;
+                        } else {
+                          categoryError.value = false;
+                        }
 
                         // final result = await popupSavingWidget(context, pressed, showDaysError, inheritedData);
 
@@ -211,6 +234,8 @@ class CreateHabitFormWidget extends StatelessWidget {
                             return;
                           }
                         }
+
+                        if (empty) return;
 
                         int id = inheritedData.id == 0
                             ? await idRepository.generateNextHabitId()
