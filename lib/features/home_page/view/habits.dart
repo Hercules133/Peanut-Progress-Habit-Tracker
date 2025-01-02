@@ -45,7 +45,7 @@ class MyHabitsPage extends StatelessWidget {
               children: [
                 if (!habitProvider.isSearching) ...[
                   const Expanded(
-                    child: MyTabBar(),
+                    child: MyTabBar(showTodayOnly: false),
                   ),
                   IconButton(
                     icon: const Icon(Icons.search),

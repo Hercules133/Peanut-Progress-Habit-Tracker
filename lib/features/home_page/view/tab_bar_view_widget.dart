@@ -23,7 +23,6 @@ class MyTabBarView extends StatelessWidget {
 
     if (habitProvider.isSearching) {
       final filteredHabits = habitProvider.habits;
-
       return buildGridView(filteredHabits, ownColors);
     }
 
@@ -33,6 +32,18 @@ class MyTabBarView extends StatelessWidget {
 
     if (habitProvider.habits.isEmpty) {
       return const Center(child: Text('No habits available.'));
+    }
+
+    final filteredCategories = categoryProvider.categories.where((category) {
+      if (category.name == 'All') return false;
+      final habits = showTodayOnly
+          ? habitProvider.getPendingHabitsForTodayByCategory(category)
+          : habitProvider.getHabitsByCategory(category);
+      return habits.isNotEmpty;
+    }).toList();
+
+    if (filteredCategories.isEmpty) {
+      return const Center(child: Text('No Habits to do for today pal. Rest back :).'));
     }
 
     return TabBarView(
@@ -47,6 +58,7 @@ class MyTabBarView extends StatelessWidget {
               ? habitProvider.getPendingHabitsForTodayByCategory(category)
               : habitProvider.getHabitsByCategory(category);
         }
+        if (showTodayOnly && habits.isEmpty) return const SizedBox.shrink();
         return buildGridView(habits, ownColors, category.color);
       }).toList(),
     );
@@ -62,7 +74,6 @@ class MyTabBarView extends StatelessWidget {
           crossAxisCount = 2;
         }
 
-        // Filtere abgehakte Habits, wenn showTodayOnly aktiv ist
         final visibleHabits = showTodayOnly
             ? habits.where((habit) => !habit.isCompletedOnDate(DateTime.now())).toList()
             : habits;

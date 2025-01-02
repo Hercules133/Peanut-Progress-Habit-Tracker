@@ -3,19 +3,31 @@ import 'package:provider/provider.dart';
 import '/data/models/category.dart';
 import '/data/models/own_colors.dart';
 import '/data/providers/category_provider.dart';
+import '/data/providers/habit_provider.dart';
+
 
 class MyTabBar extends StatelessWidget {
   const MyTabBar({
     super.key,
     this.isScrollable = true,
+    this.showTodayOnly = true,
   });
 
   final bool isScrollable;
+  final bool showTodayOnly;
 
   @override
   Widget build(BuildContext context) {
     CategoryProvider categoryProvider = context.watch<CategoryProvider>();
+    final habitProvider = context.watch<HabitProvider>();
     List<Category> allCategories = categoryProvider.categories;
+    List<Category> filteredCategories = allCategories.where((category) {
+      if (showTodayOnly && category.name != 'All') {
+        return habitProvider.getPendingHabitsForTodayByCategory(category).isNotEmpty;
+      }
+      return true;
+    }).toList();
+
     final ownColors = Theme.of(context).extension<OwnColors>()!;
 
     return TabBar(
@@ -33,11 +45,11 @@ class MyTabBar extends StatelessWidget {
         categoryProvider.updateSelectedIndex(index);
       },
       tabs: List.generate(
-        allCategories.length,
+        filteredCategories.length,
             (index) => Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: allCategories[index].color,
+            color: filteredCategories[index].color,
           ),
           margin: const EdgeInsets.all(2),
           child: Tab(
