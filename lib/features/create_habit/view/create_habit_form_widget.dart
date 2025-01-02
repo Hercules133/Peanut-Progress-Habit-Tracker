@@ -168,12 +168,17 @@ class CreateHabitFormWidget extends StatelessWidget {
               ValueListenableBuilder<bool>(
                 valueListenable: categoryError,
                 builder: (context, hasError, _) {
+                  final hasCustomCategories = categoryProvider.categories
+                      .where((category) => category.name != 'All')
+                      .isNotEmpty;
                   return hasError
-                      ? const Padding(
-                    padding: EdgeInsets.only(top: 8.0),
+                      ? Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
                     child: Text(
-                      'Please select a category.',
-                      style: TextStyle(color: Colors.red),
+                      hasCustomCategories
+                          ? 'Please select one category.'
+                          : 'Please create a category first.',
+                      style: const TextStyle(color: Colors.red),
                     ),
                   )
                       : const SizedBox.shrink();

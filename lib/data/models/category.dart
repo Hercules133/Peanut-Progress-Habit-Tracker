@@ -16,25 +16,11 @@ class Category {
   static List<Category> defaultCategories() {
     return [
       Category(
-          name: 'All',
-          color: const Color(0xFFC58F70),
-          icon: Icons.list_alt,
-          isDefault: true),
-      Category(
-          name: 'Health',
-          color: const Color(0xFFD3B09C),
-          icon: Icons.health_and_safety,
-          isDefault: true),
-      Category(
-          name: 'Work',
-          color: const Color(0xFFD6A579),
-          icon: Icons.work,
-          isDefault: true),
-      Category(
-          name: 'Personal',
-          color: const Color(0xFFE09165),
-          icon: Icons.person,
-          isDefault: true),
+        name: 'All',
+        color: const Color(0xFFC58F70),
+        icon: Icons.list_alt,
+        isDefault: true,
+      ),
     ];
   }
 
