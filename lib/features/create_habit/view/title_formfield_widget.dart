@@ -15,8 +15,8 @@ class TitleFormfieldWidget extends StatelessWidget {
     // ValueNotifier<bool> pressed =
     //     InheritedWidgetCreateHabit.of(context).pressed;
     titleController.text = inheritedData.title;
-    debugPrint("before Listenable: ${titleController.text}");
-    debugPrint("before Listenable inherited data: ${inheritedData.title}");
+    // debugPrint("before Listenable: ${titleController.text}");
+    // debugPrint("before Listenable inherited data: ${inheritedData.title}");
     //  debugPrint("before Listenable: ${pressed.toString()}");
     //  final inheritedNotifierEmpty = InheritedNotifierEmptyFields.of(context);
     //  debugPrint("empty before return: ${inheritedNotifierEmpty.empty}");
@@ -46,8 +46,8 @@ class TitleFormfieldWidget extends StatelessWidget {
         },
         onChanged: (value) {
           inheritedData.title = value;
-          debugPrint(inheritedData.title);
-          debugPrint(titleController.text);
+          // debugPrint(inheritedData.title);
+          // debugPrint(titleController.text);
           // debugPrint(pressed.value.toString());
         });
     // });
