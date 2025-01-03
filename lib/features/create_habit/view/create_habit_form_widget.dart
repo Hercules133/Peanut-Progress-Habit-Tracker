@@ -252,6 +252,15 @@ class CreateHabitFormWidget extends StatelessWidget {
                         });
                         habitProvider.addHabit(inheritedData);
 
+                        final categoriesToRemove = categoryProvider.categories.where((category) {
+                          final habitsForCategory = habitProvider.getHabitsByCategory(category);
+                          return habitsForCategory.isEmpty && category.name != 'All';
+                        }).toList();
+
+                        for (final category in categoriesToRemove) {
+                          categoryProvider.removeCategory(category);
+                        }
+
                         if (context.mounted) {
                           Navigator.pop(context);
                           showDialog(

@@ -83,21 +83,23 @@ class HabitProvider with ChangeNotifier {
 
   Future<void> deleteHabit(int habitId) async {
     try {
-      final categoryProvider = CategoryProvider();
       final habit = _habits.firstWhere((h) => h.id == habitId);
-      final isCategoryStillUsed =
-          _habits.any((h) => h.category == habit.category && h.id != habitId);
-
-      if (!isCategoryStillUsed) {
-        categoryProvider.removeCategory(habit.category);
-      }
+      final category = habit.category;
 
       await _habitRepository.deleteHabit(habitId);
-      await fetchHabits();
+      _habits.removeWhere((h) => h.id == habitId);
+
+      final isCategoryStillUsed = _habits.any((h) => h.category == category);
+      if (!isCategoryStillUsed && category.name != 'All') {
+        categoryProvider.removeCategory(category);
+      }
+
+      notifyListeners();
     } catch (e) {
       debugPrint('Error deleting habit: $e');
     }
   }
+
 
   Future<void> clearAllHabits() async {
     try {
