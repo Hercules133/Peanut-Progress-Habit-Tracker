@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peanutprogress/core/utils/routes.dart';
 import 'package:provider/provider.dart';
 import '/data/providers/category_provider.dart';
 import '/data/providers/habit_provider.dart';
@@ -23,8 +24,6 @@ class MyHabitsPage extends StatelessWidget {
     'Category 9',
     'Category 10'
   ];
-
-  static String _sortBy = 'Alle';
 
   @override
   Widget build(BuildContext context) {
@@ -74,26 +73,16 @@ class MyHabitsPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  // ignore: unused_element
-  Widget _buildSortOption(String label) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
-      child: ChoiceChip(
-        label: Text(
-          label,
-          style: const TextStyle(color: Colors.white),
-        ),
-        selected: _sortBy == label,
-        onSelected: (bool selected) {
-          _sortBy = label;
-        },
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.add);
+            },
+            tooltip: 'new Habit',
+            shape: const CircleBorder(),
+            child: Icon(
+              Icons.add,
+              color: Theme.of(context).colorScheme.onSurface,
+            )),
       ),
     );
   }
