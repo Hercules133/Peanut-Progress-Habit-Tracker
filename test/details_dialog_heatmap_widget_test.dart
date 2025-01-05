@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:streaks/core/config/locator.dart';
-import 'package:streaks/core/utils/enums/day_of_week.dart';
-import 'package:streaks/core/widgets/details_dialog_heatmap_widget.dart';
-import 'package:streaks/data/models/category.dart';
-import 'package:streaks/data/models/habit.dart';
-import 'package:streaks/data/models/own_colors.dart';
-import 'package:streaks/data/models/theme.dart';
-import 'package:streaks/data/models/heatmap.dart' as hm;
-import 'package:streaks/core/utils/enums/progress_status.dart';
+import 'package:peanutprogress/core/config/locator.dart';
+import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
+import 'package:peanutprogress/core/widgets/details_dialog_heatmap_widget.dart';
+import 'package:peanutprogress/data/models/category.dart';
+import 'package:peanutprogress/data/models/habit.dart';
+import 'package:peanutprogress/data/models/own_colors.dart';
+import 'package:peanutprogress/data/models/theme.dart';
+import 'package:peanutprogress/data/models/heatmap.dart' as hm;
+import 'package:peanutprogress/core/utils/enums/progress_status.dart';
 
 void main() {
   setUpAll(() {

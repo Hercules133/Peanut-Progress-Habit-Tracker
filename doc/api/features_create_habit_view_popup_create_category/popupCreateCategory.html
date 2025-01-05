@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the popupCreateCategory function from the popup_create_category library, for the Dart programming language.">
+  <title>popupCreateCategory function - popup_create_category library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">peanutprogress</a></li>
+    <li><a href="../features_create_habit_view_popup_create_category/features_create_habit_view_popup_create_category-library.html">features&#47;create_habit&#47;view&#47;popup_create_category.dart</a></li>
+    <li class="self-crumb">popupCreateCategory function</li>
+  </ol>
+  <div class="self-name">popupCreateCategory</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="features_create_habit_view_popup_create_category&#47;features_create_habit_view_popup_create_category-library-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-function">popupCreateCategory</span> function 
+ 
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+<span class="name ">popupCreateCategory</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="popupCreateCategory-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+</ol>)
+
+        
+
+    </section>
+    
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; popupCreateCategory(BuildContext context) async {
+  final ownColors = Theme.of(context).extension&lt;OwnColors&gt;()!;
+  final ValueNotifier&lt;IconData&gt; selectedIconNotifier =
+      ValueNotifier(Icons.star);
+  final ValueNotifier&lt;Color&gt; selectedColorNotifier =
+      ValueNotifier(ownColors.category1);
+  final TextEditingController textController = TextEditingController();
+  final categoryProvider =
+      Provider.of&lt;CategoryProvider&gt;(context, listen: false);
+  final formKey = GlobalKey&lt;FormState&gt;();
+
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text(
+          &#39;Create category&#39;,
+          style: TextStyle(
+            fontSize: 25,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
+        content: Form(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          key: formKey,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ValueListenableBuilder&lt;IconData&gt;(
+                valueListenable: selectedIconNotifier,
+                builder: (context, selectedIcon, _) {
+                  return IconDropdown(
+                    selectedIcon: selectedIcon,
+                    onIconChanged: (newIcon) {
+                      selectedIconNotifier.value = newIcon;
+                    },
+                  );
+                },
+              ),
+              const SizedBox(width: 10),
+              GestureDetector(
+                onTap: () async {
+                  final pickedColor =
+                      await pickColor(context, selectedColorNotifier.value);
+                  if (pickedColor != null) {
+                    selectedColorNotifier.value = pickedColor;
+                  }
+                },
+                child: ValueListenableBuilder&lt;Color&gt;(
+                  valueListenable: selectedColorNotifier,
+                  builder: (context, selectedColor, _) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                        backgroundColor: selectedColor,
+                        radius: 15,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: TextFormField(
+                  maxLength: 20,
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                  controller: textController,
+                  decoration: const InputDecoration(
+                    hintText: &quot;Name&quot;,
+                  ),
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return &#39;required &#39;;
+                    }
+                    if (categoryProvider.categories
+                        .any((cat) =&gt; cat.name == value)) {
+                      return &#39;Category already exists&#39;;
+                    }
+                    return null;
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    Category cat = Category(
+                      name: textController.text,
+                      color: selectedColorNotifier.value,
+                      icon: selectedIconNotifier.value,
+                    );
+                    if (!categoryProvider.doesCategoryExist(cat)) {
+                      categoryProvider.addCategory(cat);
+                      Navigator.of(context).pop();
+                    }
+                  }
+                },
+                icon: const Icon(Icons.check),
+              ),
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.close),
+                ),
+              ),
+            ],
+          ),
+        ],
+      );
+    },
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">peanutprogress</a></li>
+    <li><a href="../features_create_habit_view_popup_create_category/features_create_habit_view_popup_create_category-library.html">popup_create_category</a></li>
+    <li class="self-crumb">popupCreateCategory function</li>
+</ol>
+
+    <h5>popup_create_category library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-left-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    peanutprogress
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:streaks/data/models/category.dart';
+import 'package:peanutprogress/data/models/category.dart';
 
 void main() {
   group('Category', () {
@@ -20,27 +20,31 @@ void main() {
     test('defaultCategories should return a list of default categories', () {
       final categories = Category.defaultCategories();
 
-      expect(categories.length, 3);
-      expect(categories[0].name, 'Health');
-      expect(categories[1].name, 'Work');
-      expect(categories[2].name, 'Personal');
+      // expect(categories.length, 3);
+      // expect(categories[0].name, 'Health');
+      // expect(categories[1].name, 'Work');
+      // expect(categories[2].name, 'Personal');
+      expect(categories.length, 1);
+      expect(categories[0].name, 'All');
     });
 
     test('defaultCategories should be default', () {
       final categories = Category.defaultCategories();
 
-      expect(categories.length, 3);
+      // expect(categories.length, 3);
+      // expect(categories[0].isDefault, true);
+      // expect(categories[1].isDefault, true);
+      // expect(categories[2].isDefault, true);
+      expect(categories.length, 1);
       expect(categories[0].isDefault, true);
-      expect(categories[1].isDefault, true);
-      expect(categories[2].isDefault, true);
     });
 
     test('defaultCategory should return the first default category', () {
       final category = Category.defaultCategory();
 
-      expect(category.name, 'Health');
-      expect(category.color, const Color(0xFFD3B09C));
-      expect(category.icon, Icons.health_and_safety);
+      expect(category.name, 'All');
+      expect(category.color, const Color(0xFFC58F70));
+      expect(category.icon, Icons.list_alt);
       expect(category.isDefault, true);
     });
 

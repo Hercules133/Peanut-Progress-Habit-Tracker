@@ -1,7 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/data/models/own_colors.dart';
+import '/data/models/own_colors.dart';
 
 ThemeData lightMode = ThemeData(
+  inputDecorationTheme: InputDecorationTheme(
+    focusedBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Color(0xFF3A3A3A), width: 2.0),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.transparent, width: 1),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.red, width: 2),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    hintStyle: TextStyle(color: Colors.brown.shade200),
+    filled: true,
+    fillColor: Colors.brown.shade300,
+  ),
+  textSelectionTheme: TextSelectionThemeData(
+    selectionColor: Colors.brown.shade200,
+  ),
   colorScheme: ColorScheme.light(
     brightness: Brightness.light,
     surface: Colors.brown.shade200, // Background
@@ -34,6 +54,26 @@ ThemeData lightMode = ThemeData(
 );
 
 ThemeData darkMode = ThemeData(
+  inputDecorationTheme: InputDecorationTheme(
+    focusedBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Color(0xffc5cacd), width: 2.0),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.transparent, width: 1),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.red, width: 2),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    hintStyle: TextStyle(color: Colors.brown.shade900),
+    filled: true,
+    fillColor: Colors.brown.shade700,
+  ),
+  textSelectionTheme: TextSelectionThemeData(
+    selectionColor: Colors.brown.shade900,
+  ),
   colorScheme: ColorScheme.dark(
     brightness: Brightness.dark,
     surface: Colors.brown.shade900, //Background

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
-import 'package:streaks/data/providers/habit_provider.dart';
+import '/features/create_habit/view/inherited_widget_create_habit.dart';
+import '/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 
 Future<bool> popupDeleteWidget(BuildContext context) async {
@@ -20,7 +20,11 @@ Future<bool> popupDeleteWidget(BuildContext context) async {
                     children: [
                       IconButton(
                         onPressed: () {
-                          habitProvider.deleteHabit(inheritedData.id);
+                          if (habitProvider.habits
+                              .any((item) => item.id == inheritedData.id)) {
+                            habitProvider.deleteHabit(inheritedData.id);
+                          }
+
                           Navigator.pop(context, true);
                         },
                         icon: const Icon(Icons.check),

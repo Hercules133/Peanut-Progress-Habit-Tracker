@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/data/models/category.dart';
-import 'package:streaks/core/utils/enums/progress_status.dart';
-import 'package:streaks/core/utils/enums/day_of_week.dart';
-import 'package:streaks/data/models/date_only.dart';
+import '/data/models/category.dart';
+import '/core/utils/enums/progress_status.dart';
+import '/core/utils/enums/day_of_week.dart';
+import '/data/models/date_only.dart';
 
 class Habit {
   int id;
@@ -100,6 +100,19 @@ class Habit {
       time: time ?? this.time,
       progress: progress ?? _progress,
       category: category ?? this.category,
+    );
+  }
+
+  // Copy constructor
+  factory Habit.from(Habit other) {
+    return Habit(
+      id: other.id,
+      title: other.title,
+      description: other.description,
+      days: List.from(other.days),
+      time: other.time,
+      progress: Map.from(other.progress),
+      category: other.category,
     );
   }
 

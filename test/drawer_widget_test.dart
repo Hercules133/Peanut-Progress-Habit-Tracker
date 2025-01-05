@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
-import 'package:streaks/core/config/locator.dart';
-import 'package:streaks/core/widgets/drawer_menu_widget.dart';
-import 'package:streaks/data/models/theme.dart';
-import 'package:streaks/data/providers/category_provider.dart';
-import 'package:streaks/data/providers/habit_provider.dart';
-import 'package:streaks/features/home_page/view/habits.dart';
-import 'package:streaks/features/home_page/view/home_page_screen.dart';
-import 'package:streaks/core/utils/routes.dart';
+import 'package:peanutprogress/core/config/locator.dart';
+import 'package:peanutprogress/core/widgets/drawer_menu_widget.dart';
+import 'package:peanutprogress/data/models/theme.dart';
+import 'package:peanutprogress/data/providers/category_provider.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
+import 'package:peanutprogress/features/home_page/view/habits.dart';
+import 'package:peanutprogress/features/home_page/view/home_page_screen.dart';
+import 'package:peanutprogress/core/utils/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:streaks/features/settings_page/view/settings_page.dart';
-import 'package:streaks/features/settings_page/view/switch_state.dart';
-import 'package:streaks/features/statistics_page/view/statistics_screen.dart';
+import 'package:peanutprogress/features/settings_page/view/settings_page.dart';
+import 'package:peanutprogress/features/settings_page/view/switch_state.dart';
+import 'package:peanutprogress/features/statistics_page/view/statistics_screen.dart';
 
 void main() {
   final scaffoldKey = GlobalKey<ScaffoldState>();

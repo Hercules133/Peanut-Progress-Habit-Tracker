@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:streaks/core/widgets/app_bar_widget.dart';
+import 'package:peanutprogress/core/widgets/app_bar_widget.dart';
 
 void main() {
   testWidgets(

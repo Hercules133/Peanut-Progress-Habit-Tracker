@@ -5,10 +5,10 @@ class IconDropdown extends StatelessWidget {
   final ValueChanged<IconData> onIconChanged;
 
   const IconDropdown({
-    Key? key,
+    super.key,
     required this.selectedIcon,
     required this.onIconChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

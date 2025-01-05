@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:peanutprogress/core/utils/routes.dart';
 import 'package:provider/provider.dart';
-import 'package:streaks/data/providers/category_provider.dart';
-import 'package:streaks/data/providers/habit_provider.dart';
-import 'package:streaks/features/home_page/view/tab_bar_view_widget.dart';
-import 'package:streaks/features/home_page/view/tab_bar_widget.dart';
+import '/data/providers/category_provider.dart';
+import '/data/providers/habit_provider.dart';
+import '/features/home_page/view/tab_bar_view_widget.dart';
+import '/features/home_page/view/tab_bar_widget.dart';
 import '../../../core/widgets/app_bar_widget.dart';
-import 'package:streaks/core/utils/get_greeting.dart';
-import 'package:streaks/core/widgets/drawer_menu_widget.dart';
+import '/core/utils/get_greeting.dart';
+import '/core/widgets/drawer_menu_widget.dart';
 
 class MyHabitsPage extends StatelessWidget {
   const MyHabitsPage({super.key});
@@ -23,8 +24,6 @@ class MyHabitsPage extends StatelessWidget {
     'Category 9',
     'Category 10'
   ];
-
-  static String _sortBy = 'Alle';
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,7 @@ class MyHabitsPage extends StatelessWidget {
               children: [
                 if (!habitProvider.isSearching) ...[
                   const Expanded(
-                    child: MyTabBar(),
+                    child: MyTabBar(showTodayOnly: false),
                   ),
                   IconButton(
                     icon: const Icon(Icons.search),
@@ -70,30 +69,20 @@ class MyHabitsPage extends StatelessWidget {
             ),
             // Gefilterte Habit-Ansicht
             const Expanded(
-              child: MyTabBarView(),
+              child: MyTabBarView(showTodayOnly: false),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildSortOption(String label) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
-      child: ChoiceChip(
-        label: Text(
-          label,
-          style: const TextStyle(color: Colors.white),
-        ),
-        selected: _sortBy == label,
-        onSelected: (bool selected) {
-          _sortBy = label;
-
-        },
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.add);
+            },
+            tooltip: 'new Habit',
+            shape: const CircleBorder(),
+            child: Icon(
+              Icons.add,
+              color: Theme.of(context).colorScheme.onSurface,
+            )),
       ),
     );
   }

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import '/core/config/locator.dart';
 import 'package:provider/provider.dart';
-import 'package:streaks/core/config/locator.dart';
-import 'package:streaks/data/providers/category_provider.dart';
-import 'package:streaks/data/models/theme.dart';
-import 'package:streaks/features/create_habit/view/create_habit_screen.dart';
-import 'package:streaks/features/home_page/view/home_page_screen.dart';
-import 'package:streaks/data/providers/habit_provider.dart';
-import 'package:streaks/features/settings_page/view/settings_page.dart';
-import 'package:streaks/features/statistics_page/view/statistics_screen.dart';
+import '/data/providers/category_provider.dart';
+import '/data/models/theme.dart';
+import '/features/create_habit/view/create_habit_screen.dart';
+import '/features/home_page/view/home_page_screen.dart';
+import '/data/providers/habit_provider.dart';
+import '/features/settings_page/view/settings_page.dart';
+import '/features/statistics_page/view/statistics_screen.dart';
 import 'core/utils/routes.dart';
-import 'package:streaks/data/models/habit.dart';
+import '/data/models/habit.dart';
 import 'features/settings_page/view/switch_state.dart';
-import 'package:streaks/features/home_page/view/habits.dart';
+import '/features/home_page/view/habits.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,9 +50,11 @@ class MyApp extends StatelessWidget {
               Routes.edit: (context) {
                 final habit =
                     ModalRoute.of(context)?.settings.arguments as Habit?;
-                return CreateHabit(habit: habit);
+                return CreateHabit(habit: habit, newHabit: false);
               },
-              Routes.add: (context) => const CreateHabit(),
+              Routes.add: (context) => const CreateHabit(
+                    newHabit: true,
+                  ),
               Routes.habits: (context) => const MyHabitsPage(),
               Routes.settings: (context) => const SettingsPage(),
               Routes.statistics: (context) => const StatisticsPage(),

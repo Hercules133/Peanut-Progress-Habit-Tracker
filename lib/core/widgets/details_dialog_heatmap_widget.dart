@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
-import 'package:streaks/data/models/own_colors.dart';
-import 'package:streaks/data/models/heatmap.dart' as hm;
-import 'package:streaks/data/models/habit.dart';
+import '/data/models/own_colors.dart';
+import '/data/models/heatmap.dart' as hm;
+import '/data/models/habit.dart';
 
 class MyHeatMap extends StatelessWidget {
   const MyHeatMap({super.key, required this.habit});

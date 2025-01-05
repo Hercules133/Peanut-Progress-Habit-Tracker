@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/core/utils/enums/day_of_week.dart';
-import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart';
-import 'package:streaks/data/models/own_colors.dart';
+import '/core/utils/enums/day_of_week.dart';
+import '/features/create_habit/view/inherited_widget_create_habit.dart';
+import '/data/models/own_colors.dart';
 
 class DayButtonWidget extends StatelessWidget {
   DayButtonWidget({super.key, required this.day});
 
   final String day;
-  final ValueNotifier<bool> _hasBeenPressed = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> hasBeenPressed = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
@@ -18,49 +18,49 @@ class DayButtonWidget extends StatelessWidget {
         case "Mo":
           {
             if (d == DayOfWeek.monday) {
-              _hasBeenPressed.value = true;
+              hasBeenPressed.value = true;
             }
           }
           break;
         case "Tu":
           {
             if (d == DayOfWeek.tuesday) {
-              _hasBeenPressed.value = true;
+              hasBeenPressed.value = true;
             }
           }
           break;
         case "We":
           {
             if (d == DayOfWeek.wednesday) {
-              _hasBeenPressed.value = true;
+              hasBeenPressed.value = true;
             }
           }
           break;
         case "Th":
           {
             if (d == DayOfWeek.thursday) {
-              _hasBeenPressed.value = true;
+              hasBeenPressed.value = true;
             }
           }
           break;
         case "Fr":
           {
             if (d == DayOfWeek.friday) {
-              _hasBeenPressed.value = true;
+              hasBeenPressed.value = true;
             }
           }
           break;
         case "Sa":
           {
             if (d == DayOfWeek.saturday) {
-              _hasBeenPressed.value = true;
+              hasBeenPressed.value = true;
             }
           }
           break;
         case "Su":
           {
             if (d == DayOfWeek.sunday) {
-              _hasBeenPressed.value = true;
+              hasBeenPressed.value = true;
             }
           }
           break;
@@ -68,19 +68,19 @@ class DayButtonWidget extends StatelessWidget {
     }
 
     return ValueListenableBuilder<bool>(
-        valueListenable: _hasBeenPressed,
+        valueListenable: hasBeenPressed,
         builder: (context, value, child) {
           return TextButton(
             style: TextButton.styleFrom(
-              backgroundColor: _hasBeenPressed.value
+              backgroundColor: hasBeenPressed.value
                   ? ownColors.contribution2
                   : ownColors.contribution1,
               maximumSize: const Size(40, 40),
               minimumSize: const Size(40, 40),
             ),
             onPressed: () {
-              _hasBeenPressed.value = !_hasBeenPressed.value;
-              if (_hasBeenPressed.value) {
+              hasBeenPressed.value = !hasBeenPressed.value;
+              if (hasBeenPressed.value) {
                 switch (day) {
                   case "Mo":
                     inheritedData.days.add(DayOfWeek.monday);
@@ -108,18 +108,25 @@ class DayButtonWidget extends StatelessWidget {
                 switch (day) {
                   case "Mo":
                     inheritedData.days.remove(DayOfWeek.monday);
+                    break;
                   case "Tu":
                     inheritedData.days.remove(DayOfWeek.tuesday);
+                    break;
                   case "We":
                     inheritedData.days.remove(DayOfWeek.wednesday);
+                    break;
                   case "Th":
                     inheritedData.days.remove(DayOfWeek.thursday);
+                    break;
                   case "Fr":
                     inheritedData.days.remove(DayOfWeek.friday);
+                    break;
                   case "Sa":
                     inheritedData.days.remove(DayOfWeek.saturday);
+                    break;
                   case "Su":
                     inheritedData.days.remove(DayOfWeek.sunday);
+                    break;
                 }
               }
             },

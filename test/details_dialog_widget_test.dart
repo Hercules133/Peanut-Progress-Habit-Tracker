@@ -3,18 +3,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:streaks/core/config/locator.dart';
-import 'package:streaks/core/utils/enums/day_of_week.dart';
-import 'package:streaks/core/utils/enums/progress_status.dart';
-import 'package:streaks/core/utils/routes.dart';
-import 'package:streaks/core/widgets/details_dialog_heatmap_widget.dart';
-import 'package:streaks/core/widgets/details_dialog_widget.dart';
-import 'package:streaks/data/models/habit.dart';
-import 'package:streaks/data/models/category.dart';
-import 'package:streaks/data/models/theme.dart';
-import 'package:streaks/data/providers/category_provider.dart';
-import 'package:streaks/data/providers/habit_provider.dart';
-import 'package:streaks/features/create_habit/view/create_habit_screen.dart';
+import 'package:peanutprogress/core/config/locator.dart';
+import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
+import 'package:peanutprogress/core/utils/enums/progress_status.dart';
+import 'package:peanutprogress/core/utils/routes.dart';
+import 'package:peanutprogress/core/widgets/details_dialog_heatmap_widget.dart';
+import 'package:peanutprogress/core/widgets/details_dialog_widget.dart';
+import 'package:peanutprogress/data/models/habit.dart';
+import 'package:peanutprogress/data/models/category.dart';
+import 'package:peanutprogress/data/models/theme.dart';
+import 'package:peanutprogress/data/providers/category_provider.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
+import 'package:peanutprogress/features/create_habit/view/create_habit_screen.dart';
 
 class MockHabitProvider extends Mock implements HabitProvider {}
 
@@ -115,7 +115,7 @@ void main() {
           theme: lightMode,
           darkTheme: darkMode,
           routes: {
-            Routes.edit: (context) => CreateHabit(habit: mockHabit),
+            Routes.edit: (context) => CreateHabit(newHabit: true,),
           },
           home: Scaffold(
             body: HabitDetailsDialog(habit: mockHabit),
