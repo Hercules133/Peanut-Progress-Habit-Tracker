@@ -45,6 +45,7 @@ dependencies:
 
   d_chart: any
   intl: any
+  clock: ^1.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter   
