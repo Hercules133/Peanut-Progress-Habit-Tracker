@@ -11,23 +11,11 @@ import '/core/widgets/drawer_menu_widget.dart';
 class MyHabitsPage extends StatelessWidget {
   const MyHabitsPage({super.key});
 
-  static const List<String> categoriesName = <String>[
-    'Category 1',
-    'Category 2',
-    'Category 3',
-    'Category 4',
-    'Category 5',
-    'Category 6',
-    'Category 7',
-    'Category 8',
-    'Category 9',
-    'Category 10'
-  ];
-
   static String _sortBy = 'Alle';
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("Hier ist die Habits-Seite!");
     final habitProvider = context.watch<HabitProvider>();
     final categoryProvider = context.watch<CategoryProvider>();
     return DefaultTabController(
@@ -73,26 +61,6 @@ class MyHabitsPage extends StatelessWidget {
               child: MyTabBarView(showTodayOnly: false),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  // ignore: unused_element
-  Widget _buildSortOption(String label) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
-      child: ChoiceChip(
-        label: Text(
-          label,
-          style: const TextStyle(color: Colors.white),
-        ),
-        selected: _sortBy == label,
-        onSelected: (bool selected) {
-          _sortBy = label;
-        },
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
         ),
       ),
     );

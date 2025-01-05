@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peanutprogress/data/providers/category_provider.dart';
 import '/core/utils/routes.dart';
 import '/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +9,7 @@ class MyDrawerMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categoryProvider = context.watch<CategoryProvider>();
     final habitProvider = context.watch<HabitProvider>();
     return SafeArea(
       child: Drawer(
@@ -17,6 +19,7 @@ class MyDrawerMenu extends StatelessWidget {
               leading: const Icon(Icons.home),
               title: const Text('Home'),
               onTap: () {
+                categoryProvider.resetSelectedIndex();
                 habitProvider.isSearching = false;
                 Navigator.pushReplacementNamed(context, Routes.home);
               },
@@ -27,6 +30,7 @@ class MyDrawerMenu extends StatelessWidget {
               ),
               title: const Text('Habits'),
               onTap: () {
+                categoryProvider.resetSelectedIndex();
                 habitProvider.isSearching = false;
                 Navigator.pushReplacementNamed(context, Routes.habits);
               },
@@ -45,6 +49,13 @@ class MyDrawerMenu extends StatelessWidget {
               onTap: () {
                 habitProvider.isSearching = false;
                 Navigator.pushReplacementNamed(context, Routes.settings);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.help_outline),
+              title: const Text('Hilfe'),
+              onTap: () {
+                Navigator.pushNamed(context, Routes.walkthrough);
               },
             ),
           ],

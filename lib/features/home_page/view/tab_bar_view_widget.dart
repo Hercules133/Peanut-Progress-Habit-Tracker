@@ -34,20 +34,23 @@ class MyTabBarView extends StatelessWidget {
       return const Center(child: Text('No habits available.'));
     }
 
-    final filteredCategories = categoryProvider.categories.where((category) {
-      if (category.name == 'All') return false;
-      final habits = showTodayOnly
-          ? habitProvider.getPendingHabitsForTodayByCategory(category)
-          : habitProvider.getHabitsByCategory(category);
-      return habits.isNotEmpty;
-    }).toList();
+    final filteredCategories = [
+      categoryProvider.categories.firstWhere((cat) => cat.name == 'All'),
+      ...categoryProvider.categories.where((category) {
+        if (category.name == 'All') return false;
+        final habits = showTodayOnly
+            ? habitProvider.getPendingHabitsForTodayByCategory(category)
+            : habitProvider.getHabitsByCategory(category);
+        return habits.isNotEmpty;
+      }),
+    ];
 
     if (filteredCategories.isEmpty) {
       return const Center(child: Text('No Habits to do for today pal. Rest back :).'));
     }
 
     return TabBarView(
-      children: allCategories.map((category) {
+      children: filteredCategories.map((category) {
         List<Habit> habits = [];
         if (category.name == 'All') {
           habits = showTodayOnly
