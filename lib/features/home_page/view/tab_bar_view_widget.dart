@@ -43,7 +43,8 @@ class MyTabBarView extends StatelessWidget {
     }).toList();
 
     if (filteredCategories.isEmpty) {
-      return const Center(child: Text('No Habits to do for today pal. Rest back :).'));
+      return const Center(
+          child: Text('No Habits to do for today pal. Rest back :).'));
     }
 
     return TabBarView(
@@ -64,7 +65,8 @@ class MyTabBarView extends StatelessWidget {
     );
   }
 
-  Widget buildGridView(List<Habit> habits, OwnColors ownColors, [Color? color]) {
+  Widget buildGridView(List<Habit> habits, OwnColors ownColors,
+      [Color? color]) {
     return LayoutBuilder(
       builder: (context, constraints) {
         int crossAxisCount = 1;
@@ -75,7 +77,9 @@ class MyTabBarView extends StatelessWidget {
         }
 
         final visibleHabits = showTodayOnly
-            ? habits.where((habit) => !habit.isCompletedOnDate(DateTime.now())).toList()
+            ? habits
+                .where((habit) => !habit.isCompletedOnDate(DateTime.now()))
+                .toList()
             : habits;
 
         return GridView.builder(

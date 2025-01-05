@@ -17,9 +17,12 @@ class CloseButtonWidget extends StatelessWidget {
 
     return IconButton(
       onPressed: () async {
-        final categoryProvider = Provider.of<CategoryProvider>(context, listen: false);
-        final habitProvider = Provider.of<HabitProvider>(context, listen: false);
-        final categoriesToRemove = categoryProvider.categories.where((category) {
+        final categoryProvider =
+            Provider.of<CategoryProvider>(context, listen: false);
+        final habitProvider =
+            Provider.of<HabitProvider>(context, listen: false);
+        final categoriesToRemove =
+            categoryProvider.categories.where((category) {
           final habitsForCategory = habitProvider.getHabitsByCategory(category);
           return habitsForCategory.isEmpty && category.name != 'All';
         }).toList();
