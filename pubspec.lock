@@ -65,6 +65,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.0"
+  community_charts_common:
+    dependency: transitive
+    description:
+      name: community_charts_common
+      sha256: d997ade57f15490346de46efbe23805d378a672aafbf5e47e19517964b671009
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.4"
+  community_charts_flutter:
+    dependency: transitive
+    description:
+      name: community_charts_flutter
+      sha256: "4614846b99782ab79b613687704865e5468ecada3f0ad1afe1cdc3ff5b727f72"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.4"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -73,6 +89,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
+  d_chart:
+    dependency: "direct main"
+    description:
+      name: d_chart
+      sha256: "8cd3d41129ebb26ce86200b2f131bfc7aade2a19686c5e1ef94095c506119596"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.10.2"
   fake_async:
     dependency: transitive
     description:
@@ -168,6 +192,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.3.4"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      sha256: b9c29a161230ee03d3ccf545097fccd9b87a5264228c5d348202e0f0c28f9010
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.2"
+  http_parser:
+    dependency: transitive
+    description:
+      name: http_parser
+      sha256: "178d74305e7866013777bab2c3d8726205dc5a4dd935297175b19a23a2e66571"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.2"
   husky:
     dependency: "direct dev"
     description:
@@ -176,6 +216,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.7"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      sha256: "00f33b908655e606b86d2ade4710a231b802eec6f11e87e4ea3783fd72077a50"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.20.1"
   leak_tracker:
     dependency: transitive
     description:
@@ -429,6 +477,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.3"
+  typed_data:
+    dependency: transitive
+    description:
+      name: typed_data
+      sha256: f9049c039ebfeb4cf7a7104a675823cd72dba8297f264b6637062516699fa006
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
   vector_math:
     dependency: transitive
     description:

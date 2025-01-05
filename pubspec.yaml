@@ -42,6 +42,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   graphic: ^2.5.0
 
+  d_chart: any
+  intl: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

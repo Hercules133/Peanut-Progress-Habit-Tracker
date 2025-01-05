@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peanutprogress/core/utils/routes.dart';
 import 'package:provider/provider.dart';
 import '/data/providers/category_provider.dart';
 import '/data/providers/habit_provider.dart';
@@ -15,7 +16,6 @@ class MyHabitsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Hier ist die Habits-Seite!");
     final habitProvider = context.watch<HabitProvider>();
     final categoryProvider = context.watch<CategoryProvider>();
     return DefaultTabController(
@@ -62,6 +62,16 @@ class MyHabitsPage extends StatelessWidget {
             ),
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.add);
+            },
+            tooltip: 'new Habit',
+            shape: const CircleBorder(),
+            child: Icon(
+              Icons.add,
+              color: Theme.of(context).colorScheme.onSurface,
+            )),
       ),
     );
   }
