@@ -15,11 +15,9 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Hier ist die Homepage!");
     CategoryProvider categoryProvider = context.watch<CategoryProvider>();
     HabitProvider habitProvider = context.watch<HabitProvider>();
 
-    // Kategorien für die Homepage (nur solche mit heute anstehenden Habits)
     final filteredCategories = [
       categoryProvider.categories.firstWhere((cat) => cat.name == 'All'),
       ...categoryProvider.categories.where((category) {
