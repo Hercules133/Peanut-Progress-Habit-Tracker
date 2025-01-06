@@ -1,32 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:d_chart/d_chart.dart';
+import 'package:peanutprogress/data/models/habit.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
 
 // ignore: must_be_immutable
 class BarChartWidget extends StatelessWidget {
   BarChartWidget({super.key});
-  List<OrdinalData> series1 = [
-    OrdinalData(domain: 'Mon', measure: 2.4, color: Colors.white),
-    OrdinalData(domain: 'Tue', measure: 2, color: Colors.white),
-    OrdinalData(domain: 'Wed', measure: 1, color: Colors.white),
-    OrdinalData(domain: 'Thu', measure: 4.5, color: Colors.white),
-    OrdinalData(domain: 'Fri', measure: 2, color: Colors.white),
-    OrdinalData(domain: 'Sat', measure: 3.5, color: Colors.white),
-    OrdinalData(domain: 'Sun', measure: 2),
-  ];
+
+  List<OrdinalData> ordinalDataList = [];
 
   @override
   Widget build(BuildContext context) {
+    final habitProvider = context.watch<HabitProvider>();
+    List<Habit> habits = habitProvider.habits;
+
+    List<int> habitCounts = List.filled(7, 0);
+    List<String> daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+    for (Habit habit in habits) {
+      for (DayOfWeek day in habit.days) {
+        int index = day.index;
+        habitCounts[index]++;
+      }
+    }
+
+    for (int i = 0; i < 7; i++) {
+      ordinalDataList.add(OrdinalData(
+        domain: daysOfWeek[i],
+        measure: habitCounts[i].toDouble(),
+      ));
+    }
+
     return AspectRatio(
       aspectRatio: 16 / 9,
       child: DChartBarO(
         configRenderBar: ConfigRenderBar(
           barGroupInnerPaddingPx: 0,
-          radius: 15,
+          radius: 25,
         ),
         domainAxis: const DomainAxis(
           showLine: false,
           tickLength: 0,
           gapAxisToLabel: 8,
+          labelStyle: LabelStyle(
+            color: Colors.white,
+          ),
         ),
         measureAxis: const MeasureAxis(
           noRenderSpec: true,
@@ -34,7 +54,7 @@ class BarChartWidget extends StatelessWidget {
         groupList: [
           OrdinalGroup(
             id: '1',
-            data: series1,
+            data: ordinalDataList,
             color: Colors.blue,
           ),
         ],

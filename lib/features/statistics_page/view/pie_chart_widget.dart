@@ -24,9 +24,6 @@ class PieChartWidget extends StatelessWidget {
     List<Category> addedCategories = [];
     Map<Category, int> categoryCounts = {};
 
-    debugPrint("TodaysHabits length: ${todayHabits.length}");
-    debugPrint("Habits length: ${habits.length}");
-
     for (Habit habit in habits) {
       if (habit.isCompletedOnDate(DateTime.now())) {
         todayHabits.add(habit);
@@ -59,8 +56,11 @@ class PieChartWidget extends StatelessWidget {
       child: DChartPieO(
         data: ordinalDataList,
         customLabel: (ordinalData, index) {
-          debugPrint(ordinalData.domain);
-          return '${ordinalData.measure.toStringAsFixed(1)}%'; // Adjusted line
+          if (ordinalData.measure > 15) {
+            return '${ordinalData.domain}\n${ordinalData.measure.toStringAsFixed(1)}%';
+          } else {
+            return '${ordinalData.measure.toStringAsFixed(1)}%';
+          }
         },
         configRenderPie: ConfigRenderPie(
           strokeWidthPx: 2,
