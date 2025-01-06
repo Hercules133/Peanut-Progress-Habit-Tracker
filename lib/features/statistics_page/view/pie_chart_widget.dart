@@ -51,22 +51,33 @@ class PieChartWidget extends StatelessWidget {
       ];
     }
 
-    return AspectRatio(
-      aspectRatio: 16 / 9,
-      child: DChartPieO(
-        data: ordinalDataList,
-        customLabel: (ordinalData, index) {
-          if (ordinalData.measure > 15) {
-            return '${ordinalData.domain}\n${ordinalData.measure.toStringAsFixed(1)}%';
-          } else {
-            return '${ordinalData.measure.toStringAsFixed(1)}%';
-          }
-        },
-        configRenderPie: ConfigRenderPie(
-          strokeWidthPx: 2,
-          arcLabelDecorator: ArcLabelDecorator(),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: const Text(
+            'Completed today (%/category)',
+            textAlign: TextAlign.center,
+          ),
         ),
-      ),
+        AspectRatio(
+          aspectRatio: 16 / 9,
+          child: DChartPieO(
+            data: ordinalDataList,
+            customLabel: (ordinalData, index) {
+              if (ordinalData.measure > 15) {
+                return '${ordinalData.domain}\n${ordinalData.measure.toStringAsFixed(1)}%';
+              } else {
+                return '${ordinalData.measure.toStringAsFixed(1)}%';
+              }
+            },
+            configRenderPie: ConfigRenderPie(
+              strokeWidthPx: 2,
+              arcLabelDecorator: ArcLabelDecorator(),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

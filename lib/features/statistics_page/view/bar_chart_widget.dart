@@ -33,32 +33,43 @@ class BarChartWidget extends StatelessWidget {
       ));
     }
 
-    return AspectRatio(
-      aspectRatio: 16 / 9,
-      child: DChartBarO(
-        configRenderBar: ConfigRenderBar(
-          barGroupInnerPaddingPx: 0,
-          radius: 25,
-        ),
-        domainAxis: const DomainAxis(
-          showLine: false,
-          tickLength: 0,
-          gapAxisToLabel: 8,
-          labelStyle: LabelStyle(
-            color: Colors.white,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: const Text(
+            'How many created habits on a day (all categories)',
+            textAlign: TextAlign.center,
           ),
         ),
-        measureAxis: const MeasureAxis(
-          noRenderSpec: true,
-        ),
-        groupList: [
-          OrdinalGroup(
-            id: '1',
-            data: ordinalDataList,
-            color: Colors.blue,
+        AspectRatio(
+          aspectRatio: 16 / 9,
+          child: DChartBarO(
+            configRenderBar: ConfigRenderBar(
+              barGroupInnerPaddingPx: 0,
+              radius: 25,
+            ),
+            domainAxis: const DomainAxis(
+              showLine: false,
+              tickLength: 0,
+              gapAxisToLabel: 8,
+              labelStyle: LabelStyle(
+                color: Colors.white,
+              ),
+            ),
+            measureAxis: const MeasureAxis(
+              noRenderSpec: true,
+            ),
+            groupList: [
+              OrdinalGroup(
+                id: '1',
+                data: ordinalDataList,
+                color: Colors.blue,
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -25,14 +25,34 @@ class StatisticsPage extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Expanded(child: const MyHeatMap()),
-                      Expanded(child: PieChartWidget()),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: const MyHeatMap(),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: PieChartWidget(),
+                        ),
+                      ),
                     ],
                   ),
                   Row(
                     children: [
-                      Expanded(child: BarChartWidget()),
-                      Expanded(child: LineChartWidget()),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: BarChartWidget(),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: LineChartWidget(),
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -42,11 +62,23 @@ class StatisticsPage extends StatelessWidget {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  const MyHeatMap(),
-                  const Text('Diagrams'),
-                  PieChartWidget(),
-                  BarChartWidget(),
-                  LineChartWidget(),
+                  Text("Heatmap"),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: const MyHeatMap(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: PieChartWidget(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: BarChartWidget(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: LineChartWidget(),
+                  ),
                 ],
               ),
             );
