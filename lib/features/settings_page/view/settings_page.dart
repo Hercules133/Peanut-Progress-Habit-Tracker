@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peanutprogress/data/providers/locale_provider.dart';
+import 'package:peanutprogress/data/providers/username_provider.dart';
 import 'package:provider/provider.dart';
 import '/core/widgets/app_bar_widget.dart';
 import '/core/widgets/drawer_menu_widget.dart';
@@ -15,6 +16,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final switchState = Provider.of<SwitchState>(context, listen: false);
     final localeProvider = Provider.of<LocaleProvider>(context);
+    final usernameProvider = Provider.of<UsernameProvider>(context);
 
     return Scaffold(
       appBar: MyAppBar(
@@ -48,6 +50,10 @@ class SettingsPage extends StatelessWidget {
                 hintText:
                     AppLocalizations.of(context)!.settingsPageNameHintText,
               ),
+              controller: usernameProvider.controller,
+              onChanged: (value) {
+                usernameProvider.updateFromController();
+              },
               cursorColor: Theme.of(context).colorScheme.onSurface,
             ),
           ),

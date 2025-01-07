@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peanutprogress/data/providers/locale_provider.dart';
+import 'package:peanutprogress/data/providers/username_provider.dart';
 import '/core/config/locator.dart';
 import 'package:provider/provider.dart';
 import '/data/providers/category_provider.dart';
@@ -41,6 +42,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<LocaleProvider>(
           create: (context) => LocaleProvider()..fetchLocale(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              UsernameProvider()..fetchUsername(),
         ),
       ],
       child: Consumer2<SwitchState, LocaleProvider>(
