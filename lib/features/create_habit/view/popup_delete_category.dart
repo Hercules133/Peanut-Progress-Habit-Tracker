@@ -3,6 +3,7 @@ import 'package:peanutprogress/data/models/category.dart';
 import 'package:peanutprogress/data/models/habit.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<bool> popupDeleteCategoryWidget(
     BuildContext context, Category categoryToDelete) async {
@@ -12,17 +13,20 @@ Future<bool> popupDeleteCategoryWidget(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Delete'),
+          title: Text(
+              AppLocalizations.of(context)!.popupDeleteCategoryDeleteButton),
           content: ValueListenableBuilder(
             valueListenable: showError,
             builder: (context, value, child) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text("Do you want to delete this Category?"),
+                  Text(AppLocalizations.of(context)!
+                      .popupDeleteCategoryConfirmationMessage),
                   if (value)
-                    const Text(
-                      "Category has assigned habits.",
+                    Text(
+                      AppLocalizations.of(context)!
+                          .popupDeleteCategoryAssignedHabitsWarning,
                       style: TextStyle(color: Colors.red),
                     ),
                   Row(

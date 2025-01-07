@@ -5,6 +5,7 @@ import 'package:peanutprogress/features/statistics_page/view/pie_chart_widget.da
 import '/core/widgets/app_bar_widget.dart';
 import '/core/widgets/drawer_menu_widget.dart';
 import '/features/home_page/view/heat_map_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StatisticsPage extends StatelessWidget {
   const StatisticsPage({super.key});
@@ -14,7 +15,7 @@ class StatisticsPage extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(
         appBar: AppBar(),
-        appBarTitle: 'Statistics',
+        appBarTitle: AppLocalizations.of(context)!.statisticsPageAppBarTitle,
       ),
       drawer: const MyDrawerMenu(),
       body: LayoutBuilder(
@@ -43,7 +44,7 @@ class StatisticsPage extends StatelessWidget {
               child: Column(
                 children: [
                   const MyHeatMap(),
-                  const Text('Diagrams'),
+                  Text(AppLocalizations.of(context)!.statisticsPageDiagrams),
                   PieChartWidget(),
                   BarChartWidget(),
                   LineChartWidget(),

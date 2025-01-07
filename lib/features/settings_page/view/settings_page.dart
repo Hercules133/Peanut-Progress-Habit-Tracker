@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:peanutprogress/data/providers/locale_provider.dart';
 import 'package:provider/provider.dart';
 import '/core/widgets/app_bar_widget.dart';
 import '/core/widgets/drawer_menu_widget.dart';
+import 'package:peanutprogress/core/config/language.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'switch_state.dart';
 
@@ -11,11 +14,12 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final switchState = Provider.of<SwitchState>(context, listen: false);
+    final localeProvider = Provider.of<LocaleProvider>(context);
 
     return Scaffold(
       appBar: MyAppBar(
         appBar: AppBar(),
-        appBarTitle: 'Settings',
+        appBarTitle: AppLocalizations.of(context)!.settingsPageAppBarTitle,
       ),
       drawer: const MyDrawerMenu(),
       body: Column(
@@ -30,27 +34,28 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
           ),
-          const Align(
+          Align(
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: Text("Username"),
+              child: Text(AppLocalizations.of(context)!.settingsPageUsername),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextField(
-              decoration: const InputDecoration(
-                hintText: "Type in your name",
+              decoration: InputDecoration(
+                hintText:
+                    AppLocalizations.of(context)!.settingsPageNameHintText,
               ),
               cursorColor: Theme.of(context).colorScheme.onSurface,
             ),
           ),
-          const Align(
+          Align(
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: Text("Languages"),
+              child: Text(AppLocalizations.of(context)!.settingsPageLanguages),
             ),
           ),
           Padding(
@@ -71,26 +76,31 @@ class SettingsPage extends StatelessWidget {
                 child: DropdownMenu(
                   inputDecorationTheme:
                       const InputDecorationTheme(filled: true),
-                  initialSelection: 'English',
+                  initialSelection: localeProvider.locale?.languageCode,
                   //inputDecorationTheme: InputDecorationTheme(),
                   trailingIcon: Icon(
                     Icons.arrow_drop_down,
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
                   width: double.infinity,
-                  dropdownMenuEntries: const <DropdownMenuEntry<String>>[
-                    DropdownMenuEntry(value: 'English', label: 'English'),
-                    DropdownMenuEntry(value: 'Deutsch', label: 'Deutsch'),
-                  ],
+                  dropdownMenuEntries: Language.languageList().map((language) {
+                    return DropdownMenuEntry<String>(
+                      value: language.languageCode,
+                      label: '${language.flag} ${language.name}',
+                    );
+                  }).toList(),
+                  onSelected: (languageCode) {
+                    localeProvider.saveLocale(languageCode!);
+                  },
                 ),
               ),
             ),
           ),
-          const Align(
+          Align(
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: EdgeInsets.only(top: 10.0, left: 10.0),
-              child: Text("Cloud"),
+              child: Text(AppLocalizations.of(context)!.settingsPageCloud),
             ),
           ),
           Padding(
@@ -102,11 +112,11 @@ class SettingsPage extends StatelessWidget {
               cursorColor: Theme.of(context).colorScheme.onSurface,
             ),
           ),
-          const Align(
+          Align(
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: Text("Theme Mode"),
+              child: Text(AppLocalizations.of(context)!.settingsPageThemeMode),
             ),
           ),
           Padding(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '/data/models/habit.dart';
 import '/features/create_habit/view/inherited_widget_create_habit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TitleFormfieldWidget extends StatelessWidget {
   const TitleFormfieldWidget(
@@ -32,15 +33,16 @@ class TitleFormfieldWidget extends StatelessWidget {
         autovalidateMode:
             pressed.value ? AutovalidateMode.always : AutovalidateMode.disabled,
         controller: titleController,
-        decoration: const InputDecoration(
-          hintText: "Enter a Habit title",
+        decoration: InputDecoration(
+          hintText: AppLocalizations.of(context)!.titleFormfieldHabitHintText,
         ),
         cursorColor: Theme.of(context).colorScheme.onSurface,
         validator: (value) {
           // debugPrint("validator: ${inheritedNotifierEmpty.empty.toString()}");
           debugPrint("start validation");
           if (value == null || value.isEmpty) {
-            return 'Title cannot be empty'; // Error message.
+            return AppLocalizations.of(context)!
+                .titleFormfieldTitleEmptyError; // Error message.
           }
           return null;
         },

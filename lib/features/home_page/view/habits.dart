@@ -8,6 +8,7 @@ import '/features/home_page/view/tab_bar_widget.dart';
 import '../../../core/widgets/app_bar_widget.dart';
 import '/core/utils/get_greeting.dart';
 import '/core/widgets/drawer_menu_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyHabitsPage extends StatelessWidget {
   const MyHabitsPage({super.key});
@@ -77,7 +78,7 @@ class MyHabitsPage extends StatelessWidget {
             onPressed: () {
               Navigator.pushNamed(context, Routes.add);
             },
-            tooltip: 'new Habit',
+            tooltip: AppLocalizations.of(context)!.myHabitPageNewHabitTooltip,
             shape: const CircleBorder(),
             child: Icon(
               Icons.add,

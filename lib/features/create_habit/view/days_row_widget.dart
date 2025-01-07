@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '/features/create_habit/view/day_button_widget.dart';
 import '/features/create_habit/view/time_button_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DaysRowWidget extends StatelessWidget {
   const DaysRowWidget({super.key});
@@ -12,7 +13,7 @@ class DaysRowWidget extends StatelessWidget {
         if (constraints.maxWidth > 600) {
           return Row(
             children: [
-              const Text("Days: "),
+              Text(AppLocalizations.of(context)!.daysRowWidgetDays),
               Expanded(
                 child: SizedBox(
                   height: 30,
@@ -31,7 +32,7 @@ class DaysRowWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 20),
-              const Text("Reminder:"),
+              Text(AppLocalizations.of(context)!.daysRowWidgetReminder),
               const SizedBox(width: 10),
               TimeButtonWidget(),
             ],

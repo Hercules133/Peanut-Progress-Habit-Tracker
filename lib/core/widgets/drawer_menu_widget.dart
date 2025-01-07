@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '/core/utils/routes.dart';
 import '/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyDrawerMenu extends StatelessWidget {
   const MyDrawerMenu({super.key});
@@ -15,7 +16,7 @@ class MyDrawerMenu extends StatelessWidget {
           children: [
             ListTile(
               leading: const Icon(Icons.home),
-              title: const Text('Home'),
+              title: Text(AppLocalizations.of(context)!.drawerMenuHome),
               onTap: () {
                 habitProvider.isSearching = false;
                 Navigator.pushReplacementNamed(context, Routes.home);
@@ -25,7 +26,7 @@ class MyDrawerMenu extends StatelessWidget {
               leading: const ImageIcon(
                 AssetImage('assets/images/Erdnuss.png'),
               ),
-              title: const Text('Habits'),
+              title: Text(AppLocalizations.of(context)!.drawerMenuHabits),
               onTap: () {
                 habitProvider.isSearching = false;
                 Navigator.pushReplacementNamed(context, Routes.habits);
@@ -33,7 +34,7 @@ class MyDrawerMenu extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.signal_cellular_alt),
-              title: const Text('Statistics'),
+              title: Text(AppLocalizations.of(context)!.drawerMenuStatistics),
               onTap: () {
                 habitProvider.isSearching = false;
                 Navigator.pushReplacementNamed(context, Routes.statistics);
@@ -41,7 +42,7 @@ class MyDrawerMenu extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
+              title: Text(AppLocalizations.of(context)!.drawerMenuSettings),
               onTap: () {
                 habitProvider.isSearching = false;
                 Navigator.pushReplacementNamed(context, Routes.settings);
