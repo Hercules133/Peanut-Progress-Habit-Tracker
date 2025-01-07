@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:peanutprogress/data/models/category.dart';
 import 'package:peanutprogress/data/models/habit.dart';
-import 'package:peanutprogress/data/providers/category_provider.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,13 +14,10 @@ class PieChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final habitProvider = context.watch<HabitProvider>();
-    final categoryProvider = context.watch<CategoryProvider>();
-    final allCategories = categoryProvider.categories;
 
     List<Habit> habits = habitProvider.habits;
 
     List<Habit> todayHabits = [];
-    List<Category> addedCategories = [];
     Map<Category, int> categoryCounts = {};
 
     for (Habit habit in habits) {

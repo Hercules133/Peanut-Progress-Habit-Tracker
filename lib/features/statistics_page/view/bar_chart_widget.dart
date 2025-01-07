@@ -61,11 +61,7 @@ class BarChartWidget extends StatelessWidget {
               noRenderSpec: true,
             ),
             groupList: [
-              OrdinalGroup(
-                id: '1',
-                data: ordinalDataList,
-                color: Colors.blue,
-              ),
+              OrdinalGroup(id: '1', data: ordinalDataList, color: Colors.brown),
             ],
           ),
         ),

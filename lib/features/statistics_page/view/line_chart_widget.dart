@@ -22,7 +22,6 @@ class LineChartWidget extends StatelessWidget {
     List<Habit> habits = habitProvider.habits;
 
     DateTime endDate = DateTime.now();
-    DateTime startDate = endDate.subtract(Duration(days: 70));
 
     List<int> weekCounts = List.filled(10, 0);
 
@@ -93,7 +92,7 @@ class LineChartWidget extends StatelessWidget {
               TimeGroup(
                 id: '1',
                 data: series1,
-                color: Colors.deepPurple,
+                color: Colors.brown,
               ),
             ],
           ),
