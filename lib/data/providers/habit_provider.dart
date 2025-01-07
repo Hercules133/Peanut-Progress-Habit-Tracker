@@ -85,7 +85,6 @@ class HabitProvider with ChangeNotifier {
     try {
       final habit = _habits.firstWhere((h) => h.id == habitId);
       final category = habit.category;
-
       await _habitRepository.deleteHabit(habitId);
       _habits.removeWhere((h) => h.id == habitId);
 
@@ -93,13 +92,11 @@ class HabitProvider with ChangeNotifier {
       if (!isCategoryStillUsed && category.name != 'All') {
         categoryProvider.removeCategory(category);
       }
-
       notifyListeners();
     } catch (e) {
       debugPrint('Error deleting habit: $e');
     }
   }
-
 
   Future<void> clearAllHabits() async {
     try {

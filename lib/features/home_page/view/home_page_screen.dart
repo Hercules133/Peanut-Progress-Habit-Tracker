@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../data/providers/habit_provider.dart';
 import '/core/utils/routes.dart';
 import '/data/providers/category_provider.dart';
 import '../../../core/widgets/app_bar_widget.dart';
@@ -16,11 +17,18 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CategoryProvider categoryProvider = context.watch<CategoryProvider>();
-    List<String> categoriesName =
-        categoryProvider.categories.map((e) => e.name).toList();
+    HabitProvider habitProvider = context.watch<HabitProvider>();
+
+    final filteredCategories = [
+      categoryProvider.categories.firstWhere((cat) => cat.name == 'All'),
+      ...categoryProvider.categories.where((category) {
+        if (category.name == 'All') return false;
+        return habitProvider.getPendingHabitsForTodayByCategory(category).isNotEmpty;
+      }),
+    ];
 
     return DefaultTabController(
-      length: categoriesName.length,
+      length: filteredCategories.length,
       child: Scaffold(
         appBar: MyAppBar(
           appBar: AppBar(),

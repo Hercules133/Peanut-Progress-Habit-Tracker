@@ -5,7 +5,6 @@ import '/data/models/own_colors.dart';
 import '/data/providers/category_provider.dart';
 import '/data/providers/habit_provider.dart';
 
-
 class MyTabBar extends StatelessWidget {
   const MyTabBar({
     super.key,
@@ -18,7 +17,7 @@ class MyTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CategoryProvider categoryProvider = context.watch<CategoryProvider>();
+    final categoryProvider = context.watch<CategoryProvider>();
     final habitProvider = context.watch<HabitProvider>();
     List<Category> allCategories = categoryProvider.categories;
     List<Category> filteredCategories = allCategories.where((category) {
@@ -32,7 +31,7 @@ class MyTabBar extends StatelessWidget {
 
     return TabBar(
       physics: const BouncingScrollPhysics(),
-      isScrollable: true,
+      isScrollable: isScrollable,
       overlayColor: WidgetStateProperty.all<Color>(Colors.transparent),
       labelColor: ownColors.habitText,
       unselectedLabelColor: Theme.of(context).colorScheme.onPrimary,
@@ -58,8 +57,8 @@ class MyTabBar extends StatelessWidget {
               child: Row(
                 children: [
                   if (index == categoryProvider.selectedIndex) Icon(Icons.check),
-                  Icon(allCategories[index].icon),
-                  Text(allCategories[index].name),
+                  Icon(filteredCategories[index].icon),
+                  Text(filteredCategories[index].name),
                 ],
               ),
             ),

@@ -14,6 +14,8 @@ import '/data/models/habit.dart';
 import 'features/settings_page/view/switch_state.dart';
 import '/features/home_page/view/habits.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '/features/home_page/view/walkthrough_screen.dart';
+import '/features/home_page/view/splash_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,7 +50,7 @@ class MyApp extends StatelessWidget {
             theme: lightMode,
             darkTheme: darkMode,
             themeMode: switchState.themeMode,
-            home: const MyHomePage(),
+            home: const MySplashScreen(),
             debugShowCheckedModeBanner: false,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
@@ -66,6 +68,7 @@ class MyApp extends StatelessWidget {
               Routes.habits: (context) => const MyHabitsPage(),
               Routes.settings: (context) => const SettingsPage(),
               Routes.statistics: (context) => const StatisticsPage(),
+              Routes.walkthrough: (context) => const MyWalkthroughPage(),
             },
           );
         },

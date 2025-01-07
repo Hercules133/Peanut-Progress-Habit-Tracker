@@ -37,13 +37,16 @@ class MyTabBarView extends StatelessWidget {
               AppLocalizations.of(context)!.myTabBarViewNoHabitsAvailable));
     }
 
-    final filteredCategories = categoryProvider.categories.where((category) {
-      if (category.name == 'All') return false;
-      final habits = showTodayOnly
-          ? habitProvider.getPendingHabitsForTodayByCategory(category)
-          : habitProvider.getHabitsByCategory(category);
-      return habits.isNotEmpty;
-    }).toList();
+    final filteredCategories = [
+      categoryProvider.categories.firstWhere((cat) => cat.name == 'All'),
+      ...categoryProvider.categories.where((category) {
+        if (category.name == 'All') return false;
+        final habits = showTodayOnly
+            ? habitProvider.getPendingHabitsForTodayByCategory(category)
+            : habitProvider.getHabitsByCategory(category);
+        return habits.isNotEmpty;
+      }),
+    ];
 
     if (filteredCategories.isEmpty) {
       return Center(
@@ -52,7 +55,7 @@ class MyTabBarView extends StatelessWidget {
     }
 
     return TabBarView(
-      children: allCategories.map((category) {
+      children: filteredCategories.map((category) {
         List<Habit> habits = [];
         if (category.name == 'All') {
           habits = showTodayOnly
