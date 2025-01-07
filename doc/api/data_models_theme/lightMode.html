@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the lightMode property from the theme library, for the Dart programming language.">
+  <title>lightMode property - theme library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">peanutprogress</a></li>
+    <li><a href="../data_models_theme/data_models_theme-library.html">data&#47;models&#47;theme.dart</a></li>
+    <li class="self-crumb">lightMode property</li>
+  </ol>
+  <div class="self-name">lightMode</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="data_models_theme&#47;data_models_theme-library-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-top-level-property">lightMode</span> top-level property 
+ 
+</h1></div>
+
+        <section class="multi-line-signature">
+          
+          <a href="https://api.flutter.dev/flutter/material/ThemeData-class.html">ThemeData</a>
+          <span class="name ">lightMode</span>
+          <div class="features"><span class="feature">getter/setter pair</span></div>
+
+        </section>
+        
+
+        
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">ThemeData lightMode = ThemeData(
+  inputDecorationTheme: InputDecorationTheme(
+    focusedBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Color(0xFF3A3A3A), width: 2.0),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.transparent, width: 1),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.red, width: 2),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    hintStyle: TextStyle(color: Colors.brown.shade200),
+    filled: true,
+    fillColor: Colors.brown.shade300,
+  ),
+  textSelectionTheme: TextSelectionThemeData(
+    selectionColor: Colors.brown.shade200,
+  ),
+  colorScheme: ColorScheme.light(
+    brightness: Brightness.light,
+    surface: Colors.brown.shade200, &#47;&#47; Background
+    primary: Colors.brown.shade300, &#47;&#47; Highlight
+    onSurface: const Color(0xFF3A3A3A), &#47;&#47; Text
+    onPrimary: const Color(0xFF5E4C46),
+  ),
+  extensions: const &lt;ThemeExtension&lt;OwnColors&gt;&gt;[
+    OwnColors(
+      contribution0: Color(0xFFF5F5F5), &#47;&#47; Very light gray
+      contribution1: Color(0xFFF0E0D6), &#47;&#47; Pale beige
+      contribution2: Color(0xFFEAC8B3), &#47;&#47; Light peach
+      contribution3: Color(0xFFFFB085), &#47;&#47; Soft orange
+      contribution4: Color(0xFFFF9E6A), &#47;&#47; Warm coral
+      contribution5: Color(0xFFFF8A4D), &#47;&#47; Vibrant orange
+      contributionDefault: Color(0xFFC4A98C), &#47;&#47; Light tawny
+      category1: Color(0xFFDCC9BF), &#47;&#47; Darker Pale beige
+      category2: Color(0xFFD1B9AD), &#47;&#47; Darker Blush beige
+      category3: Color(0xFFC5A687), &#47;&#47; Darker Sandstone
+      category4: Color(0xFFE09B73), &#47;&#47; Darker Soft orange
+      category5: Color(0xFFD88458), &#47;&#47; Darker Warm coral
+      category6: Color(0xFFD67141), &#47;&#47; Darker Vibrant orange
+      category7: Color(0xFFC2A080), &#47;&#47; Darker Light copper
+      category8: Color(0xFFBFA28B), &#47;&#47; Darker Desert tan
+      category9: Color(0xFFAD8F78), &#47;&#47; Darker Light rust
+      category10: Color(0xFF9C7E68), &#47;&#47; Darker Soft mahogany
+      habitText: Color(0xFF5D4037),
+    ),
+  ],
+);</code></pre>
+</section>
+
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">peanutprogress</a></li>
+    <li><a href="../data_models_theme/data_models_theme-library.html">theme</a></li>
+    <li class="self-crumb">lightMode property</li>
+</ol>
+
+    <h5>theme library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-left-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    peanutprogress
+      1.0.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+
