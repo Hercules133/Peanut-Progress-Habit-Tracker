@@ -4,7 +4,8 @@ import '/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 
 Future<bool> popupDeleteWidget(BuildContext context) async {
-  final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+  final inheritedData =
+      Provider.of<ProviderCreateHabit>(context, listen: false).h;
   final habitProvider = Provider.of<HabitProvider>(context, listen: false);
   var result = await showDialog(
       context: context,

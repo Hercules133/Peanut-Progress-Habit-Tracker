@@ -6,7 +6,6 @@ import 'package:peanutprogress/data/models/date_only.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:peanutprogress/data/repositories/id_repository.dart';
 import 'package:peanutprogress/features/create_habit/view/popup_delete_category.dart';
-// import 'package:peanutprogress/features/create_habit/view/popup_saving_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:peanutprogress/data/models/category.dart';
 import 'package:peanutprogress/data/models/habit.dart';
@@ -19,36 +18,355 @@ import 'package:peanutprogress/features/create_habit/view/description_formfield_
 import 'package:group_button/group_button.dart';
 import 'package:peanutprogress/features/create_habit/view/title_formfield_widget.dart';
 
-class CreateHabitFormWidget extends StatelessWidget {
-  CreateHabitFormWidget({
-    super.key,
-  });
+// class CreateHabitFormWidget extends StatelessWidget {
+//   CreateHabitFormWidget({
+//     super.key,
+//   });
 
+//   final _inputform = GlobalKey<FormState>();
+//   final TextEditingController titleController = TextEditingController();
+//   final TextEditingController descriptionController = TextEditingController();
+//   final GroupButtonController groupController =
+//       GroupButtonController(selectedIndex: 0);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+//     // final inheritedNotifierEmpty = InheritedNotifierEmptyFields.of(context);
+// // final counter = inheritedNotifierEmpty?.notifier;
+// // final count = counter?.empty ?? 0;
+
+//     final ownColors = Theme.of(context).extension<OwnColors>()!;
+
+//     ValueNotifier<bool> showDaysError = ValueNotifier(false);
+//     ValueNotifier<bool> pressed = ValueNotifier(false);
+//     ValueNotifier<bool> categoryError = ValueNotifier(false);
+//     final habitProvider = Provider.of<HabitProvider>(context, listen: false);
+//     final idRepository = locator<IdRepository>();
+
+//     // bool pressed =
+//     //     InheritedWidgetCreateHabit.of(context).pressed;
+//     final categoryProvider = Provider.of<CategoryProvider>(context);
+
+//     List<String> catNames = [];
+//     List<Color> catColors = [];
+//     List<IconData> catIcon = [];
+//     int i = 0;
+//     for (Category cat in categoryProvider.categories) {
+//       catNames.add(cat.name);
+//       catColors.add(cat.color);
+//       catIcon.add(cat.icon);
+//       if (inheritedData.category.name == cat.name) {
+//         groupController.selectIndex(i);
+//       }
+//       i++;
+//     }
+//     bool empty = false;
+//     // _inputform.currentState!.save();
+
+//     return SafeArea(
+//       child: Form(
+//         key: _inputform,
+//         child: Padding(
+//           padding: const EdgeInsets.all(10),
+//           child: ListView(
+//             children: [
+//               const Text("Title: "),
+//               ValueListenableBuilder(
+//                   valueListenable: pressed,
+//                   builder: (context, value, child) {
+//                     _inputform.currentState!.save();
+//                     return TitleFormfieldWidget(
+//                       titleController: titleController,
+//                       pressed: pressed,
+//                     );
+//                   }),
+//               const Text("Description(optional): "),
+//               DescriptionFormfieldWidget(
+//                 descriptionController: descriptionController,
+//               ),
+//               SizedBox(
+//                 height: 30,
+//                 child: ListView(
+//                   scrollDirection: Axis.horizontal,
+//                   children: const [
+//                     SizedBox(width: 260),
+//                   ],
+//                 ),
+//               ),
+//               ValueListenableBuilder(
+//                   valueListenable: showDaysError,
+//                   builder: (context, value, child) {
+//                     return Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         const DaysRowWidget(),
+//                         if (showDaysError.value)
+//                           const Text(
+//                             'Please select at least one day.',
+//                             style: TextStyle(color: Colors.red),
+//                           ),
+//                       ],
+//                     );
+//                   }
+//               ),
+//               const Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   Text("Category:"),
+//                   AddCategoryButtonWidget(),
+//                 ],
+//               ),
+//               GroupButton(
+//                 controller: groupController,
+//                 isRadio: true,
+//                 onSelected: (val, i, selected) {
+//                   if (selected) {
+//                     inheritedData.category = categoryProvider.categories[i];
+//                     categoryError.value = false;
+//                   }
+//                 },
+//                 buttons: catNames,
+//                 options: GroupButtonOptions(
+//                     selectedColor: ownColors.contribution2,
+//                     unselectedColor: ownColors.contribution1),
+//                 buttonIndexedBuilder: (selected, index, context) {
+//                   if (categoryProvider.categories[index].name == 'All') {
+//                     return const SizedBox.shrink();
+//                   }
+//                   return GestureDetector(
+//                     onLongPress: () async {
+//                       bool result = await popupDeleteCategoryWidget(
+//                           context, categoryProvider.categories[index]);
+//                       if (result) {
+//                         categoryProvider
+//                             .removeCategory(categoryProvider.categories[index]);
+//                         debugPrint('Kategorie gelöscht: ${catNames[index]}');
+//                       }
+//                     },
+//                     child: ElevatedButton(
+//                       style: ElevatedButton.styleFrom(
+//                         backgroundColor: selected
+//                             ? ownColors.contribution2
+//                             : ownColors.contribution1,
+//                       ),
+//                       onPressed: () {
+//                         groupController.selectIndex(index);
+//                         inheritedData.category =
+//                             categoryProvider.categories[index];
+//                       },
+//                       child: Row(
+//                         mainAxisSize: MainAxisSize.min,
+//                         children: [
+//                           Icon(catIcon[index]),
+//                           Text(catNames[index]),
+//                         ],
+//                       ),
+//                     ),
+//                   );
+//                 },
+//               ),
+//               ValueListenableBuilder<bool>(
+//                 valueListenable: categoryError,
+//                 builder: (context, hasError, _) {
+//                   final hasCustomCategories = categoryProvider.categories
+//                       .where((category) => category.name != 'All')
+//                       .isNotEmpty;
+//                   return hasError
+//                       ? Padding(
+//                     padding: const EdgeInsets.only(top: 8.0),
+//                     child: Text(
+//                       hasCustomCategories
+//                           ? 'Please select one category.'
+//                           : 'Please create a category first.',
+//                       style: const TextStyle(color: Colors.red),
+//                     ),
+//                   )
+//                       : const SizedBox.shrink();
+//                 },
+//               ),
+//               SizedBox(
+//                 height: 50,
+//               ),
+//               Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                 children: [
+//                   ElevatedButton(
+//                       style: ElevatedButton.styleFrom(
+//                         backgroundColor: ownColors.contribution1,
+//                       ),
+//                       child: const Text("Save"),
+//                       onPressed: () async {
+//                         showDaysError.value = false;
+//                         empty = false;
+//                         pressed.value = true;
+
+//                         if (inheritedData.category == null ||
+//                             inheritedData.category.name == 'All') {
+//                           categoryError.value = true;
+//                           empty = true;
+//                         } else {
+//                           categoryError.value = false;
+//                         }
+
+//                         // final result = await popupSavingWidget(context, pressed, showDaysError, inheritedData);
+
+//                         // if (context.mounted) {
+//                         //   // Navigator.pop(context);
+//                         //   if (result != true) {
+//                         //     Navigator.pop(context);
+//                         //     if (result != null) {
+//                         //       habitProvider.addHabit(inheritedData);
+//                         //       showDialog(
+//                         //         context: context,
+//                         //         builder: (context) =>
+//                         //             HabitDetailsDialog(habit: result),
+//                         //       );
+//                         //     }
+//                         //   }
+//                         // }
+
+//                         if (true) {
+//                           if (inheritedData.days.isEmpty) {
+//                             showDaysError.value = true;
+//                             empty = true;
+//                           }
+//                           if (inheritedData.title.isEmpty) {
+//                             empty = true;
+//                           }
+
+//                           if (empty) {
+//                             // Navigator.of(context).pop(empty);
+//                             return;
+//                           }
+//                         }
+
+//                         if (empty) return;
+
+//                         int id = inheritedData.id == 0
+//                             ? await idRepository.generateNextHabitId()
+//                             : inheritedData.id;
+//                         inheritedData.id = id;
+//                         inheritedData.progress.addAll({
+//                           dateOnly(inheritedData.getNextDueDate()):
+//                               ProgressStatus.notCompleted,
+//                         });
+//                         habitProvider.addHabit(inheritedData);
+
+//                         final categoriesToRemove = categoryProvider.categories.where((category) {
+//                           final habitsForCategory = habitProvider.getHabitsByCategory(category);
+//                           return habitsForCategory.isEmpty && category.name != 'All';
+//                         }).toList();
+
+//                         for (final category in categoriesToRemove) {
+//                           categoryProvider.removeCategory(category);
+//                         }
+
+//                         if (context.mounted) {
+//                           Navigator.pop(context);
+//                           showDialog(
+//                             context: context,
+//                             builder: (context) =>
+//                                 HabitDetailsDialog(habit: inheritedData),
+//                           );
+//                         }
+
+//                         // if (context.mounted) {
+//                         // Navigator.of(context).pop(inheritedData);
+//                         // }
+//                         // final result = await popupSavingWidget(context);
+
+//                         // if (context.mounted) {
+//                         //   Navigator.pop(context);
+//                         //   if (result != true) {
+//                         //     Navigator.pop(context);
+//                         //     if (result != null) {
+//                         //       showDialog(
+//                         //         context: context,
+//                         //         builder: (context) =>
+//                         //             HabitDetailsDialog(habit: result),
+//                         //       );
+//                         //     }
+//                         //   }
+//                         // }
+//                         // if (result == true) {
+//                         //   pressed.value = true;
+//                         //   showDaysError.value = true;
+//                         // }
+//                       }),
+//                 ],
+//               )
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+class CreateHabitFormWidget extends StatefulWidget {
+  const CreateHabitFormWidget({super.key});
+
+  @override
+  State<CreateHabitFormWidget> createState() => _CreateHabitFormWidgetState();
+}
+
+class _CreateHabitFormWidgetState extends State<CreateHabitFormWidget> {
   final _inputform = GlobalKey<FormState>();
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
+  late TextEditingController titleController;
+  late TextEditingController descriptionController;
   final GroupButtonController groupController =
       GroupButtonController(selectedIndex: 0);
+  final ValueNotifier<bool> showDaysError = ValueNotifier(false);
+  final ValueNotifier<bool> pressed = ValueNotifier(false);
+  final ValueNotifier<bool> categoryError = ValueNotifier(false);
+  bool isInit = false;
+
+  @override
+  void initState() {
+    super.initState();
+    debugPrint("initState");
+    // final habit = Provider.of<ProviderCreateHabit>(context).h;
+    // Initialize the controllers
+
+    titleController = TextEditingController();
+    descriptionController = TextEditingController();
+    isInit = true;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    debugPrint("didChangeDependencies");
+    // Access inherited data here safely
+    if (!isInit) {
+      final habit = Provider.of<ProviderCreateHabit>(context).h;
+      Future.microtask(() {
+        titleController.text = habit.title;
+        descriptionController.text = habit.description;
+      });
+      isInit = true;
+    }
+  }
+
+  @override
+  void dispose() {
+    // Dispose controllers to avoid memory leaks
+    titleController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
-    // final inheritedNotifierEmpty = InheritedNotifierEmptyFields.of(context);
-// final counter = inheritedNotifierEmpty?.notifier;
-// final count = counter?.empty ?? 0;
-
+    final inheritedData = Provider.of<ProviderCreateHabit>(context);
+    Habit habit = Provider.of<ProviderCreateHabit>(context).h;
+    final categoryProvider = Provider.of<CategoryProvider>(context);
     final ownColors = Theme.of(context).extension<OwnColors>()!;
-
-    ValueNotifier<bool> showDaysError = ValueNotifier(false);
-    ValueNotifier<bool> pressed = ValueNotifier(false);
-    ValueNotifier<bool> categoryError = ValueNotifier(false);
-    final habitProvider = Provider.of<HabitProvider>(context, listen: false);
+    final habitProvider = Provider.of<HabitProvider>(context);
     final idRepository = locator<IdRepository>();
 
-    // bool pressed =
-    //     InheritedWidgetCreateHabit.of(context).pressed;
-    final categoryProvider = Provider.of<CategoryProvider>(context);
-
+    debugPrint("build form");
     List<String> catNames = [];
     List<Color> catColors = [];
     List<IconData> catIcon = [];
@@ -57,7 +375,7 @@ class CreateHabitFormWidget extends StatelessWidget {
       catNames.add(cat.name);
       catColors.add(cat.color);
       catIcon.add(cat.icon);
-      if (inheritedData.category.name == cat.name) {
+      if (inheritedData.h.category.name == cat.name) {
         groupController.selectIndex(i);
       }
       i++;
@@ -107,8 +425,7 @@ class CreateHabitFormWidget extends StatelessWidget {
                           ),
                       ],
                     );
-                  }
-              ),
+                  }),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -121,7 +438,8 @@ class CreateHabitFormWidget extends StatelessWidget {
                 isRadio: true,
                 onSelected: (val, i, selected) {
                   if (selected) {
-                    inheritedData.category = categoryProvider.categories[i];
+                    inheritedData.setHabit(habit.copyWith(
+                        category: categoryProvider.categories[i]));
                     categoryError.value = false;
                   }
                 },
@@ -151,7 +469,7 @@ class CreateHabitFormWidget extends StatelessWidget {
                       ),
                       onPressed: () {
                         groupController.selectIndex(index);
-                        inheritedData.category =
+                        inheritedData.h.category =
                             categoryProvider.categories[index];
                       },
                       child: Row(
@@ -171,16 +489,17 @@ class CreateHabitFormWidget extends StatelessWidget {
                   final hasCustomCategories = categoryProvider.categories
                       .where((category) => category.name != 'All')
                       .isNotEmpty;
+                  debugPrint("before onPressed ${inheritedData.h.time}");
                   return hasError
                       ? Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      hasCustomCategories
-                          ? 'Please select one category.'
-                          : 'Please create a category first.',
-                      style: const TextStyle(color: Colors.red),
-                    ),
-                  )
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text(
+                            hasCustomCategories
+                                ? 'Please select one category.'
+                                : 'Please create a category first.',
+                            style: const TextStyle(color: Colors.red),
+                          ),
+                        )
                       : const SizedBox.shrink();
                 },
               ),
@@ -196,12 +515,12 @@ class CreateHabitFormWidget extends StatelessWidget {
                       ),
                       child: const Text("Save"),
                       onPressed: () async {
+                        debugPrint("onPressed ${inheritedData.h.time}");
                         showDaysError.value = false;
                         empty = false;
                         pressed.value = true;
 
-                        if (inheritedData.category == null ||
-                            inheritedData.category.name == 'All') {
+                        if (inheritedData.h.category.name == 'All') {
                           categoryError.value = true;
                           empty = true;
                         } else {
@@ -226,11 +545,11 @@ class CreateHabitFormWidget extends StatelessWidget {
                         // }
 
                         if (true) {
-                          if (inheritedData.days.isEmpty) {
+                          if (inheritedData.h.days.isEmpty) {
                             showDaysError.value = true;
                             empty = true;
                           }
-                          if (inheritedData.title.isEmpty) {
+                          if (inheritedData.h.title.isEmpty) {
                             empty = true;
                           }
 
@@ -242,31 +561,38 @@ class CreateHabitFormWidget extends StatelessWidget {
 
                         if (empty) return;
 
-                        int id = inheritedData.id == 0
+                        int id = inheritedData.h.id == 0
                             ? await idRepository.generateNextHabitId()
-                            : inheritedData.id;
-                        inheritedData.id = id;
-                        inheritedData.progress.addAll({
-                          dateOnly(inheritedData.getNextDueDate()):
+                            : inheritedData.h.id;
+                        inheritedData.h.id = id;
+                        inheritedData.h.progress.addAll({
+                          dateOnly(habit.getNextDueDate()):
                               ProgressStatus.notCompleted,
                         });
-                        habitProvider.addHabit(inheritedData);
+                        inheritedData.setHabit(inheritedData.h);
+                        habitProvider.addHabit(inheritedData.h);
 
-                        final categoriesToRemove = categoryProvider.categories.where((category) {
-                          final habitsForCategory = habitProvider.getHabitsByCategory(category);
-                          return habitsForCategory.isEmpty && category.name != 'All';
+                        final categoriesToRemove =
+                            categoryProvider.categories.where((category) {
+                          final habitsForCategory =
+                              habitProvider.getHabitsByCategory(category);
+                          return habitsForCategory.isEmpty &&
+                              category.name != 'All';
                         }).toList();
 
                         for (final category in categoriesToRemove) {
                           categoryProvider.removeCategory(category);
                         }
 
+                        debugPrint("end of onPressed ${inheritedData.h.time}");
+
                         if (context.mounted) {
                           Navigator.pop(context);
+                          debugPrint("after pop: ${inheritedData.h.time}");
                           showDialog(
                             context: context,
                             builder: (context) =>
-                                HabitDetailsDialog(habit: inheritedData),
+                                HabitDetailsDialog(habit: inheritedData.h),
                           );
                         }
 

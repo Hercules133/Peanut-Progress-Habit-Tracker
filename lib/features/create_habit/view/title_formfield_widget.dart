@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '/data/models/habit.dart';
-import '/features/create_habit/view/inherited_widget_create_habit.dart';
+import 'package:provider/provider.dart';
+import 'package:peanutprogress/data/models/habit.dart';
+import 'package:peanutprogress/features/create_habit/view/inherited_widget_create_habit.dart';
 
 class TitleFormfieldWidget extends StatelessWidget {
   const TitleFormfieldWidget(
@@ -11,12 +12,12 @@ class TitleFormfieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+    Habit inheritedData = Provider.of<ProviderCreateHabit>(context).h;
     // ValueNotifier<bool> pressed =
     //     InheritedWidgetCreateHabit.of(context).pressed;
     titleController.text = inheritedData.title;
-    // debugPrint("before Listenable: ${titleController.text}");
-    // debugPrint("before Listenable inherited data: ${inheritedData.title}");
+    debugPrint("before Listenable: ${titleController.text}");
+    debugPrint("before Listenable inherited data: ${inheritedData.title}");
     //  debugPrint("before Listenable: ${pressed.toString()}");
     //  final inheritedNotifierEmpty = InheritedNotifierEmptyFields.of(context);
     //  debugPrint("empty before return: ${inheritedNotifierEmpty.empty}");

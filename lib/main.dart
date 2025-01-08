@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peanutprogress/features/create_habit/view/inherited_widget_create_habit.dart';
 import '/core/config/locator.dart';
 import 'package:provider/provider.dart';
 import '/data/providers/category_provider.dart';
@@ -35,31 +36,37 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => SwitchState(),
         ),
+        ChangeNotifierProvider<ProviderCreateHabit>(
+          create: (_) => locator<ProviderCreateHabit>(),
+        ),
       ],
       child: Consumer<SwitchState>(
         builder: (context, switchState, _) {
-          return MaterialApp(
-            title: 'Flutter Demo',
-            theme: lightMode,
-            darkTheme: darkMode,
-            themeMode: switchState.themeMode,
-            home: const MyHomePage(),
-            debugShowCheckedModeBanner: false,
-            routes: {
-              Routes.home: (context) => const MyHomePage(),
-              Routes.edit: (context) {
-                final habit =
-                    ModalRoute.of(context)?.settings.arguments as Habit?;
-                return CreateHabit(habit: habit, newHabit: false);
+          return Consumer<ProviderCreateHabit>(
+              builder: (context, provider, child) {
+            return MaterialApp(
+              title: 'Flutter Demo',
+              theme: lightMode,
+              darkTheme: darkMode,
+              themeMode: switchState.themeMode,
+              home: const MyHomePage(),
+              debugShowCheckedModeBanner: false,
+              routes: {
+                Routes.home: (context) => const MyHomePage(),
+                Routes.edit: (context) {
+                  final habit =
+                      ModalRoute.of(context)?.settings.arguments as Habit?;
+                  return CreateHabit(habit: habit, newHabit: false);
+                },
+                Routes.add: (context) => const CreateHabit(
+                      newHabit: true,
+                    ),
+                Routes.habits: (context) => const MyHabitsPage(),
+                Routes.settings: (context) => const SettingsPage(),
+                Routes.statistics: (context) => const StatisticsPage(),
               },
-              Routes.add: (context) => const CreateHabit(
-                    newHabit: true,
-                  ),
-              Routes.habits: (context) => const MyHabitsPage(),
-              Routes.settings: (context) => const SettingsPage(),
-              Routes.statistics: (context) => const StatisticsPage(),
-            },
-          );
+            );
+          });
         },
       ),
     );

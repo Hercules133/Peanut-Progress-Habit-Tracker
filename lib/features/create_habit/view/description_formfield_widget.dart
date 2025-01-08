@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '/data/models/habit.dart';
 import '/features/create_habit/view/inherited_widget_create_habit.dart';
 
@@ -10,7 +11,7 @@ class DescriptionFormfieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+    Habit inheritedData = Provider.of<ProviderCreateHabit>(context).h;
     descriptionController.text = inheritedData.description;
     return TextFormField(
         maxLength: 150,

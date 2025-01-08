@@ -16,25 +16,23 @@ class CreateHabit extends StatelessWidget {
   Widget build(BuildContext context) {
     Habit currentHabit = habit ?? Habit.defaultHabit();
     Habit h = Habit.from(currentHabit);
+    final provider = Provider.of<ProviderCreateHabit>(context);
+    provider.setHabit(h);
+
     // Empty e = Empty();
 
-    return InheritedWidgetCreateHabit(
-        habit: h,
-        // showDaysError: ValueNotifier<bool>(false),
-        // pressed: ValueNotifier<bool>(false),
-        // child: InheritedNotifierEmptyFields(
-        //     notifier: e,
-        child: Scaffold(
-          appBar: AppBarWidget(
-            appBar: AppBar(),
-            newHabit: newHabit,
-          ),
-          body:
-              Consumer<HabitProvider>(builder: (context, habitProvider, child) {
-            return CreateHabitFormWidget();
-          }),
-        )
-        // )
-        );
+    // return Consumer<ProviderCreateHabit>(
+    //   builder: (context, provider, child) {
+    return Scaffold(
+      appBar: AppBarWidget(
+        appBar: AppBar(),
+        newHabit: newHabit,
+      ),
+      body: Consumer<HabitProvider>(builder: (context, habitProvider, child) {
+        return CreateHabitFormWidget();
+      }),
+    );
+    // )
+    // });
   }
 }

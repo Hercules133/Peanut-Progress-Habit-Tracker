@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '/core/utils/enums/day_of_week.dart';
 import '/features/create_habit/view/inherited_widget_create_habit.dart';
 import '/data/models/own_colors.dart';
@@ -11,7 +12,7 @@ class DayButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+    final inheritedData = Provider.of<ProviderCreateHabit>(context).h;
     final ownColors = Theme.of(context).extension<OwnColors>()!;
     for (DayOfWeek d in inheritedData.days) {
       switch (day) {

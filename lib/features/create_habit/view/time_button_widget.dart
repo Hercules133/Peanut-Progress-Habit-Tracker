@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '/data/models/habit.dart';
 import '/features/create_habit/view/inherited_widget_create_habit.dart';
 import '/data/models/own_colors.dart';
@@ -11,9 +12,10 @@ class TimeButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+    final inheritedData = Provider.of<ProviderCreateHabit>(context);
+    Habit habit = Provider.of<ProviderCreateHabit>(context, listen: false).h;
     final ownColors = Theme.of(context).extension<OwnColors>()!;
-    selectedTime.value = inheritedData.time;
+    selectedTime.value = inheritedData.h.time;
     return ValueListenableBuilder<TimeOfDay>(
         valueListenable: selectedTime,
         builder: (context, value, child) {
@@ -69,8 +71,13 @@ class TimeButtonWidget extends StatelessWidget {
                   },
                 );
                 if (picked != null) {
+                  habit.time = picked;
+                  // inheritedData.setHabit(habit);
                   selectedTime.value = picked;
-                  inheritedData.time = picked;
+                  inheritedData.h.time = picked;
+                  debugPrint("Time  selected: ${selectedTime.value}");
+                  debugPrint("Time  habit: ${habit.time}");
+                  debugPrint("Time  inheritedData: ${inheritedData.h.time}");
                 }
               },
               child: Text(
