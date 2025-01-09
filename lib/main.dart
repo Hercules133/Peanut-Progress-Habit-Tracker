@@ -44,8 +44,7 @@ class MyApp extends StatelessWidget {
           create: (context) => LocaleProvider()..fetchLocale(),
         ),
         ChangeNotifierProvider(
-          create: (context) =>
-              UsernameProvider()..fetchUsername(),
+          create: (context) => UsernameProvider()..fetchUsername(),
         ),
       ],
       child: Consumer2<SwitchState, LocaleProvider>(

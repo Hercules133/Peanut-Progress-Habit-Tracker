@@ -205,8 +205,7 @@ class CreateHabitFormWidget extends StatelessWidget {
                         empty = false;
                         pressed.value = true;
 
-                        if (inheritedData.category == null ||
-                            inheritedData.category.name == 'All') {
+                        if (inheritedData.category.name == 'All') {
                           categoryError.value = true;
                           empty = true;
                         } else {

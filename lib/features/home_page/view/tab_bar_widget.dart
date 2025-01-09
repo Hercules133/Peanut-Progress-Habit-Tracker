@@ -58,7 +58,8 @@ class MyTabBar extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  if (index == categoryProvider.selectedIndex) Icon(Icons.check),
+                  if (index == categoryProvider.selectedIndex)
+                    Icon(Icons.check),
                   Icon(filteredCategories[index].icon),
                   Text(filteredCategories[index].name),
                 ],

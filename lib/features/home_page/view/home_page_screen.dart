@@ -23,7 +23,9 @@ class MyHomePage extends StatelessWidget {
       categoryProvider.categories.firstWhere((cat) => cat.name == 'All'),
       ...categoryProvider.categories.where((category) {
         if (category.name == 'All') return false;
-        return habitProvider.getPendingHabitsForTodayByCategory(category).isNotEmpty;
+        return habitProvider
+            .getPendingHabitsForTodayByCategory(category)
+            .isNotEmpty;
       }),
     ];
 

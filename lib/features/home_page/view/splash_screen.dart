@@ -6,10 +6,12 @@ class MySplashScreen extends StatefulWidget {
   const MySplashScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<MySplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<MySplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   final List<String> _quotes = [
     "The secret of getting ahead is getting started. - Mark Twain",
@@ -60,9 +62,11 @@ class _SplashScreenState extends State<MySplashScreen> with SingleTickerProvider
     if (prefs.getString('lastOpenedDate') != today) {
       prefs.setString('lastOpenedDate', today);
       Future.delayed(const Duration(seconds: 4), () {
+        // ignore: use_build_context_synchronously
         Navigator.pushReplacementNamed(context, Routes.home);
       });
     } else {
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, Routes.home);
     }
   }

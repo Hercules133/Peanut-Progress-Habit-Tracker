@@ -67,7 +67,8 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Image.asset(MyWalkthroughPage.walkthroughImages[index]),
+                  child:
+                      Image.asset(MyWalkthroughPage.walkthroughImages[index]),
                 );
               },
             ),
@@ -90,7 +91,7 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
           MyWalkthroughPage.walkthroughImages.length,
-              (index) => AnimatedContainer(
+          (index) => AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             margin: const EdgeInsets.symmetric(horizontal: 4.0),
             width: _currentPage == index ? 12.0 : 8.0,

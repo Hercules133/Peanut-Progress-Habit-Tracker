@@ -19,6 +19,7 @@ class MyTabBarView extends StatelessWidget {
   Widget build(BuildContext context) {
     final habitProvider = context.watch<HabitProvider>();
     final categoryProvider = context.watch<CategoryProvider>();
+    // ignore: unused_local_variable
     final allCategories = categoryProvider.categories;
     final ownColors = Theme.of(context).extension<OwnColors>()!;
 

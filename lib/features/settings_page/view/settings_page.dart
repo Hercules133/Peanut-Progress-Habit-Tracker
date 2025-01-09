@@ -73,7 +73,7 @@ class SettingsPage extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: DropdownMenuTheme(
-                   key: ValueKey("dropdown1"),
+                  key: ValueKey("dropdown1"),
                   data: DropdownMenuThemeData(
                     menuStyle: MenuStyle(
                       shape: WidgetStateProperty.all<RoundedRectangleBorder>(
@@ -136,7 +136,7 @@ class SettingsPage extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: DropdownMenuTheme(
-                   key: const ValueKey("dropdown2"),
+                  key: const ValueKey("dropdown2"),
                   data: DropdownMenuThemeData(
                     menuStyle: MenuStyle(
                       shape: WidgetStateProperty.all<RoundedRectangleBorder>(
