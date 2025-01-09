@@ -4,6 +4,7 @@ import '/core/config/locator.dart';
 import '/core/utils/enums/progress_status.dart';
 import '/data/models/date_only.dart';
 import '/data/repositories/id_repository.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<dynamic> popupSavingWidget(
     BuildContext context,
@@ -26,11 +27,13 @@ Future<dynamic> popupSavingWidget(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-            title: const Text('Save'),
+            title:
+                Text(AppLocalizations.of(context)!.popupSavingHabitSaveButton),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text("Do you want to save this Habit?"),
+                Text(AppLocalizations.of(context)!
+                    .popupSavingHabitConfirmationMessage),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

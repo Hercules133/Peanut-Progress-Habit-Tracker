@@ -25,6 +25,11 @@ class CategoryProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void resetSelectedIndex() {
+    _selectedIndex = 0;
+    notifyListeners();
+  }
+
   void initializeCategories(List<Habit> habits) {
     List<Category> categories = habits
         .map((habit) => habit.category)

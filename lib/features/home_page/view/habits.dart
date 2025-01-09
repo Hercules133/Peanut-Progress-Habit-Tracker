@@ -8,22 +8,12 @@ import '/features/home_page/view/tab_bar_widget.dart';
 import '../../../core/widgets/app_bar_widget.dart';
 import '/core/utils/get_greeting.dart';
 import '/core/widgets/drawer_menu_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyHabitsPage extends StatelessWidget {
   const MyHabitsPage({super.key});
 
-  static const List<String> categoriesName = <String>[
-    'Category 1',
-    'Category 2',
-    'Category 3',
-    'Category 4',
-    'Category 5',
-    'Category 6',
-    'Category 7',
-    'Category 8',
-    'Category 9',
-    'Category 10'
-  ];
+  static String _sortBy = 'Alle';
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +67,7 @@ class MyHabitsPage extends StatelessWidget {
             onPressed: () {
               Navigator.pushNamed(context, Routes.add);
             },
-            tooltip: 'new Habit',
+            tooltip: AppLocalizations.of(context)!.myHabitPageNewHabitTooltip,
             shape: const CircleBorder(),
             child: Icon(
               Icons.add,

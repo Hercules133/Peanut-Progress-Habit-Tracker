@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:peanutprogress/data/providers/locale_provider.dart';
+import 'package:peanutprogress/data/providers/username_provider.dart';
 import '/core/config/locator.dart';
 import 'package:provider/provider.dart';
 import '/data/providers/category_provider.dart';
@@ -12,6 +14,9 @@ import 'core/utils/routes.dart';
 import '/data/models/habit.dart';
 import 'features/settings_page/view/switch_state.dart';
 import '/features/home_page/view/habits.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '/features/home_page/view/walkthrough_screen.dart';
+import '/features/home_page/view/splash_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,16 +40,26 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => SwitchState(),
         ),
+        ChangeNotifierProvider<LocaleProvider>(
+          create: (context) => LocaleProvider()..fetchLocale(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              UsernameProvider()..fetchUsername(),
+        ),
       ],
-      child: Consumer<SwitchState>(
-        builder: (context, switchState, _) {
+      child: Consumer2<SwitchState, LocaleProvider>(
+        builder: (context, switchState, localeProvider, _) {
           return MaterialApp(
             title: 'Flutter Demo',
             theme: lightMode,
             darkTheme: darkMode,
             themeMode: switchState.themeMode,
-            home: const MyHomePage(),
+            home: const MySplashScreen(),
             debugShowCheckedModeBanner: false,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: localeProvider.locale,
             routes: {
               Routes.home: (context) => const MyHomePage(),
               Routes.edit: (context) {
@@ -58,6 +73,7 @@ class MyApp extends StatelessWidget {
               Routes.habits: (context) => const MyHabitsPage(),
               Routes.settings: (context) => const SettingsPage(),
               Routes.statistics: (context) => const StatisticsPage(),
+              Routes.walkthrough: (context) => const MyWalkthroughPage(),
             },
           );
         },

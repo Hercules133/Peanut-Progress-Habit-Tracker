@@ -5,6 +5,7 @@ import 'package:peanutprogress/data/providers/category_provider.dart';
 import 'package:peanutprogress/data/models/own_colors.dart';
 import 'package:peanutprogress/features/create_habit/view/icon_dropdown.dart';
 import 'package:peanutprogress/features/create_habit/view/pick_color.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> popupCreateCategory(BuildContext context) async {
   final ownColors = Theme.of(context).extension<OwnColors>()!;
@@ -22,7 +23,7 @@ Future<void> popupCreateCategory(BuildContext context) async {
     builder: (context) {
       return AlertDialog(
         title: Text(
-          'Create category',
+          AppLocalizations.of(context)!.popupCreateCategoryTitle,
           style: TextStyle(
             fontSize: 25,
             color: Theme.of(context).colorScheme.onSurface,
@@ -75,16 +76,19 @@ Future<void> popupCreateCategory(BuildContext context) async {
                   style:
                       TextStyle(color: Theme.of(context).colorScheme.onSurface),
                   controller: textController,
-                  decoration: const InputDecoration(
-                    hintText: "Name",
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!
+                        .popupCreateCategoryNameHintText,
                   ),
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return 'required ';
+                      return AppLocalizations.of(context)!
+                          .popupCreateCategoryRequiredError;
                     }
                     if (categoryProvider.categories
                         .any((cat) => cat.name == value)) {
-                      return 'Category already exists';
+                      return AppLocalizations.of(context)!
+                          .popupCreateCategoryAlreadyExistsError;
                     }
                     return null;
                   },
