@@ -8,6 +8,7 @@ import 'package:peanutprogress/data/models/category.dart';
 import 'package:peanutprogress/data/models/theme.dart';
 import 'package:peanutprogress/data/providers/category_provider.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
+import 'package:peanutprogress/data/providers/locale_provider.dart';
 import 'package:peanutprogress/features/create_habit/view/create_habit_screen.dart';
 import 'package:peanutprogress/features/home_page/view/heat_map_widget.dart';
 import 'package:peanutprogress/features/home_page/view/home_page_screen.dart';
@@ -15,6 +16,7 @@ import 'package:peanutprogress/features/home_page/view/tab_bar_view_widget.dart'
 import 'package:peanutprogress/features/home_page/view/tab_bar_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   setUpAll(() {
@@ -31,8 +33,12 @@ void main() {
           ChangeNotifierProvider<CategoryProvider>.value(
             value: locator<CategoryProvider>(),
           ),
+          ChangeNotifierProvider<LocaleProvider>(
+            create: (context) => LocaleProvider(),
+          ),
         ],
         child: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
           theme: lightMode,
           darkTheme: darkMode,
           routes: {},
@@ -58,8 +64,12 @@ void main() {
           ChangeNotifierProvider<CategoryProvider>.value(
             value: locator<CategoryProvider>(),
           ),
+          ChangeNotifierProvider<LocaleProvider>(
+            create: (context) => LocaleProvider(),
+          ),
         ],
         child: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
           theme: lightMode,
           darkTheme: darkMode,
           routes: {
@@ -86,8 +96,14 @@ void main() {
           ChangeNotifierProvider<CategoryProvider>.value(
             value: locator<CategoryProvider>(),
           ),
+          ChangeNotifierProvider<LocaleProvider>(
+            create: (context) => LocaleProvider(),
+          ),
         ],
         child: MaterialApp(
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          locale: Locale('en'),
           theme: lightMode,
           darkTheme: darkMode,
           home: MyHomePage(),
@@ -112,8 +128,14 @@ void main() {
           ChangeNotifierProvider<CategoryProvider>.value(
             value: locator<CategoryProvider>(),
           ),
+          ChangeNotifierProvider<LocaleProvider>(
+            create: (context) => LocaleProvider(),
+          ),
         ],
         child: MaterialApp(
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          locale: Locale('en'),
           theme: lightMode,
           darkTheme: darkMode,
           home: MyHomePage(),

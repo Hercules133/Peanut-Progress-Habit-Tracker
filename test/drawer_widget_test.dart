@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:peanutprogress/data/providers/locale_provider.dart';
+import 'package:peanutprogress/data/providers/username_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:peanutprogress/core/config/locator.dart';
 import 'package:peanutprogress/core/widgets/drawer_menu_widget.dart';
@@ -11,6 +13,7 @@ import 'package:peanutprogress/features/home_page/view/home_page_screen.dart';
 import 'package:peanutprogress/core/utils/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:peanutprogress/features/settings_page/view/settings_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:peanutprogress/features/settings_page/view/switch_state.dart';
 import 'package:peanutprogress/features/statistics_page/view/statistics_screen.dart';
 
@@ -29,15 +32,25 @@ void main() {
         'Drawer has ListTiles',
         (WidgetTester tester) async {
           await tester.pumpWidget(
-            ChangeNotifierProvider<HabitProvider>(
-              create: (context) => locator<HabitProvider>(),
-              child: MaterialApp(
-                home: Scaffold(
-                  key: scaffoldKey,
-                  drawer: const MyDrawerMenu(),
-                ),
-              ),
-            ),
+            MultiProvider(
+                providers: [
+                  ChangeNotifierProvider<HabitProvider>(
+                    create: (_) => locator<HabitProvider>(),
+                  ),
+                  ChangeNotifierProvider<CategoryProvider>.value(
+                    value: locator<CategoryProvider>(),
+                  ),
+                  ChangeNotifierProvider<LocaleProvider>(
+                    create: (context) => LocaleProvider(),
+                  ),
+                ],
+                child: MaterialApp(
+                    supportedLocales: AppLocalizations.supportedLocales,
+                    localizationsDelegates:
+                        AppLocalizations.localizationsDelegates,
+                    locale: Locale('de'),
+                    home: Scaffold(
+                        key: scaffoldKey, drawer: const MyDrawerMenu()))),
           );
           scaffoldKey.currentState!.openDrawer();
 
@@ -50,15 +63,25 @@ void main() {
         'Drawer has all icons and texts',
         (WidgetTester tester) async {
           await tester.pumpWidget(
-            ChangeNotifierProvider<HabitProvider>(
-              create: (context) => locator<HabitProvider>(),
-              child: MaterialApp(
-                home: Scaffold(
-                  key: scaffoldKey,
-                  drawer: const MyDrawerMenu(),
-                ),
-              ),
-            ),
+            MultiProvider(
+                providers: [
+                  ChangeNotifierProvider<HabitProvider>(
+                    create: (_) => locator<HabitProvider>(),
+                  ),
+                  ChangeNotifierProvider<CategoryProvider>.value(
+                    value: locator<CategoryProvider>(),
+                  ),
+                  ChangeNotifierProvider<LocaleProvider>(
+                    create: (context) => LocaleProvider(),
+                  ),
+                ],
+                child: MaterialApp(
+                    supportedLocales: AppLocalizations.supportedLocales,
+                    localizationsDelegates:
+                        AppLocalizations.localizationsDelegates,
+                    locale: Locale('en'),
+                    home: Scaffold(
+                        key: scaffoldKey, drawer: const MyDrawerMenu()))),
           );
           scaffoldKey.currentState!.openDrawer();
           await tester.pumpAndSettle();
@@ -90,8 +113,20 @@ void main() {
               ChangeNotifierProvider<SwitchState>(
                 create: (context) => SwitchState(),
               ),
+              ChangeNotifierProvider<CategoryProvider>.value(
+                value: locator<CategoryProvider>(),
+              ),
+              ChangeNotifierProvider<LocaleProvider>(
+                create: (context) => LocaleProvider(),
+              ),
+              ChangeNotifierProvider<UsernameProvider>(
+                create: (context) => UsernameProvider(),
+              ),
             ],
             child: MaterialApp(
+              supportedLocales: AppLocalizations.supportedLocales,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              locale: Locale('en'),
               routes: {
                 Routes.home: (context) => const MyHomePage(),
                 Routes.settings: (context) => const SettingsPage(),
@@ -126,8 +161,14 @@ void main() {
               ChangeNotifierProvider<CategoryProvider>.value(
                 value: locator<CategoryProvider>(),
               ),
+              ChangeNotifierProvider<LocaleProvider>(
+                create: (context) => LocaleProvider(),
+              ),
             ],
             child: MaterialApp(
+              supportedLocales: AppLocalizations.supportedLocales,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              locale: Locale('en'),
               theme: lightMode,
               darkTheme: darkMode,
               routes: {
@@ -162,10 +203,16 @@ void main() {
               ChangeNotifierProvider<CategoryProvider>.value(
                 value: locator<CategoryProvider>(),
               ),
+              ChangeNotifierProvider<LocaleProvider>(
+                create: (context) => LocaleProvider(),
+              ),
             ],
             child: MaterialApp(
               theme: lightMode,
               darkTheme: darkMode,
+              supportedLocales: AppLocalizations.supportedLocales,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              locale: Locale('en'),
               routes: {
                 Routes.habits: (context) => const MyHabitsPage(),
               },
@@ -200,8 +247,14 @@ void main() {
                 ChangeNotifierProvider<CategoryProvider>.value(
                   value: locator<CategoryProvider>(),
                 ),
+                ChangeNotifierProvider<LocaleProvider>(
+                  create: (context) => LocaleProvider(),
+                ),
               ],
               child: MaterialApp(
+                supportedLocales: AppLocalizations.supportedLocales,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                locale: Locale('en'),
                 theme: lightMode,
                 darkTheme: darkMode,
                 routes: {

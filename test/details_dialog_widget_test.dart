@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:peanutprogress/data/providers/locale_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,6 +16,7 @@ import 'package:peanutprogress/data/models/theme.dart';
 import 'package:peanutprogress/data/providers/category_provider.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:peanutprogress/features/create_habit/view/create_habit_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MockHabitProvider extends Mock implements HabitProvider {}
 
@@ -110,12 +112,18 @@ void main() {
           ChangeNotifierProvider<CategoryProvider>(
             create: (context) => locator<CategoryProvider>(),
           ),
+          ChangeNotifierProvider<LocaleProvider>(
+            create: (context) => LocaleProvider(),
+          ),
         ],
         child: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
           theme: lightMode,
           darkTheme: darkMode,
           routes: {
-            Routes.edit: (context) => CreateHabit(newHabit: true,),
+            Routes.edit: (context) => CreateHabit(
+                  newHabit: true,
+                ),
           },
           home: Scaffold(
             body: HabitDetailsDialog(habit: mockHabit),
