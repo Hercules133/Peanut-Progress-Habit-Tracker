@@ -21,7 +21,7 @@ void main() {
     },
   );
 
-  group('test generateHeatmapData function', () {
+  group('generateHeatmapData Tests', () {
     test(
       'generateHeatmapData calculates the correct data for multiple habits',
       () async {
@@ -111,7 +111,7 @@ void main() {
     });
   });
 
-  group('test generateHeatmapForHabit function', () {
+  group('generateHeatmapForHabit Tests', () {
     test('generateHeatmapForHabit is correct', () {
       Habit mockHabit1 = Habit(
         time: TimeOfDay(hour: 12, minute: 12),

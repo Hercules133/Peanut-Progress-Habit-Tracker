@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:peanutprogress/data/models/category.dart';
 
 void main() {
-  group('Category', () {
+  group('Category Constructor and Default Categorys', () {
     test('Constructor should initialize correctly', () {
       final category = Category(
         name: 'Test',
@@ -47,7 +47,8 @@ void main() {
       expect(category.icon, Icons.list_alt);
       expect(category.isDefault, true);
     });
-
+  });
+  group('Catgeory map conversion', () {
     test('toMap should return a map representation of the category', () {
       final category =
           Category(name: 'Test', color: Colors.red, icon: Icons.stars);
@@ -75,7 +76,31 @@ void main() {
       expect(category.color.value, Colors.red.value);
       expect(category.icon, Icons.stars);
     });
+    test('fromMap should throw an error for invalid map structure', () {
+      final invalidMap = {
+        'name': 'Test',
+        // 'color' key is missing
+        'icon': Icons.stars.codePoint,
+      };
 
+      expect(() => Category.fromMap(invalidMap), throwsA(isA<TypeError>()));
+    });
+
+    test('toMap and fromMap should create identical category instance', () {
+      final category = Category(
+        name: 'Test',
+        color: Colors.red,
+        icon: Icons.stars,
+      );
+
+      final map = category.toMap();
+      final recreatedCategory = Category.fromMap(map);
+
+      expect(recreatedCategory, equals(category));
+    });
+  });
+
+  group('equality and hashing', () {
     test('equality operator should compare categories correctly', () {
       final category1 = Category(
         name: 'Test',
@@ -113,29 +138,6 @@ void main() {
       );
 
       expect(category1.hashCode, equals(category2.hashCode));
-    });
-
-    test('fromMap should throw an error for invalid map structure', () {
-      final invalidMap = {
-        'name': 'Test',
-        // 'color' key is missing
-        'icon': Icons.stars.codePoint,
-      };
-
-      expect(() => Category.fromMap(invalidMap), throwsA(isA<TypeError>()));
-    });
-
-    test('toMap and fromMap should create identical category instance', () {
-      final category = Category(
-        name: 'Test',
-        color: Colors.red,
-        icon: Icons.stars,
-      );
-
-      final map = category.toMap();
-      final recreatedCategory = Category.fromMap(map);
-
-      expect(recreatedCategory, equals(category));
     });
   });
 }

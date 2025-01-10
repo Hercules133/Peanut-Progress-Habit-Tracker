@@ -26,7 +26,7 @@ void main() {
   });
 
   group(
-    'Drawer Tests',
+    'Drawer Widget Rendering Tests',
     () {
       testWidgets(
         'Drawer has ListTiles',
