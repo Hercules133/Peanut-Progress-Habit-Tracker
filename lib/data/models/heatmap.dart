@@ -1,6 +1,6 @@
-import 'package:streaks/core/utils/enums/progress_status.dart';
-import 'package:streaks/data/providers/habit_provider.dart';
-import 'package:streaks/data/models/habit.dart';
+import '/core/utils/enums/progress_status.dart';
+import '/data/providers/habit_provider.dart';
+import '/data/models/habit.dart';
 
 class HeatMap {
   static Map<DateTime, int> generateHeatMapData(HabitProvider habitProvider) {

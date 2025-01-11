@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:streaks/core/utils/routes.dart';
-import 'package:streaks/data/providers/category_provider.dart';
+import '../../../data/providers/habit_provider.dart';
+import '/core/utils/routes.dart';
+import '/data/providers/category_provider.dart';
 import '../../../core/widgets/app_bar_widget.dart';
-import 'package:streaks/core/widgets/drawer_menu_widget.dart';
-import 'package:streaks/core/utils/get_greeting.dart';
+import '/core/widgets/drawer_menu_widget.dart';
+import '/core/utils/get_greeting.dart';
 import 'heat_map_widget.dart';
 import 'tab_bar_widget.dart';
 import 'tab_bar_view_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -15,34 +17,43 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CategoryProvider categoryProvider = context.watch<CategoryProvider>();
-    List<String> categoriesName =
-        categoryProvider.categories.map((e) => e.name).toList();
+    HabitProvider habitProvider = context.watch<HabitProvider>();
+
+    final filteredCategories = [
+      categoryProvider.categories.firstWhere((cat) => cat.name == 'All'),
+      ...categoryProvider.categories.where((category) {
+        if (category.name == 'All') return false;
+        return habitProvider.getPendingHabitsForTodayByCategory(category).isNotEmpty;
+      }),
+    ];
 
     return DefaultTabController(
-      length: categoriesName.length,
+      length: filteredCategories.length,
       child: Scaffold(
         appBar: MyAppBar(
           appBar: AppBar(),
           appBarTitle: getGreeting(),
         ),
         drawer: const MyDrawerMenu(),
-        body: Column(
+        body: const Column(
           children: [
-            const MyHeatMap(),
-            MyTabBar(tabs: categoriesName),
-            const Expanded(
-              child: MyTabBarView(),
+            MyHeatMap(),
+            MyTabBar(showTodayOnly: true),
+            Expanded(
+              child: MyTabBarView(showTodayOnly: true),
             ),
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, Routes.addAndEdit);
-          },
-          tooltip: 'new Habit',
-          shape: const CircleBorder(),
-          child: const Icon(Icons.add),
-        ),
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.add);
+            },
+            tooltip: AppLocalizations.of(context)!.myHomePageNewHabitTooltip,
+            shape: const CircleBorder(),
+            child: Icon(
+              Icons.add,
+              color: Theme.of(context).colorScheme.onSurface,
+            )),
       ),
     );
   }

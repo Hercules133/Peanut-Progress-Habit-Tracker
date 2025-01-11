@@ -1,39 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/features/create_habit/view/inherited_widget_create_habit.dart'; 
-import 'package:streaks/data/providers/habit_provider.dart'; 
+import '/features/create_habit/view/inherited_widget_create_habit.dart';
+import '/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<bool> popupDeleteWidget(BuildContext context) async {
   final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
-  final habitProvider= Provider.of<HabitProvider> (context, listen: false); 
+  final habitProvider = Provider.of<HabitProvider>(context, listen: false);
   var result = await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-            title: const Text('Delete'),
+            title: Text(
+                AppLocalizations.of(context)!.popupDeleteHabitDeleteButton),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text("Do you want to delete this Habit?"),
+                Text(AppLocalizations.of(context)!
+                    .popupDeleteHabitConfirmationMessage),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context, true);
-                      habitProvider.deleteHabit(inheritedData.id); 
-                    },
-                    icon: const Icon(Icons.check),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context, false);
-                    },
-                    icon: const Icon(Icons.close),
-                  ),
-                ]),
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          if (habitProvider.habits
+                              .any((item) => item.id == inheritedData.id)) {
+                            habitProvider.deleteHabit(inheritedData.id);
+                          }
+
+                          Navigator.pop(context, true);
+                        },
+                        icon: const Icon(Icons.check),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context, false);
+                        },
+                        icon: const Icon(Icons.close),
+                      ),
+                    ]),
               ],
             ));
       });
-    return result; 
+  return result ?? false;
 }

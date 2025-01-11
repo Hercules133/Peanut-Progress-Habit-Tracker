@@ -1,48 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '/data/models/category.dart';
+import '/data/models/own_colors.dart';
+import '/data/providers/category_provider.dart';
+import '/data/providers/habit_provider.dart';
 
 class MyTabBar extends StatelessWidget {
   const MyTabBar({
     super.key,
-    required this.tabs,
     this.isScrollable = true,
+    this.showTodayOnly = true,
   });
 
-  final List<String> tabs;
   final bool isScrollable;
-  static const List<Color> categoryColor = [
-    Color.fromARGB(255, 146, 93, 53),
-    Color.fromARGB(255, 118, 72, 36), 
-    Color.fromARGB(255, 142, 93, 30),
-    Color.fromARGB(255, 133, 64, 11),
-    Color.fromARGB(255, 94, 63, 2),
-    Color.fromARGB(255, 70, 41, 9),
-    Color.fromARGB(255, 89, 54, 12),
-    Color.fromARGB(255, 159, 89, 28),
-    Color.fromARGB(255, 163, 88, 27),
-    Color.fromARGB(255, 199, 116, 57),
-  ];
+  final bool showTodayOnly;
+
   @override
   Widget build(BuildContext context) {
+    final categoryProvider = context.watch<CategoryProvider>();
+    final habitProvider = context.watch<HabitProvider>();
+    List<Category> allCategories = categoryProvider.categories;
+    List<Category> filteredCategories = allCategories.where((category) {
+      if (showTodayOnly && category.name != 'All') {
+        return habitProvider.getPendingHabitsForTodayByCategory(category).isNotEmpty;
+      }
+      return true;
+    }).toList();
+
+    final ownColors = Theme.of(context).extension<OwnColors>()!;
+
     return TabBar(
       physics: const BouncingScrollPhysics(),
-      isScrollable: true,
+      isScrollable: isScrollable,
       overlayColor: WidgetStateProperty.all<Color>(Colors.transparent),
-      indicator: const UnderlineTabIndicator(
-        borderSide: BorderSide(
-          color: Colors.black, 
-          width: 2.0,),
-      ),
-      labelColor: Colors.white,
-      unselectedLabelColor: const Color.fromARGB(255, 183, 182, 180),
+      labelColor: ownColors.habitText,
+      unselectedLabelColor: Theme.of(context).colorScheme.onPrimary,
       padding: EdgeInsets.zero,
       indicatorPadding: EdgeInsets.zero,
+      indicatorColor: Colors.transparent,
       labelPadding: EdgeInsets.zero,
+      dividerColor: Colors.transparent,
+      onTap: (index) {
+        categoryProvider.updateSelectedIndex(index);
+      },
       tabs: List.generate(
-        tabs.length,
-        (index) => Container(
+        filteredCategories.length,
+            (index) => Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: categoryColor[index],
+            color: filteredCategories[index].color,
           ),
           margin: const EdgeInsets.all(2),
           child: Tab(
@@ -50,8 +56,10 @@ class MyTabBar extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  const Icon(Icons.info), 
-                  Text(tabs[index])],
+                  if (index == categoryProvider.selectedIndex) Icon(Icons.check),
+                  Icon(filteredCategories[index].icon),
+                  Text(filteredCategories[index].name),
+                ],
               ),
             ),
           ),

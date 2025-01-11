@@ -1,15 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/data/models/category.dart';
-import 'package:streaks/data/models/habit.dart';
+import '/data/models/category.dart';
+import '/data/models/habit.dart';
 
 class CategoryProvider with ChangeNotifier {
   final List<Category> _categories = [
     ...Category.defaultCategories(),
   ];
 
+  int _selectedIndex = 0;
+
   List<Category> get categories => _categories;
 
-  void initilizeCategories(List<Habit> habits) {
+  int get selectedIndex => _selectedIndex;
+
+  void setSelectedIndex(int index) {
+    if (_selectedIndex != index) {
+      _selectedIndex = index;
+      notifyListeners();
+    }
+  }
+
+  void updateSelectedIndex(int index) {
+    _selectedIndex = index;
+    notifyListeners();
+  }
+
+  void resetSelectedIndex() {
+    _selectedIndex = 0;
+    notifyListeners();
+  }
+
+  void initializeCategories(List<Habit> habits) {
     List<Category> categories = habits
         .map((habit) => habit.category)
         .where((category) => !_categories.contains(category))
@@ -21,8 +42,10 @@ class CategoryProvider with ChangeNotifier {
   }
 
   void addCategory(Category category) {
-    _categories.add(category);
-    notifyListeners();
+    if (!_categories.any((existingCategory) => existingCategory.name == category.name)) {
+      _categories.add(category);
+      notifyListeners();
+    }
   }
 
   void removeCategory(Category category) {

@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/core/utils/routes.dart';
+import 'package:peanutprogress/data/providers/category_provider.dart';
+import '/core/utils/routes.dart';
+import '/data/providers/habit_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyDrawerMenu extends StatelessWidget {
   const MyDrawerMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final categoryProvider = context.watch<CategoryProvider>();
+    final habitProvider = context.watch<HabitProvider>();
     return SafeArea(
       child: Drawer(
         child: Column(
           children: [
             ListTile(
               leading: const Icon(Icons.home),
-              title: const Text('Home'),
+              title: Text(AppLocalizations.of(context)!.drawerMenuHome),
               onTap: () {
+                categoryProvider.resetSelectedIndex();
+                habitProvider.isSearching = false;
                 Navigator.pushReplacementNamed(context, Routes.home);
               },
             ),
@@ -21,23 +29,34 @@ class MyDrawerMenu extends StatelessWidget {
               leading: const ImageIcon(
                 AssetImage('assets/images/Erdnuss.png'),
               ),
-              title: const Text('Habits'),
+              title: Text(AppLocalizations.of(context)!.drawerMenuHabits),
               onTap: () {
-                // Navigator.pushReplacementNamed(context, Routes.habits);
+                categoryProvider.resetSelectedIndex();
+                habitProvider.isSearching = false;
+                Navigator.pushReplacementNamed(context, Routes.habits);
               },
             ),
             ListTile(
               leading: const Icon(Icons.signal_cellular_alt),
-              title: const Text('Statistics'),
+              title: Text(AppLocalizations.of(context)!.drawerMenuStatistics),
               onTap: () {
+                habitProvider.isSearching = false;
                 Navigator.pushReplacementNamed(context, Routes.statistics);
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
+              title: Text(AppLocalizations.of(context)!.drawerMenuSettings),
               onTap: () {
+                habitProvider.isSearching = false;
                 Navigator.pushReplacementNamed(context, Routes.settings);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.help_outline),
+              title: const Text('Hilfe'),
+              onTap: () {
+                Navigator.pushNamed(context, Routes.walkthrough);
               },
             ),
           ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:streaks/features/create_habit/view/popup_create_category.dart';
+import '/features/create_habit/view/popup_create_category.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddCategoryButtonWidget extends StatelessWidget {
   const AddCategoryButtonWidget({super.key});
@@ -7,10 +8,11 @@ class AddCategoryButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: const Icon(
+      icon: Icon(
         Icons.add,
+        color: Theme.of(context).colorScheme.onSurface,
       ),
-      tooltip: "Add Category",
+      tooltip: AppLocalizations.of(context)!.addCategoryButtonTooltip,
       onPressed: () {
         popupCreateCategory(context);
       },

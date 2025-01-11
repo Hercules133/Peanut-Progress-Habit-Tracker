@@ -1,5 +1,5 @@
-import 'package:streaks/core/config/locator.dart';
-import 'package:streaks/services/storage/storage_service.dart';
+import '/core/config/locator.dart';
+import '/services/storage/storage_service.dart';
 
 class IdRepository {
   final StorageService _storageService = locator<StorageService>();
@@ -21,7 +21,7 @@ class IdRepository {
     await _storageService.save(
       _habitIdTable,
       {_habitIdCounterKey: newId},
-      (data) => data[_habitIdCounterKey].toString(),
+      (data) => _habitIdCounterKey,
     );
 
     return newId;
