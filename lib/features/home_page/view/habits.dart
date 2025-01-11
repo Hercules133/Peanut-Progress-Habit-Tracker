@@ -13,8 +13,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class MyHabitsPage extends StatelessWidget {
   const MyHabitsPage({super.key});
 
-  static String _sortBy = 'Alle';
-
   @override
   Widget build(BuildContext context) {
     final habitProvider = context.watch<HabitProvider>();
