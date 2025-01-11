@@ -5,11 +5,10 @@ import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
 
-// ignore: must_be_immutable
 class BarChartWidget extends StatelessWidget {
   BarChartWidget({super.key});
 
-  List<OrdinalData> ordinalDataList = [];
+  final List<OrdinalData> ordinalDataList = [];
 
   @override
   Widget build(BuildContext context) {

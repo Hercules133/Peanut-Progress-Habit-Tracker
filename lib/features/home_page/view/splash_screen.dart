@@ -6,11 +6,10 @@ class MySplashScreen extends StatefulWidget {
   const MySplashScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _SplashScreenState createState() => _SplashScreenState();
+  SplashScreenState createState() => SplashScreenState();
 }
 
-class _SplashScreenState extends State<MySplashScreen>
+class SplashScreenState extends State<MySplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   final List<String> _quotes = [
@@ -61,13 +60,18 @@ class _SplashScreenState extends State<MySplashScreen>
 
     if (prefs.getString('lastOpenedDate') != today) {
       prefs.setString('lastOpenedDate', today);
-      Future.delayed(const Duration(seconds: 4), () {
-        // ignore: use_build_context_synchronously
-        Navigator.pushReplacementNamed(context, Routes.home);
-      });
+      Future.delayed(
+        const Duration(seconds: 4),
+        () {
+          if (mounted) {
+            Navigator.pushReplacementNamed(context, Routes.home);
+          }
+        },
+      );
     } else {
-      // ignore: use_build_context_synchronously
-      Navigator.pushReplacementNamed(context, Routes.home);
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, Routes.home);
+      }
     }
   }
 

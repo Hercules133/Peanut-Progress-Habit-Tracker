@@ -5,10 +5,9 @@ import 'package:peanutprogress/data/models/habit.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
 class LineChartWidget extends StatelessWidget {
   LineChartWidget({super.key});
-  List<TimeData> series1 = [];
+  final List<TimeData> series1 = [];
 
   // Idee:
   // Letzte zehn wochen (Streak <= 10 bei eine habit)
