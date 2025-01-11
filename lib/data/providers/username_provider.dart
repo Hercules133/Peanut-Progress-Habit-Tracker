@@ -7,6 +7,7 @@ class UsernameProvider extends ChangeNotifier {
   final TextEditingController _controller = TextEditingController();
 
   String get username => _username;
+  UsernameRepository get usernameRepository => _usernameRepository;
   TextEditingController get controller => _controller;
 
   Future<void> fetchUsername() async {

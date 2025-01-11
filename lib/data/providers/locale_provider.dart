@@ -6,6 +6,7 @@ class LocaleProvider extends ChangeNotifier {
   final LocaleRepository _localeRepository = LocaleRepository();
 
   Locale? get locale => _locale;
+  LocaleRepository get localeRepository => _localeRepository;
 
   Future<void> fetchLocale() async {
     String locale = await _localeRepository.getLocale();
