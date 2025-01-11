@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import '/features/create_habit/view/inherited_widget_create_habit.dart';
-import '/data/providers/habit_provider.dart';
+import 'package:peanutprogress/data/models/habit.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-Future<bool> popupDeleteWidget(BuildContext context) async {
-  final inheritedData =
-      Provider.of<ProviderCreateHabit>(context, listen: false).h;
+Future<bool> popupDeleteWidget(BuildContext context, Habit habit) async {
   final habitProvider = Provider.of<HabitProvider>(context, listen: false);
   var result = await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-            title: const Text('Delete'),
+            title: Text(
+                AppLocalizations.of(context)!.popupDeleteHabitDeleteButton),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text("Do you want to delete this Habit?"),
+                Text(AppLocalizations.of(context)!
+                    .popupDeleteHabitConfirmationMessage),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       IconButton(
                         onPressed: () {
                           if (habitProvider.habits
-                              .any((item) => item.id == inheritedData.id)) {
-                            habitProvider.deleteHabit(inheritedData.id);
+                              .any((item) => item.id == habit.id)) {
+                            habitProvider.deleteHabit(habit.id);
                           }
 
                           Navigator.pop(context, true);

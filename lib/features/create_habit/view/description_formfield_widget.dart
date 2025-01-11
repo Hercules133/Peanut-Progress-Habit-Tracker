@@ -1,32 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '/data/models/habit.dart';
-import '/features/create_habit/view/inherited_widget_create_habit.dart';
+import 'package:peanutprogress/data/models/habit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DescriptionFormfieldWidget extends StatelessWidget {
-  const DescriptionFormfieldWidget(
-      {super.key, required this.descriptionController});
+  const DescriptionFormfieldWidget({
+    super.key,
+    required this.descriptionController,
+    required this.habit,
+  });
 
   final TextEditingController descriptionController;
+  final ValueNotifier<Habit> habit;
 
   @override
   Widget build(BuildContext context) {
-    Habit inheritedData = Provider.of<ProviderCreateHabit>(context).h;
-    descriptionController.text = inheritedData.description;
+    descriptionController.text = habit.value.description;
     return TextFormField(
         maxLength: 150,
         controller: descriptionController,
-        decoration: const InputDecoration(
-          hintText: "Enter a description",
+        decoration: InputDecoration(
+          hintText: AppLocalizations.of(context)!.descriptionFormfieldHintText,
         ),
         cursorColor: Theme.of(context).colorScheme.onSurface,
         validator: (value) {
           return (value == null || value.isEmpty)
-              ? "Enter description"
-              : inheritedData.description;
+              ? AppLocalizations.of(context)!.descriptionFormfieldLabel
+              : habit.value.description;
         },
         onChanged: (value) {
-          inheritedData.description = value;
+          habit.value.description = value;
         });
   }
 }

@@ -1,11 +1,10 @@
 import 'package:get_it/get_it.dart';
-import 'package:peanutprogress/features/create_habit/view/inherited_widget_create_habit.dart';
-import '/data/providers/category_provider.dart';
-import '/data/repositories/id_repository.dart';
-import '/services/storage/shared_preferences_storage.dart';
-import '/services/storage/storage_service.dart';
-import '/data/providers/habit_provider.dart';
-import '/data/repositories/habit_repository.dart';
+import 'package:peanutprogress/data/providers/category_provider.dart';
+import 'package:peanutprogress/data/repositories/id_repository.dart';
+import 'package:peanutprogress/services/storage/shared_preferences_storage.dart';
+import 'package:peanutprogress/services/storage/storage_service.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
+import 'package:peanutprogress/data/repositories/habit_repository.dart';
 
 final locator = GetIt.instance;
 
@@ -16,5 +15,4 @@ void setupLocator() {
   locator.registerFactory<HabitProvider>(
       () => HabitProvider(locator<HabitRepository>()));
   locator.registerSingleton<CategoryProvider>(CategoryProvider());
-  locator.registerSingleton<ProviderCreateHabit>(ProviderCreateHabit());
 }

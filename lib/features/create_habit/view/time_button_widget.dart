@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '/data/models/habit.dart';
-import '/features/create_habit/view/inherited_widget_create_habit.dart';
-import '/data/models/own_colors.dart';
+import 'package:peanutprogress/data/models/own_colors.dart';
 
 class TimeButtonWidget extends StatelessWidget {
-  TimeButtonWidget({super.key});
+  TimeButtonWidget({super.key, required this.time, required this.onChanged});
 
   final ValueNotifier<TimeOfDay> selectedTime =
       ValueNotifier<TimeOfDay>(TimeOfDay.now());
+  final TimeOfDay time;
+  final Function(TimeOfDay) onChanged;
 
   @override
   Widget build(BuildContext context) {
-    final inheritedData = Provider.of<ProviderCreateHabit>(context);
-    Habit habit = Provider.of<ProviderCreateHabit>(context, listen: false).h;
     final ownColors = Theme.of(context).extension<OwnColors>()!;
-    selectedTime.value = inheritedData.h.time;
+    selectedTime.value = time;
     return ValueListenableBuilder<TimeOfDay>(
         valueListenable: selectedTime,
         builder: (context, value, child) {
@@ -71,13 +68,8 @@ class TimeButtonWidget extends StatelessWidget {
                   },
                 );
                 if (picked != null) {
-                  habit.time = picked;
-                  // inheritedData.setHabit(habit);
                   selectedTime.value = picked;
-                  inheritedData.h.time = picked;
-                  debugPrint("Time  selected: ${selectedTime.value}");
-                  debugPrint("Time  habit: ${habit.time}");
-                  debugPrint("Time  inheritedData: ${inheritedData.h.time}");
+                  onChanged(picked);
                 }
               },
               child: Text(

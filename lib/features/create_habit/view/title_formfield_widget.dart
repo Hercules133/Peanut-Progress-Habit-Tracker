@@ -1,56 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:peanutprogress/data/models/habit.dart';
-import 'package:peanutprogress/features/create_habit/view/inherited_widget_create_habit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TitleFormfieldWidget extends StatelessWidget {
   const TitleFormfieldWidget(
-      {super.key, required this.titleController, required this.pressed});
+      {super.key,
+      required this.titleController,
+      required this.pressed,
+      required this.habit});
 
   final TextEditingController titleController;
   final ValueNotifier<bool> pressed;
+  final ValueNotifier<Habit> habit;
 
   @override
   Widget build(BuildContext context) {
-    Habit inheritedData = Provider.of<ProviderCreateHabit>(context).h;
-    // ValueNotifier<bool> pressed =
-    //     InheritedWidgetCreateHabit.of(context).pressed;
-    titleController.text = inheritedData.title;
-    debugPrint("before Listenable: ${titleController.text}");
-    debugPrint("before Listenable inherited data: ${inheritedData.title}");
-    //  debugPrint("before Listenable: ${pressed.toString()}");
-    //  final inheritedNotifierEmpty = InheritedNotifierEmptyFields.of(context);
-    //  debugPrint("empty before return: ${inheritedNotifierEmpty.empty}");
-// final counter = inheritedNotifierEmpty.notifier;
-// final pressed = counter?.empty ?? 0;
+    titleController.text = habit.value.title;
 
-    // return ValueListenableBuilder(
-    //     valueListenable: pressed,
-    //     builder: (context, value, child) {
-    //     return
     return TextFormField(
         maxLength: 20,
         autovalidateMode:
             pressed.value ? AutovalidateMode.always : AutovalidateMode.disabled,
         controller: titleController,
-        decoration: const InputDecoration(
-          hintText: "Enter a Habit title",
+        decoration: InputDecoration(
+          hintText: AppLocalizations.of(context)!.titleFormfieldHabitHintText,
         ),
         cursorColor: Theme.of(context).colorScheme.onSurface,
         validator: (value) {
-          // debugPrint("validator: ${inheritedNotifierEmpty.empty.toString()}");
           debugPrint("start validation");
           if (value == null || value.isEmpty) {
-            return 'Title cannot be empty'; // Error message.
+            return AppLocalizations.of(context)!
+                .titleFormfieldTitleEmptyError; // Error message.
           }
           return null;
         },
         onChanged: (value) {
-          inheritedData.title = value;
-          // debugPrint(inheritedData.title);
-          // debugPrint(titleController.text);
-          // debugPrint(pressed.value.toString());
+          habit.value.title = value;
         });
-    // });
   }
 }

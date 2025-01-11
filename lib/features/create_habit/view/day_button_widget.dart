@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '/core/utils/enums/day_of_week.dart';
-import '/features/create_habit/view/inherited_widget_create_habit.dart';
-import '/data/models/own_colors.dart';
+import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
+import 'package:peanutprogress/data/models/own_colors.dart';
 
 class DayButtonWidget extends StatelessWidget {
-  DayButtonWidget({super.key, required this.day});
+  DayButtonWidget(
+      {super.key,
+      required this.day,
+      required this.days,
+      required this.onChanged});
 
   final String day;
   final ValueNotifier<bool> hasBeenPressed = ValueNotifier<bool>(false);
+  final ValueNotifier<List<DayOfWeek>> days;
+  final VoidCallback onChanged;
 
   @override
   Widget build(BuildContext context) {
-    final inheritedData = Provider.of<ProviderCreateHabit>(context).h;
     final ownColors = Theme.of(context).extension<OwnColors>()!;
-    for (DayOfWeek d in inheritedData.days) {
+    for (DayOfWeek d in days.value) {
       switch (day) {
         case "Mo":
           {
@@ -84,52 +87,53 @@ class DayButtonWidget extends StatelessWidget {
               if (hasBeenPressed.value) {
                 switch (day) {
                   case "Mo":
-                    inheritedData.days.add(DayOfWeek.monday);
+                    days.value.add(DayOfWeek.monday);
                     break;
                   case "Tu":
-                    inheritedData.days.add(DayOfWeek.tuesday);
+                    days.value.add(DayOfWeek.tuesday);
                     break;
                   case "We":
-                    inheritedData.days.add(DayOfWeek.wednesday);
+                    days.value.add(DayOfWeek.wednesday);
                     break;
                   case "Th":
-                    inheritedData.days.add(DayOfWeek.thursday);
+                    days.value.add(DayOfWeek.thursday);
                     break;
                   case "Fr":
-                    inheritedData.days.add(DayOfWeek.friday);
+                    days.value.add(DayOfWeek.friday);
                     break;
                   case "Sa":
-                    inheritedData.days.add(DayOfWeek.saturday);
+                    days.value.add(DayOfWeek.saturday);
                     break;
                   case "Su":
-                    inheritedData.days.add(DayOfWeek.sunday);
+                    days.value.add(DayOfWeek.sunday);
                     break;
                 }
               } else {
                 switch (day) {
                   case "Mo":
-                    inheritedData.days.remove(DayOfWeek.monday);
+                    days.value.remove(DayOfWeek.monday);
                     break;
                   case "Tu":
-                    inheritedData.days.remove(DayOfWeek.tuesday);
+                    days.value.remove(DayOfWeek.tuesday);
                     break;
                   case "We":
-                    inheritedData.days.remove(DayOfWeek.wednesday);
+                    days.value.remove(DayOfWeek.wednesday);
                     break;
                   case "Th":
-                    inheritedData.days.remove(DayOfWeek.thursday);
+                    days.value.remove(DayOfWeek.thursday);
                     break;
                   case "Fr":
-                    inheritedData.days.remove(DayOfWeek.friday);
+                    days.value.remove(DayOfWeek.friday);
                     break;
                   case "Sa":
-                    inheritedData.days.remove(DayOfWeek.saturday);
+                    days.value.remove(DayOfWeek.saturday);
                     break;
                   case "Su":
-                    inheritedData.days.remove(DayOfWeek.sunday);
+                    days.value.remove(DayOfWeek.sunday);
                     break;
                 }
               }
+              onChanged();
             },
             child: Text(
               day,

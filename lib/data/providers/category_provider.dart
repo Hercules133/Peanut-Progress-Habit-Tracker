@@ -25,6 +25,11 @@ class CategoryProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void resetSelectedIndex() {
+    _selectedIndex = 0;
+    notifyListeners();
+  }
+
   void initializeCategories(List<Habit> habits) {
     List<Category> categories = habits
         .map((habit) => habit.category)
@@ -37,7 +42,8 @@ class CategoryProvider with ChangeNotifier {
   }
 
   void addCategory(Category category) {
-    if (!_categories.any((existingCategory) => existingCategory.name == category.name)) {
+    if (!_categories
+        .any((existingCategory) => existingCategory.name == category.name)) {
       _categories.add(category);
       notifyListeners();
     }
