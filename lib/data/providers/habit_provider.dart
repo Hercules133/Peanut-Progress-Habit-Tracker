@@ -179,8 +179,7 @@ class HabitProvider with ChangeNotifier {
     final today =
         DateTime.now().weekday; // Wochentag: 1 = Montag, ..., 7 = Sonntag
     return _habits.where((habit) {
-      // ignore: collection_methods_unrelated_type
-      return habit.days.contains(today); // days ist die Liste der Wochentage
+      return habit.getDaysAsWeekdays().contains(today);
     }).toList();
   }
 }
