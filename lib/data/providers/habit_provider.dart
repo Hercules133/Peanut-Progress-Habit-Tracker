@@ -15,20 +15,13 @@ class HabitProvider with ChangeNotifier {
 
   List<Habit> _habits = [];
   List<Habit> _filteredHabits = [];
-  List<Habit> get habits => _isSearching ? _filteredHabits : _habits;
+  List<Habit> get habits => isSearching ? _filteredHabits : _habits;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  bool _isSearching = false; // Status der Suchleiste
+  bool isSearching = false; // Status der Suchleiste
   String _query = ""; // Aktuelle Suchanfrage
-
-  // ignore: unnecessary_getters_setters
-  bool get isSearching => _isSearching;
-
-  set isSearching(bool value) {
-    _isSearching = value;
-  }
 
   Future<void> fetchHabits() async {
     _isLoading = true;
@@ -46,8 +39,8 @@ class HabitProvider with ChangeNotifier {
   }
 
   void toggleSearch() {
-    _isSearching = !_isSearching;
-    if (!_isSearching) {
+    isSearching = !isSearching;
+    if (!isSearching) {
       _query = "";
       _filteredHabits = [];
       debugPrint("toggleSearch Funktion ist gerufen worden");
@@ -85,7 +78,6 @@ class HabitProvider with ChangeNotifier {
     try {
       final habit = _habits.firstWhere((h) => h.id == habitId);
       final category = habit.category;
-
       await _habitRepository.deleteHabit(habitId);
       _habits.removeWhere((h) => h.id == habitId);
 
@@ -93,13 +85,11 @@ class HabitProvider with ChangeNotifier {
       if (!isCategoryStillUsed && category.name != 'All') {
         categoryProvider.removeCategory(category);
       }
-
       notifyListeners();
     } catch (e) {
       debugPrint('Error deleting habit: $e');
     }
   }
-
 
   Future<void> clearAllHabits() async {
     try {
@@ -189,8 +179,7 @@ class HabitProvider with ChangeNotifier {
     final today =
         DateTime.now().weekday; // Wochentag: 1 = Montag, ..., 7 = Sonntag
     return _habits.where((habit) {
-      // ignore: collection_methods_unrelated_type
-      return habit.days.contains(today); // days ist die Liste der Wochentage
+      return habit.getDaysAsWeekdays().contains(today);
     }).toList();
   }
 }

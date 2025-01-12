@@ -1,60 +1,31 @@
-# Peanut Progress 
+# Peanut Progress 🥜
 
-A Habit Tracker
+A Habit Tracker app for Android, IOS and Web
 
-# Projektstruktur
+## About
 
-```plaintext
-lib/
-├── main.dart                 # Einstiegspunkt der Anwendung
-├── core/                     # Wiederverwendbarer, zentraler Code für das gesamte Projekt
-│   ├── config/               # Konfigurationsdateien (z.B. Umgebungsvariablen, Dependency Injection)
-│   ├── utils/                # Hilfsfunktionen und Utility-Klassen
-│   └── widgets/              # Wiederverwendbare Widgets (z.B. Buttons, Eingabefelder)
-├── data/                     # Datenverwaltungsschicht
-│   ├── models/               # Datenmodelle
-│   ├── providers/            # Zustandsverwaltung und Datenquellen
-│   └── repositories/         # Abstraktionsebene über Datenquellen
-├── features/                 # Modularisierte Features der App
-│   ├── feature1/             # Beispiel-Feature 1
-│   │   ├── view/             # UI für das Feature (screen und Widgets)
-│   │   ├── model/            # Datenmodelle spezifisch für dieses Feature
-│   │   ├── controller/       # Zustandsverwaltung für dieses Feature
-│   │   └── repository/       # Datenzugriffsschicht spezifisch für dieses Feature
-│   └── feature2/             # Beispiel-Feature 2 (zusätzliches Feature)
-├── services/                 # Externe Services (z.B. API-Clients, Datenbanken)
-├── resources/                # Ressourcen der App (z.B. Lokalisierung, Styles)
-```
+It's a free downloadable Habit Tracker app with all features unlocked
 
----
+## Getting started
 
-## Ordnerdetails
+There isn't any apk file for it yet, so you have to run the project with flutter in VSCode or Android Studio.
 
-### `core/`
-Dieser Ordner enthält zentralen Code, der überall in der App verwendet wird.  
-- **`config/`**: Konfigurationen wie Dependency Injection, Umgebungsvariablen, etc.  
-- **`utils/`**: Allgemeine Hilfsfunktionen und Tools.  
-- **`widgets/`**: Wiederverwendbare UI-Komponenten, die in verschiedenen Features benutzt werden.
+## Build
 
-### `data/`
-Dieser Ordner enthält globale Modelle, Provider und Repositories, die in mehreren Features verwendet werden. Es handelt sich um zentrale Module, die eine wiederverwendbare und standardisierte Schnittstelle für verschiedene Teile der App bieten. 
+- Clone the repo usint git clone https://github.com/Hercules133/Peanut-Progress-Habit-Tracker.git
+- Install dependencies with `flutter pub get`
+- Run the application with `flutter run`
 
-- **`models/`**: Globale Datenmodelle, die in mehreren Features verwendet werden können.  
-- **`providers/`**: Globale Provider für die Zustandsverwaltung, die featureübergreifend genutzt werden können.  
-- **`repositories/`**: Repositories als Abstraktionsschicht für Datenquellen, die von verschiedenen Features verwendet werden.
+## Features
+- Free
+- No ads
+- Notifications (smart watch notifications are on the way)
+- Statistics
+- Motivational quote
+- (in-app game on the way)
 
-### `features/`
-Jedes Feature der App hat einen eigenen Ordner, um alle dazugehörigen Dateien zu kapseln.  
-- **`feature1/`**: Beispiel-Feature mit folgenden Unterordnern:  
-  - **`view/`**: UI-Komponenten wie screen und Widgets.  
-  - **`model/`**: Datenmodelle speziell für dieses Feature.  
-  - **`controller/`**: Zustandsmanagement oder Logik des Features.  
-  - **`repository/`**: Datenlogik und Abstraktion spezifisch für dieses Feature.
+## Bugs
 
-### `services/`
-Externe Services wie API-Clients, Datenbanken oder Speichermechanismen.  
-- Beispiel: Authentifizierung oder lokale Speicherung.
+## License
 
-### `resources/`
-Ressourcen, die für die gesamte App verfügbar sind, wie z.B.:  
-- Lokalisierungsdateien (`.arb`/`.json`), Theme-Dateien.
+This project is licensed under the [MIT License](LICENSE.md).

@@ -128,8 +128,35 @@ class Habit {
     );
   }
 
+  List<int> getDaysAsWeekdays() {
+    // equal to weekday of DateTime (monday=1, sunday=7)
+    List<int> weekdays = [];
+    for (var day in days) {
+      switch (day) {
+        case DayOfWeek.monday:
+          weekdays.add(1);
+        case DayOfWeek.tuesday:
+          weekdays.add(2);
+        case DayOfWeek.wednesday:
+          weekdays.add(3);
+        case DayOfWeek.thursday:
+          weekdays.add(4);
+        case DayOfWeek.friday:
+          weekdays.add(5);
+        case DayOfWeek.saturday:
+          weekdays.add(6);
+        case DayOfWeek.sunday:
+          weekdays.add(7);
+      }
+    }
+    return weekdays;
+  }
+
   void markAsCompleted(DateTime date) {
-    _progress[dateOnly(date)] = ProgressStatus.completed;
+    final weekdays = getDaysAsWeekdays();
+    if (weekdays.contains(date.weekday)) {
+      _progress[dateOnly(date)] = ProgressStatus.completed;
+    }
   }
 
   void markAsNotCompleted(DateTime date) {

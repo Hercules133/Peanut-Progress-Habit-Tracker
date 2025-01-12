@@ -19,6 +19,7 @@ import 'package:peanutprogress/features/create_habit/view/days_row_widget.dart';
 import 'package:peanutprogress/features/create_habit/view/description_formfield_widget.dart';
 import 'package:group_button/group_button.dart';
 import 'package:peanutprogress/features/create_habit/view/title_formfield_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreateHabitFormWidget extends StatelessWidget {
   CreateHabitFormWidget({
@@ -72,18 +73,80 @@ class CreateHabitFormWidget extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: ListView(
             children: [
-              const Text("Title: "),
-              ValueListenableBuilder(
-                  valueListenable: pressed,
-                  builder: (context, value, child) {
-                    return TitleFormfieldWidget(
-                      titleController: titleController,
-                      pressed: pressed,
-                    );
-                  }),
-              const Text("Description(optional): "),
-              DescriptionFormfieldWidget(
-                descriptionController: descriptionController,
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  bool isWideScreen = constraints.maxWidth > 600;
+
+                  return isWideScreen
+                      ? Row(
+                          children: [
+                            Flexible(
+                              flex: 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(AppLocalizations.of(context)!
+                                      .createHabitFormTitle),
+                                  const SizedBox(height: 8),
+                                  ValueListenableBuilder(
+                                    valueListenable: pressed,
+                                    builder: (context, value, child) {
+                                      return TitleFormfieldWidget(
+                                        titleController: titleController,
+                                        pressed: pressed,
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Flexible(
+                              flex: 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .createHabitFormDescriptionPlaceholder,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  DescriptionFormfieldWidget(
+                                    descriptionController:
+                                        descriptionController,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(AppLocalizations.of(context)!
+                                .createHabitFormTitle),
+                            const SizedBox(height: 8),
+                            ValueListenableBuilder(
+                              valueListenable: pressed,
+                              builder: (context, value, child) {
+                                return TitleFormfieldWidget(
+                                  titleController: titleController,
+                                  pressed: pressed,
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .createHabitFormDescriptionPlaceholder,
+                            ),
+                            const SizedBox(height: 8),
+                            DescriptionFormfieldWidget(
+                              descriptionController: descriptionController,
+                            ),
+                          ],
+                        );
+                },
               ),
               SizedBox(
                 height: 30,
@@ -102,18 +165,18 @@ class CreateHabitFormWidget extends StatelessWidget {
                       children: [
                         const DaysRowWidget(),
                         if (showDaysError.value)
-                          const Text(
-                            'Please select at least one day.',
+                          Text(
+                            AppLocalizations.of(context)!
+                                .createHabitFormSelectDayError,
                             style: TextStyle(color: Colors.red),
                           ),
                       ],
                     );
-                  }
-              ),
-              const Row(
+                  }),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Category:"),
+                  Text(AppLocalizations.of(context)!.createHabitFormCategory),
                   AddCategoryButtonWidget(),
                 ],
               ),
@@ -174,14 +237,16 @@ class CreateHabitFormWidget extends StatelessWidget {
                       .isNotEmpty;
                   return hasError
                       ? Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      hasCustomCategories
-                          ? 'Please select one category.'
-                          : 'Please create a category first.',
-                      style: const TextStyle(color: Colors.red),
-                    ),
-                  )
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text(
+                            hasCustomCategories
+                                ? AppLocalizations.of(context)!
+                                    .createHabitFormSelectCategoryError
+                                : AppLocalizations.of(context)!
+                                    .createHabitFormCreateCategoryPrompt,
+                            style: const TextStyle(color: Colors.red),
+                          ),
+                        )
                       : const SizedBox.shrink();
                 },
               ),
@@ -195,14 +260,14 @@ class CreateHabitFormWidget extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ownColors.contribution1,
                       ),
-                      child: const Text("Save"),
+                      child: Text(AppLocalizations.of(context)!
+                          .createHabitFormSaveButton),
                       onPressed: () async {
                         showDaysError.value = false;
                         empty = false;
                         pressed.value = true;
 
-                        if (inheritedData.category == null ||
-                            inheritedData.category.name == 'All') {
+                        if (inheritedData.category.name == 'All') {
                           categoryError.value = true;
                           empty = true;
                         } else {
@@ -263,9 +328,12 @@ class CreateHabitFormWidget extends StatelessWidget {
                                 inheritedData.time.hour,
                                 inheritedData.time.minute));
 
-                        final categoriesToRemove = categoryProvider.categories.where((category) {
-                          final habitsForCategory = habitProvider.getHabitsByCategory(category);
-                          return habitsForCategory.isEmpty && category.name != 'All';
+                        final categoriesToRemove =
+                            categoryProvider.categories.where((category) {
+                          final habitsForCategory =
+                              habitProvider.getHabitsByCategory(category);
+                          return habitsForCategory.isEmpty &&
+                              category.name != 'All';
                         }).toList();
 
                         for (final category in categoriesToRemove) {

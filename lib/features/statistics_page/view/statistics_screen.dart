@@ -5,6 +5,7 @@ import 'package:peanutprogress/features/statistics_page/view/pie_chart_widget.da
 import '/core/widgets/app_bar_widget.dart';
 import '/core/widgets/drawer_menu_widget.dart';
 import '/features/home_page/view/heat_map_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StatisticsPage extends StatelessWidget {
   const StatisticsPage({super.key});
@@ -14,7 +15,7 @@ class StatisticsPage extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(
         appBar: AppBar(),
-        appBarTitle: 'Statistics',
+        appBarTitle: AppLocalizations.of(context)!.statisticsPageAppBarTitle,
       ),
       drawer: const MyDrawerMenu(),
       body: LayoutBuilder(
@@ -25,14 +26,34 @@ class StatisticsPage extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Expanded(child: const MyHeatMap()),
-                      Expanded(child: PieChartWidget()),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: const MyHeatMap(),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: PieChartWidget(),
+                        ),
+                      ),
                     ],
                   ),
                   Row(
                     children: [
-                      Expanded(child: BarChartWidget()),
-                      Expanded(child: LineChartWidget()),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: BarChartWidget(),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: LineChartWidget(),
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -42,11 +63,23 @@ class StatisticsPage extends StatelessWidget {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  const MyHeatMap(),
-                  const Text('Diagrams'),
-                  PieChartWidget(),
-                  BarChartWidget(),
-                  LineChartWidget(),
+                  Text("Heatmap"),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: const MyHeatMap(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: PieChartWidget(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: BarChartWidget(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: LineChartWidget(),
+                  ),
                 ],
               ),
             );
