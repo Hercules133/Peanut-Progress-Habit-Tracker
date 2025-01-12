@@ -12,10 +12,14 @@ import 'core/utils/routes.dart';
 import '/data/models/habit.dart';
 import 'features/settings_page/view/switch_state.dart';
 import '/features/home_page/view/habits.dart';
+import 'package:peanutprogress/core/config/notification.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
+  await NotificationService.init();
+  tz.initializeTimeZones();
   runApp(const MyApp());
 }
 

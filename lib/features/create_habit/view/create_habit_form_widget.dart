@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peanutprogress/core/config/locator.dart';
+import 'package:peanutprogress/core/config/notification.dart';
 import 'package:peanutprogress/core/utils/enums/progress_status.dart';
 import 'package:peanutprogress/core/widgets/details_dialog_widget.dart';
 import 'package:peanutprogress/data/models/date_only.dart';
@@ -251,6 +252,16 @@ class CreateHabitFormWidget extends StatelessWidget {
                               ProgressStatus.notCompleted,
                         });
                         habitProvider.addHabit(inheritedData);
+                        NotificationService.scheduleNotification(
+                            id,
+                            "Time to complete your habit!",
+                            "Don't forget to complete your habit: ${inheritedData.title}",
+                            DateTime(
+                                inheritedData.getNextDueDate().year,
+                                inheritedData.getNextDueDate().month,
+                                inheritedData.getNextDueDate().day,
+                                inheritedData.time.hour,
+                                inheritedData.time.minute));
 
                         final categoriesToRemove = categoryProvider.categories.where((category) {
                           final habitsForCategory = habitProvider.getHabitsByCategory(category);
