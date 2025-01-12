@@ -20,13 +20,17 @@ class SharedPreferencesStorage implements StorageService {
 
   @override
   Future<void> save(
-    String table,
-    Map<String, dynamic> data,
-    String Function(Map<String, dynamic>) keySelector,
-  ) async {
+      String table,
+      Map<String, dynamic> data,
+      String Function(Map<String, dynamic>) keySelector,
+      ) async {
     final prefs = await _getPrefs();
     final List<String> items = prefs.getStringList(table) ?? [];
     final key = keySelector(data);
+
+    // Log current raw data
+    print("Raw data before save (table: $table): $items");
+
     final existingIndex = items.indexWhere((item) {
       final decoded = jsonDecode(item);
       return keySelector(decoded) == key;
@@ -39,6 +43,9 @@ class SharedPreferencesStorage implements StorageService {
     }
 
     await prefs.setStringList(table, items);
+
+    // Log raw data after save
+    print("Raw data after save (table: $table): $items");
   }
 
   @override
@@ -61,6 +68,10 @@ class SharedPreferencesStorage implements StorageService {
   Future<List<Map<String, dynamic>>> readAll(String table) async {
     final prefs = await _getPrefs();
     final List<String> items = prefs.getStringList(table) ?? [];
+
+    // Log raw data
+    print("Raw data for readAll (table: $table): $items");
+
     return items
         .map((item) => jsonDecode(item) as Map<String, dynamic>)
         .toList();
