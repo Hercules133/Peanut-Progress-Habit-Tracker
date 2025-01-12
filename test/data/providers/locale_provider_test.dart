@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:peanutprogress/core/config/locator.dart';
 import 'package:peanutprogress/data/providers/locale_provider.dart';
