@@ -72,19 +72,80 @@ class CreateHabitFormWidget extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: ListView(
             children: [
-              Text(AppLocalizations.of(context)!.createHabitFormTitle),
-              ValueListenableBuilder(
-                  valueListenable: pressed,
-                  builder: (context, value, child) {
-                    return TitleFormfieldWidget(
-                      titleController: titleController,
-                      pressed: pressed,
-                    );
-                  }),
-              Text(AppLocalizations.of(context)!
-                  .createHabitFormDescriptionPlaceholder),
-              DescriptionFormfieldWidget(
-                descriptionController: descriptionController,
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  bool isWideScreen = constraints.maxWidth > 600;
+
+                  return isWideScreen
+                      ? Row(
+                          children: [
+                            Flexible(
+                              flex: 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(AppLocalizations.of(context)!
+                                      .createHabitFormTitle),
+                                  const SizedBox(height: 8),
+                                  ValueListenableBuilder(
+                                    valueListenable: pressed,
+                                    builder: (context, value, child) {
+                                      return TitleFormfieldWidget(
+                                        titleController: titleController,
+                                        pressed: pressed,
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Flexible(
+                              flex: 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .createHabitFormDescriptionPlaceholder,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  DescriptionFormfieldWidget(
+                                    descriptionController:
+                                        descriptionController,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(AppLocalizations.of(context)!
+                                .createHabitFormTitle),
+                            const SizedBox(height: 8),
+                            ValueListenableBuilder(
+                              valueListenable: pressed,
+                              builder: (context, value, child) {
+                                return TitleFormfieldWidget(
+                                  titleController: titleController,
+                                  pressed: pressed,
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .createHabitFormDescriptionPlaceholder,
+                            ),
+                            const SizedBox(height: 8),
+                            DescriptionFormfieldWidget(
+                              descriptionController: descriptionController,
+                            ),
+                          ],
+                        );
+                },
               ),
               SizedBox(
                 height: 30,

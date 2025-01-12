@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peanutprogress/core/utils/color_ex.dart';
 
 class Category {
   final String name;
@@ -31,8 +32,7 @@ class Category {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      // ignore: deprecated_member_use
-      'color': color.value,
+      'color': color.toARGB32,
       'icon': icon.codePoint,
     };
   }
@@ -51,8 +51,7 @@ class Category {
     if (other is! Category) return false;
 
     bool name = this.name == other.name;
-    // ignore: deprecated_member_use
-    bool color = this.color.value == other.color.value;
+    bool color = this.color.toARGB32 == other.color.toARGB32;
     bool icon = this.icon == other.icon;
 
     return name && color && icon;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:peanutprogress/core/utils/color_ex.dart';
 import 'package:peanutprogress/data/models/category.dart';
 
 void main() {
@@ -56,24 +57,21 @@ void main() {
       final map = category.toMap();
 
       expect(map['name'], 'Test');
-      // ignore: deprecated_member_use
-      expect(map['color'], Colors.red.value);
+      expect(map['color'], Colors.red.toARGB32);
       expect(map['icon'], Icons.stars.codePoint);
     });
 
     test('fromMap should create a Category instance from a map', () {
       final map = {
         'name': 'Test',
-        // ignore: deprecated_member_use
-        'color': Colors.red.value,
+        'color': Colors.red.toARGB32,
         'icon': Icons.stars.codePoint,
       };
 
       final category = Category.fromMap(map);
 
       expect(category.name, 'Test');
-      // ignore: deprecated_member_use
-      expect(category.color.value, Colors.red.value);
+      expect(category.color.toARGB32, Colors.red.toARGB32);
       expect(category.icon, Icons.stars);
     });
     test('fromMap should throw an error for invalid map structure', () {
