@@ -22,6 +22,7 @@ class StatisticsPage extends StatelessWidget {
         builder: (context, constraints) {
           if (constraints.maxWidth > 600) {
             return SingleChildScrollView(
+              key: const ValueKey('SingleChildScrollView 1'),
               child: Column(
                 children: [
                   Row(
@@ -61,6 +62,7 @@ class StatisticsPage extends StatelessWidget {
             );
           } else {
             return SingleChildScrollView(
+              key: const ValueKey('SingleChildScrollView 2'),
               child: Column(
                 children: [
                   Text("Heatmap"),

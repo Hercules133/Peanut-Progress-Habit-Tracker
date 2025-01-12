@@ -48,7 +48,7 @@ void main() {
                     supportedLocales: AppLocalizations.supportedLocales,
                     localizationsDelegates:
                         AppLocalizations.localizationsDelegates,
-                    locale: Locale('de'),
+                    locale: Locale('en'),
                     home: Scaffold(
                         key: scaffoldKey, drawer: const MyDrawerMenu()))),
           );
