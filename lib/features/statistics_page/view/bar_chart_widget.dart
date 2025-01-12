@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:d_chart/d_chart.dart';
+import 'package:provider/provider.dart';
 import 'package:peanutprogress/data/models/habit.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
 
-class BarChartWidget extends StatelessWidget {
-  BarChartWidget({super.key});
-
-  final List<OrdinalData> ordinalDataList = [];
+class BarChartWidget extends StatefulWidget {
+  const BarChartWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final habitProvider = context.watch<HabitProvider>();
+  State<BarChartWidget> createState() => _BarChartWidgetState();
+}
+
+class _BarChartWidgetState extends State<BarChartWidget> {
+  List<OrdinalData> ordinalDataList = [];
+
+  void loadData() {
+    final habitProvider = context.read<HabitProvider>();
     List<Habit> habits = habitProvider.habits;
 
     List<int> habitCounts = List.filled(7, 0);
@@ -31,7 +35,16 @@ class BarChartWidget extends StatelessWidget {
         measure: habitCounts[i].toDouble(),
       ));
     }
+  }
 
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
@@ -44,23 +57,37 @@ class BarChartWidget extends StatelessWidget {
         AspectRatio(
           aspectRatio: 16 / 9,
           child: DChartBarO(
-            configRenderBar: ConfigRenderBar(
-              barGroupInnerPaddingPx: 0,
+            configRenderBar: const ConfigRenderBar(
               radius: 25,
             ),
-            domainAxis: const DomainAxis(
+            domainAxis: DomainAxis(
               showLine: false,
+              lineStyle: LineStyle(color: Colors.grey.shade200),
               tickLength: 0,
-              gapAxisToLabel: 8,
-              labelStyle: LabelStyle(
+              gapAxisToLabel: 12,
+              labelStyle: const LabelStyle(
+                fontSize: 10,
                 color: Colors.white,
               ),
             ),
             measureAxis: const MeasureAxis(
-              noRenderSpec: true,
+              gapAxisToLabel: 8,
+              numericTickProvider: NumericTickProvider(
+                desiredMinTickCount: 5,
+                desiredMaxTickCount: 10,
+              ),
+              tickLength: 0,
+              labelStyle: LabelStyle(
+                fontSize: 10,
+                color: Colors.white,
+              ),
             ),
             groupList: [
-              OrdinalGroup(id: '1', data: ordinalDataList, color: Colors.brown),
+              OrdinalGroup(
+                id: '1',
+                data: ordinalDataList,
+                color: Colors.brown,
+              ),
             ],
           ),
         ),
