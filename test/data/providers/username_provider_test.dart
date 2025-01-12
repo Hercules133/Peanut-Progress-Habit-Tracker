@@ -23,7 +23,8 @@ void main() {
      build: ()=> UsernameProvider(),
       act: (provider) => provider.saveUsername('Test'),
       verify: (provider) {
-        expect(provider.usernameRepository.getUsername(),'Test');
+        Future<String> username = provider.usernameRepository.getUsername();  
+        expect(username,completion(equals('Test')));
         expect(provider.username, 'Test');
       },
   );
