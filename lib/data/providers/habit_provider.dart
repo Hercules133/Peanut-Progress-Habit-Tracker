@@ -1,3 +1,4 @@
+import 'package:clock/clock.dart';
 import 'package:flutter/material.dart';
 import '/core/config/locator.dart';
 import '/core/utils/enums/progress_status.dart';
@@ -9,6 +10,7 @@ import '/data/models/habit.dart';
 
 class HabitProvider with ChangeNotifier {
   final HabitRepository _habitRepository;
+  HabitRepository get habitRepository => _habitRepository;
   final categoryProvider = locator<CategoryProvider>();
 
   HabitProvider(this._habitRepository);
@@ -16,12 +18,14 @@ class HabitProvider with ChangeNotifier {
   List<Habit> _habits = [];
   List<Habit> _filteredHabits = [];
   List<Habit> get habits => isSearching ? _filteredHabits : _habits;
+  List<Habit> get filteredHabits => _filteredHabits;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
   bool isSearching = false; // Status der Suchleiste
   String _query = ""; // Aktuelle Suchanfrage
+  String get query => _query;
 
   Future<void> fetchHabits() async {
     _isLoading = true;
@@ -133,7 +137,7 @@ class HabitProvider with ChangeNotifier {
   }
 
   List<Habit> getPendingHabitsForTodayByCategory(Category category) {
-    final today = DateTime.now().weekday;
+    final today = clock.now().weekday;
     return _habits.where((habit) {
       final isToday = habit.days.contains(DayOfWeek.values[today - 1]);
       final isPending = habit.progress.values.any(
@@ -144,7 +148,7 @@ class HabitProvider with ChangeNotifier {
   }
 
   List<Habit> getPendingHabitsForToday() {
-    final today = DateTime.now();
+    final today = clock.now();
     final weekday = DayOfWeek.values[today.weekday - 1];
 
     return _habits.where((habit) {
@@ -177,10 +181,11 @@ class HabitProvider with ChangeNotifier {
 
   List<Habit> getHabitsForToday() {
     final today =
-        DateTime.now().weekday; // Wochentag: 1 = Montag, ..., 7 = Sonntag
+        clock.now().weekday; // Wochentag: 1 = Montag, ..., 7 = Sonntag
     return _habits.where((habit) {
-      // ignore: collection_methods_unrelated_type
-      return habit.days.contains(today); // days ist die Liste der Wochentage
+      return habit
+          .getDaysAsWeekdays()
+          .contains(today); // days ist die Liste der Wochentage
     }).toList();
   }
 }
