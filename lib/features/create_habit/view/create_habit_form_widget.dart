@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peanutprogress/core/config/locator.dart';
+import 'package:peanutprogress/core/config/notification.dart';
 import 'package:peanutprogress/core/utils/enums/progress_status.dart';
 import 'package:peanutprogress/core/widgets/details_dialog_widget.dart';
 import 'package:peanutprogress/data/models/date_only.dart';
@@ -89,21 +90,88 @@ class _CreateHabitFormWidgetState extends State<CreateHabitFormWidget> {
                   padding: const EdgeInsets.all(10),
                   child: ListView(
                     children: [
-                      Text(AppLocalizations.of(context)!.createHabitFormTitle),
-                      ValueListenableBuilder(
-                          valueListenable: pressed,
-                          builder: (context, value, child) {
-                            return TitleFormfieldWidget(
-                              titleController: titleController,
-                              pressed: pressed,
-                              habit: habit1,
-                            );
-                          }),
-                      Text(AppLocalizations.of(context)!
-                          .createHabitFormDescriptionPlaceholder),
-                      DescriptionFormfieldWidget(
-                        descriptionController: descriptionController,
-                        habit: habit1,
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          bool isWideScreen = constraints.maxWidth > 600;
+
+                          return isWideScreen
+                              ? Row(
+                                  children: [
+                                    Flexible(
+                                      flex: 1,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(AppLocalizations.of(context)!
+                                              .createHabitFormTitle),
+                                          const SizedBox(height: 8),
+                                          ValueListenableBuilder(
+                                            valueListenable: pressed,
+                                            builder: (context, value, child) {
+                                              return TitleFormfieldWidget(
+                                                titleController:
+                                                    titleController,
+                                                pressed: pressed,
+                                                habit: habit1,
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 16),
+                                    Flexible(
+                                      flex: 1,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            AppLocalizations.of(context)!
+                                                .createHabitFormDescriptionPlaceholder,
+                                          ),
+                                          const SizedBox(height: 8),
+                                          DescriptionFormfieldWidget(
+                                            descriptionController:
+                                                descriptionController,
+                                            habit: habit1,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(AppLocalizations.of(context)!
+                                        .createHabitFormTitle),
+                                    const SizedBox(height: 8),
+                                    ValueListenableBuilder(
+                                      valueListenable: pressed,
+                                      builder: (context, value, child) {
+                                        return TitleFormfieldWidget(
+                                          titleController: titleController,
+                                          pressed: pressed,
+                                          habit: habit1,
+                                        );
+                                      },
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      AppLocalizations.of(context)!
+                                          .createHabitFormDescriptionPlaceholder,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    DescriptionFormfieldWidget(
+                                      descriptionController:
+                                          descriptionController,
+                                      habit: habit1,
+                                    ),
+                                  ],
+                                );
+                        },
                       ),
                       SizedBox(
                         height: 30,
@@ -236,6 +304,10 @@ class _CreateHabitFormWidgetState extends State<CreateHabitFormWidget> {
                                   categoryError.value = false;
                                 }
 
+                                //     }
+                                //   }
+                                // }
+
                                 if (true) {
                                   if (habit1.value.days.isEmpty) {
                                     showDaysError.value = true;
@@ -261,6 +333,16 @@ class _CreateHabitFormWidgetState extends State<CreateHabitFormWidget> {
                                       ProgressStatus.notCompleted,
                                 });
                                 habitProvider.addHabit(habit1.value);
+                                NotificationService.scheduleNotification(
+                                    id,
+                                    "Time to complete your habit!",
+                                    "Don't forget to complete your habit: ${habit1.value.title}",
+                                    DateTime(
+                                        habit1.value.getNextDueDate().year,
+                                        habit1.value.getNextDueDate().month,
+                                        habit1.value.getNextDueDate().day,
+                                        habit1.value.time.hour,
+                                        habit1.value.time.minute));
 
                                 final categoriesToRemove = categoryProvider
                                     .categories

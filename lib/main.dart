@@ -14,13 +14,17 @@ import 'package:peanutprogress/core/utils/routes.dart';
 import 'package:peanutprogress/data/models/habit.dart';
 import 'package:peanutprogress/features/settings_page/view/switch_state.dart';
 import 'package:peanutprogress/features/home_page/view/habits.dart';
+import 'package:peanutprogress/core/config/notification.dart';
+import 'package:timezone/data/latest.dart' as tz;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:peanutprogress/features/home_page/view/walkthrough_screen.dart';
 import 'package:peanutprogress/features/home_page/view/splash_screen.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
+  await NotificationService.init();
+  tz.initializeTimeZones();
   runApp(const MyApp());
 }
 

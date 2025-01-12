@@ -27,7 +27,6 @@ class TitleFormfieldWidget extends StatelessWidget {
         ),
         cursorColor: Theme.of(context).colorScheme.onSurface,
         validator: (value) {
-          debugPrint("start validation");
           if (value == null || value.isEmpty) {
             return AppLocalizations.of(context)!
                 .titleFormfieldTitleEmptyError; // Error message.
