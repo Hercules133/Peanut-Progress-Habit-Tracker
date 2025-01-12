@@ -5,6 +5,8 @@ import 'package:peanutprogress/data/models/habit.dart';
 import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
 import 'package:peanutprogress/core/utils/enums/progress_status.dart';
 import 'package:peanutprogress/data/models/category.dart';
+import 'package:peanutprogress/core/utils/color_ex.dart';
+
 
 void main() {
   final habit = Habit(
@@ -177,8 +179,7 @@ void main() {
       });
       expect(map['category'], {
         'name': 'Test_Category',
-        // ignore: deprecated_member_use
-        'color': Colors.brown.value,
+        'color': Colors.brown.toARGB32,
         'icon': Icons.work.codePoint
       });
     });
@@ -195,12 +196,10 @@ void main() {
         },
         'category': {
           'name': 'Test_Category',
-          // ignore: deprecated_member_use
-          'color': Colors.brown.value,
+          'color': Colors.brown.toARGB32,
           'icon': Icons.work.codePoint
         },
-        // ignore: deprecated_member_use
-        'color': Colors.red.value,
+        'color': Colors.red.toARGB32,
         'icon': Icons.stars.codePoint,
       };
 
