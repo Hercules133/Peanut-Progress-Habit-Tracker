@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart'; // Firebase import
+import 'firebase_options.dart'; // Die generierte Datei importieren
 import 'package:flutter/material.dart';
 import 'package:peanutprogress/data/providers/locale_provider.dart';
 import 'package:peanutprogress/data/providers/username_provider.dart';
@@ -18,9 +20,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '/features/home_page/view/walkthrough_screen.dart';
 import '/features/home_page/view/splash_screen.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Firebase initialisieren
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // Service Locator initialisieren
   setupLocator();
+
+  // App starten
   runApp(const MyApp());
 }
 
@@ -44,8 +55,7 @@ class MyApp extends StatelessWidget {
           create: (context) => LocaleProvider()..fetchLocale(),
         ),
         ChangeNotifierProvider(
-          create: (context) =>
-              UsernameProvider()..fetchUsername(),
+          create: (context) => UsernameProvider()..fetchUsername(),
         ),
       ],
       child: Consumer2<SwitchState, LocaleProvider>(
@@ -64,12 +74,12 @@ class MyApp extends StatelessWidget {
               Routes.home: (context) => const MyHomePage(),
               Routes.edit: (context) {
                 final habit =
-                    ModalRoute.of(context)?.settings.arguments as Habit?;
+                ModalRoute.of(context)?.settings.arguments as Habit?;
                 return CreateHabit(habit: habit, newHabit: false);
               },
               Routes.add: (context) => const CreateHabit(
-                    newHabit: true,
-                  ),
+                newHabit: true,
+              ),
               Routes.habits: (context) => const MyHabitsPage(),
               Routes.settings: (context) => const SettingsPage(),
               Routes.statistics: (context) => const StatisticsPage(),

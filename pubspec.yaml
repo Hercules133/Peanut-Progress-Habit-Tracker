@@ -37,7 +37,6 @@ dependencies:
   provider: ^6.1.2
   flutter_heatmap_calendar: ^1.0.5
   firebase_data_connect: ^0.1.2+4
-  # flutter_heatmap_calendar: ^1.0.5
   group_button: ^5.3.4
   flutter_colorpicker: ^1.1.0
 
@@ -48,6 +47,8 @@ dependencies:
 
   d_chart: any
   intl: any
+  firebase_core: ^3.10.0
+  firebase_database: ^11.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
