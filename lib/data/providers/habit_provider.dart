@@ -15,20 +15,13 @@ class HabitProvider with ChangeNotifier {
 
   List<Habit> _habits = [];
   List<Habit> _filteredHabits = [];
-  List<Habit> get habits => _isSearching ? _filteredHabits : _habits;
+  List<Habit> get habits => isSearching ? _filteredHabits : _habits;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  bool _isSearching = false; // Status der Suchleiste
+  bool isSearching = false; // Status der Suchleiste
   String _query = ""; // Aktuelle Suchanfrage
-
-  // ignore: unnecessary_getters_setters
-  bool get isSearching => _isSearching;
-
-  set isSearching(bool value) {
-    _isSearching = value;
-  }
 
   Future<void> fetchHabits() async {
     _isLoading = true;
@@ -46,8 +39,8 @@ class HabitProvider with ChangeNotifier {
   }
 
   void toggleSearch() {
-    _isSearching = !_isSearching;
-    if (!_isSearching) {
+    isSearching = !isSearching;
+    if (!isSearching) {
       _query = "";
       _filteredHabits = [];
       debugPrint("toggleSearch Funktion ist gerufen worden");

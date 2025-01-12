@@ -5,11 +5,10 @@ import 'package:peanutprogress/data/models/habit.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
 class PieChartWidget extends StatelessWidget {
   PieChartWidget({super.key});
 
-  List<OrdinalData> ordinalDataList = [];
+  final List<OrdinalData> ordinalDataList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +37,13 @@ class PieChartWidget extends StatelessWidget {
     });
 
     if (ordinalDataList.isEmpty) {
-      ordinalDataList = [
+      ordinalDataList.add(
         OrdinalData(
           domain: 'No Data',
           measure: 100,
           color: Colors.grey,
         ),
-      ];
+      );
     }
 
     return Column(
