@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
       child: Consumer2<SwitchState, LocaleProvider>(
         builder: (context, switchState, localeProvider, _) {
           return MaterialApp(
-            title: 'Flutter Demo',
+            title: 'Peanut Progress',
             theme: lightMode,
             darkTheme: darkMode,
             themeMode: switchState.themeMode,
