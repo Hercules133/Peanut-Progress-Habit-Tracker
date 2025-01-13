@@ -4,6 +4,13 @@ import '/data/models/own_colors.dart';
 import '/data/models/heatmap.dart' as hm;
 import '/data/models/habit.dart';
 
+/// A custom heatmap widget that displays the heatmap for a single habit.
+///
+/// This widget visualizes the completion status of a habit over the last few weeks.
+/// It uses a heatmap to represent the days on which the habit was completed or not completed.
+///
+/// The [habit] parameter is the habit for which the heatmap is displayed.
+/// The number of weeks displayed is calculated based on the screen width.
 class MyHeatMap extends StatelessWidget {
   const MyHeatMap({super.key, required this.habit});
   final Habit habit;
@@ -11,6 +18,11 @@ class MyHeatMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+
+    /// Calculates the number of weeks to show based on the screen width.
+    ///
+    /// The width of the Column with the weekdays in the heatmap is assumed 18.
+    /// The width of a single column in the heatmap is assumed 20.
     final weeksToShow = ((screenWidth - 18) / 20)
         .floor(); //(screenWidth - widthWeekdays) / widthColumn
     final ownColors = Theme.of(context).extension<OwnColors>()!;

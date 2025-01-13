@@ -5,6 +5,13 @@ import '/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// A custom drawer menu widget that displays the app drawer menu.
+///
+/// This widget navigates to the respective pages when the menu items are tapped.
+/// It uses the [categoryProvider] and [habitProvider] to reset the selected index and search status.
+///
+/// The Widget is wrapped in a [SafeArea] widget to avoid overlapping with the system UI.
+
 class MyDrawerMenu extends StatelessWidget {
   const MyDrawerMenu({super.key});
 
