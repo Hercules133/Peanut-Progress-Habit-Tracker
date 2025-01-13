@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:peanutprogress/data/models/own_colors.dart';
 
+/// A button widget to select a reminder time.
+///
+/// This widget is used in the [CreateHabitFormWidget] to select a reminder time for a habit.
+/// It uses a [ValueNotifier] to update the selected time to show it as the button text.
+///
+/// ### Required parameters:
+/// - [time] is the current reminder time of the habit.
+/// - [onChanged] is a callback function to return the updated time to the parent widget.
+///
+/// ### other parameters:
+/// - [selectedTime] is the notifier to update the selected time which is used as the button text.
+///
+///
 class TimeButtonWidget extends StatelessWidget {
   TimeButtonWidget({super.key, required this.time, required this.onChanged});
 

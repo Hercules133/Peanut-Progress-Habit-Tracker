@@ -2,6 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
 import 'package:peanutprogress/data/models/own_colors.dart';
 
+/// A day button widget to set the days of a habit.
+///
+/// This widget is used in the [DaysRowWidget] to set the days of a habit.
+/// It uses a [ValueNotifier] to update the days of the habit object.
+///
+/// ### Required parameters:
+/// - [day] is the day that belongs to the button.
+/// - [days]  is a [ValueNotifier] that contains a List of the selected days of the habit object.
+/// - [hasBeenPressed] is a [ValueNotifier] to update the buttons color and the [days] List when the day is selected/not selected.
+/// - [onChanged] is a [VoidCallback] function to notify the parent widget of a change in the [days] list.
+///
 class DayButtonWidget extends StatelessWidget {
   DayButtonWidget(
       {super.key,
@@ -17,6 +28,8 @@ class DayButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ownColors = Theme.of(context).extension<OwnColors>()!;
+
+    /// Check if the day is already selected and update the button color.
     for (DayOfWeek d in days.value) {
       switch (day) {
         case "Mo":
@@ -83,6 +96,8 @@ class DayButtonWidget extends StatelessWidget {
               minimumSize: const Size(40, 40),
             ),
             onPressed: () {
+              /// Update the button color and add/remove the day to/from the days list.
+              /// toggle the hasBeenPressed value.
               hasBeenPressed.value = !hasBeenPressed.value;
               if (hasBeenPressed.value) {
                 switch (day) {

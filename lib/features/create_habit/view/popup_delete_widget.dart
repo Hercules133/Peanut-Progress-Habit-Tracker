@@ -4,6 +4,18 @@ import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// A popup widget to delete a habit.
+///
+/// This widget is used in the [CreateHabitScreenWidget] to delete a habit.
+/// It uses a [AlertDialog] to confirm the deletion of a habit.
+///
+/// ### Required parameters:
+/// - [context] is the current context.
+/// - [habit] is the habit object to delete.
+///
+/// ### Returns:
+/// A [Future<bool>] to check if the user confirmed the deletion. Depending on this value a certain navigation route is executed in the parent widget.
+
 Future<bool> popupDeleteWidget(BuildContext context, Habit habit) async {
   final habitProvider = Provider.of<HabitProvider>(context, listen: false);
   var result = await showDialog(

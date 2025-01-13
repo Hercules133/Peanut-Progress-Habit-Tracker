@@ -5,6 +5,16 @@ import 'package:peanutprogress/features/create_habit/view/day_button_widget.dart
 import 'package:peanutprogress/features/create_habit/view/time_button_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// A row widget to set/change the days and time of a habit.
+///
+/// This widget is used in the [CreateHabitFormWidget] to set the days and time of a habit.
+/// It uses a [ValueNotifier] to update the habit object.
+/// The [DaysRowWidget] contains the [DayButtonWidget] and the [TimeButtonWidget].
+/// It uses Responsive Design to show the widgets in a row or column depending on the screen width.
+///
+/// ### Required parameters:
+/// - [habit] is the habit object to update.
+///
 class DaysRowWidget extends StatelessWidget {
   const DaysRowWidget({
     super.key,

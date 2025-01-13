@@ -19,6 +19,28 @@ import 'package:group_button/group_button.dart';
 import 'package:peanutprogress/features/create_habit/view/title_formfield_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// A form widget to create or edit a habit.
+///
+/// This widget is used in the [CreateHabitScreenWidget] to create or edit a habit.
+/// It uses a [Form] to validate the input fields.
+/// The [CreateHabitFormWidget] contains the [TitleFormfieldWidget], the [DescriptionFormfieldWidget], the [DaysRowWidget] and the [AddCategoryButtonWidget].
+/// The widget also holds a GroupButton to show and select the categories and a [ElevateButton] to save the habit.
+/// The [CreateHabitFormWidget] uses a [ValueNotifier] to update the habit object.
+/// The widget uses the [GroupButton] to select a category for the habit.
+/// The [CreateHabitFormWidget] uses a [ValueNotifier] to show an error message if no days are selected.
+/// The [CreateHabitFormWidget] uses a [ValueNotifier] to show an error message if no category is selected.
+/// The [CreateHabitFormWidget] uses a [ValueNotifier] to show if the save button was pressed. This starts the validation of the form.
+/// The widget uses the [IdRepository] to generate a new habit id.
+/// It uses the [NotificationService] to schedule a notification for the habit.
+/// It uses the [HabitProvider] to add the habit to the list of habits.
+/// It uses the [CategoryProvider] to add or remove categories.
+/// The widget is Stateful to save the State of the habit object and the controllers when popups are called.
+///
+/// ### Required parameters:
+/// - [habit] is the habit object to update.
+///
+/// ### Validation:
+/// The title, the category and the days are required fields.
 class CreateHabitFormWidget extends StatefulWidget {
   const CreateHabitFormWidget({super.key, required this.habit});
 
@@ -69,10 +91,14 @@ class _CreateHabitFormWidgetState extends State<CreateHabitFormWidget> {
     List<Color> catColors = [];
     List<IconData> catIcon = [];
     int i = 0;
+
+    /// Add all categories seperated by their name, color and icon to the lists (needed for the [GroupButton} Widget).
     for (Category cat in categoryProvider.categories) {
       catNames.add(cat.name);
       catColors.add(cat.color);
       catIcon.add(cat.icon);
+
+      /// Check if the category of the habit is already selected. If yes, select the category in the [GroupButton].
       if (habit1.value.category.name == cat.name) {
         groupController.selectIndex(i);
       }
@@ -90,6 +116,7 @@ class _CreateHabitFormWidgetState extends State<CreateHabitFormWidget> {
                   padding: const EdgeInsets.all(10),
                   child: ListView(
                     children: [
+                      ///Responsive design for the title and description fields.
                       LayoutBuilder(
                         builder: (context, constraints) {
                           bool isWideScreen = constraints.maxWidth > 600;
@@ -206,6 +233,16 @@ class _CreateHabitFormWidgetState extends State<CreateHabitFormWidget> {
                           AddCategoryButtonWidget(),
                         ],
                       ),
+
+                      /// Use the [GroupButton] to select only one category for the habit.
+                      ///
+                      /// The [GroupButton] uses the [GroupButtonOptions] to set the selected and unselected color.
+                      /// The [GroupButton] uses the [buttonIndexedBuilder] to create a button for each category.
+                      /// The [buttonIndexedBuilder] uses an [ElevatedButton] to select a category.
+                      /// The [ElevatedButton] uses the [onPressed] to select the category and update the habit object.
+                      /// The [ElevatedButton] uses the [onLongPress] to delete a category.
+                      /// The [ValueListenableBuilder] checks if the category is already selected. If not, show an error message.
+                      ///
                       GroupButton(
                         controller: groupController,
                         isRadio: true,
@@ -258,6 +295,8 @@ class _CreateHabitFormWidgetState extends State<CreateHabitFormWidget> {
                           );
                         },
                       ),
+
+                      /// Show an error message if no category is selected.
                       ValueListenableBuilder<bool>(
                         valueListenable: categoryError,
                         builder: (context, hasError, _) {
@@ -283,6 +322,15 @@ class _CreateHabitFormWidgetState extends State<CreateHabitFormWidget> {
                       SizedBox(
                         height: 50,
                       ),
+
+                      /// Save the habit object and schedule a notification.
+                      ///
+                      /// The [ElevatedButton] uses the [onPressed] to validate the form and save the habit object.
+                      /// The Validation checks if the title, the category and the days are selected.(Form Validation)
+                      /// If its a new habit, generate a new id.
+                      /// if the habit is saved, show a dialog with the habit details and add habit to the habitProvider.
+                      /// Remove categories that are not used anymore.
+                      ///
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -303,10 +351,6 @@ class _CreateHabitFormWidgetState extends State<CreateHabitFormWidget> {
                                 } else {
                                   categoryError.value = false;
                                 }
-
-                                //     }
-                                //   }
-                                // }
 
                                 if (true) {
                                   if (habit1.value.days.isEmpty) {

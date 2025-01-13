@@ -3,6 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:peanutprogress/data/providers/category_provider.dart';
 
+/// A widget to close the screen.
+///
+/// This widget is used in the [AppBarWidget] on the [CreateHabitScreenWidget] to close the screen.
+/// It uses an [IconButton] to close the screen.
+/// It removes all categories that are not used by any habit.
+///
 class CloseButtonWidget extends StatelessWidget {
   const CloseButtonWidget({
     super.key,
