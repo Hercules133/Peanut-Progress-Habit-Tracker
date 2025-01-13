@@ -4,16 +4,11 @@ import 'package:intl/intl.dart';
 import 'package:peanutprogress/data/models/habit.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LineChartWidget extends StatelessWidget {
   LineChartWidget({super.key});
   final List<TimeData> series1 = [];
-
-  // Idee:
-  // Letzte zehn wochen (Streak <= 10 bei eine habit)
-  // Jede woche anzeigen wie viele habits erledigt (wenn habit bei streak 6 ist,
-  // dann die letzte 6 wochen counter + 1. Wenn ein habit auf streak 4 ist, dann die letzte 4 wochen
-  // auf 2 erhöhen, woche 5 und 6 bleibt auf 1 usw.)
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +39,8 @@ class LineChartWidget extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(15.0),
-          child: const Text(
-            'Completed habits in the last 10 weeks (all categories, per week)',
+          child: Text(
+            AppLocalizations.of(context)!.lineChartTitle,
             textAlign: TextAlign.center,
           ),
         ),
