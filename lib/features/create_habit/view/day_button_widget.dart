@@ -79,7 +79,7 @@ class DayButtonWidget extends StatelessWidget {
               backgroundColor: hasBeenPressed.value
                   ? ownColors.contribution2
                   : ownColors.contribution1,
-              maximumSize: const Size(40, 40),
+              maximumSize: const Size(50, 50),
               minimumSize: const Size(40, 40),
             ),
             onPressed: () {
