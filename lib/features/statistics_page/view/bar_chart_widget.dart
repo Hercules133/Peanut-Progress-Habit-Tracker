@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:peanutprogress/data/models/habit.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BarChartWidget extends StatefulWidget {
   const BarChartWidget({super.key});
@@ -15,12 +16,28 @@ class BarChartWidget extends StatefulWidget {
 class _BarChartWidgetState extends State<BarChartWidget> {
   List<OrdinalData> ordinalDataList = [];
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      loadData();
+    });
+  }
+
   void loadData() {
     final habitProvider = context.read<HabitProvider>();
     List<Habit> habits = habitProvider.habits;
 
     List<int> habitCounts = List.filled(7, 0);
-    List<String> daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    List<String> daysOfWeek = [
+      AppLocalizations.of(context)!.monday,
+      AppLocalizations.of(context)!.tuesday,
+      AppLocalizations.of(context)!.wednesday,
+      AppLocalizations.of(context)!.thursday,
+      AppLocalizations.of(context)!.friday,
+      AppLocalizations.of(context)!.saturday,
+      AppLocalizations.of(context)!.sunday
+    ];
 
     for (Habit habit in habits) {
       for (DayOfWeek day in habit.days) {
@@ -29,18 +46,14 @@ class _BarChartWidgetState extends State<BarChartWidget> {
       }
     }
 
-    for (int i = 0; i < 7; i++) {
-      ordinalDataList.add(OrdinalData(
-        domain: daysOfWeek[i],
-        measure: habitCounts[i].toDouble(),
-      ));
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    loadData();
+    setState(() {
+      ordinalDataList = List.generate(7, (index) {
+        return OrdinalData(
+          domain: daysOfWeek[index],
+          measure: habitCounts[index].toDouble(),
+        );
+      });
+    });
   }
 
   @override
@@ -49,8 +62,8 @@ class _BarChartWidgetState extends State<BarChartWidget> {
       children: [
         Padding(
           padding: const EdgeInsets.all(15.0),
-          child: const Text(
-            'How many created habits on a day (all categories)',
+          child: Text(
+            AppLocalizations.of(context)!.barChartTitle,
             textAlign: TextAlign.center,
           ),
         ),

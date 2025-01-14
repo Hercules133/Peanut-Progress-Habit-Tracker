@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
-import '/data/models/habit.dart';
-import '/features/create_habit/view/inherited_widget_create_habit.dart';
-import '/data/models/own_colors.dart';
+import 'package:peanutprogress/data/models/own_colors.dart';
 
+/// A button widget to select a reminder time.
+///
+/// This widget is used in the [CreateHabitFormWidget] to select a reminder time for a habit.
+/// It uses a [ValueNotifier] to update the selected time to show it as the button text.
+///
+/// ### Required parameters:
+/// - [time] is the current reminder time of the habit.
+/// - [onChanged] is a callback function to return the updated time to the parent widget.
+///
+/// ### other parameters:
+/// - [selectedTime] is the notifier to update the selected time which is used as the button text.
+///
+///
 class TimeButtonWidget extends StatelessWidget {
-  TimeButtonWidget({super.key});
+  TimeButtonWidget({super.key, required this.time, required this.onChanged});
 
   final ValueNotifier<TimeOfDay> selectedTime =
       ValueNotifier<TimeOfDay>(TimeOfDay.now());
+  final TimeOfDay time;
+  final Function(TimeOfDay) onChanged;
 
   @override
   Widget build(BuildContext context) {
-    Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
     final ownColors = Theme.of(context).extension<OwnColors>()!;
-    selectedTime.value = inheritedData.time;
+    selectedTime.value = time;
     return ValueListenableBuilder<TimeOfDay>(
         valueListenable: selectedTime,
         builder: (context, value, child) {
@@ -70,7 +82,7 @@ class TimeButtonWidget extends StatelessWidget {
                 );
                 if (picked != null) {
                   selectedTime.value = picked;
-                  inheritedData.time = picked;
+                  onChanged(picked);
                 }
               },
               child: Text(

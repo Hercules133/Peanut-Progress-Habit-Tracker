@@ -7,13 +7,11 @@ import 'package:peanutprogress/data/models/date_only.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:peanutprogress/data/repositories/id_repository.dart';
 import 'package:peanutprogress/features/create_habit/view/popup_delete_category.dart';
-// import 'package:peanutprogress/features/create_habit/view/popup_saving_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:peanutprogress/data/models/category.dart';
 import 'package:peanutprogress/data/models/habit.dart';
 import 'package:peanutprogress/data/models/own_colors.dart';
 import 'package:peanutprogress/data/providers/category_provider.dart';
-import 'package:peanutprogress/features/create_habit/view/inherited_widget_create_habit.dart';
 import 'package:peanutprogress/features/create_habit/view/add_category_button_widget.dart';
 import 'package:peanutprogress/features/create_habit/view/days_row_widget.dart';
 import 'package:peanutprogress/features/create_habit/view/description_formfield_widget.dart';
@@ -21,45 +19,87 @@ import 'package:group_button/group_button.dart';
 import 'package:peanutprogress/features/create_habit/view/title_formfield_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class CreateHabitFormWidget extends StatelessWidget {
-  CreateHabitFormWidget({
-    super.key,
-  });
+/// A form widget to create or edit a habit.
+///
+/// This widget is used in the [CreateHabitScreenWidget] to create or edit a habit.
+/// It uses a [Form] to validate the input fields.
+/// The [CreateHabitFormWidget] contains the [TitleFormfieldWidget], the [DescriptionFormfieldWidget], the [DaysRowWidget] and the [AddCategoryButtonWidget].
+/// The widget also holds a GroupButton to show and select the categories and a [ElevateButton] to save the habit.
+/// The [CreateHabitFormWidget] uses a [ValueNotifier] to update the habit object.
+/// The widget uses the [GroupButton] to select a category for the habit.
+/// The [CreateHabitFormWidget] uses a [ValueNotifier] to show an error message if no days are selected.
+/// The [CreateHabitFormWidget] uses a [ValueNotifier] to show an error message if no category is selected.
+/// The [CreateHabitFormWidget] uses a [ValueNotifier] to show if the save button was pressed. This starts the validation of the form.
+/// The widget uses the [IdRepository] to generate a new habit id.
+/// It uses the [NotificationService] to schedule a notification for the habit.
+/// It uses the [HabitProvider] to add the habit to the list of habits.
+/// It uses the [CategoryProvider] to add or remove categories.
+/// The widget is Stateful to save the State of the habit object and the controllers when popups are called.
+///
+/// ### Required parameters:
+/// - [habit] is the habit object to update.
+///
+/// ### Validation:
+/// The title, the category and the days are required fields.
+class CreateHabitFormWidget extends StatefulWidget {
+  const CreateHabitFormWidget({super.key, required this.habit});
 
+  final Habit habit;
+
+  @override
+  State<CreateHabitFormWidget> createState() => _CreateHabitFormWidgetState();
+}
+
+class _CreateHabitFormWidgetState extends State<CreateHabitFormWidget> {
   final _inputform = GlobalKey<FormState>();
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
+  late TextEditingController titleController;
+  late TextEditingController descriptionController;
   final GroupButtonController groupController =
       GroupButtonController(selectedIndex: 0);
+  final ValueNotifier<bool> showDaysError = ValueNotifier(false);
+  final ValueNotifier<bool> pressed = ValueNotifier(false);
+  final ValueNotifier<bool> categoryError = ValueNotifier(false);
+  late Habit h;
+
+  @override
+  void initState() {
+    super.initState();
+    h = widget.habit;
+
+    // Initialize the controllers
+    titleController = TextEditingController(text: h.title);
+    descriptionController = TextEditingController(text: h.description);
+  }
+
+  @override
+  void dispose() {
+    // Dispose controllers to avoid memory leaks
+    titleController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
-    // final inheritedNotifierEmpty = InheritedNotifierEmptyFields.of(context);
-// final counter = inheritedNotifierEmpty?.notifier;
-// final count = counter?.empty ?? 0;
-
-    final ownColors = Theme.of(context).extension<OwnColors>()!;
-
-    ValueNotifier<bool> showDaysError = ValueNotifier(false);
-    ValueNotifier<bool> pressed = ValueNotifier(false);
-    ValueNotifier<bool> categoryError = ValueNotifier(false);
-    final habitProvider = Provider.of<HabitProvider>(context, listen: false);
-    final idRepository = locator<IdRepository>();
-
-    // bool pressed =
-    //     InheritedWidgetCreateHabit.of(context).pressed;
     final categoryProvider = Provider.of<CategoryProvider>(context);
+    final ownColors = Theme.of(context).extension<OwnColors>()!;
+    final habitProvider = Provider.of<HabitProvider>(context);
+    final idRepository = locator<IdRepository>();
+    final ValueNotifier<Habit> habit1 = ValueNotifier(h);
 
     List<String> catNames = [];
     List<Color> catColors = [];
     List<IconData> catIcon = [];
     int i = 0;
+
+    /// Add all categories seperated by their name, color and icon to the lists (needed for the [GroupButton} Widget).
     for (Category cat in categoryProvider.categories) {
       catNames.add(cat.name);
       catColors.add(cat.color);
       catIcon.add(cat.icon);
-      if (inheritedData.category.name == cat.name) {
+
+      /// Check if the category of the habit is already selected. If yes, select the category in the [GroupButton].
+      if (habit1.value.category.name == cat.name) {
         groupController.selectIndex(i);
       }
       i++;
@@ -67,317 +107,315 @@ class CreateHabitFormWidget extends StatelessWidget {
     bool empty = false;
 
     return SafeArea(
-      child: Form(
-        key: _inputform,
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: ListView(
-            children: [
-              LayoutBuilder(
-                builder: (context, constraints) {
-                  bool isWideScreen = constraints.maxWidth > 600;
+        child: ValueListenableBuilder(
+            valueListenable: habit1,
+            builder: (context, value, child) {
+              return Form(
+                key: _inputform,
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: ListView(
+                    children: [
+                      ///Responsive design for the title and description fields.
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          bool isWideScreen = constraints.maxWidth > 600;
 
-                  return isWideScreen
-                      ? Row(
-                          children: [
-                            Flexible(
-                              flex: 1,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(AppLocalizations.of(context)!
-                                      .createHabitFormTitle),
-                                  const SizedBox(height: 8),
-                                  ValueListenableBuilder(
-                                    valueListenable: pressed,
-                                    builder: (context, value, child) {
-                                      return TitleFormfieldWidget(
-                                        titleController: titleController,
-                                        pressed: pressed,
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            Flexible(
-                              flex: 1,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                          return isWideScreen
+                              ? Row(
+                                  children: [
+                                    Flexible(
+                                      flex: 1,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(AppLocalizations.of(context)!
+                                              .createHabitFormTitle),
+                                          const SizedBox(height: 8),
+                                          ValueListenableBuilder(
+                                            valueListenable: pressed,
+                                            builder: (context, value, child) {
+                                              return TitleFormfieldWidget(
+                                                titleController:
+                                                    titleController,
+                                                pressed: pressed,
+                                                habit: habit1,
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 16),
+                                    Flexible(
+                                      flex: 1,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            AppLocalizations.of(context)!
+                                                .createHabitFormDescriptionPlaceholder,
+                                          ),
+                                          const SizedBox(height: 8),
+                                          DescriptionFormfieldWidget(
+                                            descriptionController:
+                                                descriptionController,
+                                            habit: habit1,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(AppLocalizations.of(context)!
+                                        .createHabitFormTitle),
+                                    const SizedBox(height: 8),
+                                    ValueListenableBuilder(
+                                      valueListenable: pressed,
+                                      builder: (context, value, child) {
+                                        return TitleFormfieldWidget(
+                                          titleController: titleController,
+                                          pressed: pressed,
+                                          habit: habit1,
+                                        );
+                                      },
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      AppLocalizations.of(context)!
+                                          .createHabitFormDescriptionPlaceholder,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    DescriptionFormfieldWidget(
+                                      descriptionController:
+                                          descriptionController,
+                                      habit: habit1,
+                                    ),
+                                  ],
+                                );
+                        },
+                      ),
+                      SizedBox(
+                        height: 30,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: const [
+                            SizedBox(width: 260),
+                          ],
+                        ),
+                      ),
+                      ValueListenableBuilder(
+                          valueListenable: showDaysError,
+                          builder: (context, value, child) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                DaysRowWidget(habit: habit1),
+                                if (showDaysError.value)
                                   Text(
                                     AppLocalizations.of(context)!
-                                        .createHabitFormDescriptionPlaceholder,
+                                        .createHabitFormSelectDayError,
+                                    style: TextStyle(color: Colors.red),
                                   ),
-                                  const SizedBox(height: 8),
-                                  DescriptionFormfieldWidget(
-                                    descriptionController:
-                                        descriptionController,
-                                  ),
+                              ],
+                            );
+                          }),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(AppLocalizations.of(context)!
+                              .createHabitFormCategory),
+                          AddCategoryButtonWidget(),
+                        ],
+                      ),
+
+                      /// Use the [GroupButton] to select only one category for the habit.
+                      ///
+                      /// The [GroupButton] uses the [GroupButtonOptions] to set the selected and unselected color.
+                      /// The [GroupButton] uses the [buttonIndexedBuilder] to create a button for each category.
+                      /// The [buttonIndexedBuilder] uses an [ElevatedButton] to select a category.
+                      /// The [ElevatedButton] uses the [onPressed] to select the category and update the habit object.
+                      /// The [ElevatedButton] uses the [onLongPress] to delete a category.
+                      /// The [ValueListenableBuilder] checks if the category is already selected. If not, show an error message.
+                      ///
+                      GroupButton(
+                        controller: groupController,
+                        isRadio: true,
+                        onSelected: (val, i, selected) {
+                          if (selected) {
+                            habit1.value = habit1.value.copyWith(
+                                category: categoryProvider.categories[i]);
+                            categoryError.value = false;
+                          }
+                        },
+                        buttons: catNames,
+                        options: GroupButtonOptions(
+                            selectedColor: ownColors.contribution2,
+                            unselectedColor: ownColors.contribution1),
+                        buttonIndexedBuilder: (selected, index, context) {
+                          if (categoryProvider.categories[index].name ==
+                              'All') {
+                            return const SizedBox.shrink();
+                          }
+                          return GestureDetector(
+                            onLongPress: () async {
+                              bool result = await popupDeleteCategoryWidget(
+                                  context, categoryProvider.categories[index]);
+                              if (result) {
+                                categoryProvider.removeCategory(
+                                    categoryProvider.categories[index]);
+                                debugPrint(
+                                    'Kategorie gelöscht: ${catNames[index]}');
+                              }
+                            },
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: selected
+                                    ? ownColors.contribution2
+                                    : ownColors.contribution1,
+                              ),
+                              onPressed: () {
+                                groupController.selectIndex(index);
+                                habit1.value.category =
+                                    categoryProvider.categories[index];
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(catIcon[index]),
+                                  Text(catNames[index]),
                                 ],
                               ),
                             ),
-                          ],
-                        )
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(AppLocalizations.of(context)!
-                                .createHabitFormTitle),
-                            const SizedBox(height: 8),
-                            ValueListenableBuilder(
-                              valueListenable: pressed,
-                              builder: (context, value, child) {
-                                return TitleFormfieldWidget(
-                                  titleController: titleController,
-                                  pressed: pressed,
-                                );
-                              },
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              AppLocalizations.of(context)!
-                                  .createHabitFormDescriptionPlaceholder,
-                            ),
-                            const SizedBox(height: 8),
-                            DescriptionFormfieldWidget(
-                              descriptionController: descriptionController,
-                            ),
-                          ],
-                        );
-                },
-              ),
-              SizedBox(
-                height: 30,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: const [
-                    SizedBox(width: 260),
-                  ],
-                ),
-              ),
-              ValueListenableBuilder(
-                  valueListenable: showDaysError,
-                  builder: (context, value, child) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const DaysRowWidget(),
-                        if (showDaysError.value)
-                          Text(
-                            AppLocalizations.of(context)!
-                                .createHabitFormSelectDayError,
-                            style: TextStyle(color: Colors.red),
-                          ),
-                      ],
-                    );
-                  }),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(AppLocalizations.of(context)!.createHabitFormCategory),
-                  AddCategoryButtonWidget(),
-                ],
-              ),
-              GroupButton(
-                controller: groupController,
-                isRadio: true,
-                onSelected: (val, i, selected) {
-                  if (selected) {
-                    inheritedData.category = categoryProvider.categories[i];
-                    categoryError.value = false;
-                  }
-                },
-                buttons: catNames,
-                options: GroupButtonOptions(
-                    selectedColor: ownColors.contribution2,
-                    unselectedColor: ownColors.contribution1),
-                buttonIndexedBuilder: (selected, index, context) {
-                  if (categoryProvider.categories[index].name == 'All') {
-                    return const SizedBox.shrink();
-                  }
-                  return GestureDetector(
-                    onLongPress: () async {
-                      bool result = await popupDeleteCategoryWidget(
-                          context, categoryProvider.categories[index]);
-                      if (result) {
-                        categoryProvider
-                            .removeCategory(categoryProvider.categories[index]);
-                        debugPrint('Kategorie gelöscht: ${catNames[index]}');
-                      }
-                    },
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: selected
-                            ? ownColors.contribution2
-                            : ownColors.contribution1,
-                      ),
-                      onPressed: () {
-                        groupController.selectIndex(index);
-                        inheritedData.category =
-                            categoryProvider.categories[index];
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(catIcon[index]),
-                          Text(catNames[index]),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              ValueListenableBuilder<bool>(
-                valueListenable: categoryError,
-                builder: (context, hasError, _) {
-                  final hasCustomCategories = categoryProvider.categories
-                      .where((category) => category.name != 'All')
-                      .isNotEmpty;
-                  return hasError
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            hasCustomCategories
-                                ? AppLocalizations.of(context)!
-                                    .createHabitFormSelectCategoryError
-                                : AppLocalizations.of(context)!
-                                    .createHabitFormCreateCategoryPrompt,
-                            style: const TextStyle(color: Colors.red),
-                          ),
-                        )
-                      : const SizedBox.shrink();
-                },
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: ownColors.contribution1,
-                      ),
-                      child: Text(AppLocalizations.of(context)!
-                          .createHabitFormSaveButton),
-                      onPressed: () async {
-                        showDaysError.value = false;
-                        empty = false;
-                        pressed.value = true;
-
-                        if (inheritedData.category.name == 'All') {
-                          categoryError.value = true;
-                          empty = true;
-                        } else {
-                          categoryError.value = false;
-                        }
-
-                        // final result = await popupSavingWidget(context, pressed, showDaysError, inheritedData);
-
-                        // if (context.mounted) {
-                        //   // Navigator.pop(context);
-                        //   if (result != true) {
-                        //     Navigator.pop(context);
-                        //     if (result != null) {
-                        //       habitProvider.addHabit(inheritedData);
-                        //       showDialog(
-                        //         context: context,
-                        //         builder: (context) =>
-                        //             HabitDetailsDialog(habit: result),
-                        //       );
-                        //     }
-                        //   }
-                        // }
-
-                        if (true) {
-                          if (inheritedData.days.isEmpty) {
-                            showDaysError.value = true;
-                            empty = true;
-                          }
-                          if (inheritedData.title.isEmpty) {
-                            empty = true;
-                          }
-
-                          if (empty) {
-                            // Navigator.of(context).pop(empty);
-                            return;
-                          }
-                        }
-
-                        if (empty) return;
-
-                        int id = inheritedData.id == 0
-                            ? await idRepository.generateNextHabitId()
-                            : inheritedData.id;
-                        inheritedData.id = id;
-                        inheritedData.progress.addAll({
-                          dateOnly(inheritedData.getNextDueDate()):
-                              ProgressStatus.notCompleted,
-                        });
-                        habitProvider.addHabit(inheritedData);
-                        NotificationService.scheduleNotification(
-                            id,
-                            "Time to complete your habit!",
-                            "Don't forget to complete your habit: ${inheritedData.title}",
-                            DateTime(
-                                inheritedData.getNextDueDate().year,
-                                inheritedData.getNextDueDate().month,
-                                inheritedData.getNextDueDate().day,
-                                inheritedData.time.hour,
-                                inheritedData.time.minute));
-
-                        final categoriesToRemove =
-                            categoryProvider.categories.where((category) {
-                          final habitsForCategory =
-                              habitProvider.getHabitsByCategory(category);
-                          return habitsForCategory.isEmpty &&
-                              category.name != 'All';
-                        }).toList();
-
-                        for (final category in categoriesToRemove) {
-                          categoryProvider.removeCategory(category);
-                        }
-
-                        if (context.mounted) {
-                          Navigator.pop(context);
-                          showDialog(
-                            context: context,
-                            builder: (context) =>
-                                HabitDetailsDialog(habit: inheritedData),
                           );
-                        }
+                        },
+                      ),
 
-                        // if (context.mounted) {
-                        // Navigator.of(context).pop(inheritedData);
-                        // }
-                        // final result = await popupSavingWidget(context);
+                      /// Show an error message if no category is selected.
+                      ValueListenableBuilder<bool>(
+                        valueListenable: categoryError,
+                        builder: (context, hasError, _) {
+                          final hasCustomCategories = categoryProvider
+                              .categories
+                              .where((category) => category.name != 'All')
+                              .isNotEmpty;
+                          return hasError
+                              ? Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Text(
+                                    hasCustomCategories
+                                        ? AppLocalizations.of(context)!
+                                            .createHabitFormSelectCategoryError
+                                        : AppLocalizations.of(context)!
+                                            .createHabitFormCreateCategoryPrompt,
+                                    style: const TextStyle(color: Colors.red),
+                                  ),
+                                )
+                              : const SizedBox.shrink();
+                        },
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
 
-                        // if (context.mounted) {
-                        //   Navigator.pop(context);
-                        //   if (result != true) {
-                        //     Navigator.pop(context);
-                        //     if (result != null) {
-                        //       showDialog(
-                        //         context: context,
-                        //         builder: (context) =>
-                        //             HabitDetailsDialog(habit: result),
-                        //       );
-                        //     }
-                        //   }
-                        // }
-                        // if (result == true) {
-                        //   pressed.value = true;
-                        //   showDaysError.value = true;
-                        // }
-                      }),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+                      /// Save the habit object and schedule a notification.
+                      ///
+                      /// The [ElevatedButton] uses the [onPressed] to validate the form and save the habit object.
+                      /// The Validation checks if the title, the category and the days are selected.(Form Validation)
+                      /// If its a new habit, generate a new id.
+                      /// if the habit is saved, show a dialog with the habit details and add habit to the habitProvider.
+                      /// Remove categories that are not used anymore.
+                      ///
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: ownColors.contribution1,
+                              ),
+                              child: Text(AppLocalizations.of(context)!
+                                  .createHabitFormSaveButton),
+                              onPressed: () async {
+                                showDaysError.value = false;
+                                empty = false;
+                                pressed.value = true;
+
+                                if (habit1.value.category.name == 'All') {
+                                  categoryError.value = true;
+                                  empty = true;
+                                } else {
+                                  categoryError.value = false;
+                                }
+
+                                if (true) {
+                                  if (habit1.value.days.isEmpty) {
+                                    showDaysError.value = true;
+                                    empty = true;
+                                  }
+                                  if (habit1.value.title.isEmpty) {
+                                    empty = true;
+                                  }
+
+                                  if (empty) {
+                                    return;
+                                  }
+                                }
+
+                                if (empty) return;
+
+                                int id = habit1.value.id == 0
+                                    ? await idRepository.generateNextHabitId()
+                                    : habit1.value.id;
+                                habit1.value.id = id;
+                                habit1.value.progress.addAll({
+                                  dateOnly(habit1.value.getNextDueDate()):
+                                      ProgressStatus.notCompleted,
+                                });
+                                habitProvider.addHabit(habit1.value);
+                                NotificationService.scheduleNotification(
+                                    id,
+                                    "Time to complete your habit!",
+                                    "Don't forget to complete your habit: ${habit1.value.title}",
+                                    DateTime(
+                                        habit1.value.getNextDueDate().year,
+                                        habit1.value.getNextDueDate().month,
+                                        habit1.value.getNextDueDate().day,
+                                        habit1.value.time.hour,
+                                        habit1.value.time.minute));
+
+                                final categoriesToRemove = categoryProvider
+                                    .categories
+                                    .where((category) {
+                                  final habitsForCategory = habitProvider
+                                      .getHabitsByCategory(category);
+                                  return habitsForCategory.isEmpty &&
+                                      category.name != 'All';
+                                }).toList();
+
+                                for (final category in categoriesToRemove) {
+                                  categoryProvider.removeCategory(category);
+                                }
+
+                                if (context.mounted) {
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        HabitDetailsDialog(habit: habit1.value),
+                                  );
+                                }
+                              }),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }));
   }
 }
