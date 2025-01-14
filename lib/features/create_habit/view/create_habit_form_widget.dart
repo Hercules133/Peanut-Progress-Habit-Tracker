@@ -215,13 +215,15 @@ class _CreateHabitFormWidgetState extends State<CreateHabitFormWidget> {
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                DaysRowWidget(habit: habit1),
-                                if (showDaysError.value)
-                                  Text(
-                                    AppLocalizations.of(context)!
-                                        .createHabitFormSelectDayError,
-                                    style: TextStyle(color: Colors.red),
-                                  ),
+                                DaysRowWidget(
+                                    habit: habit1,
+                                    showDaysError: showDaysError),
+                                // if (showDaysError.value)
+                                //   Text(
+                                //     AppLocalizations.of(context)!
+                                //         .createHabitFormSelectDayError,
+                                //     style: TextStyle(color: Colors.red),
+                                //   ),
                               ],
                             );
                           }),
