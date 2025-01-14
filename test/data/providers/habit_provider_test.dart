@@ -452,7 +452,8 @@ void main() {
       withClock(mockClock, () {
        final habit = provider.getHabitById(0);
        provider.toggleHabitComplete(habit, mockClock.now());
-       expect(habit.progress[mockClock.now()], ProgressStatus.completed);
+       final updatedHabit = provider.getHabitById(0); 
+       expect(updatedHabit.progress[dateOnly(mockClock.now())], ProgressStatus.completed);
       });
      }); 
     
@@ -466,9 +467,9 @@ void main() {
         expect(habits[0].id, 0);
         expect(habits[1].id, 1);
         expect(habits[2].id, 2);
-        expect(habits[1].id, 3);
-        expect(habits[2].id, 4);
-        expect(habits[2].id, 5);
+        expect(habits[3].id, 3);
+        expect(habits[4].id, 4);
+        expect(habits[5].id, 5);
          });
       });
   });
