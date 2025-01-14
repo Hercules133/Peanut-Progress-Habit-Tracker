@@ -43,43 +43,43 @@ class DaysRowWidget extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           children: [
                             DayButtonWidget(
-                                day: AppLocalizations.of(context)!.monday,
+                                day: "Mo",
                                 days: days,
                                 onChanged: () {
                                   habit.value.days = days.value;
                                 }),
                             DayButtonWidget(
-                                day: AppLocalizations.of(context)!.tuesday,
+                                day: "Tu",
                                 days: days,
                                 onChanged: () {
                                   habit.value.days = days.value;
                                 }),
                             DayButtonWidget(
-                                day: AppLocalizations.of(context)!.wednesday,
+                                day: "We",
                                 days: days,
                                 onChanged: () {
                                   habit.value.days = days.value;
                                 }),
                             DayButtonWidget(
-                                day: AppLocalizations.of(context)!.thursday,
+                                day: "Th",
                                 days: days,
                                 onChanged: () {
                                   habit.value.days = days.value;
                                 }),
                             DayButtonWidget(
-                                day: AppLocalizations.of(context)!.friday,
+                                day: "Fr",
                                 days: days,
                                 onChanged: () {
                                   habit.value.days = days.value;
                                 }),
                             DayButtonWidget(
-                                day: AppLocalizations.of(context)!.saturday,
+                                day: "Sa",
                                 days: days,
                                 onChanged: () {
                                   habit.value.days = days.value;
                                 }),
                             DayButtonWidget(
-                                day: AppLocalizations.of(context)!.sunday,
+                                day: "Su",
                                 days: days,
                                 onChanged: () {
                                   habit.value.days = days.value;
