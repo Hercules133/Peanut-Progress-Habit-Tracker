@@ -20,6 +20,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:peanutprogress/features/home_page/view/walkthrough_screen.dart';
 import 'package:peanutprogress/features/home_page/view/splash_screen.dart';
 
+/// The entry point of the application.
+/// Initializes necessary services and runs the app.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
@@ -28,6 +30,10 @@ void main() async {
   runApp(const MyApp());
 }
 
+/// A stateless widget that represents the root of the application.
+/// It sets up multiple providers and configures the `MaterialApp` widget.
+///
+/// The `MyApp` widget handles themes, locale, routes, and overall app layout
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -35,18 +41,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        /// Provides a [HabitProvider] instance that fetches habits.
         ChangeNotifierProvider<HabitProvider>(
           create: (_) => locator<HabitProvider>()..fetchHabits(),
         ),
+
+        /// Provides a [CategoryProvider] instance.
         ChangeNotifierProvider<CategoryProvider>(
           create: (_) => locator<CategoryProvider>(),
         ),
+
+        /// Provides a [SwitchState] instance for managing theme mode.
         ChangeNotifierProvider(
           create: (context) => SwitchState(),
         ),
+
+        /// Provides a [LocaleProvider] instance that fetches locale data.
         ChangeNotifierProvider<LocaleProvider>(
           create: (context) => LocaleProvider()..fetchLocale(),
         ),
+
+        /// Provides a [UsernameProvider] instance that fetches username data.
         ChangeNotifierProvider(
           create: (context) => UsernameProvider()..fetchUsername(),
         ),

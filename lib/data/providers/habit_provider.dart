@@ -7,6 +7,9 @@ import '/data/providers/category_provider.dart';
 import '/data/repositories/habit_repository.dart';
 import '/data/models/habit.dart';
 
+/// A provider class for managing habits and interacting with the
+/// [HabitRepository]. It extends [ChangeNotifier] to notify listeners when
+/// habits or their states change.
 class HabitProvider with ChangeNotifier {
   final HabitRepository _habitRepository;
   final categoryProvider = locator<CategoryProvider>();
@@ -23,6 +26,9 @@ class HabitProvider with ChangeNotifier {
   bool isSearching = false; // Status der Suchleiste
   String _query = ""; // Aktuelle Suchanfrage
 
+  /// Fetches all habits from the repository and initializes categories for
+  /// those habits. Notifies listeners when the data is loaded or an error
+  /// occurs.
   Future<void> fetchHabits() async {
     _isLoading = true;
     notifyListeners();
@@ -38,6 +44,8 @@ class HabitProvider with ChangeNotifier {
     }
   }
 
+  /// Toggles the search mode and clears the search query and filtered habits
+  /// when turning off search.
   void toggleSearch() {
     isSearching = !isSearching;
     if (!isSearching) {
@@ -49,6 +57,9 @@ class HabitProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Updates the search query and filters habits based on the query.
+  ///
+  /// [query] - The search term entered by the user.
   void updateQuery(String query) {
     _query = query;
     _filteredHabits = _habits
@@ -58,6 +69,9 @@ class HabitProvider with ChangeNotifier {
     notifyListeners(); // UI über Änderungen informieren
   }
 
+  /// Adds a new habit to the repository and updates the habit list.
+  ///
+  /// [habit] - The habit to add.
   Future<void> addHabit(Habit habit) async {
     try {
       final isExistingCategory =
@@ -74,6 +88,10 @@ class HabitProvider with ChangeNotifier {
     }
   }
 
+  /// Deletes a habit by its ID and removes its associated category if no other
+  /// habits are using it.
+  ///
+  /// [habitId] - The ID of the habit to delete.
   Future<void> deleteHabit(int habitId) async {
     try {
       final habit = _habits.firstWhere((h) => h.id == habitId);
@@ -91,6 +109,7 @@ class HabitProvider with ChangeNotifier {
     }
   }
 
+  /// Clears all habits and resets the categories to default values.
   Future<void> clearAllHabits() async {
     try {
       final categoryProvider = CategoryProvider();
@@ -104,10 +123,12 @@ class HabitProvider with ChangeNotifier {
     }
   }
 
-  ///Edge Cases
-  ///- No Habits: If _habits is empty, the method will return an empty list.
-  ///- No Pending Habits: If no habits have ProgressStatus.notCompleted,
-  ///the method will return an empty list.
+  /// Returns a list of categories that have pending habits (habits that are
+  /// not completed).
+  ///
+  /// Edge cases:
+  /// - If `_habits` is empty, the method returns an empty list.
+  /// - If no habits have pending status, the method returns an empty list.
   List<Category> getCategoriesWithPendingHabits() {
     final Set<Category> categoriesWithPendingHabits = {};
 
@@ -124,6 +145,7 @@ class HabitProvider with ChangeNotifier {
     return categoriesWithPendingHabits.toList();
   }
 
+  /// Returns a list of habits that are pending (not completed).
   List<Habit> getPendingHabits() {
     return _habits.where((habit) {
       return habit.progress.values.any(
@@ -132,6 +154,9 @@ class HabitProvider with ChangeNotifier {
     }).toList();
   }
 
+  /// Returns a list of pending habits for today, filtered by category.
+  ///
+  /// [category] - The category to filter the habits by.
   List<Habit> getPendingHabitsForTodayByCategory(Category category) {
     final today = DateTime.now().weekday;
     return _habits.where((habit) {
@@ -143,6 +168,8 @@ class HabitProvider with ChangeNotifier {
     }).toList();
   }
 
+  /// Returns a list of all habits that are scheduled for today and are not
+  /// completed.
   List<Habit> getPendingHabitsForToday() {
     final today = DateTime.now();
     final weekday = DayOfWeek.values[today.weekday - 1];
@@ -155,26 +182,38 @@ class HabitProvider with ChangeNotifier {
     }).toList();
   }
 
+  /// Returns a list of all habits.
   List<Habit> getAllHabits() {
     return _habits;
   }
 
+  /// Returns a list of habits that belong to the specified category.
+  ///
+  /// [category] - The category to filter habits by.
   List<Habit> getHabitsByCategory(Category category) {
     return _habits.where((habit) {
       return habit.category.name == category.name;
     }).toList();
   }
 
+  /// Returns a habit by its ID.
+  ///
+  /// [id] - The ID of the habit to retrieve.
   Habit getHabitById(int id) {
     return _habits.firstWhere((habit) => habit.id == id);
   }
 
+  /// Toggles the completion status of a habit for a specific date.
+  ///
+  /// [habit] - The habit to toggle.
+  /// [date] - The date for which the completion status should be toggled.
   void toggleHabitComplete(Habit habit, DateTime date) {
     habit.toggleComplete(date);
     _habitRepository.saveHabit(habit);
     notifyListeners();
   }
 
+  /// Returns a list of habits that are scheduled for today.
   List<Habit> getHabitsForToday() {
     final today =
         DateTime.now().weekday; // Wochentag: 1 = Montag, ..., 7 = Sonntag
