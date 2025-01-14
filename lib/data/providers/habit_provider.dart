@@ -137,12 +137,15 @@ class HabitProvider with ChangeNotifier {
   }
 
   List<Habit> getPendingHabitsForTodayByCategory(Category category) {
-    final today = clock.now().weekday;
+    final today = clock.now();
+    final weekday = today.weekday;
+
     return _habits.where((habit) {
-      final isToday = habit.days.contains(DayOfWeek.values[today - 1]);
-      final isPending = habit.progress.values.any(
-        (status) => status == ProgressStatus.notCompleted,
-      );
+      final isToday = habit.days.contains(DayOfWeek.values[weekday - 1]);
+      // final isPending = habit.progress.values.any(
+      //   (status) => status == ProgressStatus.notCompleted,
+      // );
+      bool isPending = !(habit.isCompletedOnDate(today));
       return habit.category.name == category.name && isToday && isPending;
     }).toList();
   }
