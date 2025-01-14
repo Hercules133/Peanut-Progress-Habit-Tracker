@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -56,24 +57,28 @@ class NotificationService {
 
   static Future<void> scheduleNotification(
       int id, String title, String body, DateTime scheduledTime) async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      id,
-      title,
-      body,
-      tz.TZDateTime.from(scheduledTime, tz.local),
-      const NotificationDetails(
-        iOS: DarwinNotificationDetails(),
-        android: AndroidNotificationDetails(
-          'reminder_channel',
-          'Reminder Channel',
-          importance: Importance.high,
-          priority: Priority.high,
+    if (!Platform.isLinux) {
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        id,
+        title,
+        body,
+        tz.TZDateTime.from(scheduledTime, tz.local),
+        const NotificationDetails(
+          iOS: DarwinNotificationDetails(),
+          android: AndroidNotificationDetails(
+            'reminder_channel',
+            'Reminder Channel',
+            importance: Importance.high,
+            priority: Priority.high,
+          ),
+          macOS: DarwinNotificationDetails(),
+          linux: LinuxNotificationDetails(),
         ),
-      ),
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.dateAndTime,
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-    );
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.dateAndTime,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      );
+    }
   }
 }
