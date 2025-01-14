@@ -5,25 +5,12 @@ import 'package:peanutprogress/core/config/locator.dart';
 import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
 import 'package:peanutprogress/core/utils/enums/progress_status.dart';
 import 'package:peanutprogress/data/models/category.dart';
+import 'package:peanutprogress/data/models/date_only.dart';
 import 'package:peanutprogress/data/models/habit.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:peanutprogress/data/repositories/habit_repository.dart';
 import 'package:provider_test/provider_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-// Utility class to mock the current date
-// class MockDateTime {
-//   static DateTime? _mockNow;
-//   static DateTime get now => _mockNow ?? DateTime.now();
-//   static DateTime get tomorrow => now.add(const Duration(days: 1));
-//   static void setMockNow(DateTime dateTime) {
-//     _mockNow = dateTime;
-//   }
-
-//   static void resetMockNow() {
-//     _mockNow = null;
-//   }
-// }
 
 void main() {
   setUpAll(() {
@@ -37,6 +24,7 @@ void main() {
         expect(provider.isSearching, false);
         expect(provider.query, "");
         expect(provider.habits, []);
+        provider.clearAllHabits();
       });
 
   testProvider<HabitProvider>(
@@ -61,6 +49,7 @@ void main() {
     verify: (provider) {
       expect(provider.habits.isNotEmpty, true);
       expect(provider.isLoading, false);
+      provider.clearAllHabits();
     },
   );
 
@@ -70,6 +59,7 @@ void main() {
     act: (provider) => provider.toggleSearch(),
     verify: (provider) {
       expect(provider.isSearching, true);
+      provider.clearAllHabits();
     },
   );
 
@@ -115,6 +105,7 @@ void main() {
       expect(provider.filteredHabits.isNotEmpty, true);
       expect(provider.filteredHabits.length, 1);
       expect(provider.habits.length, 2);
+      provider.clearAllHabits();
     },
   );
 
@@ -147,6 +138,7 @@ void main() {
       expect(provider.isSearching, false);
       expect(provider.query, '');
       expect(provider.filteredHabits.length, 1);
+      provider.clearAllHabits();
     },
   );
 
@@ -180,6 +172,7 @@ void main() {
       Future<List<Habit>> habits = provider.habitRepository.getAllHabits();
       List<Habit> habitList = await habits;
       expect(habitList.length, 1);
+      provider.clearAllHabits();
     },
   );
 
@@ -225,6 +218,7 @@ void main() {
         List<Habit> habitList = await habits;
         expect(habitList.length, 1);
         expect(habitList[0].id, 1);
+        provider.clearAllHabits();
       });
   testProvider<HabitProvider>("clearAllHabits removes all Habits",
       build: () => HabitProvider(locator<HabitRepository>()),
@@ -311,7 +305,7 @@ void main() {
               DayOfWeek.sunday
             ],
             time: const TimeOfDay(hour: 10, minute: 0),
-            progress: {mockClock.now(): ProgressStatus.notCompleted},
+            progress: {dateOnly(mockClock.now()): ProgressStatus.notCompleted},
             category: category1),
       );
       provider.addHabit(
@@ -321,7 +315,7 @@ void main() {
             description: '',
             days: [DayOfWeek.monday],
             time: const TimeOfDay(hour: 0, minute: 0),
-            progress: {mockClock.now(): ProgressStatus.completed},
+            progress: {dateOnly(mockClock.now()): ProgressStatus.completed},
             category: category1),
       );
 
@@ -332,7 +326,7 @@ void main() {
             description: '',
             days: [DayOfWeek.monday],
             time: const TimeOfDay(hour: 0, minute: 0),
-            progress: {mockClock.now(): ProgressStatus.completed},
+            progress: {dateOnly(mockClock.now()): ProgressStatus.completed},
             category: category2),
       );
       provider.addHabit(
@@ -342,7 +336,7 @@ void main() {
             description: '',
             days: [DayOfWeek.monday],
             time: const TimeOfDay(hour: 0, minute: 0),
-            progress: {mockClock.now(): ProgressStatus.notCompleted},
+            progress: {dateOnly(mockClock.now()): ProgressStatus.notCompleted},
             category: category1),
       );
       provider.addHabit(
@@ -353,8 +347,8 @@ void main() {
             days: [DayOfWeek.monday, DayOfWeek.tuesday],
             time: const TimeOfDay(hour: 10, minute: 0),
             progress: {
-              mockClock.now(): ProgressStatus.completed,
-              mockClock.daysFromNow(1): ProgressStatus.notCompleted
+              dateOnly(mockClock.now()): ProgressStatus.completed,
+              dateOnly(mockClock.daysFromNow(1)): ProgressStatus.notCompleted
             },
             category: category1),
       );
@@ -366,8 +360,8 @@ void main() {
             days: [DayOfWeek.monday, DayOfWeek.tuesday],
             time: const TimeOfDay(hour: 0, minute: 0),
             progress: {
-              mockClock.now(): ProgressStatus.notCompleted,
-              mockClock.daysFromNow(1): ProgressStatus.notCompleted
+              dateOnly(mockClock.now()): ProgressStatus.notCompleted,
+              dateOnly(mockClock.daysFromNow(1)): ProgressStatus.notCompleted
             },
             category: category3),
       );});
@@ -405,10 +399,9 @@ void main() {
           withClock(mockClock, (){
           final pendingHabits =
               provider.getPendingHabitsForTodayByCategory(category1);
-          // expect(pendingHabits.length, 1);
+          expect(pendingHabits.length, 2);
           expect(pendingHabits[0].id, 0);
           expect(pendingHabits[1].id, 3);
-          expect(pendingHabits[2].id, 4);
           });
         });
 
