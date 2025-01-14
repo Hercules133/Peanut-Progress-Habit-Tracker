@@ -24,7 +24,6 @@ void main() {
         expect(provider.isSearching, false);
         expect(provider.query, "");
         expect(provider.habits, []);
-        provider.clearAllHabits();
       });
 
   testProvider<HabitProvider>(
@@ -49,7 +48,6 @@ void main() {
     verify: (provider) {
       expect(provider.habits.isNotEmpty, true);
       expect(provider.isLoading, false);
-      provider.clearAllHabits();
     },
   );
 
@@ -59,7 +57,6 @@ void main() {
     act: (provider) => provider.toggleSearch(),
     verify: (provider) {
       expect(provider.isSearching, true);
-      provider.clearAllHabits();
     },
   );
 
@@ -172,7 +169,6 @@ void main() {
       Future<List<Habit>> habits = provider.habitRepository.getAllHabits();
       List<Habit> habitList = await habits;
       expect(habitList.length, 1);
-      provider.clearAllHabits();
     },
   );
 
@@ -218,7 +214,6 @@ void main() {
         List<Habit> habitList = await habits;
         expect(habitList.length, 1);
         expect(habitList[0].id, 1);
-        provider.clearAllHabits();
       });
   testProvider<HabitProvider>("clearAllHabits removes all Habits",
       build: () => HabitProvider(locator<HabitRepository>()),
