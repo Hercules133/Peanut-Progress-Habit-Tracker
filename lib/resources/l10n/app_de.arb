@@ -41,5 +41,20 @@
   "myHomePageNewHabitTooltip": "Neue Gewohnheit",
   "settingsPageAppBarTitle": "Einstellungen",
   "settingsPageNameHintText": "Geben Sie Ihren Namen ein",
-  "statisticsPageAppBarTitle": "Statistiken"
+  "statisticsPageAppBarTitle": "Statistiken",
+  "pieChartData": "Keine Daten",
+  "pieChartTitle": "Heute abgehakt (% pro Kategorie)",
+  "lineChartTitle": "Abgehakte habits in den letzten 10 Wochen (alle Kategorien, pro Woche)",
+  "barChartTitle": "Wie viele erstellte Kategorien an einem Tag (pro Kategorie)",
+  "monday": "Mo",
+  "tuesday": "Di",
+  "wednesday": "Mi",
+  "thursday": "Do",
+  "friday": "Fr",
+  "saturday": "Sa",
+  "sunday": "So",
+  "goodMorning":"Guten Morgen",
+  "goodEvening": "Guten Abend",
+  "goodNight": "Gute Nacht",
+  "greeting": "Hallo"
 }

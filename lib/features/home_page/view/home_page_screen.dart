@@ -34,7 +34,7 @@ class MyHomePage extends StatelessWidget {
       child: Scaffold(
         appBar: MyAppBar(
           appBar: AppBar(),
-          appBarTitle: getGreeting(),
+          appBarTitle: getGreeting(context),
         ),
         drawer: const MyDrawerMenu(),
         body: const Column(

@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:peanutprogress/data/providers/locale_provider.dart';
 import 'package:peanutprogress/data/providers/username_provider.dart';
-import '/core/config/locator.dart';
+import 'package:peanutprogress/core/config/locator.dart';
 import 'package:provider/provider.dart';
-import '/data/providers/category_provider.dart';
-import '/data/models/theme.dart';
-import '/features/create_habit/view/create_habit_screen.dart';
-import '/features/home_page/view/home_page_screen.dart';
-import '/data/providers/habit_provider.dart';
-import '/features/settings_page/view/settings_page.dart';
-import '/features/statistics_page/view/statistics_screen.dart';
-import 'core/utils/routes.dart';
-import '/data/models/habit.dart';
-import 'features/settings_page/view/switch_state.dart';
-import '/features/home_page/view/habits.dart';
+import 'package:peanutprogress/data/providers/category_provider.dart';
+import 'package:peanutprogress/data/models/theme.dart';
+import 'package:peanutprogress/features/create_habit/view/create_habit_screen.dart';
+import 'package:peanutprogress/features/home_page/view/home_page_screen.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
+import 'package:peanutprogress/features/settings_page/view/settings_page.dart';
+import 'package:peanutprogress/features/statistics_page/view/statistics_screen.dart';
+import 'package:peanutprogress/core/utils/routes.dart';
+import 'package:peanutprogress/data/models/habit.dart';
+import 'package:peanutprogress/features/settings_page/view/switch_state.dart';
+import 'package:peanutprogress/features/home_page/view/habits.dart';
+import 'package:peanutprogress/core/config/notification.dart';
+import 'package:timezone/data/latest.dart' as tz;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '/features/home_page/view/walkthrough_screen.dart';
-import '/features/home_page/view/splash_screen.dart';
+import 'package:peanutprogress/features/home_page/view/walkthrough_screen.dart';
+import 'package:peanutprogress/features/home_page/view/splash_screen.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
+  await NotificationService.init();
+  tz.initializeTimeZones();
   runApp(const MyApp());
 }
 
@@ -50,7 +54,7 @@ class MyApp extends StatelessWidget {
       child: Consumer2<SwitchState, LocaleProvider>(
         builder: (context, switchState, localeProvider, _) {
           return MaterialApp(
-            title: 'Flutter Demo',
+            title: 'Peanut Progress',
             theme: lightMode,
             darkTheme: darkMode,
             themeMode: switchState.themeMode,

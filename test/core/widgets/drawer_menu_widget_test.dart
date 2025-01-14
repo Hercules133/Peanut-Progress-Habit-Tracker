@@ -194,6 +194,9 @@ void main() {
         await tester.pumpWidget(
           MultiProvider(
             providers: [
+              ChangeNotifierProvider<UsernameProvider>(
+                create: (context) => UsernameProvider(),
+              ),
               ChangeNotifierProvider<HabitProvider>(
                 create: (context) => locator<HabitProvider>(),
               ),
@@ -238,6 +241,9 @@ void main() {
           await tester.pumpWidget(
             MultiProvider(
               providers: [
+                ChangeNotifierProvider<UsernameProvider>(
+                  create: (context) => UsernameProvider(),
+                ),
                 ChangeNotifierProvider<HabitProvider>(
                   create: (context) => locator<HabitProvider>(),
                 ),

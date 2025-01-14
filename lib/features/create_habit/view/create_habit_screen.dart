@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/data/providers/habit_provider.dart';
-import '/features/create_habit/view/inherited_widget_create_habit.dart';
-import '/features/create_habit/view/app_bar_widget.dart';
-import '/features/create_habit/view/create_habit_form_widget.dart';
-import '/data/models/habit.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
+import 'package:peanutprogress/features/create_habit/view/app_bar_widget.dart';
+import 'package:peanutprogress/features/create_habit/view/create_habit_form_widget.dart';
+import 'package:peanutprogress/data/models/habit.dart';
 
+/// A screen widget to create or edit a habit.
+///
+/// This widget is used to create or edit a habit.
+/// It uses the [AppBarWidget] and the [CreateHabitFormWidget] to create or edit a habit.
+///
+/// ### Required parameters:
+/// - [habit] is the habit object to edit or a defaultHabit if the habit is about to be created.
+/// - [newHabit] is a boolean to check if a new habit is created, because you can only delete habits that already exist.
+///
 class CreateHabit extends StatelessWidget {
   const CreateHabit({super.key, this.habit, required this.newHabit});
 
@@ -16,25 +24,18 @@ class CreateHabit extends StatelessWidget {
   Widget build(BuildContext context) {
     Habit currentHabit = habit ?? Habit.defaultHabit();
     Habit h = Habit.from(currentHabit);
-    // Empty e = Empty();
 
-    return InheritedWidgetCreateHabit(
+    return Scaffold(
+      appBar: AppBarWidget(
+        appBar: AppBar(),
+        newHabit: newHabit,
         habit: h,
-        // showDaysError: ValueNotifier<bool>(false),
-        // pressed: ValueNotifier<bool>(false),
-        // child: InheritedNotifierEmptyFields(
-        //     notifier: e,
-        child: Scaffold(
-          appBar: AppBarWidget(
-            appBar: AppBar(),
-            newHabit: newHabit,
-          ),
-          body:
-              Consumer<HabitProvider>(builder: (context, habitProvider, child) {
-            return CreateHabitFormWidget();
-          }),
-        )
-        // )
+      ),
+      body: Consumer<HabitProvider>(builder: (context, habitProvider, child) {
+        return CreateHabitFormWidget(
+          habit: h,
         );
+      }),
+    );
   }
 }

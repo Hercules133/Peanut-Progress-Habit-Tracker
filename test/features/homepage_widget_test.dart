@@ -1,10 +1,10 @@
+import 'package:clock/clock.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:peanutprogress/core/config/locator.dart';
 import 'package:peanutprogress/core/utils/color_ex.dart';
 import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
 import 'package:peanutprogress/core/utils/enums/progress_status.dart';
-import 'package:peanutprogress/core/utils/get_greeting.dart';
 import 'package:peanutprogress/core/utils/routes.dart';
 import 'package:peanutprogress/core/widgets/app_bar_widget.dart';
 import 'package:peanutprogress/data/models/category.dart';
@@ -14,6 +14,7 @@ import 'package:peanutprogress/data/models/theme.dart';
 import 'package:peanutprogress/data/providers/category_provider.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:peanutprogress/data/providers/locale_provider.dart';
+import 'package:peanutprogress/data/providers/username_provider.dart';
 import 'package:peanutprogress/features/create_habit/view/create_habit_screen.dart';
 import 'package:peanutprogress/features/home_page/view/heat_map_widget.dart';
 import 'package:peanutprogress/features/home_page/view/home_page_screen.dart';
@@ -32,6 +33,9 @@ void main() {
     await tester.pumpWidget(
       MultiProvider(
         providers: [
+          ChangeNotifierProvider<UsernameProvider>(
+            create: (context) => UsernameProvider(),
+          ),
           ChangeNotifierProvider<HabitProvider>(
             create: (context) => locator<HabitProvider>(),
           ),
@@ -63,6 +67,9 @@ void main() {
     await tester.pumpWidget(
       MultiProvider(
         providers: [
+          ChangeNotifierProvider<UsernameProvider>(
+            create: (context) => UsernameProvider(),
+          ),
           ChangeNotifierProvider<HabitProvider>(
             create: (context) => locator<HabitProvider>(),
           ),
@@ -93,9 +100,16 @@ void main() {
 
   testWidgets('AppBar shows correct Greeting based on time',
       (WidgetTester tester) async {
+    Clock mockClock = Clock.fixed(DateTime(2025, 01, 6, 17, 45));
+
+    UsernameProvider usernameProvider = UsernameProvider();
+    usernameProvider.saveUsername('testname');
     await tester.pumpWidget(
       MultiProvider(
         providers: [
+          ChangeNotifierProvider<UsernameProvider>.value(
+            value: usernameProvider,
+          ),
           ChangeNotifierProvider<HabitProvider>(
             create: (context) => locator<HabitProvider>(),
           ),
@@ -117,8 +131,9 @@ void main() {
       ),
     );
 
-    final greeting = getGreeting();
-    expect(find.text(greeting), findsOne);
+    withClock(mockClock, () async {
+      expect(find.text('Hello testname!'), findsOne);
+    });
   });
 
   group('test TabBar', () {
@@ -126,6 +141,9 @@ void main() {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
+            ChangeNotifierProvider<UsernameProvider>(
+              create: (context) => UsernameProvider(),
+            ),
             ChangeNotifierProvider<HabitProvider>(
               create: (context) => locator<HabitProvider>(),
             ),
@@ -171,6 +189,9 @@ void main() {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
+            ChangeNotifierProvider<UsernameProvider>(
+              create: (context) => UsernameProvider(),
+            ),
             ChangeNotifierProvider<HabitProvider>.value(
               value: habitProvider,
             ),
@@ -219,6 +240,9 @@ void main() {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
+            ChangeNotifierProvider<UsernameProvider>(
+              create: (context) => UsernameProvider(),
+            ),
             ChangeNotifierProvider<HabitProvider>.value(
               value: habitProvider,
             ),
@@ -262,6 +286,9 @@ void main() {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
+            ChangeNotifierProvider<UsernameProvider>(
+              create: (context) => UsernameProvider(),
+            ),
             ChangeNotifierProvider<HabitProvider>.value(
               value: habitProvider,
             ),
@@ -302,6 +329,9 @@ void main() {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
+            ChangeNotifierProvider<UsernameProvider>(
+              create: (context) => UsernameProvider(),
+            ),
             ChangeNotifierProvider<HabitProvider>.value(
               value: habitProvider,
             ),
@@ -361,6 +391,9 @@ void main() {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
+            ChangeNotifierProvider<UsernameProvider>(
+              create: (context) => UsernameProvider(),
+            ),
             ChangeNotifierProvider<HabitProvider>.value(
               value: habitProvider,
             ),
@@ -427,6 +460,9 @@ void main() {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
+            ChangeNotifierProvider<UsernameProvider>(
+              create: (context) => UsernameProvider(),
+            ),
             ChangeNotifierProvider<HabitProvider>.value(
               value: habitProvider,
             ),
@@ -480,6 +516,9 @@ void main() {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
+            ChangeNotifierProvider<UsernameProvider>(
+              create: (context) => UsernameProvider(),
+            ),
             ChangeNotifierProvider<HabitProvider>.value(
               value: habitProvider,
             ),
