@@ -1,12 +1,12 @@
 import 'package:clock/clock.dart';
 import 'package:flutter/material.dart';
-import '/core/config/locator.dart';
-import '/core/utils/enums/progress_status.dart';
-import '/core/utils/enums/day_of_week.dart';
-import '/data/models/category.dart';
-import '/data/providers/category_provider.dart';
-import '/data/repositories/habit_repository.dart';
-import '/data/models/habit.dart';
+import 'package:peanutprogress/core/config/locator.dart';
+import 'package:peanutprogress/core/utils/enums/progress_status.dart';
+import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
+import 'package:peanutprogress/data/models/category.dart';
+import 'package:peanutprogress/data/providers/category_provider.dart';
+import 'package:peanutprogress/data/repositories/habit_repository.dart';
+import 'package:peanutprogress/data/models/habit.dart';
 
 /// A provider class for managing habits and interacting with the
 /// [HabitRepository]. It extends [ChangeNotifier] to notify listeners when

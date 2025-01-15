@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:peanutprogress/features/statistics_page/view/bar_chart_widget.dart';
 import 'package:peanutprogress/features/statistics_page/view/line_chart_widget.dart';
 import 'package:peanutprogress/features/statistics_page/view/pie_chart_widget.dart';
-import '/core/widgets/app_bar_widget.dart';
-import '/core/widgets/drawer_menu_widget.dart';
-import '/features/home_page/view/heat_map_widget.dart';
+import 'package:peanutprogress/core/widgets/app_bar_widget.dart';
+import 'package:peanutprogress/core/widgets/drawer_menu_widget.dart';
+import 'package:peanutprogress/features/home_page/view/heat_map_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StatisticsPage extends StatelessWidget {

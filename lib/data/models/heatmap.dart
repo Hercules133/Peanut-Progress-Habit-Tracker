@@ -1,6 +1,6 @@
-import '/core/utils/enums/progress_status.dart';
-import '/data/providers/habit_provider.dart';
-import '/data/models/habit.dart';
+import 'package:peanutprogress/core/utils/enums/progress_status.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
+import 'package:peanutprogress/data/models/habit.dart';
 
 /// A utility class that generates data for the heat map.
 ///

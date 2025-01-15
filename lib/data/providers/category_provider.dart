@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '/data/models/category.dart';
-import '/data/models/habit.dart';
+import 'package:peanutprogress/data/models/category.dart';
+import 'package:peanutprogress/data/models/habit.dart';
 
 /// A provider class that manages a list of categories and the selected category
 /// index. It extends [ChangeNotifier] to notify listeners of changes to

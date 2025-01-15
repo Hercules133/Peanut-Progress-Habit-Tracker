@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '/core/utils/routes.dart';
+import 'package:peanutprogress/core/utils/routes.dart';
 
 class MySplashScreen extends StatefulWidget {
   const MySplashScreen({super.key});

@@ -1,6 +1,6 @@
-import '/services/storage/storage_service.dart';
-import '/core/config/locator.dart';
-import '/data/models/habit.dart';
+import 'package:peanutprogress/services/storage/storage_service.dart';
+import 'package:peanutprogress/core/config/locator.dart';
+import 'package:peanutprogress/data/models/habit.dart';
 
 /// A repository class responsible for interacting with the storage layer
 /// to persist and retrieve habit data.

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/data/models/category.dart';
-import '/data/models/own_colors.dart';
-import '/data/providers/category_provider.dart';
-import '/data/providers/habit_provider.dart';
+import 'package:peanutprogress/data/models/category.dart';
+import 'package:peanutprogress/data/models/own_colors.dart';
+import 'package:peanutprogress/data/providers/category_provider.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
 
 class MyTabBar extends StatelessWidget {
   const MyTabBar({

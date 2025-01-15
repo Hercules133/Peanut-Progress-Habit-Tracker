@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../data/providers/habit_provider.dart';
-import '/core/utils/routes.dart';
-import '/data/providers/category_provider.dart';
-import '../../../core/widgets/app_bar_widget.dart';
-import '/core/widgets/drawer_menu_widget.dart';
-import '/core/utils/get_greeting.dart';
-import 'heat_map_widget.dart';
-import 'tab_bar_widget.dart';
-import 'tab_bar_view_widget.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
+import 'package:peanutprogress/core/utils/routes.dart';
+import 'package:peanutprogress/data/providers/category_provider.dart';
+import 'package:peanutprogress/core/widgets/app_bar_widget.dart';
+import 'package:peanutprogress/core/widgets/drawer_menu_widget.dart';
+import 'package:peanutprogress/core/utils/get_greeting.dart';
+import 'package:peanutprogress/features/home_page/view/heat_map_widget.dart';
+import 'package:peanutprogress/features/home_page/view/tab_bar_widget.dart';
+import 'package:peanutprogress/features/home_page/view/tab_bar_view_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyHomePage extends StatelessWidget {

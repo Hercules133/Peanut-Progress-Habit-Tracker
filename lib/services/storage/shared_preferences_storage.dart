@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'package:peanutprogress/services/storage/storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'storage_service.dart';
 
 /// A concrete implementation of [StorageService] that uses [SharedPreferences]
 /// to persist and retrieve data.
