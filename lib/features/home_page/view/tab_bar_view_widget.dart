@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/core/widgets/details_dialog_widget.dart';
-import '/data/models/own_colors.dart';
-import '/data/providers/category_provider.dart';
-import '/data/providers/habit_provider.dart';
-import '../../../data/models/habit.dart';
+import 'package:peanutprogress/core/widgets/details_dialog_widget.dart';
+import 'package:peanutprogress/data/models/own_colors.dart';
+import 'package:peanutprogress/data/providers/category_provider.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
+import 'package:peanutprogress/data/models/habit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyTabBarView extends StatelessWidget {

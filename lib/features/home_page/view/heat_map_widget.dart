@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:provider/provider.dart';
-import '/data/models/own_colors.dart';
-import '/data/models/heatmap.dart' as hm;
-import '/data/providers/habit_provider.dart';
+import 'package:peanutprogress/data/models/own_colors.dart';
+import 'package:peanutprogress/data/models/heatmap.dart' as hm;
+import 'package:peanutprogress/data/providers/habit_provider.dart';
 
 /// A custom heatmap widget that displays the heatmap for all habits.
 ///

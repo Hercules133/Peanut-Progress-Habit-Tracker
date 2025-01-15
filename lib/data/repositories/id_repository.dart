@@ -1,5 +1,5 @@
-import '/core/config/locator.dart';
-import '/services/storage/storage_service.dart';
+import 'package:peanutprogress/core/config/locator.dart';
+import 'package:peanutprogress/services/storage/storage_service.dart';
 
 /// A repository class responsible for generating and managing unique habit IDs.
 /// It interacts with the storage layer to persist and retrieve the current

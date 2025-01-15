@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:peanutprogress/data/providers/locale_provider.dart';
 import 'package:peanutprogress/data/providers/username_provider.dart';
 import 'package:provider/provider.dart';
-import '/core/widgets/app_bar_widget.dart';
-import '/core/widgets/drawer_menu_widget.dart';
+import 'package:peanutprogress/core/widgets/app_bar_widget.dart';
+import 'package:peanutprogress/core/widgets/drawer_menu_widget.dart';
 import 'package:peanutprogress/core/config/language.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'switch_state.dart';
+import 'package:peanutprogress/features/settings_page/view/switch_state.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
