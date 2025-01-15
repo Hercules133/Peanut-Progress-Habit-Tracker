@@ -56,6 +56,20 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A button widget to select a reminder time.</p>
+<p>This widget is used in the <a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget-class.html">CreateHabitFormWidget</a> to select a reminder time for a habit.
+It uses a <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a> to update the selected time to show it as the button text.</p>
+<h3 id="required-parameters">Required parameters:</h3>
+<ul>
+<li><a href="../features_create_habit_view_time_button_widget/TimeButtonWidget/time.html">time</a> is the current reminder time of the habit.</li>
+<li><a href="../features_create_habit_view_time_button_widget/TimeButtonWidget/onChanged.html">onChanged</a> is a callback function to return the updated time to the parent widget.</li>
+</ul>
+<h3 id="other-parameters">other parameters:</h3>
+<ul>
+<li><a href="../features_create_habit_view_time_button_widget/TimeButtonWidget/selectedTime.html">selectedTime</a> is the notifier to update the selected time which is used as the button text.</li>
+</ul>
+</section>
 
 
     <section>
@@ -88,7 +102,7 @@
     <h2>Constructors</h2>
     <dl class="constructor-summary-list">
         <dt id="TimeButtonWidget" class="callable">
-          <span class="name"><a href="../features_create_habit_view_time_button_widget/TimeButtonWidget/TimeButtonWidget.html">TimeButtonWidget</a></span><span class="signature">({<span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span></span>})</span>
+          <span class="name"><a href="../features_create_habit_view_time_button_widget/TimeButtonWidget/TimeButtonWidget.html">TimeButtonWidget</a></span><span class="signature">({<span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span><span class="parameter" id="-param-time"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/material/TimeOfDay-class.html">TimeOfDay</a></span> <span class="parameter-name">time</span>, </span><span class="parameter" id="-param-onChanged"><span>required</span> <span class="type-annotation">dynamic</span> <span class="parameter-name">onChanged</span>(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/material/TimeOfDay-class.html">TimeOfDay</a></span></span>)</span>})</span>
         </dt>
         <dd>
           
@@ -125,6 +139,18 @@
 
 </dd>
 
+        <dt id="onChanged" class="property">
+  <span class="name"><a href="../features_create_habit_view_time_button_widget/TimeButtonWidget/onChanged.html">onChanged</a></span>
+  <span class="signature">&#8594; dynamic Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/material/TimeOfDay-class.html">TimeOfDay</a></span></span>)</span></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
         <dt id="runtimeType" class="property inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span>
@@ -140,6 +166,18 @@
         <dt id="selectedTime" class="property">
   <span class="name"><a href="../features_create_habit_view_time_button_widget/TimeButtonWidget/selectedTime.html">selectedTime</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/material/TimeOfDay-class.html">TimeOfDay</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="time" class="property">
+  <span class="name"><a href="../features_create_habit_view_time_button_widget/TimeButtonWidget/time.html">time</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/material/TimeOfDay-class.html">TimeOfDay</a></span>
   
 
 </dt>

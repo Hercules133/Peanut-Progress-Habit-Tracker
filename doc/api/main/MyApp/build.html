@@ -114,25 +114,45 @@ and</li>
 Widget build(BuildContext context) {
   return MultiProvider(
     providers: [
+      &#47;&#47;&#47; Provides a [HabitProvider] instance that fetches habits.
       ChangeNotifierProvider&lt;HabitProvider&gt;(
-        create: (_) =&gt; locator&lt;HabitProvider&gt;()..fetchHabits(),
+        create: (_) =&gt; locator&lt;HabitProvider&gt;()
+          ..fetchHabits()
+          ..initializeProgressForAllHabits(),
       ),
+
+      &#47;&#47;&#47; Provides a [CategoryProvider] instance.
       ChangeNotifierProvider&lt;CategoryProvider&gt;(
         create: (_) =&gt; locator&lt;CategoryProvider&gt;(),
       ),
+
+      &#47;&#47;&#47; Provides a [SwitchState] instance for managing theme mode.
       ChangeNotifierProvider(
         create: (context) =&gt; SwitchState(),
       ),
+
+      &#47;&#47;&#47; Provides a [LocaleProvider] instance that fetches locale data.
+      ChangeNotifierProvider&lt;LocaleProvider&gt;(
+        create: (context) =&gt; LocaleProvider()..fetchLocale(),
+      ),
+
+      &#47;&#47;&#47; Provides a [UsernameProvider] instance that fetches username data.
+      ChangeNotifierProvider(
+        create: (context) =&gt; UsernameProvider()..fetchUsername(),
+      ),
     ],
-    child: Consumer&lt;SwitchState&gt;(
-      builder: (context, switchState, _) {
+    child: Consumer2&lt;SwitchState, LocaleProvider&gt;(
+      builder: (context, switchState, localeProvider, _) {
         return MaterialApp(
-          title: &#39;Flutter Demo&#39;,
+          title: &#39;Peanut Progress&#39;,
           theme: lightMode,
           darkTheme: darkMode,
           themeMode: switchState.themeMode,
-          home: const MyHomePage(),
+          home: const MySplashScreen(),
           debugShowCheckedModeBanner: false,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: localeProvider.locale,
           routes: {
             Routes.home: (context) =&gt; const MyHomePage(),
             Routes.edit: (context) {
@@ -146,6 +166,7 @@ Widget build(BuildContext context) {
             Routes.habits: (context) =&gt; const MyHabitsPage(),
             Routes.settings: (context) =&gt; const SettingsPage(),
             Routes.statistics: (context) =&gt; const StatisticsPage(),
+            Routes.walkthrough: (context) =&gt; const MyWalkthroughPage(),
           },
         );
       },

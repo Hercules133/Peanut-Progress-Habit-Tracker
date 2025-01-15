@@ -117,7 +117,7 @@ Widget build(BuildContext context) {
       Icons.add,
       color: Theme.of(context).colorScheme.onSurface,
     ),
-    tooltip: &quot;Add Category&quot;,
+    tooltip: AppLocalizations.of(context)!.addCategoryButtonTooltip,
     onPressed: () {
       popupCreateCategory(context);
     },

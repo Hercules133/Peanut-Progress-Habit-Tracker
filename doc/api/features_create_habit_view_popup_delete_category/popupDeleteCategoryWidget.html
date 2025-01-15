@@ -66,6 +66,21 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Displays a popup dialog to confirm deletion of a category.</p>
+<p>The <a href="../features_create_habit_view_popup_delete_category/popupDeleteCategoryWidget.html">popupDeleteCategoryWidget</a> function shows a confirmation dialog to delete a specified category.
+If the category has assigned habits, a warning message is displayed.</p>
+<h3 id="parameters">Parameters:</h3>
+<ul>
+<li><code>context</code> is the BuildContext used to show the dialog.</li>
+<li><code>categoryToDelete</code> is the category that is selected for deletion.</li>
+</ul>
+<h3 id="returns">Returns:</h3>
+<ul>
+<li>A <a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a> that resolves to a boolean indicating whether the category was successfully deleted (true) or not (false).</li>
+</ul>
+<p>This function uses <code>AppLocalizations</code> for localization.</p>
+</section>
 
 
     
@@ -79,17 +94,20 @@
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text(&#39;Delete&#39;),
+          title: Text(
+              AppLocalizations.of(context)!.popupDeleteCategoryDeleteButton),
           content: ValueListenableBuilder(
             valueListenable: showError,
             builder: (context, value, child) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(&quot;Do you want to delete this Category?&quot;),
+                  Text(AppLocalizations.of(context)!
+                      .popupDeleteCategoryConfirmationMessage),
                   if (value)
-                    const Text(
-                      &quot;Category has assigned habits.&quot;,
+                    Text(
+                      AppLocalizations.of(context)!
+                          .popupDeleteCategoryAssignedHabitsWarning,
                       style: TextStyle(color: Colors.red),
                     ),
                   Row(

@@ -56,6 +56,17 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A row widget to set/change the days and time of a habit.</p>
+<p>This widget is used in the <a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget-class.html">CreateHabitFormWidget</a> to set the days and time of a habit.
+It uses a <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a> to update the habit object.
+The <a href="../features_create_habit_view_days_row_widget/DaysRowWidget-class.html">DaysRowWidget</a> contains the <a href="../features_create_habit_view_day_button_widget/DayButtonWidget-class.html">DayButtonWidget</a> and the <a href="../features_create_habit_view_time_button_widget/TimeButtonWidget-class.html">TimeButtonWidget</a>.
+It uses Responsive Design to show the widgets in a row or column depending on the screen width.</p>
+<h3 id="required-parameters">Required parameters:</h3>
+<ul>
+<li><a href="../features_create_habit_view_days_row_widget/DaysRowWidget/habit.html">habit</a> is the habit object to update.</li>
+</ul>
+</section>
 
 
     <section>
@@ -88,7 +99,7 @@
     <h2>Constructors</h2>
     <dl class="constructor-summary-list">
         <dt id="DaysRowWidget" class="callable">
-          <span class="name"><a href="../features_create_habit_view_days_row_widget/DaysRowWidget/DaysRowWidget.html">DaysRowWidget</a></span><span class="signature">({<span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span></span>})</span>
+          <span class="name"><a href="../features_create_habit_view_days_row_widget/DaysRowWidget/DaysRowWidget.html">DaysRowWidget</a></span><span class="signature">({<span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span><span class="parameter" id="-param-habit"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models_habit/Habit-class.html">Habit</a></span>&gt;</span></span> <span class="parameter-name">habit</span>, </span><span class="parameter" id="-param-showDaysError"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span> <span class="parameter-name">showDaysError</span></span>})</span>
         </dt>
         <dd>
           
@@ -98,10 +109,22 @@
   </section>
     
   <section
-      class="summary offset-anchor inherited"
+      class="summary offset-anchor"
       id="instance-properties">
     <h2>Properties</h2>
     <dl class="properties">
+        <dt id="habit" class="property">
+  <span class="name"><a href="../features_create_habit_view_days_row_widget/DaysRowWidget/habit.html">habit</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models_habit/Habit-class.html">Habit</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
         <dt id="hashCode" class="property inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
@@ -135,6 +158,18 @@
 <dd class="inherited">
   A representation of the runtime type of the object.
   <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="showDaysError" class="property">
+  <span class="name"><a href="../features_create_habit_view_days_row_widget/DaysRowWidget/showDaysError.html">showDaysError</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">final</span></div>
 
 </dd>
 

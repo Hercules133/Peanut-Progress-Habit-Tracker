@@ -114,26 +114,19 @@ and</li>
 Widget build(BuildContext context) {
   Habit currentHabit = habit ?? Habit.defaultHabit();
   Habit h = Habit.from(currentHabit);
-  &#47;&#47; Empty e = Empty();
 
-  return InheritedWidgetCreateHabit(
+  return Scaffold(
+    appBar: AppBarWidget(
+      appBar: AppBar(),
+      newHabit: newHabit,
       habit: h,
-      &#47;&#47; showDaysError: ValueNotifier&lt;bool&gt;(false),
-      &#47;&#47; pressed: ValueNotifier&lt;bool&gt;(false),
-      &#47;&#47; child: InheritedNotifierEmptyFields(
-      &#47;&#47;     notifier: e,
-      child: Scaffold(
-        appBar: AppBarWidget(
-          appBar: AppBar(),
-          newHabit: newHabit,
-        ),
-        body:
-            Consumer&lt;HabitProvider&gt;(builder: (context, habitProvider, child) {
-          return CreateHabitFormWidget();
-        }),
-      )
-      &#47;&#47; )
+    ),
+    body: Consumer&lt;HabitProvider&gt;(builder: (context, habitProvider, child) {
+      return CreateHabitFormWidget(
+        habit: h,
       );
+    }),
+  );
 }</code></pre>
 </section>
 

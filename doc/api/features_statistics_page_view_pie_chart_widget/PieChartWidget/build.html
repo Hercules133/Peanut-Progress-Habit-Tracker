@@ -112,18 +112,67 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  return AspectRatio(
-    aspectRatio: 16 &#47; 9,
-    child: DChartPieO(
-      data: ordinalDataList,
-      customLabel: (ordinalData, index) {
-        return &#39;${ordinalData.measure}%&#39;;
-      },
-      configRenderPie: ConfigRenderPie(
-        strokeWidthPx: 2,
-        arcLabelDecorator: ArcLabelDecorator(),
+  final habitProvider = context.watch&lt;HabitProvider&gt;();
+
+  List&lt;Habit&gt; habits = habitProvider.habits;
+
+  List&lt;Habit&gt; todayHabits = [];
+  Map&lt;Category, int&gt; categoryCounts = {};
+
+  for (Habit habit in habits) {
+    if (habit.isCompletedOnDate(DateTime.now())) {
+      todayHabits.add(habit);
+      if (!categoryCounts.containsKey(habit.category)) {
+        categoryCounts[habit.category] = 1;
+      } else {
+        categoryCounts[habit.category] = categoryCounts[habit.category]! + 1;
+      }
+    }
+  }
+
+  categoryCounts.forEach((category, count) {
+    double percentage = (count &#47; todayHabits.length) * 100;
+    ordinalDataList.add(OrdinalData(
+        domain: category.name, measure: percentage, color: category.color));
+  });
+
+  if (ordinalDataList.isEmpty) {
+    ordinalDataList.add(
+      OrdinalData(
+        domain: AppLocalizations.of(context)!.pieChartData,
+        measure: 100,
+        color: Colors.grey,
       ),
-    ),
+    );
+  }
+
+  return Column(
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Text(
+          AppLocalizations.of(context)!.pieChartTitle,
+          textAlign: TextAlign.center,
+        ),
+      ),
+      AspectRatio(
+        aspectRatio: 16 &#47; 9,
+        child: DChartPieO(
+          data: ordinalDataList,
+          customLabel: (ordinalData, index) {
+            if (ordinalData.measure &gt; 15) {
+              return &#39;${ordinalData.domain}\n${ordinalData.measure.toStringAsFixed(1)}%&#39;;
+            } else {
+              return &#39;${ordinalData.measure.toStringAsFixed(1)}%&#39;;
+            }
+          },
+          configRenderPie: ConfigRenderPie(
+            strokeWidthPx: 2,
+            arcLabelDecorator: ArcLabelDecorator(),
+          ),
+        ),
+      ),
+    ],
   );
 }</code></pre>
 </section>

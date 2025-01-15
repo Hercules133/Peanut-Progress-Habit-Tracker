@@ -64,14 +64,20 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>The entry point of the application.
+Initializes necessary services and runs the app.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">void main() {
+  <pre class="language-dart"><code class="language-dart">void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
+  await NotificationService.init();
+  tz.initializeTimeZones();
   runApp(const MyApp());
 }</code></pre>
 </section>

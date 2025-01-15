@@ -64,6 +64,18 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Configures the service locator by registering various services
+and providers.</p>
+<p>This function registers:</p>
+<ul>
+<li><a href="../services_storage_storage_service/StorageService-class.html">StorageService</a> as <a href="../services_storage_shared_preferences_storage/SharedPreferencesStorage-class.html">SharedPreferencesStorage</a> for data storage.</li>
+<li><a href="../data_repositories_habit_repository/HabitRepository-class.html">HabitRepository</a> as a singleton for managing habit-related data.</li>
+<li><a href="../data_repositories_id_repository/IdRepository-class.html">IdRepository</a> as a singleton for managing ID-related data.</li>
+<li><a href="../data_providers_habit_provider/HabitProvider-class.html">HabitProvider</a> as a factory, using <a href="../data_repositories_habit_repository/HabitRepository-class.html">HabitRepository</a> for business logic.</li>
+<li><a href="../data_providers_category_provider/CategoryProvider-class.html">CategoryProvider</a> as a singleton for managing categories.</li>
+</ul>
+</section>
 
 
     

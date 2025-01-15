@@ -65,13 +65,19 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Marks the habit as completed on the specified date.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">void markAsCompleted(DateTime date) {
-  _progress[dateOnly(date)] = ProgressStatus.completed;
+  final weekdays = getDaysAsWeekdays();
+  if (weekdays.contains(date.weekday)) {
+    _progress[dateOnly(date)] = ProgressStatus.completed;
+  }
 }</code></pre>
 </section>
 

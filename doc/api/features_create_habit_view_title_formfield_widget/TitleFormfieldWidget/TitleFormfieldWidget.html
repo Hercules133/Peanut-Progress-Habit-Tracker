@@ -60,6 +60,7 @@
       <span class="name ">TitleFormfieldWidget</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span></li>
 <li><span class="parameter" id="-param-titleController"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/TextEditingController-class.html">TextEditingController</a></span> <span class="parameter-name">titleController</span>, </span></li>
 <li><span class="parameter" id="-param-pressed"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span> <span class="parameter-name">pressed</span>, </span></li>
+<li><span class="parameter" id="-param-habit"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../data_models_habit/Habit-class.html">Habit</a></span>&gt;</span></span> <span class="parameter-name">habit</span>, </span></li>
 </ol>})
     </section>
     
@@ -69,7 +70,10 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">const TitleFormfieldWidget(
-    {super.key, required this.titleController, required this.pressed});</code></pre>
+    {super.key,
+    required this.titleController,
+    required this.pressed,
+    required this.habit});</code></pre>
 </section>
 
 

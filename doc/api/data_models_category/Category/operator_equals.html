@@ -110,8 +110,7 @@ bool operator ==(Object other) {
   if (other is! Category) return false;
 
   bool name = this.name == other.name;
-  &#47;&#47; ignore: deprecated_member_use
-  bool color = this.color.value == other.color.value;
+  bool color = this.color.toARGB32 == other.color.toARGB32;
   bool icon = this.icon == other.icon;
 
   return name &amp;&amp; color &amp;&amp; icon;

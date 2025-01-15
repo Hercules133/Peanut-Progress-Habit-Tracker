@@ -66,6 +66,21 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Displays a color picker dialog.</p>
+<p>The <a href="../features_create_habit_view_pick_color/pickColor.html">pickColor</a> function shows a custom popup dialog that uses the <a href="https://pub.dev/documentation/flutter_colorpicker/1.1.0/flutter_colorpicker/BlockPicker-class.html">BlockPicker</a>
+to allow the user to choose a color from a predefined list.</p>
+<h3 id="parameters">Parameters:</h3>
+<ul>
+<li><code>context</code> is the BuildContext used to show the dialog.</li>
+<li><code>initialColor</code> is the initially selected color displayed in the picker.</li>
+</ul>
+<h3 id="returns">Returns:</h3>
+<ul>
+<li>A <a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a> that resolves to the selected <a href="https://api.flutter.dev/flutter/painting/Color-class.html">Color</a> or <code>null</code> if no selection is made.</li>
+</ul>
+<p>This function uses <a href="../data_models_own_colors/OwnColors-class.html">OwnColors</a> for the available colors and <code>AppLocalizations</code> for localization.</p>
+</section>
 
 
     
@@ -78,7 +93,7 @@
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text(&quot;Select color&quot;),
+        title: Text(AppLocalizations.of(context)!.daysRowWidgetSelectColor),
         content: SingleChildScrollView(
           child: SizedBox(
             height: 150,

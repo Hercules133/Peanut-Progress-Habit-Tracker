@@ -56,6 +56,15 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A widget that displays a bar chart of created habits by day of the week.</p>
+<p>The <a href="../features_statistics_page_view_bar_chart_widget/BarChartWidget-class.html">BarChartWidget</a> class shows a bar chart that visualizes the number of created habits for each day of the week.</p>
+<h3 id="parameters">Parameters:</h3>
+<ul>
+<li>This widget takes no additional parameters.</li>
+</ul>
+<p>This bar chart uses <a href="https://pub.dev/documentation/d_chart/2.10.2/d_chart/OrdinalData-class.html">OrdinalData</a> to plot the data and <a href="https://pub.dev/documentation/d_chart/2.10.2/d_chart/DChartBarO-class.html">DChartBarO</a> to render the chart.</p>
+</section>
 
 
     <section>
@@ -67,7 +76,7 @@
       <li><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></li>
         <li><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree-class.html">DiagnosticableTree</a></li>
         <li><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></li>
-        <li><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html">StatelessWidget</a></li>
+        <li><a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a></li>
       <li>BarChartWidget</li>
     </ul>
   </dd>
@@ -92,12 +101,13 @@
         </dt>
         <dd>
           
+            <div class="constructor-modifier features">const</div>
         </dd>
     </dl>
   </section>
     
   <section
-      class="summary offset-anchor"
+      class="summary offset-anchor inherited"
       id="instance-properties">
     <h2>Properties</h2>
     <dl class="properties">
@@ -137,18 +147,6 @@
 
 </dd>
 
-        <dt id="series1" class="property">
-  <span class="name"><a href="../features_statistics_page_view_bar_chart_widget/BarChartWidget/series1.html">series1</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/d_chart/2.10.2/d_chart/OrdinalData-class.html">OrdinalData</a></span>&gt;</span></span>
-  
-
-</dt>
-<dd>
-  
-  <div class="features"><span class="feature">getter/setter pair</span></div>
-
-</dd>
-
     </dl>
   </section>
 
@@ -158,29 +156,29 @@
       id="instance-methods">
     <h2>Methods</h2>
     <dl class="callables">
-        <dt id="build" class="callable">
-  <span class="name"><a href="../features_statistics_page_view_bar_chart_widget/BarChartWidget/build.html">build</a></span><span class="signature">(<wbr><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  Describes the part of the user interface represented by this widget.
-  <div class="features"><span class="feature">override</span></div>
-
-</dd>
-
         <dt id="createElement" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/widgets/StatelessElement-class.html">StatelessElement</a></span>
+  <span class="name"><a href="https://api.flutter.dev/flutter/widgets/StatefulWidget/createElement.html">createElement</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/widgets/StatefulElement-class.html">StatefulElement</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Creates a <a href="https://api.flutter.dev/flutter/widgets/StatelessElement-class.html">StatelessElement</a> to manage this widget's location in the tree.
+  Creates a <a href="https://api.flutter.dev/flutter/widgets/StatefulElement-class.html">StatefulElement</a> to manage this widget's location in the tree.
   <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="createState" class="callable">
+  <span class="name"><a href="../features_statistics_page_view_bar_chart_widget/BarChartWidget/createState.html">createState</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../features_statistics_page_view_bar_chart_widget/BarChartWidget-class.html">BarChartWidget</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Creates the mutable state for this widget at a given location in the tree.
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 

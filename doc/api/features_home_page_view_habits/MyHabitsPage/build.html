@@ -71,38 +71,13 @@
     </section>
     
 <section class="desc markdown">
-  <p>Describes the part of the user interface represented by this widget.</p>
-<p>The framework calls this method when this widget is inserted into the tree
-in a given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> and when the dependencies of this widget change
-(e.g., an <a href="https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html">InheritedWidget</a> referenced by this widget changes). This
-method can potentially be called in every frame and should not have any side
-effects beyond building a widget.</p>
-<p>The framework replaces the subtree below this widget with the widget
-returned by this method, either by updating the existing subtree or by
-removing the subtree and inflating a new subtree, depending on whether the
-widget returned by this method can update the root of the existing
-subtree, as determined by calling <a href="https://api.flutter.dev/flutter/widgets/Widget/canUpdate.html">Widget.canUpdate</a>.</p>
-<p>Typically implementations return a newly created constellation of widgets
-that are configured with information from this widget's constructor and
-from the given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a>.</p>
-<p>The given <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a> contains information about the location in the
-tree at which this widget is being built. For example, the context
-provides the set of inherited widgets for this location in the tree. A
-given widget might be built with multiple different <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a>
-arguments over time if the widget is moved around the tree or if the
-widget is inserted into the tree in multiple places at once.</p>
-<p>The implementation of this method must only depend on:</p>
+  <p>Builds the widget tree for the Habits page.</p>
+<p>The widget includes:</p>
 <ul>
-<li>the fields of the widget, which themselves must not change over time,
-and</li>
-<li>any ambient state obtained from the <code>context</code> using
-<a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
-</ul>
-<p>If a widget's <a href="../../features_home_page_view_habits/MyHabitsPage/build.html">build</a> method is to depend on anything else, use a
-<a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a> instead.</p>
-<p>See also:</p>
-<ul>
-<li><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html">StatelessWidget</a>, which contains the discussion on performance considerations.</li>
+<li>An <a href="https://api.flutter.dev/flutter/material/AppBar-class.html">AppBar</a> with a greeting title.</li>
+<li>A <a href="https://api.flutter.dev/flutter/material/Drawer-class.html">Drawer</a> for navigation to other sections.</li>
+<li>A <a href="https://api.flutter.dev/flutter/material/TabBar-class.html">TabBar</a> and <a href="https://api.flutter.dev/flutter/material/TabBarView-class.html">TabBarView</a> for navigating categories and displaying habits.</li>
+<li>A <a href="https://api.flutter.dev/flutter/material/FloatingActionButton-class.html">FloatingActionButton</a> for creating new habits.</li>
 </ul>
 </section>
 
@@ -112,30 +87,41 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
+  &#47;&#47; Watch providers to get the latest state of habits and categories.
   final habitProvider = context.watch&lt;HabitProvider&gt;();
   final categoryProvider = context.watch&lt;CategoryProvider&gt;();
+
+  &#47;&#47; DefaultTabController manages the state of the TabBar and TabBarView.
   return DefaultTabController(
     length: categoryProvider.categories.length,
     child: Scaffold(
+      &#47;&#47;&#47; App bar containing a dynamic greeting message based on the time of day.
       appBar: MyAppBar(
         appBar: AppBar(),
-        appBarTitle: getGreeting(),
+        appBarTitle: getGreeting(context),
       ),
+
+      &#47;&#47;&#47; Drawer menu providing navigation options to different sections of the app.
       drawer: const MyDrawerMenu(),
+
+      &#47;&#47;&#47; The body of the page, containing the TabBar and the TabBarView.
       body: Column(
         children: [
-          &#47;&#47; TabBar mit Such-Icon
+          &#47;&#47; Top row containing the TabBar and a search button.
           Row(
             children: [
               if (!habitProvider.isSearching) ...[
+                &#47;&#47;&#47; The TabBar allows users to switch between different categories.
                 const Expanded(
                   child: MyTabBar(showTodayOnly: false),
                 ),
+                &#47;&#47;&#47; Search button to toggle the search field.
                 IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: () =&gt; habitProvider.toggleSearch(),
                 ),
               ] else ...[
+                &#47;&#47;&#47; TextField for searching habits, shown when search mode is active.
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration(
@@ -146,28 +132,32 @@ Widget build(BuildContext context) {
                         onPressed: () =&gt; habitProvider.toggleSearch(),
                       ),
                     ),
+                    &#47;&#47; Updates the search query in the HabitProvider.
                     onChanged: (value) =&gt; habitProvider.updateQuery(value),
                   ),
                 ),
               ],
             ],
           ),
-          &#47;&#47; Gefilterte Habit-Ansicht
+          &#47;&#47;&#47; The TabBarView displays the habits based on the selected category.
           const Expanded(
             child: MyTabBarView(showTodayOnly: false),
           ),
         ],
       ),
+
+      &#47;&#47;&#47; Floating action button to navigate to the habit creation screen.
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, Routes.add);
-          },
-          tooltip: &#39;new Habit&#39;,
-          shape: const CircleBorder(),
-          child: Icon(
-            Icons.add,
-            color: Theme.of(context).colorScheme.onSurface,
-          )),
+        onPressed: () {
+          Navigator.pushNamed(context, Routes.add);
+        },
+        tooltip: AppLocalizations.of(context)!.myHabitPageNewHabitTooltip,
+        shape: const CircleBorder(),
+        child: Icon(
+          Icons.add,
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
+      ),
     ),
   );
 }</code></pre>

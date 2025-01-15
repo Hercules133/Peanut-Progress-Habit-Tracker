@@ -112,38 +112,55 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
+  &#47;&#47;&#47; Fetches the current state of habits and categories from the respective providers.
   final habitProvider = context.watch&lt;HabitProvider&gt;();
   final categoryProvider = context.watch&lt;CategoryProvider&gt;();
-  final allCategories = categoryProvider.categories;
+
+  &#47;&#47;&#47; Retrieves the custom theme colors for the app.
   final ownColors = Theme.of(context).extension&lt;OwnColors&gt;()!;
 
+  &#47;&#47; Show filtered habits when search is active.
   if (habitProvider.isSearching) {
     final filteredHabits = habitProvider.habits;
     return buildGridView(filteredHabits, ownColors);
   }
 
+  &#47;&#47; Show a loading indicator if data is still being loaded.
   if (habitProvider.isLoading || categoryProvider.categories.isEmpty) {
     return const Center(child: CircularProgressIndicator());
   }
 
+  &#47;&#47; Show a message if no habits are available.
   if (habitProvider.habits.isEmpty) {
-    return const Center(child: Text(&#39;No habits available.&#39;));
+    return Center(
+      child: Text(AppLocalizations.of(context)!.myTabBarViewNoHabitsAvailable),
+    );
   }
 
-  final filteredCategories = categoryProvider.categories.where((category) {
-    if (category.name == &#39;All&#39;) return false;
-    final habits = showTodayOnly
-        ? habitProvider.getPendingHabitsForTodayByCategory(category)
-        : habitProvider.getHabitsByCategory(category);
-    return habits.isNotEmpty;
-  }).toList();
+  &#47;&#47;&#47; Filters categories to only show those that have habits due today.
+  final filteredCategories = [
+    &#47;&#47; Always include the &quot;All&quot; category.
+    categoryProvider.categories.firstWhere((cat) =&gt; cat.name == &#39;All&#39;),
+    &#47;&#47; Include other categories only if they have habits due today.
+    ...categoryProvider.categories.where((category) {
+      if (category.name == &#39;All&#39;) return false;
+      final habits = showTodayOnly
+          ? habitProvider.getPendingHabitsForTodayByCategory(category)
+          : habitProvider.getHabitsByCategory(category);
+      return habits.isNotEmpty;
+    }),
+  ];
 
+  &#47;&#47; Show a message if no categories have habits for today.
   if (filteredCategories.isEmpty) {
-    return const Center(child: Text(&#39;No Habits to do for today pal. Rest back :).&#39;));
+    return Center(
+      child: Text(AppLocalizations.of(context)!.myTabBarViewNoHabitsForToday),
+    );
   }
 
+  &#47;&#47;&#47; Builds a [TabBarView] with content for each filtered category.
   return TabBarView(
-    children: allCategories.map((category) {
+    children: filteredCategories.map((category) {
       List&lt;Habit&gt; habits = [];
       if (category.name == &#39;All&#39;) {
         habits = showTodayOnly
@@ -154,7 +171,11 @@ Widget build(BuildContext context) {
             ? habitProvider.getPendingHabitsForTodayByCategory(category)
             : habitProvider.getHabitsByCategory(category);
       }
+
+      &#47;&#47; Return an empty widget if no habits are available for today.
       if (showTodayOnly &amp;&amp; habits.isEmpty) return const SizedBox.shrink();
+
+      &#47;&#47; Build a grid view of habits for the category.
       return buildGridView(habits, ownColors, category.color);
     }).toList(),
   );

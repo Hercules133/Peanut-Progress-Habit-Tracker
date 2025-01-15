@@ -56,6 +56,18 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A day button widget to set the days of a habit.</p>
+<p>This widget is used in the <a href="../features_create_habit_view_days_row_widget/DaysRowWidget-class.html">DaysRowWidget</a> to set the days of a habit.
+It uses a <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a> to update the days of the habit object.</p>
+<h3 id="required-parameters">Required parameters:</h3>
+<ul>
+<li><a href="../features_create_habit_view_day_button_widget/DayButtonWidget/day.html">day</a> is the day that belongs to the button.</li>
+<li><a href="../features_create_habit_view_day_button_widget/DayButtonWidget/days.html">days</a>  is a <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a> that contains a List of the selected days of the habit object.</li>
+<li><a href="../features_create_habit_view_day_button_widget/DayButtonWidget/hasBeenPressed.html">hasBeenPressed</a> is a <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a> to update the buttons color and the <a href="../features_create_habit_view_day_button_widget/DayButtonWidget/days.html">days</a> List when the day is selected/not selected.</li>
+<li><a href="../features_create_habit_view_day_button_widget/DayButtonWidget/onChanged.html">onChanged</a> is a <a href="https://api.flutter.dev/flutter/dart-ui/VoidCallback.html">VoidCallback</a> function to notify the parent widget of a change in the <a href="../features_create_habit_view_day_button_widget/DayButtonWidget/days.html">days</a> list.</li>
+</ul>
+</section>
 
 
     <section>
@@ -88,7 +100,7 @@
     <h2>Constructors</h2>
     <dl class="constructor-summary-list">
         <dt id="DayButtonWidget" class="callable">
-          <span class="name"><a href="../features_create_habit_view_day_button_widget/DayButtonWidget/DayButtonWidget.html">DayButtonWidget</a></span><span class="signature">({<span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span><span class="parameter" id="-param-day"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">day</span></span>})</span>
+          <span class="name"><a href="../features_create_habit_view_day_button_widget/DayButtonWidget/DayButtonWidget.html">DayButtonWidget</a></span><span class="signature">({<span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span><span class="parameter" id="-param-day"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">day</span>, </span><span class="parameter" id="-param-days"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../core_utils_enums_day_of_week/DayOfWeek.html">DayOfWeek</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">days</span>, </span><span class="parameter" id="-param-onChanged"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/VoidCallback.html">VoidCallback</a></span> <span class="parameter-name">onChanged</span></span>})</span>
         </dt>
         <dd>
           
@@ -104,6 +116,18 @@
         <dt id="day" class="property">
   <span class="name"><a href="../features_create_habit_view_day_button_widget/DayButtonWidget/day.html">day</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="days" class="property">
+  <span class="name"><a href="../features_create_habit_view_day_button_widget/DayButtonWidget/days.html">days</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../core_utils_enums_day_of_week/DayOfWeek.html">DayOfWeek</a></span>&gt;</span></span>&gt;</span></span>
   
 
 </dt>
@@ -146,6 +170,18 @@
 <dd class="inherited">
   Controls how one widget replaces another widget in the tree.
   <div class="features"><span class="feature">final</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="onChanged" class="property">
+  <span class="name"><a href="../features_create_habit_view_day_button_widget/DayButtonWidget/onChanged.html">onChanged</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-ui/VoidCallback.html">VoidCallback</a></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">final</span></div>
 
 </dd>
 

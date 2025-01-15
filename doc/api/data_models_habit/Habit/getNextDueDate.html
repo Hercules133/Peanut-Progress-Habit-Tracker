@@ -64,13 +64,17 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Returns the next due date for the habit based on its schedule.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">DateTime getNextDueDate() {
-  final now = DateTime.now();
+  &#47;&#47; final now = DateTime.now();
+  final now = clock.now();
   final today = DateTime(now.year, now.month, now.day);
 
   DateTime? closestDate;

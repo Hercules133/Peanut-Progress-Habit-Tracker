@@ -56,6 +56,17 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A AppBar widget to close the screen or delete a habit.</p>
+<p>This widget is used in the <code>CreateHabitScreenWidget</code> to close the screen or delete a habit.
+It uses an <a href="https://api.flutter.dev/flutter/material/AppBar-class.html">AppBar</a> to show the <a href="../features_create_habit_view_close_button_widget/CloseButtonWidget-class.html">CloseButtonWidget</a> and the <a href="../features_create_habit_view_delete_button_widget/DeleteButtonWidget-class.html">DeleteButtonWidget</a>.</p>
+<h3 id="required-parameters">Required parameters:</h3>
+<ul>
+<li><a href="../features_create_habit_view_app_bar_widget/AppBarWidget/appBar.html">appBar</a> is the <a href="https://api.flutter.dev/flutter/material/AppBar-class.html">AppBar</a> object to show.</li>
+<li><a href="../features_create_habit_view_app_bar_widget/AppBarWidget/newHabit.html">newHabit</a> is a boolean to check if a new habit is created, because you can only delete habits that already exist.</li>
+<li><a href="../features_create_habit_view_app_bar_widget/AppBarWidget/habit.html">habit</a> is the habit object to delete.</li>
+</ul>
+</section>
 
 
     <section>
@@ -94,7 +105,7 @@
     <h2>Constructors</h2>
     <dl class="constructor-summary-list">
         <dt id="AppBarWidget" class="callable">
-          <span class="name"><a href="../features_create_habit_view_app_bar_widget/AppBarWidget/AppBarWidget.html">AppBarWidget</a></span><span class="signature">({<span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span><span class="parameter" id="-param-appBar"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/material/AppBar-class.html">AppBar</a></span> <span class="parameter-name">appBar</span>, </span><span class="parameter" id="-param-newHabit"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">newHabit</span></span>})</span>
+          <span class="name"><a href="../features_create_habit_view_app_bar_widget/AppBarWidget/AppBarWidget.html">AppBarWidget</a></span><span class="signature">({<span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span><span class="parameter" id="-param-appBar"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/material/AppBar-class.html">AppBar</a></span> <span class="parameter-name">appBar</span>, </span><span class="parameter" id="-param-newHabit"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">newHabit</span>, </span><span class="parameter" id="-param-habit"><span>required</span> <span class="type-annotation"><a href="../data_models_habit/Habit-class.html">Habit</a></span> <span class="parameter-name">habit</span></span>})</span>
         </dt>
         <dd>
           
@@ -111,6 +122,18 @@
         <dt id="appBar" class="property">
   <span class="name"><a href="../features_create_habit_view_app_bar_widget/AppBarWidget/appBar.html">appBar</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/material/AppBar-class.html">AppBar</a></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="habit" class="property">
+  <span class="name"><a href="../features_create_habit_view_app_bar_widget/AppBarWidget/habit.html">habit</a></span>
+  <span class="signature">&#8594; <a href="../data_models_habit/Habit-class.html">Habit</a></span>
   
 
 </dt>

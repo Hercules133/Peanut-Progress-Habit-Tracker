@@ -112,48 +112,92 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  CategoryProvider categoryProvider = context.watch&lt;CategoryProvider&gt;();
+  &#47;&#47;&#47; Fetches the current state of categories and habits from the respective providers.
+  final categoryProvider = context.watch&lt;CategoryProvider&gt;();
   final habitProvider = context.watch&lt;HabitProvider&gt;();
+
+  &#47;&#47;&#47; Retrieves the list of all categories from the [CategoryProvider].
   List&lt;Category&gt; allCategories = categoryProvider.categories;
+
+  &#47;&#47;&#47; Filters the categories based on whether they have pending habits for today.
   List&lt;Category&gt; filteredCategories = allCategories.where((category) {
+    &#47;&#47; Exclude the &#39;All&#39; category from filtering.
     if (showTodayOnly &amp;&amp; category.name != &#39;All&#39;) {
-      return habitProvider.getPendingHabitsForTodayByCategory(category).isNotEmpty;
+      return habitProvider
+          .getPendingHabitsForTodayByCategory(category)
+          .isNotEmpty;
     }
     return true;
   }).toList();
 
+  &#47;&#47;&#47; Retrieves the custom theme colors for the app.
   final ownColors = Theme.of(context).extension&lt;OwnColors&gt;()!;
 
+  &#47;&#47;&#47; Returns the TabBar widget with customized appearance and behavior.
   return TabBar(
+    &#47;&#47;&#47; Adds a bouncing scroll effect for a smoother user experience.
     physics: const BouncingScrollPhysics(),
-    isScrollable: true,
+
+    &#47;&#47;&#47; Determines whether the tabs can be scrolled horizontally.
+    isScrollable: isScrollable,
+
+    &#47;&#47;&#47; Removes any background overlay effect when a tab is pressed.
     overlayColor: WidgetStateProperty.all&lt;Color&gt;(Colors.transparent),
+
+    &#47;&#47;&#47; Sets the text color of the selected tab.
     labelColor: ownColors.habitText,
+
+    &#47;&#47;&#47; Sets the text color of the unselected tabs.
     unselectedLabelColor: Theme.of(context).colorScheme.onPrimary,
+
+    &#47;&#47;&#47; Removes any padding around the tabs.
     padding: EdgeInsets.zero,
+
+    &#47;&#47;&#47; Removes padding around the tab indicators.
     indicatorPadding: EdgeInsets.zero,
+
+    &#47;&#47;&#47; Hides the default tab indicator.
     indicatorColor: Colors.transparent,
+
+    &#47;&#47;&#47; Removes padding around the tab labels.
     labelPadding: EdgeInsets.zero,
+
+    &#47;&#47;&#47; Ensures no visible dividers between tabs.
     dividerColor: Colors.transparent,
+
+    &#47;&#47;&#47; Updates the selected index in the [CategoryProvider] when a tab is tapped.
     onTap: (index) {
       categoryProvider.updateSelectedIndex(index);
     },
+
+    &#47;&#47;&#47; Generates the tab widgets based on the filtered categories.
     tabs: List.generate(
       filteredCategories.length,
           (index) =&gt; Container(
         decoration: BoxDecoration(
+          &#47;&#47;&#47; Adds rounded corners to each tab for a smoother look.
           borderRadius: BorderRadius.circular(16),
+
+          &#47;&#47;&#47; Sets the background color of the tab based on the category&#39;s color.
           color: filteredCategories[index].color,
         ),
+        &#47;&#47;&#47; Adds some spacing around each tab for a better layout.
         margin: const EdgeInsets.all(2),
         child: Tab(
+          &#47;&#47;&#47; Adds padding inside each tab for better spacing of its contents.
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                if (index == categoryProvider.selectedIndex) Icon(Icons.check),
-                Icon(allCategories[index].icon),
-                Text(allCategories[index].name),
+                &#47;&#47;&#47; Displays a checkmark icon if the tab is the currently selected tab.
+                if (index == categoryProvider.selectedIndex)
+                  Icon(Icons.check),
+
+                &#47;&#47;&#47; Displays the category&#39;s icon.
+                Icon(filteredCategories[index].icon),
+
+                &#47;&#47;&#47; Displays the category&#39;s name as text.
+                Text(filteredCategories[index].name),
               ],
             ),
           ),

@@ -112,52 +112,86 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  return AspectRatio(
-    aspectRatio: 16 &#47; 9,
-    child: DChartLineT(
-      configRenderLine: ConfigRenderLine(
-        strokeWidthPx: 2.5,
-      ),
-      layoutMargin: LayoutMargin(40, 10, 20, 10),
-      domainAxis: DomainAxis(
-        showLine: false,
-        tickLength: 0,
-        gapAxisToLabel: 10,
-        tickLabelFormatterT: (domain) {
-          return DateFormat(&#39;MMM&#39;).format(domain);
-        },
-        labelStyle: const LabelStyle(
-          color: Colors.grey,
-          fontSize: 10,
+  final habitProvider = context.watch&lt;HabitProvider&gt;();
+  List&lt;Habit&gt; habits = habitProvider.habits;
+
+  DateTime endDate = DateTime.now();
+
+  List&lt;int&gt; weekCounts = List.filled(10, 0);
+
+  for (Habit habit in habits) {
+    int streak = habit.streak;
+    for (int i = 0; i &lt; streak &amp;&amp; i &lt; 10; i++) {
+      int weekIndex = 9 - i;
+      weekCounts[weekIndex]++;
+    }
+  }
+
+  for (int i = 0; i &lt; 10; i++) {
+    DateTime weekStart = endDate.subtract(Duration(days: 7 * (9 - i)));
+    series1.add(TimeData(
+      domain: weekStart,
+      measure: weekCounts[i].toDouble(),
+    ));
+  }
+
+  return Column(
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Text(
+          AppLocalizations.of(context)!.lineChartTitle,
+          textAlign: TextAlign.center,
         ),
       ),
-      measureAxis: MeasureAxis(
-        useGridLine: true,
-        gridLineStyle: LineStyle(
-          color: Colors.grey.shade200,
-        ),
-        numericTickProvider: const NumericTickProvider(
-          desiredMinTickCount: 6,
-          desiredMaxTickCount: 10,
-        ),
-        tickLength: 0,
-        gapAxisToLabel: 10,
-        tickLabelFormatter: (measure) {
-          return measure!.toInt().toString().padLeft(2, &#39;0&#39;);
-        },
-        labelStyle: const LabelStyle(
-          color: Colors.grey,
-          fontSize: 10,
+      AspectRatio(
+        aspectRatio: 16 &#47; 9,
+        child: DChartLineT(
+          configRenderLine: ConfigRenderLine(
+            strokeWidthPx: 2.5,
+          ),
+          layoutMargin: LayoutMargin(40, 10, 20, 10),
+          domainAxis: DomainAxis(
+            showLine: false,
+            tickLength: 0,
+            gapAxisToLabel: 10,
+            tickLabelFormatterT: (domain) {
+              return DateFormat(&#39;MMM d&#39;).format(domain);
+            },
+            labelStyle: const LabelStyle(
+              color: Colors.grey,
+              fontSize: 10,
+            ),
+          ),
+          measureAxis: MeasureAxis(
+            useGridLine: true,
+            gridLineStyle: LineStyle(
+              color: Colors.grey.shade200,
+            ),
+            numericTickProvider: const NumericTickProvider(
+              desiredMinTickCount: 6,
+              desiredMaxTickCount: 10,
+            ),
+            tickLength: 0,
+            gapAxisToLabel: 10,
+            tickLabelFormatter: (measure) {
+              return measure!.toInt().toString().padLeft(2, &#39;0&#39;);
+            },
+            labelStyle: const LabelStyle(
+              color: Colors.grey,
+              fontSize: 10,
+            ),
+          ),
+          groupList: [
+            TimeGroup(
+              id: &#39;1&#39;,
+              data: series1,
+              color: Colors.brown,
+            ),
+          ],
         ),
       ),
-      groupList: [
-        TimeGroup(
-          id: &#39;1&#39;,
-          data: series1,
-          color: Colors.deepPurple,
-        ),
-      ],
-    ),
+    ],
   );
 }</code></pre>
 </section>

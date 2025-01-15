@@ -117,10 +117,10 @@ Widget build(BuildContext context) {
       Icons.delete,
       color: Colors.red,
     ),
-    tooltip: &quot;Delete&quot;,
+    tooltip: AppLocalizations.of(context)!.deleteButtonTooltip,
     onPressed: () async {
       FocusScope.of(context).unfocus();
-      var result = await popupDeleteWidget(context);
+      var result = await popupDeleteWidget(context, habit);
       if (result &amp;&amp; context.mounted) {
         Navigator.pushReplacementNamed(
           context,

@@ -65,18 +65,22 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Returns a list of pending habits for today, filtered by category.</p>
+<p><code>category</code> - The category to filter the habits by.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">List&lt;Habit&gt; getPendingHabitsForTodayByCategory(Category category) {
-  final today = DateTime.now().weekday;
+  final today = clock.now();
+  final weekday = today.weekday;
+
   return _habits.where((habit) {
-    final isToday = habit.days.contains(DayOfWeek.values[today - 1]);
-    final isPending = habit.progress.values.any(
-      (status) =&gt; status == ProgressStatus.notCompleted,
-    );
+    final isToday = habit.days.contains(DayOfWeek.values[weekday - 1]);
+    bool isPending = !(habit.isCompletedOnDate(today));
     return habit.category.name == category.name &amp;&amp; isToday &amp;&amp; isPending;
   }).toList();
 }</code></pre>

@@ -113,6 +113,11 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
   final screenWidth = MediaQuery.of(context).size.width;
+
+  &#47;&#47;&#47; Calculates the number of weeks to show based on the screen width.
+  &#47;&#47;&#47;
+  &#47;&#47;&#47; The width of the Column with the weekdays in the heatmap is assumed 18.
+  &#47;&#47;&#47; The width of a single column in the heatmap is assumed 20.
   final weeksToShow = ((screenWidth - 18) &#47; 20)
       .floor(); &#47;&#47;(screenWidth - widthWeekdays) &#47; widthColumn
   final ownColors = Theme.of(context).extension&lt;OwnColors&gt;()!;

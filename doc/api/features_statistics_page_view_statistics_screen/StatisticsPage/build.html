@@ -115,25 +115,46 @@ Widget build(BuildContext context) {
   return Scaffold(
     appBar: MyAppBar(
       appBar: AppBar(),
-      appBarTitle: &#39;Statistics&#39;,
+      appBarTitle: AppLocalizations.of(context)!.statisticsPageAppBarTitle,
     ),
     drawer: const MyDrawerMenu(),
     body: LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth &gt; 600) {
           return SingleChildScrollView(
+            key: const ValueKey(&#39;SingleChildScrollView 1&#39;),
             child: Column(
               children: [
                 Row(
                   children: [
-                    Expanded(child: const MyHeatMap()),
-                    Expanded(child: PieChartWidget()),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: const MyHeatMap(),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: PieChartWidget(),
+                      ),
+                    ),
                   ],
                 ),
                 Row(
                   children: [
-                    Expanded(child: BarChartWidget()),
-                    Expanded(child: LineChartWidget()),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: BarChartWidget(),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: LineChartWidget(),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -141,13 +162,26 @@ Widget build(BuildContext context) {
           );
         } else {
           return SingleChildScrollView(
+            key: const ValueKey(&#39;SingleChildScrollView 2&#39;),
             child: Column(
               children: [
-                const MyHeatMap(),
-                const Text(&#39;Diagrams&#39;),
-                PieChartWidget(),
-                BarChartWidget(),
-                LineChartWidget(),
+                Text(&quot;Heatmap&quot;),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: const MyHeatMap(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: PieChartWidget(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: BarChartWidget(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: LineChartWidget(),
+                ),
               ],
             ),
           );

@@ -64,6 +64,10 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Converts the <code>Category</code> instance to a map.</p>
+<p>This method is useful for serializing the category to a map.</p>
+</section>
 
 
     
@@ -72,8 +76,7 @@
   <pre class="language-dart"><code class="language-dart">Map&lt;String, dynamic&gt; toMap() {
   return {
     &#39;name&#39;: name,
-    &#47;&#47; ignore: deprecated_member_use
-    &#39;color&#39;: color.value,
+    &#39;color&#39;: color.toARGB32,
     &#39;icon&#39;: icon.codePoint,
   };
 }</code></pre>

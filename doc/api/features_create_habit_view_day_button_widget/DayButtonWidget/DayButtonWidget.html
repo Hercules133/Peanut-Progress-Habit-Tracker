@@ -59,6 +59,8 @@
       
       <span class="name ">DayButtonWidget</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span></li>
 <li><span class="parameter" id="-param-day"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">day</span>, </span></li>
+<li><span class="parameter" id="-param-days"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../core_utils_enums_day_of_week/DayOfWeek.html">DayOfWeek</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">days</span>, </span></li>
+<li><span class="parameter" id="-param-onChanged"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/VoidCallback.html">VoidCallback</a></span> <span class="parameter-name">onChanged</span>, </span></li>
 </ol>})
     </section>
     
@@ -67,7 +69,11 @@
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">DayButtonWidget({super.key, required this.day});</code></pre>
+  <pre class="language-dart"><code class="language-dart">DayButtonWidget(
+    {super.key,
+    required this.day,
+    required this.days,
+    required this.onChanged});</code></pre>
 </section>
 
 

@@ -112,53 +112,198 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
+  final ValueNotifier&lt;List&lt;DayOfWeek&gt;&gt; days =
+      ValueNotifier&lt;List&lt;DayOfWeek&gt;&gt;(habit.value.days);
   return LayoutBuilder(
     builder: (context, constraints) {
       if (constraints.maxWidth &gt; 600) {
-        return Row(
+        return Column(
           children: [
-            const Text(&quot;Days: &quot;),
-            Expanded(
-              child: SizedBox(
-                height: 30,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    DayButtonWidget(day: &quot;Mo&quot;),
-                    DayButtonWidget(day: &quot;Tu&quot;),
-                    DayButtonWidget(day: &quot;We&quot;),
-                    DayButtonWidget(day: &quot;Th&quot;),
-                    DayButtonWidget(day: &quot;Fr&quot;),
-                    DayButtonWidget(day: &quot;Sa&quot;),
-                    DayButtonWidget(day: &quot;Su&quot;),
-                  ],
+            Row(
+              children: [
+                Text(&quot;${AppLocalizations.of(context)!.daysRowWidgetDays} &quot;),
+                Expanded(
+                  child: SizedBox(
+                    height: 30,
+                    child: ValueListenableBuilder(
+                        valueListenable: days,
+                        builder: (context, value, child) {
+                          return ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              DayButtonWidget(
+                                  day: AppLocalizations.of(context)!.monday,
+                                  days: days,
+                                  onChanged: () {
+                                    habit.value.days = days.value;
+                                  }),
+                              DayButtonWidget(
+                                  day: AppLocalizations.of(context)!.tuesday,
+                                  days: days,
+                                  onChanged: () {
+                                    habit.value.days = days.value;
+                                  }),
+                              DayButtonWidget(
+                                  day:
+                                      AppLocalizations.of(context)!.wednesday,
+                                  days: days,
+                                  onChanged: () {
+                                    habit.value.days = days.value;
+                                  }),
+                              DayButtonWidget(
+                                  day: AppLocalizations.of(context)!.thursday,
+                                  days: days,
+                                  onChanged: () {
+                                    habit.value.days = days.value;
+                                  }),
+                              DayButtonWidget(
+                                  day: AppLocalizations.of(context)!.friday,
+                                  days: days,
+                                  onChanged: () {
+                                    habit.value.days = days.value;
+                                  }),
+                              DayButtonWidget(
+                                  day: AppLocalizations.of(context)!.saturday,
+                                  days: days,
+                                  onChanged: () {
+                                    habit.value.days = days.value;
+                                  }),
+                              DayButtonWidget(
+                                  day: AppLocalizations.of(context)!.sunday,
+                                  days: days,
+                                  onChanged: () {
+                                    habit.value.days = days.value;
+                                  }),
+                            ],
+                          );
+                        }),
+                  ),
                 ),
-              ),
+                const SizedBox(width: 20),
+                Text(AppLocalizations.of(context)!.daysRowWidgetReminder),
+                const SizedBox(width: 10),
+                TimeButtonWidget(
+                    time: habit.value.time,
+                    onChanged: (value) {
+                      habit.value.time = value;
+                    }),
+              ],
             ),
-            const SizedBox(width: 20),
-            const Text(&quot;Reminder:&quot;),
-            const SizedBox(width: 10),
-            TimeButtonWidget(),
+            if (showDaysError.value)
+              Text(
+                AppLocalizations.of(context)!.createHabitFormSelectDayError,
+                style: TextStyle(color: Colors.red),
+              ),
           ],
         );
       } else {
-        return SizedBox(
-          height: 30,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
+        return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              DayButtonWidget(day: &quot;Mo&quot;),
-              DayButtonWidget(day: &quot;Tu&quot;),
-              DayButtonWidget(day: &quot;We&quot;),
-              DayButtonWidget(day: &quot;Th&quot;),
-              DayButtonWidget(day: &quot;Fr&quot;),
-              DayButtonWidget(day: &quot;Sa&quot;),
-              DayButtonWidget(day: &quot;Su&quot;),
+              Text(AppLocalizations.of(context)!.daysRowWidgetDays),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 30,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          ValueListenableBuilder(
+                              valueListenable: days,
+                              builder: (context, value, child) {
+                                return DayButtonWidget(
+                                    day: AppLocalizations.of(context)!.monday,
+                                    days: days,
+                                    onChanged: () {
+                                      habit.value.days = days.value;
+                                    });
+                              }),
+                          ValueListenableBuilder(
+                              valueListenable: days,
+                              builder: (context, value, child) {
+                                return DayButtonWidget(
+                                    day:
+                                        AppLocalizations.of(context)!.tuesday,
+                                    days: days,
+                                    onChanged: () {
+                                      habit.value.days = days.value;
+                                    });
+                              }),
+                          ValueListenableBuilder(
+                              valueListenable: days,
+                              builder: (context, value, child) {
+                                return DayButtonWidget(
+                                    day: AppLocalizations.of(context)!
+                                        .wednesday,
+                                    days: days,
+                                    onChanged: () {
+                                      habit.value.days = days.value;
+                                    });
+                              }),
+                          ValueListenableBuilder(
+                              valueListenable: days,
+                              builder: (context, value, child) {
+                                return DayButtonWidget(
+                                    day: AppLocalizations.of(context)!
+                                        .thursday,
+                                    days: days,
+                                    onChanged: () {
+                                      habit.value.days = days.value;
+                                    });
+                              }),
+                          ValueListenableBuilder(
+                              valueListenable: days,
+                              builder: (context, value, child) {
+                                return DayButtonWidget(
+                                    day: AppLocalizations.of(context)!.friday,
+                                    days: days,
+                                    onChanged: () {
+                                      habit.value.days = days.value;
+                                    });
+                              }),
+                          ValueListenableBuilder(
+                              valueListenable: days,
+                              builder: (context, value, child) {
+                                return DayButtonWidget(
+                                    day: AppLocalizations.of(context)!
+                                        .saturday,
+                                    days: days,
+                                    onChanged: () {
+                                      habit.value.days = days.value;
+                                    });
+                              }),
+                          ValueListenableBuilder(
+                              valueListenable: days,
+                              builder: (context, value, child) {
+                                return DayButtonWidget(
+                                    day: AppLocalizations.of(context)!.sunday,
+                                    days: days,
+                                    onChanged: () {
+                                      habit.value.days = days.value;
+                                    });
+                              }),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              if (showDaysError.value)
+                Text(
+                  AppLocalizations.of(context)!.createHabitFormSelectDayError,
+                  style: TextStyle(color: Colors.red),
+                ),
               const SizedBox(width: 20),
-              TimeButtonWidget(),
-            ],
-          ),
-        );
+              Text(AppLocalizations.of(context)!.daysRowWidgetReminder),
+              const SizedBox(width: 10),
+              TimeButtonWidget(
+                  time: habit.value.time,
+                  onChanged: (value) {
+                    habit.value.time = value;
+                  }),
+            ]);
       }
     },
   );

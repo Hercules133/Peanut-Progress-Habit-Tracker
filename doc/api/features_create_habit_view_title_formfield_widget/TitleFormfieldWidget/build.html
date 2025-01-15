@@ -112,46 +112,27 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
-  &#47;&#47; ValueNotifier&lt;bool&gt; pressed =
-  &#47;&#47;     InheritedWidgetCreateHabit.of(context).pressed;
-  titleController.text = inheritedData.title;
-  debugPrint(&quot;before Listenable: ${titleController.text}&quot;);
-  debugPrint(&quot;before Listenable inherited data: ${inheritedData.title}&quot;);
-  &#47;&#47;  debugPrint(&quot;before Listenable: ${pressed.toString()}&quot;);
-  &#47;&#47;  final inheritedNotifierEmpty = InheritedNotifierEmptyFields.of(context);
-  &#47;&#47;  debugPrint(&quot;empty before return: ${inheritedNotifierEmpty.empty}&quot;);
-&#47;&#47; final counter = inheritedNotifierEmpty.notifier;
-&#47;&#47; final pressed = counter?.empty ?? 0;
+  titleController.text = habit.value.title;
 
-  &#47;&#47; return ValueListenableBuilder(
-  &#47;&#47;     valueListenable: pressed,
-  &#47;&#47;     builder: (context, value, child) {
-  &#47;&#47;     return
   return TextFormField(
       maxLength: 20,
       autovalidateMode:
           pressed.value ? AutovalidateMode.always : AutovalidateMode.disabled,
       controller: titleController,
-      decoration: const InputDecoration(
-        hintText: &quot;Enter a Habit title&quot;,
+      decoration: InputDecoration(
+        hintText: AppLocalizations.of(context)!.titleFormfieldHabitHintText,
       ),
       cursorColor: Theme.of(context).colorScheme.onSurface,
       validator: (value) {
-        &#47;&#47; debugPrint(&quot;validator: ${inheritedNotifierEmpty.empty.toString()}&quot;);
-        debugPrint(&quot;start validation&quot;);
         if (value == null || value.isEmpty) {
-          return &#39;Title cannot be empty&#39;; &#47;&#47; Error message.
+          return AppLocalizations.of(context)!
+              .titleFormfieldTitleEmptyError; &#47;&#47; Error message.
         }
         return null;
       },
       onChanged: (value) {
-        inheritedData.title = value;
-        debugPrint(inheritedData.title);
-        debugPrint(titleController.text);
-        &#47;&#47; debugPrint(pressed.value.toString());
+        habit.value.title = value;
       });
-  &#47;&#47; });
 }</code></pre>
 </section>
 

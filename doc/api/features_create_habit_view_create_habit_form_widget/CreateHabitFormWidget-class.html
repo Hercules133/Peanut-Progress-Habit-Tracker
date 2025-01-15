@@ -56,6 +56,24 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A form widget to create or edit a habit.</p>
+<p>This widget is used in the <code>CreateHabitScreenWidget</code> to create or edit a habit.
+It uses a <a href="https://api.flutter.dev/flutter/widgets/Form-class.html">Form</a> to validate the input fields.
+The <a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget-class.html">CreateHabitFormWidget</a> contains the <a href="../features_create_habit_view_title_formfield_widget/TitleFormfieldWidget-class.html">TitleFormfieldWidget</a>, the <a href="../features_create_habit_view_description_formfield_widget/DescriptionFormfieldWidget-class.html">DescriptionFormfieldWidget</a>, the <a href="../features_create_habit_view_days_row_widget/DaysRowWidget-class.html">DaysRowWidget</a>, the <a href="../features_create_habit_view_add_category_button_widget/AddCategoryButtonWidget-class.html">AddCategoryButtonWidget</a>, the <a href="../features_create_habit_view_category_group_button_widget/CategoryGroupButtonWidget-class.html">CategoryGroupButtonWidget</a> and the <a href="../features_create_habit_view_save_button_widget/SaveButtonWidget-class.html">SaveButtonWidget</a>.
+The <a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget-class.html">CreateHabitFormWidget</a> uses a <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a> to update the habit object.
+The <a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget-class.html">CreateHabitFormWidget</a> uses a <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a> to show an error message if no days are selected.
+The <a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget-class.html">CreateHabitFormWidget</a> uses a <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a> to show an error message if no category is selected.
+The <a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget-class.html">CreateHabitFormWidget</a> uses a <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a> to show if the save button was pressed. This starts the validation of the form.
+It uses the <a href="../data_providers_category_provider/CategoryProvider-class.html">CategoryProvider</a> to add categories.
+The widget is Stateful to save the State of the habit object and the controllers when popups are called.</p>
+<h3 id="required-parameters">Required parameters:</h3>
+<ul>
+<li><a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget/habit.html">habit</a> is the habit object to update.</li>
+</ul>
+<h3 id="validation">Validation:</h3>
+<p>The title, the category and the days are required fields.</p>
+</section>
 
 
     <section>
@@ -67,7 +85,7 @@
       <li><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></li>
         <li><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree-class.html">DiagnosticableTree</a></li>
         <li><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></li>
-        <li><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html">StatelessWidget</a></li>
+        <li><a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a></li>
       <li>CreateHabitFormWidget</li>
     </ul>
   </dd>
@@ -88,10 +106,11 @@
     <h2>Constructors</h2>
     <dl class="constructor-summary-list">
         <dt id="CreateHabitFormWidget" class="callable">
-          <span class="name"><a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget/CreateHabitFormWidget.html">CreateHabitFormWidget</a></span><span class="signature">({<span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span></span>})</span>
+          <span class="name"><a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget/CreateHabitFormWidget.html">CreateHabitFormWidget</a></span><span class="signature">({<span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span><span class="parameter" id="-param-habit"><span>required</span> <span class="type-annotation"><a href="../data_models_habit/Habit-class.html">Habit</a></span> <span class="parameter-name">habit</span></span>})</span>
         </dt>
         <dd>
           
+            <div class="constructor-modifier features">const</div>
         </dd>
     </dl>
   </section>
@@ -101,21 +120,9 @@
       id="instance-properties">
     <h2>Properties</h2>
     <dl class="properties">
-        <dt id="descriptionController" class="property">
-  <span class="name"><a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget/descriptionController.html">descriptionController</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/widgets/TextEditingController-class.html">TextEditingController</a></span>
-  
-
-</dt>
-<dd>
-  
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
-        <dt id="groupController" class="property">
-  <span class="name"><a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget/groupController.html">groupController</a></span>
-  <span class="signature">&#8594; <a href="https://pub.dev/documentation/group_button/5.3.4/group_button/GroupButtonController-class.html">GroupButtonController</a></span>
+        <dt id="habit" class="property">
+  <span class="name"><a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget/habit.html">habit</a></span>
+  <span class="signature">&#8594; <a href="../data_models_habit/Habit-class.html">Habit</a></span>
   
 
 </dt>
@@ -161,18 +168,6 @@
 
 </dd>
 
-        <dt id="titleController" class="property">
-  <span class="name"><a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget/titleController.html">titleController</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/widgets/TextEditingController-class.html">TextEditingController</a></span>
-  
-
-</dt>
-<dd>
-  
-  <div class="features"><span class="feature">final</span></div>
-
-</dd>
-
     </dl>
   </section>
 
@@ -182,29 +177,29 @@
       id="instance-methods">
     <h2>Methods</h2>
     <dl class="callables">
-        <dt id="build" class="callable">
-  <span class="name"><a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget/build.html">build</a></span><span class="signature">(<wbr><span class="parameter" id="build-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  Describes the part of the user interface represented by this widget.
-  <div class="features"><span class="feature">override</span></div>
-
-</dd>
-
         <dt id="createElement" class="callable inherited">
-  <span class="name"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/widgets/StatelessElement-class.html">StatelessElement</a></span>
+  <span class="name"><a href="https://api.flutter.dev/flutter/widgets/StatefulWidget/createElement.html">createElement</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/widgets/StatefulElement-class.html">StatefulElement</a></span>
   </span>
   
 
 </dt>
 <dd class="inherited">
-  Creates a <a href="https://api.flutter.dev/flutter/widgets/StatelessElement-class.html">StatelessElement</a> to manage this widget's location in the tree.
+  Creates a <a href="https://api.flutter.dev/flutter/widgets/StatefulElement-class.html">StatefulElement</a> to manage this widget's location in the tree.
   <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="createState" class="callable">
+  <span class="name"><a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget/createState.html">createState</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/widgets/State-class.html">State</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget-class.html">CreateHabitFormWidget</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Creates the mutable state for this widget at a given location in the tree.
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 

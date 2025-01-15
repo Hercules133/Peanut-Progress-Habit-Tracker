@@ -64,13 +64,17 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Returns a list of all habits that are scheduled for today and are not
+completed.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">List&lt;Habit&gt; getPendingHabitsForToday() {
-  final today = DateTime.now();
+  final today = clock.now();
   final weekday = DayOfWeek.values[today.weekday - 1];
 
   return _habits.where((habit) {

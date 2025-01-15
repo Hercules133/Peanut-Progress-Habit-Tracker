@@ -163,7 +163,9 @@ Widget build(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(&#39;${habit.time.hour}:${checkMinute(habit.time.minute)}&#39;),
+              Text(
+                &#39;${habit.time.hour}:${checkMinute(habit.time.minute)}&#39;,
+              ),
               DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),

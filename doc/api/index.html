@@ -46,66 +46,67 @@
   <div id="dartdoc-main-content" class="main-content">
       
 <section class="desc markdown">
-  <h1 id="peanut-progress">Peanut Progress</h1>
-<p>A Habit Tracker</p>
-<h1 id="projektstruktur">Projektstruktur</h1>
-<pre class="language-plaintext"><code class="language-plaintext">lib/
-├── main.dart                 # Einstiegspunkt der Anwendung
-├── core/                     # Wiederverwendbarer, zentraler Code für das gesamte Projekt
-│   ├── config/               # Konfigurationsdateien (z.B. Umgebungsvariablen, Dependency Injection)
-│   ├── utils/                # Hilfsfunktionen und Utility-Klassen
-│   └── widgets/              # Wiederverwendbare Widgets (z.B. Buttons, Eingabefelder)
-├── data/                     # Datenverwaltungsschicht
-│   ├── models/               # Datenmodelle
-│   ├── providers/            # Zustandsverwaltung und Datenquellen
-│   └── repositories/         # Abstraktionsebene über Datenquellen
-├── features/                 # Modularisierte Features der App
-│   ├── feature1/             # Beispiel-Feature 1
-│   │   ├── view/             # UI für das Feature (screen und Widgets)
-│   │   ├── model/            # Datenmodelle spezifisch für dieses Feature
-│   │   ├── controller/       # Zustandsverwaltung für dieses Feature
-│   │   └── repository/       # Datenzugriffsschicht spezifisch für dieses Feature
-│   └── feature2/             # Beispiel-Feature 2 (zusätzliches Feature)
-├── services/                 # Externe Services (z.B. API-Clients, Datenbanken)
-├── resources/                # Ressourcen der App (z.B. Lokalisierung, Styles)
-</code></pre>
-<hr>
-<h2 id="ordnerdetails">Ordnerdetails</h2>
-<h3 id="core"><code>core/</code></h3>
-<p>Dieser Ordner enthält zentralen Code, der überall in der App verwendet wird.</p>
+  <p>@Philipp der Main Branch zählt</p>
+<h1 id="peanut-progress-">Peanut Progress 🥜</h1>
+<p>A Habit Tracker app for Android, IOS, Windows, Linux and Web</p>
+<h2 id="about">About</h2>
+<p>It's a free downloadable Habit Tracker app with all features unlocked.</p>
+<p>Based on Flutter 3.27.1 &amp; Dart 3.6.0</p>
+<h2 id="getting-started">Getting started</h2>
+<p>There isn't any apk file for it yet, so you have to run the project with flutter in VSCode or Android Studio.</p>
+<h2 id="build">Build</h2>
 <ul>
-<li><strong><code>config/</code></strong>: Konfigurationen wie Dependency Injection, Umgebungsvariablen, etc.</li>
-<li><strong><code>utils/</code></strong>: Allgemeine Hilfsfunktionen und Tools.</li>
-<li><strong><code>widgets/</code></strong>: Wiederverwendbare UI-Komponenten, die in verschiedenen Features benutzt werden.</li>
+<li>Clone the repo usint git clone <a href="https://github.com/Hercules133/Peanut-Progress-Habit-Tracker.git">https://github.com/Hercules133/Peanut-Progress-Habit-Tracker.git</a></li>
+<li>Install dependencies with <code>flutter pub get</code></li>
+<li>Run the application with <code>flutter run</code></li>
 </ul>
-<h3 id="data"><code>data/</code></h3>
-<p>Dieser Ordner enthält globale Modelle, Provider und Repositories, die in mehreren Features verwendet werden. Es handelt sich um zentrale Module, die eine wiederverwendbare und standardisierte Schnittstelle für verschiedene Teile der App bieten.</p>
+<h2 id="features">Features</h2>
 <ul>
-<li><strong><code>models/</code></strong>: Globale Datenmodelle, die in mehreren Features verwendet werden können.</li>
-<li><strong><code>providers/</code></strong>: Globale Provider für die Zustandsverwaltung, die featureübergreifend genutzt werden können.</li>
-<li><strong><code>repositories/</code></strong>: Repositories als Abstraktionsschicht für Datenquellen, die von verschiedenen Features verwendet werden.</li>
+<li>Free</li>
+<li>No ads</li>
+<li>Notifications on all devices - including smart watch
+-&gt; user needs to turn it on in smart watch settings</li>
+<li>Statistics</li>
+<li>Motivational quote</li>
+<li>(in-app game on the way)</li>
 </ul>
-<h3 id="features"><code>features/</code></h3>
-<p>Jedes Feature der App hat einen eigenen Ordner, um alle dazugehörigen Dateien zu kapseln.</p>
+<h2 id="upcoming-features">Upcoming Features</h2>
 <ul>
-<li><strong><code>feature1/</code></strong>: Beispiel-Feature mit folgenden Unterordnern:
-<ul>
-<li><strong><code>view/</code></strong>: UI-Komponenten wie screen und Widgets.</li>
-<li><strong><code>model/</code></strong>: Datenmodelle speziell für dieses Feature.</li>
-<li><strong><code>controller/</code></strong>: Zustandsmanagement oder Logik des Features.</li>
-<li><strong><code>repository/</code></strong>: Datenlogik und Abstraktion spezifisch für dieses Feature.</li>
+<li>In-app game</li>
+<li>Cloud service for storage (Pre-setup <a href="Firebase_instructions.md">here</a>)</li>
+<li>Communication with other users</li>
+<li>Daily comments for the habbits</li>
+<li>Pause habit, if user is sick or on vacation (for the streak, so that it doesn't disappear)</li>
+<li>If streak is greater than 30, user will be rewarded extra!</li>
 </ul>
-</li>
-</ul>
-<h3 id="services"><code>services/</code></h3>
-<p>Externe Services wie API-Clients, Datenbanken oder Speichermechanismen.</p>
+<h2 id="bugs">Bugs</h2>
+<p>Flutter side bugs:</p>
 <ul>
-<li>Beispiel: Authentifizierung oder lokale Speicherung.</li>
+<li>Assertion Failed error - when writing in a textformfield: <a href="https://github.com/flutter/flutter/issues/160155">https://github.com/flutter/flutter/issues/160155</a></li>
+<li><a href="INCIMPORT.md">Incorrect import</a> bug on macOS</li>
 </ul>
-<h3 id="resources"><code>resources/</code></h3>
-<p>Ressourcen, die für die gesamte App verfügbar sind, wie z.B.:</p>
+<h2 id="license">License</h2>
+<p>This project is licensed under the <a href="LICENSE.md">MIT License</a>.</p>
+<h2 id="contributors-span-styledisplayinline-block-width20px-height20px-backgroundrgb70-68-68-colorwhite-text-aligncenter-border-radius50-line-height20px-font-size12px8span">Contributors <span style="display:inline-block; width:20px; height:20px; background:rgb(70, 68, 68); color:white; text-align:center; border-radius:50%; line-height:20px; font-size:12px;">8</span></h2>
+<div style="display: flex; flex-wrap: nowrap; gap: 10px;">
+  <a href="https://github.com/Hercules133"><img src="https://github.com/Hercules133.png" alt="Contributor 1" width="30" style="border-radius: 50%;"></a>
+  <a href="https://github.com/sajid-rehan"><img src="https://github.com/sajid-rehan.png" alt="Contributor 2" width="30" style="border-radius: 50%;"></a>
+  <a href="https://github.com/frotti13"><img src="https://github.com/frotti13.png" alt="Contributor 3" width="30" style="border-radius: 50%;"></a>
+  <a href="https://github.com/inazll"><img src="https://github.com/inazll.png" alt="Contributor 4" width="30" style="border-radius: 50%;"></a>
+  <a href="https://github.com/MelindaKienle"><img src="https://github.com/MelindaKienle.png" alt="Contributor 5" width="30" style="border-radius: 50%;"></a>
+  <a href="https://github.com/Fezaaan"><img src="https://github.com/Fezaaan.png" alt="Contributor 6" width="30" style="border-radius: 50%;"></a>
+  <a href="https://github.com/Papi-Pap"><img src="https://github.com/Papi-Pap.png" alt="Contributor 7" width="30" style="border-radius: 50%;"></a>
+  <a href="https://github.com/koliver2k2"><img src="https://github.com/koliver2k2.png" alt="Contributor 8" width="30" style="border-radius: 50%;"></a>
+</div>
+<h2 id="languages-used">Languages used</h2>
 <ul>
-<li>Lokalisierungsdateien (<code>.arb</code>/<code>.json</code>), Theme-Dateien.</li>
+<li><span style="display:inline-block; width:10px; height:10px; background-color:#00C2D8; border-radius:50%;"></span> Dart 73.9%</li>
+<li><span style="display:inline-block; width:10px; height:10px; background-color:#FF007F; border-radius:50%;"></span> C++ 12.9%</li>
+<li><span style="display:inline-block; width:10px; height:10px; background-color:#FF1E00; border-radius:50%;"></span> CMake 10.6%</li>
+<li><span style="display:inline-block; width:10px; height:10px; background-color:#FF8800; border-radius:50%;"></span> Swift 1.0%</li>
+<li><span style="display:inline-block; width:10px; height:10px; background-color:#808080; border-radius:50%;"></span> C 0.8%</li>
+<li><span style="display:inline-block; width:10px; height:10px; background-color:#FB0314; border-radius:50%;"></span> HTML 0.7%</li>
+<li><span style="display:inline-block; width:10px; height:10px; background-color:#6E3100; border-radius:50%;"></span> Other 0.1%</li>
 </ul>
 </section>
 
@@ -113,8 +114,29 @@
       <section class="summary">
           <h2>Libraries</h2>
         <dl>
+          <dt id="language">
+  <span class="name"><a href="core_config_language/core_config_language-library.html">core/config/language</a></span> 
+
+</dt>
+<dd>
+</dd>
+
           <dt id="locator">
   <span class="name"><a href="core_config_locator/core_config_locator-library.html">core/config/locator</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="notification">
+  <span class="name"><a href="core_config_notification/core_config_notification-library.html">core/config/notification</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="color_ex">
+  <span class="name"><a href="core_utils_color_ex/core_utils_color_ex-library.html">core/utils/color_ex</a></span> 
 
 </dt>
 <dd>
@@ -239,6 +261,20 @@
 <dd>
 </dd>
 
+          <dt id="locale_provider">
+  <span class="name"><a href="data_providers_locale_provider/data_providers_locale_provider-library.html">data/providers/locale_provider</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="username_provider">
+  <span class="name"><a href="data_providers_username_provider/data_providers_username_provider-library.html">data/providers/username_provider</a></span> 
+
+</dt>
+<dd>
+</dd>
+
           <dt id="habit_repository">
   <span class="name"><a href="data_repositories_habit_repository/data_repositories_habit_repository-library.html">data/repositories/habit_repository</a></span> 
 
@@ -253,6 +289,20 @@
 <dd>
 </dd>
 
+          <dt id="locale_repository">
+  <span class="name"><a href="data_repositories_locale_repository/data_repositories_locale_repository-library.html">data/repositories/locale_repository</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="username_repository">
+  <span class="name"><a href="data_repositories_username_repository/data_repositories_username_repository-library.html">data/repositories/username_repository</a></span> 
+
+</dt>
+<dd>
+</dd>
+
           <dt id="add_category_button_widget">
   <span class="name"><a href="features_create_habit_view_add_category_button_widget/features_create_habit_view_add_category_button_widget-library.html">features/create_habit/view/add_category_button_widget</a></span> 
 
@@ -262,6 +312,13 @@
 
           <dt id="app_bar_widget">
   <span class="name"><a href="features_create_habit_view_app_bar_widget/features_create_habit_view_app_bar_widget-library.html">features/create_habit/view/app_bar_widget</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="category_group_button_widget">
+  <span class="name"><a href="features_create_habit_view_category_group_button_widget/features_create_habit_view_category_group_button_widget-library.html">features/create_habit/view/category_group_button_widget</a></span> 
 
 </dt>
 <dd>
@@ -323,13 +380,6 @@
 <dd>
 </dd>
 
-          <dt id="inherited_widget_create_habit">
-  <span class="name"><a href="features_create_habit_view_inherited_widget_create_habit/features_create_habit_view_inherited_widget_create_habit-library.html">features/create_habit/view/inherited_widget_create_habit</a></span> 
-
-</dt>
-<dd>
-</dd>
-
           <dt id="pick_color">
   <span class="name"><a href="features_create_habit_view_pick_color/features_create_habit_view_pick_color-library.html">features/create_habit/view/pick_color</a></span> 
 
@@ -358,8 +408,8 @@
 <dd>
 </dd>
 
-          <dt id="popup_saving_widget">
-  <span class="name"><a href="features_create_habit_view_popup_saving_widget/features_create_habit_view_popup_saving_widget-library.html">features/create_habit/view/popup_saving_widget</a></span> 
+          <dt id="save_button_widget">
+  <span class="name"><a href="features_create_habit_view_save_button_widget/features_create_habit_view_save_button_widget-library.html">features/create_habit/view/save_button_widget</a></span> 
 
 </dt>
 <dd>
@@ -400,6 +450,13 @@
 <dd>
 </dd>
 
+          <dt id="splash_screen">
+  <span class="name"><a href="features_home_page_view_splash_screen/features_home_page_view_splash_screen-library.html">features/home_page/view/splash_screen</a></span> 
+
+</dt>
+<dd>
+</dd>
+
           <dt id="tab_bar_view_widget">
   <span class="name"><a href="features_home_page_view_tab_bar_view_widget/features_home_page_view_tab_bar_view_widget-library.html">features/home_page/view/tab_bar_view_widget</a></span> 
 
@@ -409,6 +466,13 @@
 
           <dt id="tab_bar_widget">
   <span class="name"><a href="features_home_page_view_tab_bar_widget/features_home_page_view_tab_bar_widget-library.html">features/home_page/view/tab_bar_widget</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="walkthrough_screen">
+  <span class="name"><a href="features_home_page_view_walkthrough_screen/features_home_page_view_walkthrough_screen-library.html">features/home_page/view/walkthrough_screen</a></span> 
 
 </dt>
 <dd>
@@ -463,6 +527,13 @@
 <dd>
 </dd>
 
+          <dt id="fcloud_storage">
+  <span class="name"><a href="services_storage_fcloud_storage/services_storage_fcloud_storage-library.html">services/storage/fcloud_storage</a></span> 
+
+</dt>
+<dd>
+</dd>
+
           <dt id="shared_preferences_storage">
   <span class="name"><a href="services_storage_shared_preferences_storage/services_storage_shared_preferences_storage-library.html">services/storage/shared_preferences_storage</a></span> 
 
@@ -494,7 +565,10 @@
     <h5 class="hidden-xs"><span class="package-name">peanutprogress</span> <span class="package-kind">package</span></h5>
     <ol>
       <li class="section-title">Libraries</li>
+      <li><a href="core_config_language/core_config_language-library.html">core/config/language</a></li>
       <li><a href="core_config_locator/core_config_locator-library.html">core/config/locator</a></li>
+      <li><a href="core_config_notification/core_config_notification-library.html">core/config/notification</a></li>
+      <li><a href="core_utils_color_ex/core_utils_color_ex-library.html">core/utils/color_ex</a></li>
       <li><a href="core_utils_enums_day_of_week/core_utils_enums_day_of_week-library.html">core/utils/enums/day_of_week</a></li>
       <li><a href="core_utils_enums_progress_status/core_utils_enums_progress_status-library.html">core/utils/enums/progress_status</a></li>
       <li><a href="core_utils_get_greeting/core_utils_get_greeting-library.html">core/utils/get_greeting</a></li>
@@ -512,10 +586,15 @@
       <li><a href="data_models_theme/data_models_theme-library.html">data/models/theme</a></li>
       <li><a href="data_providers_category_provider/data_providers_category_provider-library.html">data/providers/category_provider</a></li>
       <li><a href="data_providers_habit_provider/data_providers_habit_provider-library.html">data/providers/habit_provider</a></li>
+      <li><a href="data_providers_locale_provider/data_providers_locale_provider-library.html">data/providers/locale_provider</a></li>
+      <li><a href="data_providers_username_provider/data_providers_username_provider-library.html">data/providers/username_provider</a></li>
       <li><a href="data_repositories_habit_repository/data_repositories_habit_repository-library.html">data/repositories/habit_repository</a></li>
       <li><a href="data_repositories_id_repository/data_repositories_id_repository-library.html">data/repositories/id_repository</a></li>
+      <li><a href="data_repositories_locale_repository/data_repositories_locale_repository-library.html">data/repositories/locale_repository</a></li>
+      <li><a href="data_repositories_username_repository/data_repositories_username_repository-library.html">data/repositories/username_repository</a></li>
       <li><a href="features_create_habit_view_add_category_button_widget/features_create_habit_view_add_category_button_widget-library.html">features/create_habit/view/add_category_button_widget</a></li>
       <li><a href="features_create_habit_view_app_bar_widget/features_create_habit_view_app_bar_widget-library.html">features/create_habit/view/app_bar_widget</a></li>
+      <li><a href="features_create_habit_view_category_group_button_widget/features_create_habit_view_category_group_button_widget-library.html">features/create_habit/view/category_group_button_widget</a></li>
       <li><a href="features_create_habit_view_close_button_widget/features_create_habit_view_close_button_widget-library.html">features/create_habit/view/close_button_widget</a></li>
       <li><a href="features_create_habit_view_create_habit_form_widget/features_create_habit_view_create_habit_form_widget-library.html">features/create_habit/view/create_habit_form_widget</a></li>
       <li><a href="features_create_habit_view_create_habit_screen/features_create_habit_view_create_habit_screen-library.html">features/create_habit/view/create_habit_screen</a></li>
@@ -524,19 +603,20 @@
       <li><a href="features_create_habit_view_delete_button_widget/features_create_habit_view_delete_button_widget-library.html">features/create_habit/view/delete_button_widget</a></li>
       <li><a href="features_create_habit_view_description_formfield_widget/features_create_habit_view_description_formfield_widget-library.html">features/create_habit/view/description_formfield_widget</a></li>
       <li><a href="features_create_habit_view_icon_dropdown/features_create_habit_view_icon_dropdown-library.html">features/create_habit/view/icon_dropdown</a></li>
-      <li><a href="features_create_habit_view_inherited_widget_create_habit/features_create_habit_view_inherited_widget_create_habit-library.html">features/create_habit/view/inherited_widget_create_habit</a></li>
       <li><a href="features_create_habit_view_pick_color/features_create_habit_view_pick_color-library.html">features/create_habit/view/pick_color</a></li>
       <li><a href="features_create_habit_view_popup_create_category/features_create_habit_view_popup_create_category-library.html">features/create_habit/view/popup_create_category</a></li>
       <li><a href="features_create_habit_view_popup_delete_category/features_create_habit_view_popup_delete_category-library.html">features/create_habit/view/popup_delete_category</a></li>
       <li><a href="features_create_habit_view_popup_delete_widget/features_create_habit_view_popup_delete_widget-library.html">features/create_habit/view/popup_delete_widget</a></li>
-      <li><a href="features_create_habit_view_popup_saving_widget/features_create_habit_view_popup_saving_widget-library.html">features/create_habit/view/popup_saving_widget</a></li>
+      <li><a href="features_create_habit_view_save_button_widget/features_create_habit_view_save_button_widget-library.html">features/create_habit/view/save_button_widget</a></li>
       <li><a href="features_create_habit_view_time_button_widget/features_create_habit_view_time_button_widget-library.html">features/create_habit/view/time_button_widget</a></li>
       <li><a href="features_create_habit_view_title_formfield_widget/features_create_habit_view_title_formfield_widget-library.html">features/create_habit/view/title_formfield_widget</a></li>
       <li><a href="features_home_page_view_habits/features_home_page_view_habits-library.html">features/home_page/view/habits</a></li>
       <li><a href="features_home_page_view_heat_map_widget/features_home_page_view_heat_map_widget-library.html">features/home_page/view/heat_map_widget</a></li>
       <li><a href="features_home_page_view_home_page_screen/features_home_page_view_home_page_screen-library.html">features/home_page/view/home_page_screen</a></li>
+      <li><a href="features_home_page_view_splash_screen/features_home_page_view_splash_screen-library.html">features/home_page/view/splash_screen</a></li>
       <li><a href="features_home_page_view_tab_bar_view_widget/features_home_page_view_tab_bar_view_widget-library.html">features/home_page/view/tab_bar_view_widget</a></li>
       <li><a href="features_home_page_view_tab_bar_widget/features_home_page_view_tab_bar_widget-library.html">features/home_page/view/tab_bar_widget</a></li>
+      <li><a href="features_home_page_view_walkthrough_screen/features_home_page_view_walkthrough_screen-library.html">features/home_page/view/walkthrough_screen</a></li>
       <li><a href="features_settings_page_view_settings_page/features_settings_page_view_settings_page-library.html">features/settings_page/view/settings_page</a></li>
       <li><a href="features_settings_page_view_switch_state/features_settings_page_view_switch_state-library.html">features/settings_page/view/switch_state</a></li>
       <li><a href="features_statistics_page_view_bar_chart_widget/features_statistics_page_view_bar_chart_widget-library.html">features/statistics_page/view/bar_chart_widget</a></li>
@@ -544,6 +624,7 @@
       <li><a href="features_statistics_page_view_pie_chart_widget/features_statistics_page_view_pie_chart_widget-library.html">features/statistics_page/view/pie_chart_widget</a></li>
       <li><a href="features_statistics_page_view_statistics_screen/features_statistics_page_view_statistics_screen-library.html">features/statistics_page/view/statistics_screen</a></li>
       <li><a href="main/main-library.html">main</a></li>
+      <li><a href="services_storage_fcloud_storage/services_storage_fcloud_storage-library.html">services/storage/fcloud_storage</a></li>
       <li><a href="services_storage_shared_preferences_storage/services_storage_shared_preferences_storage-library.html">services/storage/shared_preferences_storage</a></li>
       <li><a href="services_storage_storage_service/services_storage_storage_service-library.html">services/storage/storage_service</a></li>
 </ol>

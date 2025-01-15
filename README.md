@@ -37,6 +37,10 @@ There isn't any apk file for it yet, so you have to run the project with flutter
 - Pause habit, if user is sick or on vacation (for the streak, so that it doesn't disappear)
 - If streak is greater than 30, user will be rewarded extra!
 
+## Dart Doc
+
+The Dart documentation can be found at [doc/api/index.html](doc/api/index.html)
+
 ## Bugs
 Flutter side bugs:
 - Assertion Failed error - when writing in a textformfield: https://github.com/flutter/flutter/issues/160155

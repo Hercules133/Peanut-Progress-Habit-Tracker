@@ -58,29 +58,42 @@
     <section class="multi-line-signature">
         
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
-<span class="name ">getGreeting</span>(<wbr>)
+<span class="name ">getGreeting</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="getGreeting-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+</ol>)
 
         
 
     </section>
     
+<section class="desc markdown">
+  <p>Returns a greeting message based on the current time.</p>
+<p>The greeting depends on the current time:
+. between 6 AM and 12 PM: 'Good Morning!'</p>
+<ul>
+<li>between 12 PM and 6 PM: 'Hello!'</li>
+<li>between 6 PM and 10 PM: 'Good Evening!'</li>
+<li>between 10 PM and 6 AM: 'Good Night!'</li>
+</ul>
+<p>Returns a <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a> with the greeting message.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">String getGreeting() {
-    final hour = DateTime.now().hour;
-    if (hour &gt;= 6 &amp;&amp; hour &lt; 12) {
-      return &#39;Good Morning!&#39;;
-    } else if (hour &gt;= 12 &amp;&amp; hour &lt; 18) {
-      return &#39;Hello!&#39;;
-    } else if (hour &gt;= 18 &amp;&amp; hour &lt; 22) {
-      return &#39;Good Evening!&#39;;
-    } else {
-      return &#39;Good Night!&#39;;
-    }
-  }</code></pre>
+  <pre class="language-dart"><code class="language-dart">String getGreeting(BuildContext context) {
+  UsernameProvider usernameProvider = context.watch&lt;UsernameProvider&gt;();
+  final hour = clock.now().hour;
+  if (hour &gt;= 6 &amp;&amp; hour &lt; 12) {
+    return &quot;${AppLocalizations.of(context)!.goodMorning} ${usernameProvider.username}!&quot;;
+  } else if (hour &gt;= 12 &amp;&amp; hour &lt; 18) {
+    return &quot;${AppLocalizations.of(context)!.greeting} ${usernameProvider.username}!&quot;;
+  } else if (hour &gt;= 18 &amp;&amp; hour &lt; 22) {
+    return &quot;${AppLocalizations.of(context)!.goodEvening} ${usernameProvider.username}!&quot;;
+  } else {
+    return &quot;${AppLocalizations.of(context)!.goodNight} ${usernameProvider.username}!&quot;;
+  }
+}</code></pre>
 </section>
 
 

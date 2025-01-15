@@ -112,61 +112,25 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
   final ownColors = Theme.of(context).extension&lt;OwnColors&gt;()!;
-  for (DayOfWeek d in inheritedData.days) {
-    switch (day) {
-      case &quot;Mo&quot;:
-        {
-          if (d == DayOfWeek.monday) {
-            hasBeenPressed.value = true;
-          }
-        }
-        break;
-      case &quot;Tu&quot;:
-        {
-          if (d == DayOfWeek.tuesday) {
-            hasBeenPressed.value = true;
-          }
-        }
-        break;
-      case &quot;We&quot;:
-        {
-          if (d == DayOfWeek.wednesday) {
-            hasBeenPressed.value = true;
-          }
-        }
-        break;
-      case &quot;Th&quot;:
-        {
-          if (d == DayOfWeek.thursday) {
-            hasBeenPressed.value = true;
-          }
-        }
-        break;
-      case &quot;Fr&quot;:
-        {
-          if (d == DayOfWeek.friday) {
-            hasBeenPressed.value = true;
-          }
-        }
-        break;
-      case &quot;Sa&quot;:
-        {
-          if (d == DayOfWeek.saturday) {
-            hasBeenPressed.value = true;
-          }
-        }
-        break;
-      case &quot;Su&quot;:
-        {
-          if (d == DayOfWeek.sunday) {
-            hasBeenPressed.value = true;
-          }
-        }
-        break;
-    }
-  }
+
+  final appLocalizations = AppLocalizations.of(context)!;
+
+  &#47;&#47; Map day strings to DayOfWeek enum values
+  final dayMap = {
+    appLocalizations.monday: DayOfWeek.monday,
+    appLocalizations.tuesday: DayOfWeek.tuesday,
+    appLocalizations.wednesday: DayOfWeek.wednesday,
+    appLocalizations.thursday: DayOfWeek.thursday,
+    appLocalizations.friday: DayOfWeek.friday,
+    appLocalizations.saturday: DayOfWeek.saturday,
+    appLocalizations.sunday: DayOfWeek.sunday,
+  };
+
+  final dayOfWeek = dayMap[day];
+
+  &#47;&#47;&#47; Check if the day is already selected and update the button color.
+  final hasBeenPressed = ValueNotifier&lt;bool&gt;(days.value.contains(dayOfWeek));
 
   return ValueListenableBuilder&lt;bool&gt;(
       valueListenable: hasBeenPressed,
@@ -176,60 +140,21 @@ Widget build(BuildContext context) {
             backgroundColor: hasBeenPressed.value
                 ? ownColors.contribution2
                 : ownColors.contribution1,
-            maximumSize: const Size(40, 40),
+            maximumSize: const Size(50, 50),
             minimumSize: const Size(40, 40),
           ),
           onPressed: () {
-            hasBeenPressed.value = !hasBeenPressed.value;
+            &#47;&#47;&#47; Update the button color and add&#47;remove the day to&#47;from the days list.
+            &#47;&#47;&#47; toggle the hasBeenPressed value.
+
+            hasBeenPressed.value = !value;
             if (hasBeenPressed.value) {
-              switch (day) {
-                case &quot;Mo&quot;:
-                  inheritedData.days.add(DayOfWeek.monday);
-                  break;
-                case &quot;Tu&quot;:
-                  inheritedData.days.add(DayOfWeek.tuesday);
-                  break;
-                case &quot;We&quot;:
-                  inheritedData.days.add(DayOfWeek.wednesday);
-                  break;
-                case &quot;Th&quot;:
-                  inheritedData.days.add(DayOfWeek.thursday);
-                  break;
-                case &quot;Fr&quot;:
-                  inheritedData.days.add(DayOfWeek.friday);
-                  break;
-                case &quot;Sa&quot;:
-                  inheritedData.days.add(DayOfWeek.saturday);
-                  break;
-                case &quot;Su&quot;:
-                  inheritedData.days.add(DayOfWeek.sunday);
-                  break;
-              }
+              days.value.add(dayOfWeek!);
             } else {
-              switch (day) {
-                case &quot;Mo&quot;:
-                  inheritedData.days.remove(DayOfWeek.monday);
-                  break;
-                case &quot;Tu&quot;:
-                  inheritedData.days.remove(DayOfWeek.tuesday);
-                  break;
-                case &quot;We&quot;:
-                  inheritedData.days.remove(DayOfWeek.wednesday);
-                  break;
-                case &quot;Th&quot;:
-                  inheritedData.days.remove(DayOfWeek.thursday);
-                  break;
-                case &quot;Fr&quot;:
-                  inheritedData.days.remove(DayOfWeek.friday);
-                  break;
-                case &quot;Sa&quot;:
-                  inheritedData.days.remove(DayOfWeek.saturday);
-                  break;
-                case &quot;Su&quot;:
-                  inheritedData.days.remove(DayOfWeek.sunday);
-                  break;
-              }
+              days.value.remove(dayOfWeek!);
             }
+
+            onChanged();
           },
           child: Text(
             day,

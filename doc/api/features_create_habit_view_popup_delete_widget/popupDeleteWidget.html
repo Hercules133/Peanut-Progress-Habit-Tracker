@@ -58,38 +58,52 @@
     <section class="multi-line-signature">
         
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
-<span class="name ">popupDeleteWidget</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="popupDeleteWidget-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+<span class="name ">popupDeleteWidget</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="popupDeleteWidget-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, </span></li>
+<li><span class="parameter" id="popupDeleteWidget-param-habit"><span class="type-annotation"><a href="../data_models_habit/Habit-class.html">Habit</a></span> <span class="parameter-name">habit</span></span></li>
 </ol>)
 
         
 
     </section>
     
+<section class="desc markdown">
+  <p>A popup widget to delete a habit.</p>
+<p>This widget is used in the <code>CreateHabitScreenWidget</code> to delete a habit.
+It uses a <a href="https://api.flutter.dev/flutter/material/AlertDialog-class.html">AlertDialog</a> to confirm the deletion of a habit.</p>
+<h3 id="required-parameters">Required parameters:</h3>
+<ul>
+<li><code>context</code> is the current context.</li>
+<li><code>habit</code> is the habit object to delete.</li>
+</ul>
+<h3 id="returns">Returns:</h3>
+<p>A <a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future&lt;bool&gt;</a> to check if the user confirmed the deletion. Depending on this value a certain navigation route is executed in the parent widget.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Future&lt;bool&gt; popupDeleteWidget(BuildContext context) async {
-  final inheritedData = InheritedWidgetCreateHabit.of(context).habit;
+  <pre class="language-dart"><code class="language-dart">Future&lt;bool&gt; popupDeleteWidget(BuildContext context, Habit habit) async {
   final habitProvider = Provider.of&lt;HabitProvider&gt;(context, listen: false);
   var result = await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-            title: const Text(&#39;Delete&#39;),
+            title: Text(
+                AppLocalizations.of(context)!.popupDeleteHabitDeleteButton),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(&quot;Do you want to delete this Habit?&quot;),
+                Text(AppLocalizations.of(context)!
+                    .popupDeleteHabitConfirmationMessage),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       IconButton(
                         onPressed: () {
                           if (habitProvider.habits
-                              .any((item) =&gt; item.id == inheritedData.id)) {
-                            habitProvider.deleteHabit(inheritedData.id);
+                              .any((item) =&gt; item.id == habit.id)) {
+                            habitProvider.deleteHabit(habit.id);
                           }
 
                           Navigator.pop(context, true);

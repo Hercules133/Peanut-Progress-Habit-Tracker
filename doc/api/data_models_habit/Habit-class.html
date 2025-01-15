@@ -56,6 +56,21 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A class representing a habit.</p>
+<p>The <a href="../data_models_habit/Habit-class.html">Habit</a> class encapsulates properties and methods for managing habits, including title, description, days of the week,
+time, progress status, and associated category.</p>
+<h3 id="parameters">Parameters:</h3>
+<ul>
+<li><a href="../data_models_habit/Habit/id.html">id</a> is the unique identifier for the habit.</li>
+<li><a href="../data_models_habit/Habit/title.html">title</a> is the title of the habit.</li>
+<li><a href="../data_models_habit/Habit/description.html">description</a> is the description of the habit.</li>
+<li><a href="../data_models_habit/Habit/days.html">days</a> is the list of days when the habit occurs.</li>
+<li><a href="../data_models_habit/Habit/time.html">time</a> is the time of day when the habit should be performed.</li>
+<li><a href="../data_models_habit/Habit/progress.html">progress</a> is a map tracking the progress status of the habit on various dates.</li>
+<li><a href="../data_models_habit/Habit/category.html">category</a> is the category associated with the habit.</li>
+</ul>
+</section>
 
 
 
@@ -73,21 +88,21 @@
           <span class="name"><a href="../data_models_habit/Habit/Habit.defaultHabit.html">Habit.defaultHabit</a></span><span class="signature">()</span>
         </dt>
         <dd>
-          
+          Returns a default habit object with empty values.
             <div class="constructor-modifier features">factory</div>
         </dd>
         <dt id="Habit.from" class="callable">
           <span class="name"><a href="../data_models_habit/Habit/Habit.from.html">Habit.from</a></span><span class="signature">(<span class="parameter" id="from-param-other"><span class="type-annotation"><a href="../data_models_habit/Habit-class.html">Habit</a></span> <span class="parameter-name">other</span></span>)</span>
         </dt>
         <dd>
-          
+          Copy constructor to create a new habit object from an existing one.
             <div class="constructor-modifier features">factory</div>
         </dd>
         <dt id="Habit.fromMap" class="callable">
           <span class="name"><a href="../data_models_habit/Habit/Habit.fromMap.html">Habit.fromMap</a></span><span class="signature">(<span class="parameter" id="fromMap-param-map"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> <span class="parameter-name">map</span></span>)</span>
         </dt>
         <dd>
-          
+          Creates a habit object from a map.
             <div class="constructor-modifier features">factory</div>
         </dd>
     </dl>
@@ -189,7 +204,7 @@
 
 </dt>
 <dd>
-  
+  Calculates the current streak of completed habits.
   <div class="features"><span class="feature">no setter</span></div>
 
 </dd>
@@ -235,7 +250,20 @@
 
 </dt>
 <dd>
+  Returns a copy of the habit object with updated values where provided.
   
+
+</dd>
+
+        <dt id="getDaysAsWeekdays" class="callable">
+  <span class="name"><a href="../data_models_habit/Habit/getDaysAsWeekdays.html">getDaysAsWeekdays</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Converts the days of the habit to their equivalent weekday values.
   
 
 </dd>
@@ -248,7 +276,20 @@
 
 </dt>
 <dd>
+  Returns the next due date for the habit based on its schedule.
   
+
+</dd>
+
+        <dt id="initializeProgress" class="callable">
+  <span class="name"><a href="../data_models_habit/Habit/initializeProgress.html">initializeProgress</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Initializes the progress of the habit, filling in missing data up to the current date.
   
 
 </dd>
@@ -261,7 +302,7 @@
 
 </dt>
 <dd>
-  
+  Checks if the habit is completed on the specified date.
   
 
 </dd>
@@ -274,7 +315,7 @@
 
 </dt>
 <dd>
-  
+  Marks the habit as completed on the specified date.
   
 
 </dd>
@@ -287,7 +328,7 @@
 
 </dt>
 <dd>
-  
+  Marks the habit as not completed on the specified date.
   
 
 </dd>
@@ -313,7 +354,7 @@
 
 </dt>
 <dd>
-  
+  Toggles the completion status of the habit on the specified date.
   
 
 </dd>
@@ -326,7 +367,7 @@
 
 </dt>
 <dd>
-  
+  Converts the habit object into a map.
   
 
 </dd>

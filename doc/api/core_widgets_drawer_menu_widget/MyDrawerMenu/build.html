@@ -112,6 +112,7 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
+  final categoryProvider = context.watch&lt;CategoryProvider&gt;();
   final habitProvider = context.watch&lt;HabitProvider&gt;();
   return SafeArea(
     child: Drawer(
@@ -119,8 +120,9 @@ Widget build(BuildContext context) {
         children: [
           ListTile(
             leading: const Icon(Icons.home),
-            title: const Text(&#39;Home&#39;),
+            title: Text(AppLocalizations.of(context)!.drawerMenuHome),
             onTap: () {
+              categoryProvider.resetSelectedIndex();
               habitProvider.isSearching = false;
               Navigator.pushReplacementNamed(context, Routes.home);
             },
@@ -129,15 +131,16 @@ Widget build(BuildContext context) {
             leading: const ImageIcon(
               AssetImage(&#39;assets&#47;images&#47;Erdnuss.png&#39;),
             ),
-            title: const Text(&#39;Habits&#39;),
+            title: Text(AppLocalizations.of(context)!.drawerMenuHabits),
             onTap: () {
+              categoryProvider.resetSelectedIndex();
               habitProvider.isSearching = false;
               Navigator.pushReplacementNamed(context, Routes.habits);
             },
           ),
           ListTile(
             leading: const Icon(Icons.signal_cellular_alt),
-            title: const Text(&#39;Statistics&#39;),
+            title: Text(AppLocalizations.of(context)!.drawerMenuStatistics),
             onTap: () {
               habitProvider.isSearching = false;
               Navigator.pushReplacementNamed(context, Routes.statistics);
@@ -145,10 +148,17 @@ Widget build(BuildContext context) {
           ),
           ListTile(
             leading: const Icon(Icons.settings),
-            title: const Text(&#39;Settings&#39;),
+            title: Text(AppLocalizations.of(context)!.drawerMenuSettings),
             onTap: () {
               habitProvider.isSearching = false;
               Navigator.pushReplacementNamed(context, Routes.settings);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.help_outline),
+            title: Text(AppLocalizations.of(context)!.drawerMenuWalkthrough),
+            onTap: () {
+              Navigator.pushNamed(context, Routes.walkthrough);
             },
           ),
         ],

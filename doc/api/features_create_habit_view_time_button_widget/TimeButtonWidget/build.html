@@ -112,9 +112,8 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
   final ownColors = Theme.of(context).extension&lt;OwnColors&gt;()!;
-  selectedTime.value = inheritedData.time;
+  selectedTime.value = time;
   return ValueListenableBuilder&lt;TimeOfDay&gt;(
       valueListenable: selectedTime,
       builder: (context, value, child) {
@@ -171,7 +170,7 @@ Widget build(BuildContext context) {
               );
               if (picked != null) {
                 selectedTime.value = picked;
-                inheritedData.time = picked;
+                onChanged(picked);
               }
             },
             child: Text(

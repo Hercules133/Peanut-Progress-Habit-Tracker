@@ -65,6 +65,9 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Toggles the completion status of the habit on the specified date.</p>
+</section>
 
 
     
@@ -74,7 +77,7 @@
   date = dateOnly(date);
   if (isCompletedOnDate(date)) {
     markAsNotCompleted(date);
-  } else if (!isCompletedOnDate(date)) {
+  } else {
     markAsCompleted(date);
   }
 }</code></pre>

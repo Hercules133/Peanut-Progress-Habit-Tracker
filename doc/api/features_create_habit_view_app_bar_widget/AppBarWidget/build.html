@@ -113,7 +113,7 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
   return AppBar(leading: const CloseButtonWidget(), actions: &lt;Widget&gt;[
-    if (newHabit == false) DeleteButtonWidget(),
+    if (newHabit == false) DeleteButtonWidget(habit: habit),
   ]);
 }</code></pre>
 </section>

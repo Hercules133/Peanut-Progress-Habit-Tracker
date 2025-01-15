@@ -64,6 +64,9 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Returns a list of habits that are scheduled for today.</p>
+</section>
 
 
     
@@ -71,10 +74,9 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">List&lt;Habit&gt; getHabitsForToday() {
   final today =
-      DateTime.now().weekday; &#47;&#47; Wochentag: 1 = Montag, ..., 7 = Sonntag
+      clock.now().weekday; &#47;&#47; Wochentag: 1 = Montag, ..., 7 = Sonntag
   return _habits.where((habit) {
-    &#47;&#47; ignore: collection_methods_unrelated_type
-    return habit.days.contains(today); &#47;&#47; days ist die Liste der Wochentage
+    return habit.getDaysAsWeekdays().contains(today);
   }).toList();
 }</code></pre>
 </section>

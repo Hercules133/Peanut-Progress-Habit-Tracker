@@ -56,6 +56,11 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A repository class responsible for generating and managing unique habit IDs.
+It interacts with the storage layer to persist and retrieve the current
+habit ID counter.</p>
+</section>
 
 
 
@@ -118,7 +123,8 @@
 
 </dt>
 <dd>
-  
+  Generates the next habit ID by incrementing the current habit ID.
+The new ID is saved to the storage.
   
 
 </dd>
@@ -131,7 +137,8 @@
 
 </dt>
 <dd>
-  
+  Retrieves the current habit ID from the storage.
+If no ID is found, it defaults to 0.
   
 
 </dd>

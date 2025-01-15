@@ -65,11 +65,12 @@
     </section>
     
 <section class="desc markdown">
-  <p>Edge Cases</p>
+  <p>Returns a list of categories that have pending habits (habits that are
+not completed).</p>
+<p>Edge cases:</p>
 <ul>
-<li>No Habits: If _habits is empty, the method will return an empty list.</li>
-<li>No Pending Habits: If no habits have ProgressStatus.notCompleted,
-the method will return an empty list.</li>
+<li>If <code>_habits</code> is empty, the method returns an empty list.</li>
+<li>If no habits have pending status, the method returns an empty list.</li>
 </ul>
 </section>
 

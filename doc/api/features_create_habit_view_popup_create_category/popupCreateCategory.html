@@ -65,6 +65,18 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Displays a popup dialog to create a new category.</p>
+<p>The <a href="../features_create_habit_view_popup_create_category/popupCreateCategory.html">popupCreateCategory</a> function shows a custom popup dialog to create a new category.
+It allows the user to select an icon, pick a color, and input the category name. The dialog validates
+the input and checks for duplicate category names before adding the new category.</p>
+<h3 id="parameters">Parameters:</h3>
+<ul>
+<li><code>context</code> is the BuildContext used to show the dialog.</li>
+</ul>
+<p>This popup uses <a href="../features_create_habit_view_icon_dropdown/IconDropdown-class.html">IconDropdown</a> for icon selection and <a href="../features_create_habit_view_pick_color/pickColor.html">pickColor</a> for color selection.
+It relies on <code>AppLocalizations</code> for localization.</p>
+</section>
 
 
     
@@ -86,7 +98,7 @@
     builder: (context) {
       return AlertDialog(
         title: Text(
-          &#39;Create category&#39;,
+          AppLocalizations.of(context)!.popupCreateCategoryTitle,
           style: TextStyle(
             fontSize: 25,
             color: Theme.of(context).colorScheme.onSurface,
@@ -139,16 +151,19 @@
                   style:
                       TextStyle(color: Theme.of(context).colorScheme.onSurface),
                   controller: textController,
-                  decoration: const InputDecoration(
-                    hintText: &quot;Name&quot;,
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!
+                        .popupCreateCategoryNameHintText,
                   ),
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return &#39;required &#39;;
+                      return AppLocalizations.of(context)!
+                          .popupCreateCategoryRequiredError;
                     }
                     if (categoryProvider.categories
                         .any((cat) =&gt; cat.name == value)) {
-                      return &#39;Category already exists&#39;;
+                      return AppLocalizations.of(context)!
+                          .popupCreateCategoryAlreadyExistsError;
                     }
                     return null;
                   },

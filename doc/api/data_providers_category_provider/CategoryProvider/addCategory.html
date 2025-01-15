@@ -65,13 +65,18 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Adds a new category to the list of categories if it doesn't already exist.</p>
+<p><code>category</code> - The category to add.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">void addCategory(Category category) {
-  if (!_categories.any((existingCategory) =&gt; existingCategory.name == category.name)) {
+  if (!_categories
+      .any((existingCategory) =&gt; existingCategory.name == category.name)) {
     _categories.add(category);
     notifyListeners();
   }

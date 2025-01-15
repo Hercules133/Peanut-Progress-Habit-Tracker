@@ -112,14 +112,14 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  &#47;&#47;   ValueNotifier&lt;bool&gt; showDaysError= InheritedWidgetCreateHabit.of(context).showDaysError;
-  &#47;&#47;  ValueNotifier&lt;bool&gt; pressed= InheritedWidgetCreateHabit.of(context).pressed;
-
   return IconButton(
     onPressed: () async {
-      final categoryProvider = Provider.of&lt;CategoryProvider&gt;(context, listen: false);
-      final habitProvider = Provider.of&lt;HabitProvider&gt;(context, listen: false);
-      final categoriesToRemove = categoryProvider.categories.where((category) {
+      final categoryProvider =
+          Provider.of&lt;CategoryProvider&gt;(context, listen: false);
+      final habitProvider =
+          Provider.of&lt;HabitProvider&gt;(context, listen: false);
+      final categoriesToRemove =
+          categoryProvider.categories.where((category) {
         final habitsForCategory = habitProvider.getHabitsByCategory(category);
         return habitsForCategory.isEmpty &amp;&amp; category.name != &#39;All&#39;;
       }).toList();
@@ -128,20 +128,6 @@ Widget build(BuildContext context) {
         categoryProvider.removeCategory(category);
       }
       Navigator.pop(context);
-      &#47;&#47; final result = await popupSavingWidget(context);
-
-      &#47;&#47; if (context.mounted) {
-      &#47;&#47;   Navigator.pop(context);
-      &#47;&#47;   if (result != true) {
-      &#47;&#47;     Navigator.pop(context);
-      &#47;&#47;     if (result != null) {
-      &#47;&#47;     showDialog(
-      &#47;&#47;     context: context,
-      &#47;&#47;     builder: (context) =&gt; HabitDetailsDialog(habit: result),
-      &#47;&#47;     );
-      &#47;&#47;     }
-      &#47;&#47;   }
-      &#47;&#47; }
     },
     icon: const Icon(Icons.close),
   );

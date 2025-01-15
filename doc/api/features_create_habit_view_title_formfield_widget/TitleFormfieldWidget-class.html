@@ -56,6 +56,20 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A formfield widget to set/change the title of a habit.</p>
+<p>This widget is used in the <a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget-class.html">CreateHabitFormWidget</a> to set the title of a habit.
+It uses a <a href="https://api.flutter.dev/flutter/widgets/TextEditingController-class.html">TextEditingController</a> to control the text input and a <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a> to update the habit object.
+The <a href="../features_create_habit_view_title_formfield_widget/TitleFormfieldWidget/pressed.html">pressed</a> notifier is used to validate the formfield only when the user presses the save button.</p>
+<h3 id="required-parameters">Required parameters:</h3>
+<ul>
+<li><a href="../features_create_habit_view_title_formfield_widget/TitleFormfieldWidget/titleController.html">titleController</a> is the controller for the text input.</li>
+<li><a href="../features_create_habit_view_title_formfield_widget/TitleFormfieldWidget/pressed.html">pressed</a> is a notifier to check if the user pressed the save button.</li>
+<li><a href="../features_create_habit_view_title_formfield_widget/TitleFormfieldWidget/habit.html">habit</a> is the habit object to update.</li>
+</ul>
+<h3 id="validation">Validation:</h3>
+<p>The formfield cannot be empty and has a maximum length of 20 characters.</p>
+</section>
 
 
     <section>
@@ -88,7 +102,7 @@
     <h2>Constructors</h2>
     <dl class="constructor-summary-list">
         <dt id="TitleFormfieldWidget" class="callable">
-          <span class="name"><a href="../features_create_habit_view_title_formfield_widget/TitleFormfieldWidget/TitleFormfieldWidget.html">TitleFormfieldWidget</a></span><span class="signature">({<span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span><span class="parameter" id="-param-titleController"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/TextEditingController-class.html">TextEditingController</a></span> <span class="parameter-name">titleController</span>, </span><span class="parameter" id="-param-pressed"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span> <span class="parameter-name">pressed</span></span>})</span>
+          <span class="name"><a href="../features_create_habit_view_title_formfield_widget/TitleFormfieldWidget/TitleFormfieldWidget.html">TitleFormfieldWidget</a></span><span class="signature">({<span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span><span class="parameter" id="-param-titleController"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/TextEditingController-class.html">TextEditingController</a></span> <span class="parameter-name">titleController</span>, </span><span class="parameter" id="-param-pressed"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span> <span class="parameter-name">pressed</span>, </span><span class="parameter" id="-param-habit"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models_habit/Habit-class.html">Habit</a></span>&gt;</span></span> <span class="parameter-name">habit</span></span>})</span>
         </dt>
         <dd>
           
@@ -102,6 +116,18 @@
       id="instance-properties">
     <h2>Properties</h2>
     <dl class="properties">
+        <dt id="habit" class="property">
+  <span class="name"><a href="../features_create_habit_view_title_formfield_widget/TitleFormfieldWidget/habit.html">habit</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models_habit/Habit-class.html">Habit</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
         <dt id="hashCode" class="property inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>

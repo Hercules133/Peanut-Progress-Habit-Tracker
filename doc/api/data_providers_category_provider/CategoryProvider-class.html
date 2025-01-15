@@ -56,6 +56,11 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A provider class that manages a list of categories and the selected category
+index. It extends <a href="https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html">ChangeNotifier</a> to notify listeners of changes to
+categories or the selected index.</p>
+</section>
 
 
     <section>
@@ -104,7 +109,7 @@
 
 </dt>
 <dd>
-  
+  A getter that returns the list of categories.
   <div class="features"><span class="feature">no setter</span></div>
 
 </dd>
@@ -152,7 +157,7 @@
 
 </dt>
 <dd>
-  
+  A getter that returns the currently selected category index.
   <div class="features"><span class="feature">no setter</span></div>
 
 </dd>
@@ -174,7 +179,7 @@
 
 </dt>
 <dd>
-  
+  Adds a new category to the list of categories if it doesn't already exist.
   
 
 </dd>
@@ -200,7 +205,7 @@
 
 </dt>
 <dd>
-  
+  Clears all categories and resets them to the default categories.
   
 
 </dd>
@@ -228,7 +233,7 @@ object is not in a usable state and should be discarded (calls to
 
 </dt>
 <dd>
-  
+  Checks if a given category exists in the list of categories.
   
 
 </dd>
@@ -241,7 +246,8 @@ object is not in a usable state and should be discarded (calls to
 
 </dt>
 <dd>
-  
+  Initializes the categories based on the habits provided.
+New categories from habits are added if they do not already exist.
   
 
 </dd>
@@ -280,7 +286,7 @@ object is not in a usable state and should be discarded (calls to
 
 </dt>
 <dd>
-  
+  Removes a category from the list of categories and notifies listeners.
   
 
 </dd>
@@ -299,6 +305,20 @@ notified when the object changes.
 
 </dd>
 
+        <dt id="resetSelectedIndex" class="callable">
+  <span class="name"><a href="../data_providers_category_provider/CategoryProvider/resetSelectedIndex.html">resetSelectedIndex</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Resets the selected category index to the default value (0) and notifies
+listeners.
+  
+
+</dd>
+
         <dt id="setSelectedIndex" class="callable">
   <span class="name"><a href="../data_providers_category_provider/CategoryProvider/setSelectedIndex.html">setSelectedIndex</a></span><span class="signature">(<wbr><span class="parameter" id="setSelectedIndex-param-index"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span></span>)
     <span class="returntype parameter">&#8594; void</span>
@@ -307,7 +327,8 @@ notified when the object changes.
 
 </dt>
 <dd>
-  
+  Sets the selected category index and notifies listeners if the index has
+changed.
   
 
 </dd>
@@ -333,7 +354,7 @@ notified when the object changes.
 
 </dt>
 <dd>
-  
+  Updates the selected category index and notifies listeners.
   
 
 </dd>

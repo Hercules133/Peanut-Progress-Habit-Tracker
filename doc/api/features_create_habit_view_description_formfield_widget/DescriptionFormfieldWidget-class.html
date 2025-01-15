@@ -56,6 +56,18 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A formfield widget to set/change the description of a habit.</p>
+<p>This widget is used in the <a href="../features_create_habit_view_create_habit_form_widget/CreateHabitFormWidget-class.html">CreateHabitFormWidget</a> to set the description of a habit.
+It uses a <a href="https://api.flutter.dev/flutter/widgets/TextEditingController-class.html">TextEditingController</a> to control the text input and a <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a> to update the habit object.</p>
+<h3 id="required-parameters">Required parameters:</h3>
+<ul>
+<li><a href="../features_create_habit_view_description_formfield_widget/DescriptionFormfieldWidget/descriptionController.html">descriptionController</a> is the controller for the text input.</li>
+<li><a href="../features_create_habit_view_description_formfield_widget/DescriptionFormfieldWidget/habit.html">habit</a> is the habit object to update.</li>
+</ul>
+<h3 id="validation">Validation:</h3>
+<p>The formfield can be empty as the description is a optional parameter of the habit.</p>
+</section>
 
 
     <section>
@@ -88,7 +100,7 @@
     <h2>Constructors</h2>
     <dl class="constructor-summary-list">
         <dt id="DescriptionFormfieldWidget" class="callable">
-          <span class="name"><a href="../features_create_habit_view_description_formfield_widget/DescriptionFormfieldWidget/DescriptionFormfieldWidget.html">DescriptionFormfieldWidget</a></span><span class="signature">({<span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span><span class="parameter" id="-param-descriptionController"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/TextEditingController-class.html">TextEditingController</a></span> <span class="parameter-name">descriptionController</span></span>})</span>
+          <span class="name"><a href="../features_create_habit_view_description_formfield_widget/DescriptionFormfieldWidget/DescriptionFormfieldWidget.html">DescriptionFormfieldWidget</a></span><span class="signature">({<span class="parameter" id="-param-key"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span><span class="parameter" id="-param-descriptionController"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/TextEditingController-class.html">TextEditingController</a></span> <span class="parameter-name">descriptionController</span>, </span><span class="parameter" id="-param-habit"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models_habit/Habit-class.html">Habit</a></span>&gt;</span></span> <span class="parameter-name">habit</span></span>})</span>
         </dt>
         <dd>
           
@@ -105,6 +117,18 @@
         <dt id="descriptionController" class="property">
   <span class="name"><a href="../features_create_habit_view_description_formfield_widget/DescriptionFormfieldWidget/descriptionController.html">descriptionController</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/widgets/TextEditingController-class.html">TextEditingController</a></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="habit" class="property">
+  <span class="name"><a href="../features_create_habit_view_description_formfield_widget/DescriptionFormfieldWidget/habit.html">habit</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html">ValueNotifier</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../data_models_habit/Habit-class.html">Habit</a></span>&gt;</span></span>
   
 
 </dt>

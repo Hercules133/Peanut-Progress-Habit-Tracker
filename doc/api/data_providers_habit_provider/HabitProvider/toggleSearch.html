@@ -64,17 +64,20 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Toggles the search mode and clears the search query and filtered habits
+when turning off search.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">void toggleSearch() {
-  _isSearching = !_isSearching;
-  if (!_isSearching) {
+  isSearching = !isSearching;
+  if (!isSearching) {
     _query = &quot;&quot;;
     _filteredHabits = [];
-    debugPrint(&quot;toggleSearch Funktion ist gerufen worden&quot;);
     _filteredHabits = _habits; &#47;&#47; Zeige alle Habits wieder an
   }
   notifyListeners();

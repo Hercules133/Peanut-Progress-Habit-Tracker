@@ -112,22 +112,21 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
-  descriptionController.text = inheritedData.description;
+  descriptionController.text = habit.value.description;
   return TextFormField(
       maxLength: 150,
       controller: descriptionController,
-      decoration: const InputDecoration(
-        hintText: &quot;Enter a description&quot;,
+      decoration: InputDecoration(
+        hintText: AppLocalizations.of(context)!.descriptionFormfieldHintText,
       ),
       cursorColor: Theme.of(context).colorScheme.onSurface,
       validator: (value) {
         return (value == null || value.isEmpty)
-            ? &quot;Enter description&quot;
-            : inheritedData.description;
+            ? AppLocalizations.of(context)!.descriptionFormfieldLabel
+            : habit.value.description;
       },
       onChanged: (value) {
-        inheritedData.description = value;
+        habit.value.description = value;
       });
 }</code></pre>
 </section>

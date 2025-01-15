@@ -57,6 +57,12 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>An abstract class defining the contract for storage services.</p>
+<p>This class provides methods for saving, reading, deleting, and clearing data
+from storage. The actual storage implementation (e.g., <a href="../services_storage_shared_preferences_storage/SharedPreferencesStorage-class.html">SharedPreferencesStorage</a>)
+should implement these methods to handle the specific storage mechanics.</p>
+</section>
 
 
     <section>
@@ -68,6 +74,7 @@
 
           <dt>Implementers</dt>
           <dd><ul class="comma-separated clazz-relationships">
+              <li><a href="../services_storage_fcloud_storage/FCloudStorage-class.html">FCloudStorage</a></li>
               <li><a href="../services_storage_shared_preferences_storage/SharedPreferencesStorage-class.html">SharedPreferencesStorage</a></li>
           </ul></dd>
 
@@ -137,7 +144,7 @@
 
 </dt>
 <dd>
-  
+  Clears all items from the specified table.
   
 
 </dd>
@@ -150,7 +157,7 @@
 
 </dt>
 <dd>
-  
+  Deletes an item from the storage based on the specified table and key.
   
 
 </dd>
@@ -176,7 +183,7 @@
 
 </dt>
 <dd>
-  
+  Retrieves an item from the storage based on the specified table and key.
   
 
 </dd>
@@ -189,7 +196,7 @@
 
 </dt>
 <dd>
-  
+  Retrieves all items from the specified table.
   
 
 </dd>
@@ -202,7 +209,7 @@
 
 </dt>
 <dd>
-  
+  Saves an item to the storage.
   
 
 </dd>
