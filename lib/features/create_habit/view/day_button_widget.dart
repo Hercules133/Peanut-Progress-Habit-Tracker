@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
 import 'package:peanutprogress/data/models/own_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// A day button widget to set the days of a habit.
 ///
@@ -29,60 +30,23 @@ class DayButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final ownColors = Theme.of(context).extension<OwnColors>()!;
 
+    final appLocalizations = AppLocalizations.of(context)!;
+
+    // Map day strings to DayOfWeek enum values
+    final dayMap = {
+      appLocalizations.monday: DayOfWeek.monday,
+      appLocalizations.tuesday: DayOfWeek.tuesday,
+      appLocalizations.wednesday: DayOfWeek.wednesday,
+      appLocalizations.thursday: DayOfWeek.thursday,
+      appLocalizations.friday: DayOfWeek.friday,
+      appLocalizations.saturday: DayOfWeek.saturday,
+      appLocalizations.sunday: DayOfWeek.sunday,
+    };
+
+    final dayOfWeek = dayMap[day];
+
     /// Check if the day is already selected and update the button color.
-    for (DayOfWeek d in days.value) {
-      switch (day) {
-        case "Mo":
-          {
-            if (d == DayOfWeek.monday) {
-              hasBeenPressed.value = true;
-            }
-          }
-          break;
-        case "Tu":
-          {
-            if (d == DayOfWeek.tuesday) {
-              hasBeenPressed.value = true;
-            }
-          }
-          break;
-        case "We":
-          {
-            if (d == DayOfWeek.wednesday) {
-              hasBeenPressed.value = true;
-            }
-          }
-          break;
-        case "Th":
-          {
-            if (d == DayOfWeek.thursday) {
-              hasBeenPressed.value = true;
-            }
-          }
-          break;
-        case "Fr":
-          {
-            if (d == DayOfWeek.friday) {
-              hasBeenPressed.value = true;
-            }
-          }
-          break;
-        case "Sa":
-          {
-            if (d == DayOfWeek.saturday) {
-              hasBeenPressed.value = true;
-            }
-          }
-          break;
-        case "Su":
-          {
-            if (d == DayOfWeek.sunday) {
-              hasBeenPressed.value = true;
-            }
-          }
-          break;
-      }
-    }
+    final hasBeenPressed = ValueNotifier<bool>(days.value.contains(dayOfWeek));
 
     return ValueListenableBuilder<bool>(
         valueListenable: hasBeenPressed,
@@ -98,56 +62,14 @@ class DayButtonWidget extends StatelessWidget {
             onPressed: () {
               /// Update the button color and add/remove the day to/from the days list.
               /// toggle the hasBeenPressed value.
-              hasBeenPressed.value = !hasBeenPressed.value;
+
+              hasBeenPressed.value = !value;
               if (hasBeenPressed.value) {
-                switch (day) {
-                  case "Mo":
-                    days.value.add(DayOfWeek.monday);
-                    break;
-                  case "Tu":
-                    days.value.add(DayOfWeek.tuesday);
-                    break;
-                  case "We":
-                    days.value.add(DayOfWeek.wednesday);
-                    break;
-                  case "Th":
-                    days.value.add(DayOfWeek.thursday);
-                    break;
-                  case "Fr":
-                    days.value.add(DayOfWeek.friday);
-                    break;
-                  case "Sa":
-                    days.value.add(DayOfWeek.saturday);
-                    break;
-                  case "Su":
-                    days.value.add(DayOfWeek.sunday);
-                    break;
-                }
+                days.value.add(dayOfWeek!);
               } else {
-                switch (day) {
-                  case "Mo":
-                    days.value.remove(DayOfWeek.monday);
-                    break;
-                  case "Tu":
-                    days.value.remove(DayOfWeek.tuesday);
-                    break;
-                  case "We":
-                    days.value.remove(DayOfWeek.wednesday);
-                    break;
-                  case "Th":
-                    days.value.remove(DayOfWeek.thursday);
-                    break;
-                  case "Fr":
-                    days.value.remove(DayOfWeek.friday);
-                    break;
-                  case "Sa":
-                    days.value.remove(DayOfWeek.saturday);
-                    break;
-                  case "Su":
-                    days.value.remove(DayOfWeek.sunday);
-                    break;
-                }
+                days.value.remove(dayOfWeek!);
               }
+
               onChanged();
             },
             child: Text(
