@@ -25,6 +25,14 @@ There isn't any apk file for it yet, so you have to run the project with flutter
 - Motivational quote
 - (in-app game on the way)
 
+## Upcoming Features
+- In-app game
+- Cloud service for storage
+- Communication with other users
+- Daily comments for the habbits
+- Pause habit, if user is sick or on vacation (for the streak, so that it doesn't disappear)
+- If streak is greater than 30, user will be rewarded extra!
+
 ## Bugs
 Flutter side bugs:
 - Assertion Failed error - when writing in a textformfield: https://github.com/flutter/flutter/issues/160155
