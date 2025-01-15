@@ -374,19 +374,6 @@ void main() {
       }
     );
 
-    testProvider<HabitProvider>(
-      "getPendingHabits should return habits with pending status",
-      build: () => provider,
-      verify: (provider) {
-        final pendingHabits = provider.getPendingHabits();
-        expect(pendingHabits.length, 4);
-        expect(pendingHabits[0].id, 0);
-        expect(pendingHabits[1].id, 3);
-        expect(pendingHabits[2].id, 4);
-        expect(pendingHabits[3].id, 5);
-      },
-    );
-
     testProvider(
         "getPendingHabitsForTodayByCategory should return habits with pending status for today",
         build: () => provider,

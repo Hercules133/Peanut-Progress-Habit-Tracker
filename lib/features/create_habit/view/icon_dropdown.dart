@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+/// Widget that represents a dropdown menu to select an icon.
+///
+/// The [IconDropdown] class provides a dropdown menu with multiple icon options.
+/// It allows the user to choose an icon from the given list. The currently selected icon is displayed initially.
+///
+/// ### Required parameters:
+/// - [selectedIcon] is the initial icon selected in the dropdown.
+/// - [onIconChanged] is the callback function that gets called whenever the selected icon changes.
 class IconDropdown extends StatelessWidget {
   final IconData selectedIcon;
   final ValueChanged<IconData> onIconChanged;
@@ -58,7 +66,7 @@ class IconDropdown extends StatelessWidget {
         DropdownMenuItem(
           value: Icons.school,
           child: Icon(Icons.school, color: iconColor),
-        )
+        ),
       ],
       onChanged: (IconData? newValue) {
         if (newValue != null) {
