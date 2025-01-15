@@ -61,7 +61,7 @@ class MyDrawerMenu extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.help_outline),
-              title: const Text('Hilfe'),
+              title: Text(AppLocalizations.of(context)!.drawerMenuWalkthrough),
               onTap: () {
                 Navigator.pushNamed(context, Routes.walkthrough);
               },
