@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// A custom ThemeExtension to define the colors used in the application.
 class OwnColors extends ThemeExtension<OwnColors> {
+  /// Creates an instance of [OwnColors].
   const OwnColors({
     required this.contribution0,
     required this.contribution1,
@@ -22,25 +24,61 @@ class OwnColors extends ThemeExtension<OwnColors> {
     required this.habitText,
   });
 
+  /// Color for contribution level 0.
   final Color contribution0;
+
+  /// Color for contribution level 1.
   final Color contribution1;
+
+  /// Color for contribution level 2.
   final Color contribution2;
+
+  /// Color for contribution level 3.
   final Color contribution3;
+
+  /// Color for contribution level 4.
   final Color contribution4;
+
+  /// Color for contribution level 5.
   final Color contribution5;
+
+  /// Default color for contributions.
   final Color contributionDefault;
+
+  /// Color for category 1.
   final Color category1;
+
+  /// Color for category 2.
   final Color category2;
+
+  /// Color for category 3.
   final Color category3;
+
+  /// Color for category 4.
   final Color category4;
+
+  /// Color for category 5.
   final Color category5;
+
+  /// Color for category 6.
   final Color category6;
+
+  /// Color for category 7.
   final Color category7;
+
+  /// Color for category 8.
   final Color category8;
+
+  /// Color for category 9.
   final Color category9;
+
+  /// Color for category 10.
   final Color category10;
+
+  /// Color for habit text.
   final Color habitText;
 
+  /// Creates a copy of this [OwnColors] but with the given fields replaced with the new values.
   @override
   OwnColors copyWith({
     Color? contribution0,
@@ -84,6 +122,7 @@ class OwnColors extends ThemeExtension<OwnColors> {
     );
   }
 
+  /// Linearly interpolate between two [OwnColors] objects.
   @override
   ThemeExtension<OwnColors> lerp(ThemeExtension<OwnColors>? other, double t) {
     if (other is! OwnColors) {

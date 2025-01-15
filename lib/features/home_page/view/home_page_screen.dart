@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../data/providers/habit_provider.dart';
-import '/core/utils/routes.dart';
-import '/data/providers/category_provider.dart';
-import '../../../core/widgets/app_bar_widget.dart';
-import '/core/widgets/drawer_menu_widget.dart';
-import '/core/utils/get_greeting.dart';
-import 'heat_map_widget.dart';
-import 'tab_bar_widget.dart';
-import 'tab_bar_view_widget.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
+import 'package:peanutprogress/core/utils/routes.dart';
+import 'package:peanutprogress/data/providers/category_provider.dart';
+import 'package:peanutprogress/core/widgets/app_bar_widget.dart';
+import 'package:peanutprogress/core/widgets/drawer_menu_widget.dart';
+import 'package:peanutprogress/core/utils/get_greeting.dart';
+import 'package:peanutprogress/features/home_page/view/heat_map_widget.dart';
+import 'package:peanutprogress/features/home_page/view/tab_bar_widget.dart';
+import 'package:peanutprogress/features/home_page/view/tab_bar_view_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// The main home page of the app, displaying the Heatmap, habit categories and habits.
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
@@ -23,7 +24,9 @@ class MyHomePage extends StatelessWidget {
       categoryProvider.categories.firstWhere((cat) => cat.name == 'All'),
       ...categoryProvider.categories.where((category) {
         if (category.name == 'All') return false;
-        return habitProvider.getPendingHabitsForTodayByCategory(category).isNotEmpty;
+        return habitProvider
+            .getPendingHabitsForTodayByCategory(category)
+            .isNotEmpty;
       }),
     ];
 
@@ -32,7 +35,7 @@ class MyHomePage extends StatelessWidget {
       child: Scaffold(
         appBar: MyAppBar(
           appBar: AppBar(),
-          appBarTitle: getGreeting(),
+          appBarTitle: getGreeting(context),
         ),
         drawer: const MyDrawerMenu(),
         body: const Column(

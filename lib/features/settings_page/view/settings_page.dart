@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:peanutprogress/data/providers/locale_provider.dart';
 import 'package:peanutprogress/data/providers/username_provider.dart';
 import 'package:provider/provider.dart';
-import '/core/widgets/app_bar_widget.dart';
-import '/core/widgets/drawer_menu_widget.dart';
+import 'package:peanutprogress/core/widgets/app_bar_widget.dart';
+import 'package:peanutprogress/core/widgets/drawer_menu_widget.dart';
 import 'package:peanutprogress/core/config/language.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:peanutprogress/features/settings_page/view/switch_state.dart';
 
-import 'switch_state.dart';
-
+/// A screen widget to show the available settings.
+///
+/// This widget is used to display the settings.
+/// It uses the [AppBarWidget] to display the settings
+///
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
@@ -73,6 +77,7 @@ class SettingsPage extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: DropdownMenuTheme(
+                  key: ValueKey("dropdown1"),
                   data: DropdownMenuThemeData(
                     menuStyle: MenuStyle(
                       shape: WidgetStateProperty.all<RoundedRectangleBorder>(
@@ -135,6 +140,7 @@ class SettingsPage extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: DropdownMenuTheme(
+                  key: const ValueKey("dropdown2"),
                   data: DropdownMenuThemeData(
                     menuStyle: MenuStyle(
                       shape: WidgetStateProperty.all<RoundedRectangleBorder>(
@@ -182,6 +188,11 @@ class SettingsPage extends StatelessWidget {
   }
 }
 
+/// Utility function to get the initial selection for the theme mode dropdown.
+///
+/// [themeMode] The current theme mode.
+///
+/// Returns a string representing the initial selection.
 String _getInitialSelection(ThemeMode themeMode) {
   switch (themeMode) {
     case ThemeMode.dark:

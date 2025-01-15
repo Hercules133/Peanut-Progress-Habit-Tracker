@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/data/models/category.dart';
-import '/data/models/own_colors.dart';
-import '/data/providers/category_provider.dart';
-import '/data/providers/habit_provider.dart';
+import 'package:peanutprogress/data/models/category.dart';
+import 'package:peanutprogress/data/models/own_colors.dart';
+import 'package:peanutprogress/data/providers/category_provider.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
 
 class MyTabBar extends StatelessWidget {
   const MyTabBar({
@@ -22,7 +22,9 @@ class MyTabBar extends StatelessWidget {
     List<Category> allCategories = categoryProvider.categories;
     List<Category> filteredCategories = allCategories.where((category) {
       if (showTodayOnly && category.name != 'All') {
-        return habitProvider.getPendingHabitsForTodayByCategory(category).isNotEmpty;
+        return habitProvider
+            .getPendingHabitsForTodayByCategory(category)
+            .isNotEmpty;
       }
       return true;
     }).toList();
@@ -45,7 +47,7 @@ class MyTabBar extends StatelessWidget {
       },
       tabs: List.generate(
         filteredCategories.length,
-            (index) => Container(
+        (index) => Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             color: filteredCategories[index].color,
@@ -56,7 +58,8 @@ class MyTabBar extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  if (index == categoryProvider.selectedIndex) Icon(Icons.check),
+                  if (index == categoryProvider.selectedIndex)
+                    Icon(Icons.check),
                   Icon(filteredCategories[index].icon),
                   Text(filteredCategories[index].name),
                 ],

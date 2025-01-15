@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/data/providers/habit_provider.dart';
-import '/data/providers/category_provider.dart';
-// import '/features/create_habit/view/popup_saving_widget.dart';
-// import '/core/widgets/details_dialog_widget.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
+import 'package:peanutprogress/data/providers/category_provider.dart';
 
+/// A widget to close the screen.
+///
+/// This widget is used in the [AppBarWidget] on the [CreateHabitScreenWidget] to close the screen.
+/// It uses an [IconButton] to close the screen.
+/// It removes all categories that are not used by any habit.
+///
 class CloseButtonWidget extends StatelessWidget {
   const CloseButtonWidget({
     super.key,
@@ -12,14 +16,14 @@ class CloseButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //   ValueNotifier<bool> showDaysError= InheritedWidgetCreateHabit.of(context).showDaysError;
-    //  ValueNotifier<bool> pressed= InheritedWidgetCreateHabit.of(context).pressed;
-
     return IconButton(
       onPressed: () async {
-        final categoryProvider = Provider.of<CategoryProvider>(context, listen: false);
-        final habitProvider = Provider.of<HabitProvider>(context, listen: false);
-        final categoriesToRemove = categoryProvider.categories.where((category) {
+        final categoryProvider =
+            Provider.of<CategoryProvider>(context, listen: false);
+        final habitProvider =
+            Provider.of<HabitProvider>(context, listen: false);
+        final categoriesToRemove =
+            categoryProvider.categories.where((category) {
           final habitsForCategory = habitProvider.getHabitsByCategory(category);
           return habitsForCategory.isEmpty && category.name != 'All';
         }).toList();
@@ -28,20 +32,6 @@ class CloseButtonWidget extends StatelessWidget {
           categoryProvider.removeCategory(category);
         }
         Navigator.pop(context);
-        // final result = await popupSavingWidget(context);
-
-        // if (context.mounted) {
-        //   Navigator.pop(context);
-        //   if (result != true) {
-        //     Navigator.pop(context);
-        //     if (result != null) {
-        //     showDialog(
-        //     context: context,
-        //     builder: (context) => HabitDetailsDialog(habit: result),
-        //     );
-        //     }
-        //   }
-        // }
       },
       icon: const Icon(Icons.close),
     );
