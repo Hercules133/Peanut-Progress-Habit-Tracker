@@ -11,6 +11,7 @@ import 'package:peanutprogress/features/home_page/view/tab_bar_widget.dart';
 import 'package:peanutprogress/features/home_page/view/tab_bar_view_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// The main home page of the app, displaying the Heatmap, habit categories and habits.
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
