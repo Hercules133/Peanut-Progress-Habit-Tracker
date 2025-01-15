@@ -16,9 +16,13 @@ There isn't any apk file for it yet, so you have to run the project with flutter
 
 ## Build
 
-- Clone the repo usint git clone https://github.com/Hercules133/Peanut-Progress-Habit-Tracker.git
+- Clone the repo using git clone https://github.com/Hercules133/Peanut-Progress-Habit-Tracker.git
 - Install dependencies with `flutter pub get`
 - Run the application with `flutter run`
+
+### Localization
+
+When cloning the repository for the first time, the localization files (i.e., the generated files) do not exist yet. As a result, you will encounter errors in the code wherever these files are referenced, until you run the app for the first time. Once the app is launched, the required localization files will be generated automatically, and the errors will be resolved.
 
 ## Features
 - Free
