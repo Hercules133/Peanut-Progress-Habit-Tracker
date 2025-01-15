@@ -62,7 +62,6 @@ class HabitProvider with ChangeNotifier {
     if (!isSearching) {
       _query = "";
       _filteredHabits = [];
-      debugPrint("toggleSearch Funktion ist gerufen worden");
       _filteredHabits = _habits; // Zeige alle Habits wieder an
     }
     notifyListeners();
