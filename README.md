@@ -35,14 +35,14 @@ This project is licensed under the [MIT License](LICENSE.md).
 
 ## Contributors <span style="display:inline-block; width:20px; height:20px; background:rgb(70, 68, 68); color:white; text-align:center; border-radius:50%; line-height:20px; font-size:12px;">8</span>
 <div style="display: flex; flex-wrap: nowrap; gap: 10px;">
-  <img src="assets/images/contributors/hannes.jpeg" alt="Contributor 1" width="30" style="border-radius: 50%;" />
-  <img src="assets/images/contributors/rehan.jpeg" alt="Contributor 2" width="30" style="border-radius: 50%;" />
-  <img src="assets/images/contributors/frotti.png" alt="Contributor 3" width="30" style="border-radius: 50%;" />
-  <img src="assets/images/contributors/ina.png" alt="Contributor 4" width="30" style="border-radius: 50%;" />
-  <img src="assets/images/contributors/melinda.png" alt="Contributor 5" width="30" style="border-radius: 50%;" />
-  <img src="assets/images/contributors/fezan.jpeg" alt="Contributor 6" width="30" style="border-radius: 50%;" />
-  <img src="assets/images/contributors/emil.png" alt="Contributor 7" width="30" style="border-radius: 50%;" />
-  <img src="assets/images/contributors/oli.jpeg" alt="Contributor 8" width="30" style="border-radius: 50%;" />
+  <a href="https://github.com/Hercules133"><img src="https://github.com/Hercules133.png" alt="Contributor 1" width="30" style="border-radius: 50%;" /></a>
+  <a href="https://github.com/sajid-rehan"><img src="https://github.com/sajid-rehan.png" alt="Contributor 2" width="30" style="border-radius: 50%;" /></a>
+  <a href="https://github.com/frotti13"><img src="https://github.com/frotti13.png" alt="Contributor 3" width="30" style="border-radius: 50%;" /></a>
+  <a href="https://github.com/inazll"><img src="https://github.com/inazll.png" alt="Contributor 4" width="30" style="border-radius: 50%;" /></a>
+  <a href="https://github.com/MelindaKienle"><img src="https://github.com/MelindaKienle.png" alt="Contributor 5" width="30" style="border-radius: 50%;" /></a>
+  <a href="https://github.com/Fezaaan"><img src="https://github.com/Fezaaan.png" alt="Contributor 6" width="30" style="border-radius: 50%;" /></a>
+  <a href="https://github.com/Papi-Pap"><img src="https://github.com/Papi-Pap.png" alt="Contributor 7" width="30" style="border-radius: 50%;" /></a>
+  <a href="https://github.com/koliver2k2"><img src="https://github.com/koliver2k2.png" alt="Contributor 8" width="30" style="border-radius: 50%;" /></a>
 </div>
 
 
