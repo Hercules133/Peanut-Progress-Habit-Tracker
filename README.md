@@ -33,7 +33,7 @@ Flutter side bugs:
 ## License
 This project is licensed under the [MIT License](LICENSE.md).
 
-## Contributors 
+## Contributors <span style="display:inline-block; width:20px; height:20px; background:rgb(50, 49, 49); color:white; text-align:center; border-radius:50%; line-height:20px; font-size:12px;">8</span>
 <img src="assets/images/contributors/hannes.jpeg" alt="Contributor 1" width="30" style="border-radius: 50%;"/> 
 <img src="assets/images/contributors/rehan.jpeg" alt="Contributor 2" width="30" style="border-radius: 50%;"/> 
 <img src="assets/images/contributors/frotti.png" alt="Contributor 3" width="30" style="border-radius: 50%;"/> 
