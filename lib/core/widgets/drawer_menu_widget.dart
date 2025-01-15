@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peanutprogress/data/providers/category_provider.dart';
-import '/core/utils/routes.dart';
-import '/data/providers/habit_provider.dart';
+import 'package:peanutprogress/core/utils/routes.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

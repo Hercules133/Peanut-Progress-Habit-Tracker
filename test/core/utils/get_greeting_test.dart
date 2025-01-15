@@ -42,7 +42,6 @@ void main() {
           locale: const Locale('en'),
           home: Builder(
             builder: (context) {
-              // final greeting = getGreeting(context);
               withClock(mockClock, () {
                 expect(getGreeting(context), 'Good Morning !');
               });
@@ -163,33 +162,4 @@ void main() {
       ),
     );
   });
-  //    final context = tester.element(find.byType(MyHomePage));
-  // final greeting = getGreeting(context); // getGreeting mit dem richtigen Kontext aufrufen
-
-  // // Testen, ob die Begrüßung "Good Morning" zurückgegeben wird
-  // expect(greeting, "Good Morning testname!");
-
-//  test('getGreeting returns correct greeting for afternoon', (){
-//  final mockClock = Clock.fixed(DateTime(2025, 01, 01, 13));
-
-//     withClock(mockClock, () {
-//       expect(getGreeting(), 'Hello!');
-//     });
-//  });
-
-//  test('getGreeting returns correct greeting for evening', (){
-//  final mockClock = Clock.fixed(DateTime(2025, 01, 01, 20));
-
-//     withClock(mockClock, () {
-//       expect(getGreeting(), 'Good Evening!');
-// });
-//  });
-
-//   test('getGreeting returns correct greeting for night', (){
-//  final mockClock = Clock.fixed(DateTime(2025, 01, 01, 05));
-
-//     withClock(mockClock, () {
-//       expect(getGreeting(), 'Good Night!');
-//     });
-//  });
 }
