@@ -27,7 +27,7 @@ There isn't any apk file for it yet, so you have to run the project with flutter
 
 ## Bugs
 Flutter side bugs:
-- Assertion Failed error - after creating a habit in a browser: https://github.com/flutter/flutter/issues/160155
+- Assertion Failed error - when writing in a textformfield: https://github.com/flutter/flutter/issues/160155
 - [Incorrect import](INCIMPORT.md) bug on macOS
 
 ## License

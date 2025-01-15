@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:peanutprogress/core/utils/color_ex.dart';
 
+/// A model class representing a category in the application.
+///
+/// The `Category` class holds information about a category, including its name,
+/// color, icon, and whether it is a default category.
+///
+/// ### Properties:
+/// - [name]: The name of the category.
+/// - [color]: The color associated with the category.
+/// - [icon]: The icon representing the category.
+/// - [isDefault]: A boolean indicating whether the category is a default category.
+///
 class Category {
   final String name;
   final Color color;
@@ -14,6 +25,9 @@ class Category {
     this.isDefault = false,
   });
 
+  /// Returns a list of default categories.
+  ///
+  /// This method provides a list of predefined default categories.
   static List<Category> defaultCategories() {
     return [
       Category(
@@ -25,10 +39,17 @@ class Category {
     ];
   }
 
+  /// Returns the default category.
+  ///
+  /// This factory constructor returns the first category from the list of
+  /// default categories.
   factory Category.defaultCategory() {
     return defaultCategories().first;
   }
 
+  /// Converts the `Category` instance to a map.
+  ///
+  /// This method is useful for serializing the category to a map.
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -37,6 +58,9 @@ class Category {
     };
   }
 
+  /// Creates a `Category` instance from a map.
+  ///
+  /// This factory constructor is useful for deserializing a category from a map.
   factory Category.fromMap(Map<String, dynamic> map) {
     return Category(
       name: map['name'],
