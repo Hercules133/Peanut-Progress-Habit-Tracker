@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:peanutprogress/data/providers/locale_provider.dart';
 import 'package:peanutprogress/data/providers/username_provider.dart';
+import 'package:peanutprogress/features/home_page/view/walkthrough_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:peanutprogress/core/config/locator.dart';
 import 'package:peanutprogress/core/widgets/drawer_menu_widget.dart';
@@ -56,6 +57,7 @@ void main() {
 
           await tester.pumpAndSettle();
           expect(find.byType(ListTile), findsWidgets);
+          expect(find.byType(ListTile), findsExactly(5));
         },
       );
 
@@ -90,11 +92,13 @@ void main() {
           expect(find.text('Habits'), findsOneWidget);
           expect(find.text('Statistics'), findsOneWidget);
           expect(find.text('Settings'), findsOneWidget);
+          expect(find.text('Hilfe'), findsOneWidget);
 
           expect(find.byIcon(Icons.home), findsOneWidget);
           expect(find.byType(Image), findsOneWidget);
           expect(find.byIcon(Icons.signal_cellular_alt), findsOneWidget);
           expect(find.byIcon(Icons.settings), findsOneWidget);
+          expect(find.byIcon(Icons.help_outline), findsOneWidget);
         },
       );
     },
@@ -233,6 +237,51 @@ void main() {
         await tester.tap(find.text('Habits'));
         await tester.pumpAndSettle();
         expect(find.byType(MyHabitsPage), findsOneWidget);
+      });
+
+       testWidgets('Drawer navigation to Help', (WidgetTester tester) async {
+        await tester.pumpWidget(
+          MultiProvider(
+            providers: [
+              ChangeNotifierProvider<UsernameProvider>(
+                create: (context) => UsernameProvider(),
+              ),
+              ChangeNotifierProvider<HabitProvider>(
+                create: (context) => locator<HabitProvider>(),
+              ),
+              ChangeNotifierProvider<SwitchState>(
+                create: (context) => SwitchState(),
+              ),
+              ChangeNotifierProvider<CategoryProvider>.value(
+                value: locator<CategoryProvider>(),
+              ),
+              ChangeNotifierProvider<LocaleProvider>(
+                create: (context) => LocaleProvider(),
+              ),
+            ],
+            child: MaterialApp(
+              theme: lightMode,
+              darkTheme: darkMode,
+              supportedLocales: AppLocalizations.supportedLocales,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              locale: Locale('en'),
+              routes: {
+                Routes.walkthrough: (context) => const MyWalkthroughPage(),
+              },
+              home: Scaffold(
+                key: scaffoldKey,
+                drawer: const MyDrawerMenu(),
+              ),
+            ),
+          ),
+        );
+
+        scaffoldKey.currentState?.openDrawer();
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Hilfe'));
+        await tester.pumpAndSettle();
+        expect(find.byType(MyWalkthroughPage), findsOneWidget);
       });
 
       testWidgets(
