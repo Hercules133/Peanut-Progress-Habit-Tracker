@@ -6,6 +6,14 @@ import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// A widget that displays a bar chart of created habits by day of the week.
+///
+/// The [BarChartWidget] class shows a bar chart that visualizes the number of created habits for each day of the week.
+///
+/// ### Parameters:
+/// - This widget takes no additional parameters.
+///
+/// This bar chart uses [OrdinalData] to plot the data and [DChartBarO] to render the chart.
 class BarChartWidget extends StatefulWidget {
   const BarChartWidget({super.key});
 
