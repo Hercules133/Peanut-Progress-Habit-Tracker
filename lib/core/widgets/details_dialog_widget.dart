@@ -6,6 +6,17 @@ import 'package:peanutprogress/data/models/habit.dart';
 import 'package:peanutprogress/core/utils/routes.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
 
+/// A widget that displays a dialog showing detailed information about a habit.
+///
+/// The [HabitDetailsDialog] class shows a dialog with details about a specific habit, including its title, description, completion status,
+/// streak, category, and a heatmap visualization of its progress. It also provides options to mark the habit as completed, edit the habit,
+/// or view its heatmap.
+///
+/// ### Parameters:
+/// - [Habit] is the habit object whose details are displayed.
+///
+/// This dialog includes custom widgets such as [MyHeatMap] for displaying the heatmap and uses [AppLocalizations]
+/// for localization.
 class HabitDetailsDialog extends StatelessWidget {
   final Habit habit;
   const HabitDetailsDialog({super.key, required this.habit});
@@ -63,7 +74,9 @@ class HabitDetailsDialog extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('${habit.time.hour}:${checkMinute(habit.time.minute)}'),
+                Text(
+                  '${habit.time.hour}:${checkMinute(habit.time.minute)}',
+                ),
                 DecoratedBox(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -104,6 +117,15 @@ class HabitDetailsDialog extends StatelessWidget {
   }
 }
 
+/// Helper function to format the minutes for display in habit details.
+///
+/// The [checkMinute] function checks if the minutes are less than 10 and returns a formatted string with a leading zero if necessary.
+///
+/// ### Parameters:
+/// - [minutes] is the integer value of the minutes to be formatted.
+///
+/// ### Returns:
+/// - A string representing the formatted minutes.
 String checkMinute(int minutes) {
   if (minutes < 10) {
     return '${minutes}0';
