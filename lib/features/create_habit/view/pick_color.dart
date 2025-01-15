@@ -3,6 +3,19 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:peanutprogress/data/models/own_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// Displays a color picker dialog.
+///
+/// The [pickColor] function shows a custom popup dialog that uses the [BlockPicker]
+/// to allow the user to choose a color from a predefined list.
+///
+/// ### Parameters:
+/// - [context] is the BuildContext used to show the dialog.
+/// - [initialColor] is the initially selected color displayed in the picker.
+///
+/// ### Returns:
+/// - A [Future] that resolves to the selected [Color] or `null` if no selection is made.
+///
+/// This function uses [OwnColors] for the available colors and [AppLocalizations] for localization.
 Future<Color?> pickColor(BuildContext context, Color initialColor) async {
   Color tempColor = initialColor;
   final ownColors = Theme.of(context).extension<OwnColors>()!;

@@ -7,6 +7,24 @@ import 'package:peanutprogress/core/widgets/drawer_menu_widget.dart';
 import 'package:peanutprogress/features/home_page/view/heat_map_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// A screen widget that displays various statistics related to habits.
+///
+/// The [StatisticsPage] class displays multiple charts to visualize habit statistics, including a heat map,
+/// a pie chart of completed habits per category for today, a bar chart of created habits by day of the week,
+/// and a line chart of habits completed in the last 10 weeks.
+///
+/// This page adjusts its layout for larger screens, showing charts side by side, and for smaller screens, stacking charts vertically.
+///
+/// ### Parameters:
+/// - This widget takes no additional parameters.
+///
+/// This page uses the following custom widgets:
+/// - [MyAppBar] for the app bar.
+/// - [MyDrawerMenu] for the navigation drawer.
+/// - [MyHeatMap] for the heat map.
+/// - [PieChartWidget] for the pie chart.
+/// - [BarChartWidget] for the bar chart.
+/// - [LineChartWidget] for the line chart.
 class StatisticsPage extends StatelessWidget {
   const StatisticsPage({super.key});
 

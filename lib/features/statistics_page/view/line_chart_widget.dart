@@ -6,6 +6,14 @@ import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// A widget that displays a line chart of habits completed in the last 10 weeks.
+///
+/// The [LineChartWidget] class shows a line chart that visualizes the number of completed habits over the past 10 weeks, grouped by week.
+///
+/// ### Parameters:
+/// - This widget takes no additional parameters.
+///
+/// This line chart uses [TimeData] to plot the data and [DChartLineT] to render the chart.
 class LineChartWidget extends StatelessWidget {
   LineChartWidget({super.key});
   final List<TimeData> series1 = [];

@@ -7,6 +7,17 @@ import 'package:peanutprogress/features/create_habit/view/icon_dropdown.dart';
 import 'package:peanutprogress/features/create_habit/view/pick_color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// Displays a popup dialog to create a new category.
+///
+/// The [popupCreateCategory] function shows a custom popup dialog to create a new category.
+/// It allows the user to select an icon, pick a color, and input the category name. The dialog validates
+/// the input and checks for duplicate category names before adding the new category.
+///
+/// ### Parameters:
+/// - [context] is the BuildContext used to show the dialog.
+///
+/// This popup uses [IconDropdown] for icon selection and [pickColor] for color selection.
+/// It relies on [AppLocalizations] for localization.
 Future<void> popupCreateCategory(BuildContext context) async {
   final ownColors = Theme.of(context).extension<OwnColors>()!;
   final ValueNotifier<IconData> selectedIconNotifier =
