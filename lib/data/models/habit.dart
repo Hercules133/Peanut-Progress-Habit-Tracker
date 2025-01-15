@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clock/clock.dart';
 import 'package:peanutprogress/data/models/category.dart';
 import 'package:peanutprogress/core/utils/enums/progress_status.dart';
 import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
@@ -168,7 +169,8 @@ class Habit {
   }
 
   DateTime getNextDueDate() {
-    final now = DateTime.now();
+    // final now = DateTime.now();
+    final now = clock.now();
     final today = DateTime(now.year, now.month, now.day);
 
     DateTime? closestDate;
