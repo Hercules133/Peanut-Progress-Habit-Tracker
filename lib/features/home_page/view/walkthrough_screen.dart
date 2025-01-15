@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// A walkthrough page that displays a series of images to introduce users to the app.
+///
+/// The walkthrough adapts to the language settings of the device and shows either
+/// German or English images accordingly.
 class MyWalkthroughPage extends StatefulWidget {
+  /// Constructor for the walkthrough page.
   const MyWalkthroughPage({super.key});
 
-  static const List<String> walkthroughImagesDE = [
+  /// List of walkthrough images in German.
+  static const List<String> walkthroughImages_DE = [
     'assets/images/Bild1_DE.jpg',
     'assets/images/Bild2_DE.jpg',
     'assets/images/Bild3_DE.jpg',
@@ -28,7 +34,8 @@ class MyWalkthroughPage extends StatefulWidget {
     'assets/images/Bild21_DE.jpg',
   ];
 
-  static const List<String> walkthroughImagesEN = [
+  /// List of walkthrough images in English.
+  static const List<String> walkthroughImages_EN = [
     'assets/images/Bild1_EN.jpg',
     'assets/images/Bild2_EN.jpg',
     'assets/images/Bild3_EN.jpg',
@@ -56,22 +63,30 @@ class MyWalkthroughPage extends StatefulWidget {
   State<MyWalkthroughPage> createState() => _MyWalkthroughPageState();
 }
 
+/// The state class for [MyWalkthroughPage].
+///
+/// Manages the page navigation and controls which images are displayed based
+/// on the language settings of the device.
 class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
+  /// Controls the page view for navigating through the walkthrough images.
   final PageController _pageController = PageController();
+
+  /// Tracks the current page index in the walkthrough.
   int _currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
-    // Überprüfen der aktuellen Spracheinstellung
+    // Check the current locale of the device to determine the language.
     final isGerman = Localizations.localeOf(context).languageCode == 'de';
 
-    // Wähle den passenden Satz von Bildern aus
+    // Select the appropriate set of walkthrough images based on the language.
     final walkthroughImages = isGerman
-        ? MyWalkthroughPage.walkthroughImagesDE
-        : MyWalkthroughPage.walkthroughImagesEN;
+        ? MyWalkthroughPage.walkthroughImages_DE
+        : MyWalkthroughPage.walkthroughImages_EN;
 
     return Scaffold(
       appBar: AppBar(
+        /// A close button to exit the walkthrough.
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () {
@@ -81,9 +96,11 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
         title: const Text('App Walkthrough'),
         centerTitle: true,
       ),
+      /// The main body of the walkthrough, which includes the image slider and navigation buttons.
       body: KeyboardListener(
         focusNode: FocusNode(),
         onKeyEvent: (event) {
+          // Handle arrow key navigation for desktop users.
           if (event is KeyDownEvent) {
             if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
               _navigateNextPage(walkthroughImages);
@@ -95,6 +112,7 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
+            // The page view displaying the walkthrough images.
             PageView.builder(
               controller: _pageController,
               itemCount: walkthroughImages.length,
@@ -110,19 +128,26 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
                 );
               },
             ),
+            // Dots indicator showing the current position in the walkthrough.
             _buildDotsIndicator(walkthroughImages.length),
-            if (!_isTouchDevice())
-              _buildDesktopNavigationButtons(walkthroughImages),
+            // Navigation buttons for desktop users.
+            if (!_isTouchDevice()) _buildDesktopNavigationButtons(walkthroughImages),
           ],
         ),
       ),
     );
   }
 
+  /// Checks if the device is a touch device based on screen size.
+  ///
+  /// Returns `true` if the device is considered a touch device.
   bool _isTouchDevice() {
     return MediaQuery.of(context).size.shortestSide < 600;
   }
 
+  /// Builds a dots indicator to show the current position in the walkthrough.
+  ///
+  /// [imageCount] - The total number of images in the walkthrough.
   Widget _buildDotsIndicator(int imageCount) {
     return Positioned(
       bottom: 20.0,
@@ -130,7 +155,7 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
           imageCount,
-          (index) => AnimatedContainer(
+              (index) => AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             margin: const EdgeInsets.symmetric(horizontal: 4.0),
             width: _currentPage == index ? 12.0 : 8.0,
@@ -145,6 +170,9 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
     );
   }
 
+  /// Builds navigation buttons for desktop users.
+  ///
+  /// [walkthroughImages] - The list of walkthrough images to navigate through.
   Widget _buildDesktopNavigationButtons(List<String> walkthroughImages) {
     return Positioned(
       left: 10,
@@ -152,10 +180,12 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          /// Button to navigate to the previous page.
           IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: _navigatePreviousPage,
           ),
+          /// Button to navigate to the next page.
           IconButton(
             icon: const Icon(Icons.arrow_forward),
             onPressed: () => _navigateNextPage(walkthroughImages),
@@ -165,6 +195,9 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
     );
   }
 
+  /// Navigates to the next page in the walkthrough.
+  ///
+  /// [walkthroughImages] - The list of walkthrough images to navigate through.
   void _navigateNextPage(List<String> walkthroughImages) {
     if (_currentPage < walkthroughImages.length - 1) {
       _pageController.nextPage(
@@ -174,6 +207,7 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
     }
   }
 
+  /// Navigates to the previous page in the walkthrough.
   void _navigatePreviousPage() {
     if (_currentPage > 0) {
       _pageController.previousPage(

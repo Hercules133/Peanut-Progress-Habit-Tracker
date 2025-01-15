@@ -2,16 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:peanutprogress/core/utils/routes.dart';
 
+/// A stateful widget that represents the splash screen of the app.
+///
+/// This screen is displayed once per day when the app is launched. It shows a motivational
+/// quote and automatically navigates to the home screen after a delay.
 class MySplashScreen extends StatefulWidget {
+  /// Constructor for the MySplashScreen widget.
   const MySplashScreen({super.key});
 
   @override
   SplashScreenState createState() => SplashScreenState();
 }
 
-class SplashScreenState extends State<MySplashScreen>
-    with SingleTickerProviderStateMixin {
+/// The state class for the splash screen widget.
+///
+/// This class manages the animation and handles the logic to show the splash screen
+/// only once per day.
+class SplashScreenState extends State<MySplashScreen> with SingleTickerProviderStateMixin {
+  /// Controller for the fade-in animation of the splash screen.
   late AnimationController _animationController;
+
+  /// List of motivational quotes displayed on the splash screen.
   final List<String> _quotes = [
     "The secret of getting ahead is getting started. - Mark Twain",
     "Success is not final, failure is not fatal: It is the courage to continue that counts. - Winston Churchill",
@@ -47,22 +58,29 @@ class SplashScreenState extends State<MySplashScreen>
   @override
   void initState() {
     super.initState();
+
+    // Initialize the animation controller for the fade-in effect.
     _animationController = AnimationController(
       duration: const Duration(seconds: 3),
       vsync: this,
     )..forward();
+
+    // Show the splash screen only once per day.
     _showSplashScreen();
   }
 
+  /// Shows the splash screen and navigates to the home screen based on the
+  /// stored date in shared preferences.
   Future<void> _showSplashScreen() async {
     final prefs = await SharedPreferences.getInstance();
     final today = DateTime.now().toIso8601String().split('T').first;
 
+    /// Check if the splash screen was already shown today.
     if (prefs.getString('lastOpenedDate') != today) {
       prefs.setString('lastOpenedDate', today);
       Future.delayed(
         const Duration(seconds: 4),
-        () {
+            () {
           if (mounted) {
             Navigator.pushReplacementNamed(context, Routes.home);
           }
@@ -75,12 +93,14 @@ class SplashScreenState extends State<MySplashScreen>
     }
   }
 
+  /// Returns a random quote from the list of quotes.
   String getRandomQuote() {
     return _quotes[(DateTime.now().millisecondsSinceEpoch % _quotes.length)];
   }
 
   @override
   void dispose() {
+    // Dispose of the animation controller to free resources.
     _animationController.dispose();
     super.dispose();
   }
@@ -97,6 +117,7 @@ class SplashScreenState extends State<MySplashScreen>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // Display a random motivational quote in the center of the screen.
                 Text(
                   getRandomQuote(),
                   textAlign: TextAlign.center,
