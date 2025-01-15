@@ -4,21 +4,52 @@ import 'package:flutter/services.dart';
 class MyWalkthroughPage extends StatefulWidget {
   const MyWalkthroughPage({super.key});
 
-  static const List<String> walkthroughImages = [
-    'assets/images/Bild1.jpg',
-    'assets/images/Bild2.jpg',
-    'assets/images/Bild3.jpg',
-    'assets/images/Bild4.jpg',
-    'assets/images/Bild5.jpg',
-    'assets/images/Bild6.jpg',
-    'assets/images/Bild7.jpg',
-    'assets/images/Bild8.jpg',
-    'assets/images/Bild9.jpg',
-    'assets/images/Bild10.jpg',
-    'assets/images/Bild11.jpg',
-    'assets/images/Bild12.jpg',
-    'assets/images/Bild13.jpg',
-    'assets/images/Bild14.jpg',
+  static const List<String> walkthroughImages_DE = [
+    'assets/images/Bild1_DE.jpg',
+    'assets/images/Bild2_DE.jpg',
+    'assets/images/Bild3_DE.jpg',
+    'assets/images/Bild4_DE.jpg',
+    'assets/images/Bild5_DE.jpg',
+    'assets/images/Bild6_DE.jpg',
+    'assets/images/Bild7_DE.jpg',
+    'assets/images/Bild8_DE.jpg',
+    'assets/images/Bild9_DE.jpg',
+    'assets/images/Bild10_DE.jpg',
+    'assets/images/Bild11_DE.jpg',
+    'assets/images/Bild12_DE.jpg',
+    'assets/images/Bild13_DE.jpg',
+    'assets/images/Bild14_DE.jpg',
+    'assets/images/Bild15_DE.jpg',
+    'assets/images/Bild16_DE.jpg',
+    'assets/images/Bild17_DE.jpg',
+    'assets/images/Bild18_DE.jpg',
+    'assets/images/Bild19_DE.jpg',
+    'assets/images/Bild20_DE.jpg',
+    'assets/images/Bild21_DE.jpg',
+  ];
+
+  static const List<String> walkthroughImages_EN = [
+    'assets/images/Bild1_EN.jpg',
+    'assets/images/Bild2_EN.jpg',
+    'assets/images/Bild3_EN.jpg',
+    'assets/images/Bild4_EN.jpg',
+    'assets/images/Bild5_EN.jpg',
+    'assets/images/Bild6_EN.jpg',
+    'assets/images/Bild7_EN.jpg',
+    'assets/images/Bild8_EN.jpg',
+    'assets/images/Bild9_EN.jpg',
+    'assets/images/Bild10_EN.jpg',
+    'assets/images/Bild11_EN.jpg',
+    'assets/images/Bild12_EN.jpg',
+    'assets/images/Bild13_EN.jpg',
+    'assets/images/Bild14_EN.jpg',
+    'assets/images/Bild15_EN.jpg',
+    'assets/images/Bild16_EN.jpg',
+    'assets/images/Bild17_EN.jpg',
+    'assets/images/Bild18_EN.jpg',
+    'assets/images/Bild19_EN.jpg',
+    'assets/images/Bild20_EN.jpg',
+    'assets/images/Bild21_EN.jpg',
   ];
 
   @override
@@ -31,6 +62,14 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Überprüfen der aktuellen Spracheinstellung
+    final isGerman = Localizations.localeOf(context).languageCode == 'de';
+
+    // Wähle den passenden Satz von Bildern aus
+    final walkthroughImages = isGerman
+        ? MyWalkthroughPage.walkthroughImages_DE
+        : MyWalkthroughPage.walkthroughImages_EN;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -47,7 +86,7 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
         onKeyEvent: (event) {
           if (event is KeyDownEvent) {
             if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
-              _navigateNextPage();
+              _navigateNextPage(walkthroughImages);
             } else if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
               _navigatePreviousPage();
             }
@@ -58,7 +97,7 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
           children: [
             PageView.builder(
               controller: _pageController,
-              itemCount: MyWalkthroughPage.walkthroughImages.length,
+              itemCount: walkthroughImages.length,
               onPageChanged: (index) {
                 setState(() {
                   _currentPage = index;
@@ -67,29 +106,30 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Image.asset(MyWalkthroughPage.walkthroughImages[index]),
+                  child: Image.asset(walkthroughImages[index]),
                 );
               },
             ),
-            _buildDotsIndicator(),
-            if (!_isTouchDevice()) _buildDesktopNavigationButtons(),
+            _buildDotsIndicator(walkthroughImages.length),
+            if (!_isTouchDevice()) _buildDesktopNavigationButtons(walkthroughImages),
           ],
         ),
       ),
     );
   }
 
+
   bool _isTouchDevice() {
     return MediaQuery.of(context).size.shortestSide < 600;
   }
 
-  Widget _buildDotsIndicator() {
+  Widget _buildDotsIndicator(int imageCount) {
     return Positioned(
       bottom: 20.0,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
-          MyWalkthroughPage.walkthroughImages.length,
+          imageCount,
               (index) => AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             margin: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -105,7 +145,8 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
     );
   }
 
-  Widget _buildDesktopNavigationButtons() {
+
+  Widget _buildDesktopNavigationButtons(List<String> walkthroughImages) {
     return Positioned(
       left: 10,
       right: 10,
@@ -118,15 +159,15 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
           ),
           IconButton(
             icon: const Icon(Icons.arrow_forward),
-            onPressed: _navigateNextPage,
+            onPressed: () => _navigateNextPage(walkthroughImages),
           ),
         ],
       ),
     );
   }
 
-  void _navigateNextPage() {
-    if (_currentPage < MyWalkthroughPage.walkthroughImages.length - 1) {
+  void _navigateNextPage(List<String> walkthroughImages) {
+    if (_currentPage < walkthroughImages.length - 1) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
