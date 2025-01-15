@@ -1,23 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:d_chart/d_chart.dart';
+import 'package:provider/provider.dart';
 import 'package:peanutprogress/data/models/habit.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-// ignore: must_be_immutable
-class BarChartWidget extends StatelessWidget {
-  BarChartWidget({super.key});
+/// A widget that displays a bar chart of created habits by day of the week.
+///
+/// The [BarChartWidget] class shows a bar chart that visualizes the number of created habits for each day of the week.
+///
+/// ### Parameters:
+/// - This widget takes no additional parameters.
+///
+/// This bar chart uses [OrdinalData] to plot the data and [DChartBarO] to render the chart.
+class BarChartWidget extends StatefulWidget {
+  const BarChartWidget({super.key});
 
+  @override
+  State<BarChartWidget> createState() => _BarChartWidgetState();
+}
+
+class _BarChartWidgetState extends State<BarChartWidget> {
   List<OrdinalData> ordinalDataList = [];
 
   @override
-  Widget build(BuildContext context) {
-    final habitProvider = context.watch<HabitProvider>();
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      loadData();
+    });
+  }
+
+  void loadData() {
+    final habitProvider = context.read<HabitProvider>();
     List<Habit> habits = habitProvider.habits;
 
     List<int> habitCounts = List.filled(7, 0);
-    List<String> daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    List<String> daysOfWeek = [
+      AppLocalizations.of(context)!.monday,
+      AppLocalizations.of(context)!.tuesday,
+      AppLocalizations.of(context)!.wednesday,
+      AppLocalizations.of(context)!.thursday,
+      AppLocalizations.of(context)!.friday,
+      AppLocalizations.of(context)!.saturday,
+      AppLocalizations.of(context)!.sunday
+    ];
 
     for (Habit habit in habits) {
       for (DayOfWeek day in habit.days) {
@@ -26,42 +54,61 @@ class BarChartWidget extends StatelessWidget {
       }
     }
 
-    for (int i = 0; i < 7; i++) {
-      ordinalDataList.add(OrdinalData(
-        domain: daysOfWeek[i],
-        measure: habitCounts[i].toDouble(),
-      ));
-    }
+    setState(() {
+      ordinalDataList = List.generate(7, (index) {
+        return OrdinalData(
+          domain: daysOfWeek[index],
+          measure: habitCounts[index].toDouble(),
+        );
+      });
+    });
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.all(15.0),
-          child: const Text(
-            'How many created habits on a day (all categories)',
+          child: Text(
+            AppLocalizations.of(context)!.barChartTitle,
             textAlign: TextAlign.center,
           ),
         ),
         AspectRatio(
           aspectRatio: 16 / 9,
           child: DChartBarO(
-            configRenderBar: ConfigRenderBar(
-              barGroupInnerPaddingPx: 0,
+            configRenderBar: const ConfigRenderBar(
               radius: 25,
             ),
-            domainAxis: const DomainAxis(
+            domainAxis: DomainAxis(
               showLine: false,
+              lineStyle: LineStyle(color: Colors.grey.shade200),
               tickLength: 0,
-              gapAxisToLabel: 8,
-              labelStyle: LabelStyle(
+              gapAxisToLabel: 12,
+              labelStyle: const LabelStyle(
+                fontSize: 10,
                 color: Colors.white,
               ),
             ),
             measureAxis: const MeasureAxis(
-              noRenderSpec: true,
+              gapAxisToLabel: 8,
+              numericTickProvider: NumericTickProvider(
+                desiredMinTickCount: 5,
+                desiredMaxTickCount: 10,
+              ),
+              tickLength: 0,
+              labelStyle: LabelStyle(
+                fontSize: 10,
+                color: Colors.white,
+              ),
             ),
             groupList: [
-              OrdinalGroup(id: '1', data: ordinalDataList, color: Colors.brown),
+              OrdinalGroup(
+                id: '1',
+                data: ordinalDataList,
+                color: Colors.brown,
+              ),
             ],
           ),
         ),

@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:peanutprogress/services/storage/storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'storage_service.dart';
 
+/// A concrete implementation of [StorageService] that uses [SharedPreferences]
+/// to persist and retrieve data.
 class SharedPreferencesStorage implements StorageService {
   SharedPreferences? _prefs;
 
@@ -9,10 +11,23 @@ class SharedPreferencesStorage implements StorageService {
     _initialize();
   }
 
+  /// Initializes the [SharedPreferences] instance.
+  ///
+  /// This function is idempotent and may be called multiple times.
+  ///
+  /// It is automatically called in the constructor, so you don't need to call
+  /// it unless you want to reinitialize the instance.
   Future<void> _initialize() async {
     _prefs = await SharedPreferences.getInstance();
   }
 
+  /// Returns the initialized [SharedPreferences] instance.
+  ///
+  /// If the instance has not been initialized yet (i.e., [_prefs] is null), it
+  /// will be initialized using [SharedPreferences.getInstance].
+  ///
+  /// This function is idempotent: calling it multiple times will return the
+  /// same instance.
   Future<SharedPreferences> _getPrefs() async {
     _prefs ??= await SharedPreferences.getInstance();
     return _prefs!;

@@ -1,33 +1,36 @@
 import 'package:flutter/material.dart';
-import '/data/models/habit.dart';
-import '/features/create_habit/view/inherited_widget_create_habit.dart';
+import 'package:peanutprogress/data/models/habit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// A formfield widget to set/change the title of a habit.
+///
+/// This widget is used in the [CreateHabitFormWidget] to set the title of a habit.
+/// It uses a [TextEditingController] to control the text input and a [ValueNotifier] to update the habit object.
+/// The [pressed] notifier is used to validate the formfield only when the user presses the save button.
+///
+/// ### Required parameters:
+/// - [titleController] is the controller for the text input.
+/// - [pressed] is a notifier to check if the user pressed the save button.
+/// - [habit] is the habit object to update.
+///
+/// ### Validation:
+/// The formfield cannot be empty and has a maximum length of 20 characters.
+///
 class TitleFormfieldWidget extends StatelessWidget {
   const TitleFormfieldWidget(
-      {super.key, required this.titleController, required this.pressed});
+      {super.key,
+      required this.titleController,
+      required this.pressed,
+      required this.habit});
 
   final TextEditingController titleController;
   final ValueNotifier<bool> pressed;
+  final ValueNotifier<Habit> habit;
 
   @override
   Widget build(BuildContext context) {
-    Habit inheritedData = InheritedWidgetCreateHabit.of(context).habit;
-    // ValueNotifier<bool> pressed =
-    //     InheritedWidgetCreateHabit.of(context).pressed;
-    titleController.text = inheritedData.title;
-    debugPrint("before Listenable: ${titleController.text}");
-    debugPrint("before Listenable inherited data: ${inheritedData.title}");
-    //  debugPrint("before Listenable: ${pressed.toString()}");
-    //  final inheritedNotifierEmpty = InheritedNotifierEmptyFields.of(context);
-    //  debugPrint("empty before return: ${inheritedNotifierEmpty.empty}");
-// final counter = inheritedNotifierEmpty.notifier;
-// final pressed = counter?.empty ?? 0;
+    titleController.text = habit.value.title;
 
-    // return ValueListenableBuilder(
-    //     valueListenable: pressed,
-    //     builder: (context, value, child) {
-    //     return
     return TextFormField(
         maxLength: 20,
         autovalidateMode:
@@ -38,8 +41,6 @@ class TitleFormfieldWidget extends StatelessWidget {
         ),
         cursorColor: Theme.of(context).colorScheme.onSurface,
         validator: (value) {
-          // debugPrint("validator: ${inheritedNotifierEmpty.empty.toString()}");
-          debugPrint("start validation");
           if (value == null || value.isEmpty) {
             return AppLocalizations.of(context)!
                 .titleFormfieldTitleEmptyError; // Error message.
@@ -47,11 +48,7 @@ class TitleFormfieldWidget extends StatelessWidget {
           return null;
         },
         onChanged: (value) {
-          inheritedData.title = value;
-          debugPrint(inheritedData.title);
-          debugPrint(titleController.text);
-          // debugPrint(pressed.value.toString());
+          habit.value.title = value;
         });
-    // });
   }
 }

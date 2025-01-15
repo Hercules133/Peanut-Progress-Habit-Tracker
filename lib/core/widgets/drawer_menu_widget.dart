@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:peanutprogress/data/providers/category_provider.dart';
-import '/core/utils/routes.dart';
-import '/data/providers/habit_provider.dart';
+import 'package:peanutprogress/core/utils/routes.dart';
+import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+/// A custom drawer menu widget that displays the app drawer menu.
+///
+/// This widget navigates to the respective pages when the menu items are tapped.
+/// It uses the [categoryProvider] and [habitProvider] to reset the selected index and search status.
+///
+/// The Widget is wrapped in a [SafeArea] widget to avoid overlapping with the system UI.
 
 class MyDrawerMenu extends StatelessWidget {
   const MyDrawerMenu({super.key});
@@ -54,7 +61,7 @@ class MyDrawerMenu extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.help_outline),
-              title: const Text('Hilfe'),
+              title: Text(AppLocalizations.of(context)!.drawerMenuWalkthrough),
               onTap: () {
                 Navigator.pushNamed(context, Routes.walkthrough);
               },

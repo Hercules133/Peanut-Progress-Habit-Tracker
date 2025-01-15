@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
-import '/data/models/own_colors.dart';
+import 'package:peanutprogress/data/models/own_colors.dart';
 
+/// Color and design theme for light mode.
+/// This theme is used in the app when the device is in light mode
+/// or when the user has selected light mode in the app settings.
+/// The theme is based on the Material Design color scheme
+/// and the custom colors defined in the OwnColors class.
 ThemeData lightMode = ThemeData(
+  /// Design for the input fields in the app.
   inputDecorationTheme: InputDecorationTheme(
     focusedBorder: OutlineInputBorder(
       borderSide: const BorderSide(color: Color(0xFF3A3A3A), width: 2.0),
@@ -30,6 +36,7 @@ ThemeData lightMode = ThemeData(
     onPrimary: const Color(0xFF5E4C46),
   ),
   extensions: const <ThemeExtension<OwnColors>>[
+    /// Custom colors for the app that are not included in the default ThemeData.
     OwnColors(
       contribution0: Color(0xFFF5F5F5), // Very light gray
       contribution1: Color(0xFFF0E0D6), // Pale beige
@@ -53,7 +60,13 @@ ThemeData lightMode = ThemeData(
   ],
 );
 
+/// Color and design theme for dark mode.
+/// This theme is used in the app when the device is in dark mode
+/// or when the user has selected light mode in the app settings.
+/// The theme is based on the Material Design color scheme
+/// and the custom colors defined in the OwnColors class.
 ThemeData darkMode = ThemeData(
+  /// Design for the input fields in the app.
   inputDecorationTheme: InputDecorationTheme(
     focusedBorder: OutlineInputBorder(
       borderSide: const BorderSide(color: Color(0xffc5cacd), width: 2.0),
@@ -82,6 +95,7 @@ ThemeData darkMode = ThemeData(
     onPrimary: const Color(0xFF5E4C46),
   ),
   extensions: const <ThemeExtension<OwnColors>>[
+    /// Custom colors for the app that are not included in the default ThemeData.
     OwnColors(
       contribution0: Color(0xFFDBDBDB),
       contribution1: Color(0xFFD3B09C),

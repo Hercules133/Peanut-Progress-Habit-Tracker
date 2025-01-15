@@ -4,12 +4,20 @@ import 'package:peanutprogress/data/models/category.dart';
 import 'package:peanutprogress/data/models/habit.dart';
 import 'package:peanutprogress/data/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-// ignore: must_be_immutable
+/// A widget that displays a pie chart of completed habits for today, categorized by habit category.
+///
+/// The [PieChartWidget] class shows a pie chart that visualizes the percentage of completed habits per category for the current day.
+///
+/// ### Parameters:
+/// - This widget takes no additional parameters.
+///
+/// This pie chart uses [OrdinalData] to plot the data and [DChartPieO] to render the chart.
 class PieChartWidget extends StatelessWidget {
   PieChartWidget({super.key});
 
-  List<OrdinalData> ordinalDataList = [];
+  final List<OrdinalData> ordinalDataList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -38,21 +46,21 @@ class PieChartWidget extends StatelessWidget {
     });
 
     if (ordinalDataList.isEmpty) {
-      ordinalDataList = [
+      ordinalDataList.add(
         OrdinalData(
-          domain: 'No Data',
+          domain: AppLocalizations.of(context)!.pieChartData,
           measure: 100,
           color: Colors.grey,
         ),
-      ];
+      );
     }
 
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.all(15.0),
-          child: const Text(
-            'Completed today (%/category)',
+          child: Text(
+            AppLocalizations.of(context)!.pieChartTitle,
             textAlign: TextAlign.center,
           ),
         ),
