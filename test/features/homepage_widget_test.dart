@@ -98,41 +98,43 @@ void main() {
     expect(find.byType(CreateHabit), findsOne);
   });
 
-  testWidgets('AppBar shows correct Greeting based on time',
+    testWidgets('AppBar shows correct Greeting based on time',
       (WidgetTester tester) async {
-    Clock mockClock = Clock.fixed(DateTime(2025, 01, 6, 17, 45));
-
-    UsernameProvider usernameProvider = UsernameProvider();
-    usernameProvider.saveUsername('testname');
-    await tester.pumpWidget(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider<UsernameProvider>.value(
-            value: usernameProvider,
-          ),
-          ChangeNotifierProvider<HabitProvider>(
-            create: (context) => locator<HabitProvider>(),
-          ),
-          ChangeNotifierProvider<CategoryProvider>.value(
-            value: locator<CategoryProvider>(),
-          ),
-          ChangeNotifierProvider<LocaleProvider>(
-            create: (context) => LocaleProvider(),
-          ),
-        ],
-        child: MaterialApp(
-          supportedLocales: AppLocalizations.supportedLocales,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          locale: Locale('en'),
-          theme: lightMode,
-          darkTheme: darkMode,
-          home: MyHomePage(),
-        ),
-      ),
-    );
-
+    final mockClock = Clock.fixed(DateTime(2025, 01, 6, 17, 45));
+    
     withClock(mockClock, () async {
-      expect(find.text('Hello testname!'), findsOne);
+      final usernameProvider = UsernameProvider();
+      usernameProvider.saveUsername('testname');
+
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<UsernameProvider>.value(
+              value: usernameProvider,
+            ),
+            ChangeNotifierProvider<HabitProvider>(
+              create: (context) => locator<HabitProvider>(),
+            ),
+            ChangeNotifierProvider<CategoryProvider>.value(
+              value: locator<CategoryProvider>(),
+            ),
+            ChangeNotifierProvider<LocaleProvider>(
+              create: (context) => LocaleProvider(),
+            ),
+          ],
+          child: MaterialApp(
+            supportedLocales: AppLocalizations.supportedLocales,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            locale: const Locale('en'),
+            theme: lightMode,
+            darkTheme: darkMode,
+            home: MyHomePage(),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      expect(find.textContaining('Hello testname!'), findsOneWidget);
     });
   });
 
