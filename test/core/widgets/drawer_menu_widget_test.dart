@@ -92,7 +92,7 @@ void main() {
           expect(find.text('Habits'), findsOneWidget);
           expect(find.text('Statistics'), findsOneWidget);
           expect(find.text('Settings'), findsOneWidget);
-          expect(find.text('Hilfe'), findsOneWidget);
+          expect(find.text('Help'), findsOneWidget);
 
           expect(find.byIcon(Icons.home), findsOneWidget);
           expect(find.byType(Image), findsOneWidget);
@@ -279,7 +279,7 @@ void main() {
         scaffoldKey.currentState?.openDrawer();
         await tester.pumpAndSettle();
 
-        await tester.tap(find.text('Hilfe'));
+        await tester.tap(find.text('Help'));
         await tester.pumpAndSettle();
         expect(find.byType(MyWalkthroughPage), findsOneWidget);
       });

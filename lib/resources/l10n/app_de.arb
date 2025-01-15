@@ -3,6 +3,7 @@
   "drawerMenuHabits": "Gewohnheiten",
   "drawerMenuStatistics": "Statistiken",
   "drawerMenuSettings": "Einstellungen",
+  "drawerMenuWalkthrough": "Hilfe",
   "createHabitFormTitle": "Titel",
   "createHabitFormDescriptionPlaceholder": "Beschreibung (optional)",
   "createHabitFormSelectDayError": "Bitte wähle mindestens einen Tag aus.",

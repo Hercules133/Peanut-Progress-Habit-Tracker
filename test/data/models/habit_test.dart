@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:clock/clock.dart';
+import 'package:peanutprogress/data/models/date_only.dart';
 import 'package:peanutprogress/data/models/habit.dart';
 import 'package:peanutprogress/core/utils/enums/day_of_week.dart';
 import 'package:peanutprogress/core/utils/enums/progress_status.dart';
@@ -416,5 +417,68 @@ void main() {
         expect(nextDate, DateTime(2025, 01, 12, 13, 34));
       });
     });
+  });
+
+  test('Should initialize progress for a habit with no existing entries', () {
+    // Arrange
+    final now = DateTime.now();
+    final today = dateOnly(now);
+    final futureTime = TimeOfDay(hour: (now.hour + 1) % 24, minute: now.minute);
+
+    final habit = Habit(
+      id: 1,
+      title: 'Daily Exercise',
+      description: '30-minute workout',
+      days: [DayOfWeek.monday, DayOfWeek.wednesday, DayOfWeek.friday],
+      time: futureTime,
+      progress: {},
+      category: Category.defaultCategory(),
+    );
+
+    // Act
+    habit.initializeProgress();
+
+    // Assert
+    expect(habit.progress.keys, contains(today));
+  });
+
+  test(
+      'Should initialize missing progress days for a habit with one existing Monday entry two weeks ago',
+      () {
+    // Arrange
+    final now = DateTime.now();
+    final today = dateOnly(now);
+
+    final twoWeeksAgo = dateOnly(now.subtract(const Duration(days: 14)));
+    final twoWeeksAgoMonday = twoWeeksAgo.subtract(
+      Duration(days: (twoWeeksAgo.weekday - DateTime.monday) % 7),
+    );
+
+    final habit = Habit(
+      id: 1,
+      title: 'Weekly Check-in',
+      description: 'Complete weekly goals',
+      days: [DayOfWeek.monday],
+      time: const TimeOfDay(hour: 8, minute: 0),
+      progress: {
+        twoWeeksAgoMonday: ProgressStatus.completed, // Existing entry
+      },
+      category: Category.defaultCategory(),
+    );
+
+    // Act
+    habit.initializeProgress();
+
+    // Collect expected dates (Mondays) from two weeks ago to today
+    final expectedDates = <DateTime>[];
+    DateTime current = twoWeeksAgoMonday;
+
+    while (current.isBefore(today) || current.isAtSameMomentAs(today)) {
+      expectedDates.add(current);
+      current = current.add(const Duration(days: 7));
+    }
+
+    // Assert
+    expect(habit.progress.keys, containsAll(expectedDates));
   });
 }
