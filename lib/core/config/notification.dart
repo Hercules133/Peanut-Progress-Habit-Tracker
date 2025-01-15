@@ -57,7 +57,7 @@ class NotificationService {
 
   static Future<void> scheduleNotification(
       int id, String title, String body, DateTime scheduledTime) async {
-    if (!Platform.isLinux) {
+    if (!Platform.isLinux && !Platform.isWindows) {
       await flutterLocalNotificationsPlugin.zonedSchedule(
         id,
         title,
