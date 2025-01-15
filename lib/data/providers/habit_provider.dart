@@ -44,6 +44,13 @@ class HabitProvider with ChangeNotifier {
     }
   }
 
+  void initializeProgressForAllHabits() {
+    for (final habit in _habits) {
+      habit.initializeProgress();
+    }
+    notifyListeners();
+  }
+
   /// Toggles the search mode and clears the search query and filtered habits
   /// when turning off search.
   void toggleSearch() {

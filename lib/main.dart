@@ -43,7 +43,9 @@ class MyApp extends StatelessWidget {
       providers: [
         /// Provides a [HabitProvider] instance that fetches habits.
         ChangeNotifierProvider<HabitProvider>(
-          create: (_) => locator<HabitProvider>()..fetchHabits(),
+          create: (_) => locator<HabitProvider>()
+            ..fetchHabits()
+            ..initializeProgressForAllHabits(),
         ),
 
         /// Provides a [CategoryProvider] instance.

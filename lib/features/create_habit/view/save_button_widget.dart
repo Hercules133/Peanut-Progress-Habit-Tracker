@@ -95,7 +95,7 @@ class SaveButtonWidget extends StatelessWidget {
           habit.value.progress.addAll({
             dateOnly(habit.value.getNextDueDate()): ProgressStatus.notCompleted,
           });
-          habitProvider.addHabit(habit.value);
+          await habitProvider.addHabit(habit.value);
           NotificationService.scheduleNotification(
               id,
               "Time to complete your habit!",

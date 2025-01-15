@@ -214,4 +214,42 @@ class Habit {
       markAsCompleted(date);
     }
   }
+
+  void initializeProgress() {
+    final today = DateTime.now();
+    final normalizedToday = dateOnly(today);
+
+    DateTime? lastDate = _progress.keys.isNotEmpty
+        ? _progress.keys.reduce((a, b) => a.isAfter(b) ? a : b)
+        : null;
+
+    DateTime startDate = lastDate != null
+        ? dateOnly(lastDate.add(const Duration(days: 1)))
+        : dateOnly(getNextDueDate());
+
+    // Generate missing dates up to today
+    while (startDate.isBefore(normalizedToday) ||
+        startDate.isAtSameMomentAs(normalizedToday)) {
+      final currentDay = _getDayOfWeek(startDate);
+
+      if (days.contains(currentDay) && !_progress.containsKey(startDate)) {
+        _progress[startDate] = ProgressStatus.notCompleted;
+      }
+
+      startDate =
+          _getNextDateForDay(_getNextScheduledDay(startDate), startDate);
+    }
+  }
+
+  /// Helper to find the next scheduled day in the habit's schedule
+  DayOfWeek _getNextScheduledDay(DateTime currentDate) {
+    final currentDay = _getDayOfWeek(currentDate);
+    final nextDayIndex = days.indexWhere((day) => day.index > currentDay.index);
+    return nextDayIndex != -1 ? days[nextDayIndex] : days.first;
+  }
+
+  /// Helper to convert a DateTime to a DayOfWeek enum
+  DayOfWeek _getDayOfWeek(DateTime date) {
+    return DayOfWeek.values[(date.weekday - 1) % 7];
+  }
 }
