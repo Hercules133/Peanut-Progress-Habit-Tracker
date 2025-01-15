@@ -1,10 +1,14 @@
+@Philipp der Main Branch zählt
+
 # Peanut Progress 🥜
 
 A Habit Tracker app for Android, IOS, Windows, Linux and Web
 
 ## About
 
-It's a free downloadable Habit Tracker app with all features unlocked
+It's a free downloadable Habit Tracker app with all features unlocked.
+
+Based on Flutter 3.27.1 & Dart 3.6.0
 
 ## Getting started
 
@@ -27,7 +31,7 @@ There isn't any apk file for it yet, so you have to run the project with flutter
 
 ## Upcoming Features
 - In-app game
-- Cloud service for storage
+- Cloud service for storage (Pre-setup [here](Firebase_instructions.md))
 - Communication with other users
 - Daily comments for the habbits
 - Pause habit, if user is sick or on vacation (for the streak, so that it doesn't disappear)
@@ -40,6 +44,7 @@ Flutter side bugs:
 
 ## License
 This project is licensed under the [MIT License](LICENSE.md).
+
 
 ## Contributors <span style="display:inline-block; width:20px; height:20px; background:rgb(70, 68, 68); color:white; text-align:center; border-radius:50%; line-height:20px; font-size:12px;">8</span>
 <div style="display: flex; flex-wrap: nowrap; gap: 10px;">
