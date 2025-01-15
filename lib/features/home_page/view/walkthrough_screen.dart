@@ -10,7 +10,7 @@ class MyWalkthroughPage extends StatefulWidget {
   const MyWalkthroughPage({super.key});
 
   /// List of walkthrough images in German.
-  static const List<String> walkthroughImages_DE = [
+  static const List<String> walkthroughImagesDE = [
     'assets/images/Bild1_DE.jpg',
     'assets/images/Bild2_DE.jpg',
     'assets/images/Bild3_DE.jpg',
@@ -35,7 +35,7 @@ class MyWalkthroughPage extends StatefulWidget {
   ];
 
   /// List of walkthrough images in English.
-  static const List<String> walkthroughImages_EN = [
+  static const List<String> walkthroughImagesEN = [
     'assets/images/Bild1_EN.jpg',
     'assets/images/Bild2_EN.jpg',
     'assets/images/Bild3_EN.jpg',
@@ -81,8 +81,8 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
 
     // Select the appropriate set of walkthrough images based on the language.
     final walkthroughImages = isGerman
-        ? MyWalkthroughPage.walkthroughImages_DE
-        : MyWalkthroughPage.walkthroughImages_EN;
+        ? MyWalkthroughPage.walkthroughImagesDE
+        : MyWalkthroughPage.walkthroughImagesEN;
 
     return Scaffold(
       appBar: AppBar(
@@ -96,6 +96,7 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
         title: const Text('App Walkthrough'),
         centerTitle: true,
       ),
+
       /// The main body of the walkthrough, which includes the image slider and navigation buttons.
       body: KeyboardListener(
         focusNode: FocusNode(),
@@ -131,7 +132,8 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
             // Dots indicator showing the current position in the walkthrough.
             _buildDotsIndicator(walkthroughImages.length),
             // Navigation buttons for desktop users.
-            if (!_isTouchDevice()) _buildDesktopNavigationButtons(walkthroughImages),
+            if (!_isTouchDevice())
+              _buildDesktopNavigationButtons(walkthroughImages),
           ],
         ),
       ),
@@ -155,7 +157,7 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
           imageCount,
-              (index) => AnimatedContainer(
+          (index) => AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             margin: const EdgeInsets.symmetric(horizontal: 4.0),
             width: _currentPage == index ? 12.0 : 8.0,
@@ -185,6 +187,7 @@ class _MyWalkthroughPageState extends State<MyWalkthroughPage> {
             icon: const Icon(Icons.arrow_back),
             onPressed: _navigatePreviousPage,
           ),
+
           /// Button to navigate to the next page.
           IconButton(
             icon: const Icon(Icons.arrow_forward),
