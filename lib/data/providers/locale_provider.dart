@@ -9,6 +9,7 @@ class LocaleProvider extends ChangeNotifier {
 
   /// The current locale of the application.
   Locale? get locale => _locale;
+  LocaleRepository get localeRepository => _localeRepository;
 
   /// Fetches the stored locale from the [LocaleRepository] and updates the
   /// [locale] state. Notifies listeners when the locale is fetched.

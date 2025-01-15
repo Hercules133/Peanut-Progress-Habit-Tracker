@@ -10,8 +10,7 @@ class UsernameProvider extends ChangeNotifier {
 
   /// The current username of the user.
   String get username => _username;
-
-
+  UsernameRepository get usernameRepository => _usernameRepository;
   TextEditingController get controller => _controller;
 
   /// Fetches the stored username from the [UsernameRepository] and updates

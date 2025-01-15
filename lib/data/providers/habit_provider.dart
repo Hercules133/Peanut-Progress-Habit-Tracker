@@ -1,3 +1,4 @@
+import 'package:clock/clock.dart';
 import 'package:flutter/material.dart';
 import 'package:peanutprogress/core/config/locator.dart';
 import 'package:peanutprogress/core/utils/enums/progress_status.dart';
@@ -12,6 +13,7 @@ import 'package:peanutprogress/data/models/habit.dart';
 /// habits or their states change.
 class HabitProvider with ChangeNotifier {
   final HabitRepository _habitRepository;
+  HabitRepository get habitRepository => _habitRepository;
   final categoryProvider = locator<CategoryProvider>();
 
   HabitProvider(this._habitRepository);
@@ -19,12 +21,14 @@ class HabitProvider with ChangeNotifier {
   List<Habit> _habits = [];
   List<Habit> _filteredHabits = [];
   List<Habit> get habits => isSearching ? _filteredHabits : _habits;
+  List<Habit> get filteredHabits => _filteredHabits;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
   bool isSearching = false; // Status der Suchleiste
   String _query = ""; // Aktuelle Suchanfrage
+  String get query => _query;
 
   /// Fetches all habits from the repository and initializes categories for
   /// those habits. Notifies listeners when the data is loaded or an error
@@ -165,12 +169,15 @@ class HabitProvider with ChangeNotifier {
   ///
   /// [category] - The category to filter the habits by.
   List<Habit> getPendingHabitsForTodayByCategory(Category category) {
-    final today = DateTime.now().weekday;
+    final today = clock.now();
+    final weekday = today.weekday;
+
     return _habits.where((habit) {
-      final isToday = habit.days.contains(DayOfWeek.values[today - 1]);
-      final isPending = habit.progress.values.any(
-        (status) => status == ProgressStatus.notCompleted,
-      );
+      final isToday = habit.days.contains(DayOfWeek.values[weekday - 1]);
+      // final isPending = habit.progress.values.any(
+      //   (status) => status == ProgressStatus.notCompleted,
+      // );
+      bool isPending = !(habit.isCompletedOnDate(today));
       return habit.category.name == category.name && isToday && isPending;
     }).toList();
   }
@@ -178,7 +185,7 @@ class HabitProvider with ChangeNotifier {
   /// Returns a list of all habits that are scheduled for today and are not
   /// completed.
   List<Habit> getPendingHabitsForToday() {
-    final today = DateTime.now();
+    final today = clock.now();
     final weekday = DayOfWeek.values[today.weekday - 1];
 
     return _habits.where((habit) {
@@ -223,7 +230,7 @@ class HabitProvider with ChangeNotifier {
   /// Returns a list of habits that are scheduled for today.
   List<Habit> getHabitsForToday() {
     final today =
-        DateTime.now().weekday; // Wochentag: 1 = Montag, ..., 7 = Sonntag
+        clock.now().weekday; // Wochentag: 1 = Montag, ..., 7 = Sonntag
     return _habits.where((habit) {
       return habit.getDaysAsWeekdays().contains(today);
     }).toList();

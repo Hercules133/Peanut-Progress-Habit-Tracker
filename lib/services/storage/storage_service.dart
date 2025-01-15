@@ -4,7 +4,6 @@
 /// from storage. The actual storage implementation (e.g., [SharedPreferencesStorage])
 /// should implement these methods to handle the specific storage mechanics.
 abstract class StorageService {
-
   /// Saves an item to the storage.
   ///
   /// [table] - The name of the "table" to store the item in.

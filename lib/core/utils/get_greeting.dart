@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:peanutprogress/data/providers/username_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:clock/clock.dart';
 
 /// Returns a greeting message based on the current time.
 ///
@@ -15,7 +16,7 @@ import 'package:provider/provider.dart';
 
 String getGreeting(BuildContext context) {
   UsernameProvider usernameProvider = context.watch<UsernameProvider>();
-  final hour = DateTime.now().hour;
+  final hour = clock.now().hour;
   if (hour >= 6 && hour < 12) {
     return "${AppLocalizations.of(context)!.goodMorning} ${usernameProvider.username}!";
   } else if (hour >= 12 && hour < 18) {
