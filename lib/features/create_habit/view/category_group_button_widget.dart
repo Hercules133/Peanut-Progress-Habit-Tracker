@@ -85,7 +85,6 @@ class CategoryGroupButtonWidget extends StatelessWidget {
               if (result) {
                 categoryProvider
                     .removeCategory(categoryProvider.categories[index]);
-                debugPrint('Kategorie gelöscht: ${catNames[index]}');
               }
             },
             child: ElevatedButton(

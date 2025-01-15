@@ -97,7 +97,6 @@ class DaysRowWidget extends StatelessWidget {
                   TimeButtonWidget(
                       time: habit.value.time,
                       onChanged: (value) {
-                        debugPrint("${days.value}");
                         habit.value.time = value;
                       }),
                 ],
