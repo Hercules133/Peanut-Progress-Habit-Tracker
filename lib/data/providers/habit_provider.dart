@@ -156,15 +156,6 @@ class HabitProvider with ChangeNotifier {
     return categoriesWithPendingHabits.toList();
   }
 
-  /// Returns a list of habits that are pending (not completed).
-  List<Habit> getPendingHabits() {
-    return _habits.where((habit) {
-      return habit.progress.values.any(
-        (status) => status == ProgressStatus.notCompleted,
-      );
-    }).toList();
-  }
-
   /// Returns a list of pending habits for today, filtered by category.
   ///
   /// [category] - The category to filter the habits by.
@@ -174,9 +165,6 @@ class HabitProvider with ChangeNotifier {
 
     return _habits.where((habit) {
       final isToday = habit.days.contains(DayOfWeek.values[weekday - 1]);
-      // final isPending = habit.progress.values.any(
-      //   (status) => status == ProgressStatus.notCompleted,
-      // );
       bool isPending = !(habit.isCompletedOnDate(today));
       return habit.category.name == category.name && isToday && isPending;
     }).toList();
